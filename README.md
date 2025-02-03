@@ -1,7 +1,6 @@
-# One_Of_Neglected
 <div align="center">
 
-![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Project%20SE)
+![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=One%20Of%20Neglected)
 <h1>One Of Neglected Develop Repository</h1>
 <p align="center">
   <img src="https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white"/>
