@@ -8,19 +8,44 @@ public class Main_Panel : Panel
     {
         buttons[0].onClick.AddListener(Start_BTN);
         buttons[1].onClick.AddListener(Upgrade_BTN);
+        buttons[2].onClick.AddListener(Control_BTN);
+        buttons[3].onClick.AddListener(Option_Panel);
+        buttons[4].onClick.AddListener(Exit_BTN);
     }
 
+    //게임 시작
     private void Start_BTN()
     {
-        //TODO 다음 씬으로~
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelClose();
+        //TODO : 클래스 선택 창이 먼저 뜨게 작업
         GameSceneManager.SceneLoad("Game");
 
     }
+
+    //업그레이드 패널
     private void Upgrade_BTN()
     {
         UI_Manager.Instance.panel_Dic["Upgrade_Panel"].PanelOpen();
         PanelClose();
     }
 
+    //조작방법 패널
+    private void Control_BTN()
+    {
+        UI_Manager.Instance.panel_Dic["Control_Panel"].PanelOpen();
+        PanelClose();
+    }
+
+    //옵션 패널
+    private void Option_Panel()
+    {
+        UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
+        PanelClose();
+    }
+
+    //게임 종료
+    private void Exit_BTN()
+    {
+        Application.Quit();
+    }
 }
