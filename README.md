@@ -8,12 +8,15 @@
   <img src="https://img.shields.io/badge/Game_Development-4B32C3?style=for-the-badge&logo=gamemaker&logoColor=white"/>
 </p>
 <br>_Game_Designer_Info => 기획서 관련 자료</br>
-<br>Asset Import 후 Resources 폴더로 경로 이동 부탁드립니다.</br> 
+<br>Asset Import 후 Resources 폴더로 경로 이동 부탁드립니다.</br>
+
+---
+
 <details>
 <summary><b>💬 커밋 컨벤션</b></summary>
 <div align="center">
 
-📝 커밋 메시지 구조
+<br>📝 커밋 메시지 구조 </br>
 ━━━━━━━━━━━━━━━━━━━━━━
 
 #### • 기본 구조
