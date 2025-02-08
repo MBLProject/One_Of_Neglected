@@ -1,26 +1,39 @@
 <div align="center">
 
 ![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=One%20Of%20Neglected)
+
 <h1>One Of Neglected Develop Repository</h1>
 <p align="center">
   <img src="https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white"/>
   <img src="https://img.shields.io/badge/Team_Project-FF4154?style=for-the-badge&logo=git&logoColor=white"/>
   <img src="https://img.shields.io/badge/Game_Development-4B32C3?style=for-the-badge&logo=gamemaker&logoColor=white"/>
 </p>
-<br>_Game_Designer_Info => 기획서 관련 자료</br>
-<br>Asset Import 후 Resources 폴더로 경로 이동 부탁드립니다.</br>
 
----
+<details>
+<summary><h1>📁 프로젝트 리소스 안내</h1></summary>
+<div align="center">
+
+### 🎮 게임 기획서
+
+&nbsp;&nbsp;&nbsp;• \_Game_Designer_Info 폴더에서 기획서 관련 자료를 확인할 수 있습니다.<br>
+
+### 🗂️ 에셋 관리
+
+&nbsp;&nbsp;&nbsp;• 모든 에셋은 Import 후 Resources 폴더로 경로를 이동해주세요.<br>
+&nbsp;&nbsp;&nbsp;• 에셋 이동 시 참조 경로가 깨지지 않도록 주의해주세요.<br>
+
+</div>
+</details>
 
 <details>
 <summary><h1>💬 커밋 컨벤션</h1></summary>
 <div align="center">
 
 #### 📝 커밋 메시지 구조
+
 ━━━━━━━━━━━━━━━━━━━━━━
 
 #### • 기본 구조
-
 
 [Type]
 
@@ -77,7 +90,8 @@
 <div align="center">
 
 ### • 커밋 메시지 예시
-[feat] 
+
+[feat]
 실시간 채팅 시스템 구현
 <br></br>
 [Body]
@@ -110,8 +124,83 @@ Closes #128
 
 </div>
 
-
 ━━━━━━━━━━━━━━━━━━━━━━
+
+</div>
+</details>
+
+<details>
+<summary><h1>📋 Daily Development Log 액션 사용 설명서</h1></summary>
+<div align="center">
+
+## 📌 개요
+
+이 GitHub 액션은 커밋 메시지를 기반으로 일일 개발 로그를 자동으로 생성하고 관리합니다. 브랜치별 작업 내역과 TODO 항목을 체계적으로 관리할 수 있습니다.
+
+## 🔧 주요 기능
+
+### ✨ 일일 개발 로그 자동 생성
+
+&nbsp;&nbsp;&nbsp;• 당일 날짜의 개발 로그 이슈 자동 생성<br>
+&nbsp;&nbsp;&nbsp;• 브랜치별 커밋 내역 정리<br>
+&nbsp;&nbsp;&nbsp;• TODO 항목 관리<br>
+
+### 🌿 브랜치 관리
+
+&nbsp;&nbsp;&nbsp;• 브랜치별 커밋 히스토리 누적<br>
+&nbsp;&nbsp;&nbsp;• 커밋 상세 정보 (시간, 작성자, 타입) 표시<br>
+&nbsp;&nbsp;&nbsp;• 관련 이슈 연결<br>
+
+### 📝 TODO 관리
+
+&nbsp;&nbsp;&nbsp;• 체크박스 형식의 TODO 항목 관리<br>
+&nbsp;&nbsp;&nbsp;• 이전 날짜의 미완료 TODO 자동 이전<br>
+&nbsp;&nbsp;&nbsp;• TODO 상태 (완료/미완료) 보존<br>
+&nbsp;&nbsp;&nbsp;• 중복 TODO 처리<br>
+
+## ⚙️ 환경 설정
+
+`.github/workflows/create-issue-from-commit.yml` 파일에서 다음 설정을 변경할 수 있습니다:
+
+```yaml
+env:
+  TIMEZONE: "Asia/Seoul" # 타임존 설정
+  ISSUE_PREFIX: "📅" # 이슈 제목 접두사
+  ISSUE_LABEL: "daily-log" # 기본 라벨
+  EXCLUDED_COMMITS: "^(chore|docs|style):" # 제외할 커밋 타입
+```
+
+## 📋 자동 생성되는 이슈 형식
+
+```markdown
+# 📅 Daily Development Log (YYYY-MM-DD) - Repository Name
+
+<div align="center">
+
+## 📊 Branch Summary
+
+</div>
+
+<details>
+<summary><h3>✨ Branch Name</h3></summary>
+커밋 상세 내용
+</details>
+
+<div align="center">
+
+## 📝 Todo
+
+</div>
+
+- [ ] TODO 항목 1
+- [x] TODO 항목 2 (완료됨)
+```
+
+## ⚠️ 주의사항
+
+&nbsp;&nbsp;&nbsp;1. 커밋 메시지 형식을 정확히 지켜주세요.<br>
+&nbsp;&nbsp;&nbsp;2. TODO 항목은 `-` 또는 `*`로 시작해야 합니다.<br>
+&nbsp;&nbsp;&nbsp;3. 이전 날짜의 이슈는 자동으로 닫힙니다.<br>
 
 </div>
 </details>
