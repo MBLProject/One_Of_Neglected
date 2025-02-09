@@ -35,13 +35,7 @@
 
 #### • 기본 구조
 
-[Type]
-
-커밋 유형
-<br></br>
-[Subject]
-
-커밋 제목
+[Type] 커밋 제목
 <br></br>
 [Body]
 
@@ -199,7 +193,7 @@ env:
 ## ⚠️ 주의사항
 
 &nbsp;&nbsp;&nbsp;1. 커밋 메시지 형식을 정확히 지켜주세요.<br>
-&nbsp;&nbsp;&nbsp;2. TODO 항목은 `-` 또는 `*`로 시작해야 합니다.<br>
+&nbsp;&nbsp;&nbsp;2. TODO 항목은 `-`로 시작해야 합니다.<br>
 &nbsp;&nbsp;&nbsp;3. 이전 날짜의 이슈는 자동으로 닫힙니다.<br>
 
 </div>
