@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +16,14 @@ public class Upgrade_Panel : Panel
     public Toggle training_Toggle;
     public List<GameObject> helpPopup_BlessElements;
     public List<GameObject> helpPopup_TrainingElements;
+    [Header("가호 확대 범위")]
+    public RectTransform bless_Rect;
+    public float MinMagnitude;
+    public float MaxMagnitude;
+    [Header("가호/단련 포인트 표기")]
+    public Image point_Image;
+    public TextMeshProUGUI point_Text;
+
     private void Awake()
     {
         buttons[0].onClick.AddListener(BlessReset_BTN);
@@ -21,19 +31,36 @@ public class Upgrade_Panel : Panel
         bless_Toggle.onValueChanged.AddListener(ToggleEvents);
         bless_Toggle.interactable = false;
         training_Toggle.onValueChanged.AddListener(ToggleEvents);
-
+        //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
+        point_Text.text = "0";
     }
-    private void OnEnable()
+    private void Update()
     {
-        if (UI_Manager.Instance.panel_Dic.ContainsKey("Bless_Panel"))
-            UI_Manager.Instance.panel_Dic["Bless_Panel"].PanelOpen();
+        WheelAction();
+    }
+
+    private void WheelAction()
+    {
+        if (UI_Manager.Instance.panel_Dic["Bless_Panel"].gameObject.activeSelf)
+        {
+            float zoomAmount = Input.GetAxis("Mouse ScrollWheel") * 1f;
+            Vector3 scale = new Vector3(bless_Rect.localScale.x + zoomAmount,
+                                        bless_Rect.localScale.y + zoomAmount,
+                                        bless_Rect.localScale.z + zoomAmount);
+            if (scale.magnitude > MinMagnitude && scale.magnitude < MaxMagnitude)
+                bless_Rect.localScale = scale;
+        }
     }
     //토글 제어 메서드
     private void ToggleEvents(bool arg0)
     {
         if (training_Toggle.isOn)
         {
+            upgradePanel_TMP.text = "단련";
             HelpElemets(helpPopup_TrainingElements, helpPopup_BlessElements);
+            point_Image.sprite = Resources.Load<Sprite>("Using/UI/Coin");
+            //TODO : 보유 골드 데이터매니저에서 가져오기
+            point_Text.text = "0";
 
             bless_Toggle.interactable = true;
             training_Toggle.interactable = false;
@@ -46,7 +73,11 @@ public class Upgrade_Panel : Panel
         }
         else
         {
+            upgradePanel_TMP.text = "가호";
             HelpElemets(helpPopup_BlessElements, helpPopup_TrainingElements);
+            point_Image.sprite = Resources.Load<Sprite>("Using/UI/Bless");
+            //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
+            point_Text.text = "0";
 
             bless_Toggle.interactable = false;
             training_Toggle.interactable = true;
@@ -72,6 +103,7 @@ public class Upgrade_Panel : Panel
     private void Return_BTN()
     {
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
+        bless_Toggle.isOn = true;
         PanelClose();
     }
 
