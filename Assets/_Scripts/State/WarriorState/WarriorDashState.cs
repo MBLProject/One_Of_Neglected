@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class WarriorDashState : BaseState<Player>
 {
-    private float dashDuration = .5f;
-    private float dashSpeed = 2f;
+    private float dashSpeed = 3f;
     private Vector2 dashDirection;
     private float dashDistance = 1f;
+
     private Vector2 startPosition;
     private Vector2 targetPosition;
     private float lerpProgress;
@@ -14,6 +14,13 @@ public class WarriorDashState : BaseState<Player>
 
     public override void Enter(Player player)
     {
+        if (!player.CanDash())
+        {
+            handler.RevertToPreviousState();
+            return;
+        }
+
+        player.ConsumeDash();
         player.SetDashing(true);  
         player.SetSkillInProgress(true);
 
@@ -30,27 +37,8 @@ public class WarriorDashState : BaseState<Player>
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dashDirection = (mousePosition - (Vector2)player.transform.position).normalized;
         
-        bool isLeft = dashDirection.x < 0;
-        if (isLeft)
-        {
-            Debug.Log("dashDirection.x < 0");
-            player.transform.localScale = new Vector3(-1, 1, 1);
-            if (player.Afterimage != null)
-            {
-                player.Afterimage.FlipParticle(true);
-            }
-        }
-        else
-        {
-            Debug.Log("dashDirection.x > 0");
-            player.transform.localScale = new Vector3(1, 1, 1);
-            if (player.Afterimage != null)
-            {
-                player.Afterimage.FlipParticle(false);
-            }
-        }
+        player.FlipModel(dashDirection.x < 0);
         
-        // 파티클 시스템 활성화
         if (player.Afterimage != null && player.Afterimage.ps != null)
         {
             player.Afterimage.ps.Play();
@@ -87,27 +75,10 @@ public class WarriorDashState : BaseState<Player>
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("IsMoving");
         
-        if (Input.GetMouseButton(1))
-        {
-            if (!player.IsAtDestination())
-            {
-                player.Animator?.SetBool("IsMoving", true);
-                player.RestoreTargetPosition();
-            }
-            else
-            {
-                player.Animator?.SetBool("IsMoving", false);
-                player.Animator?.SetTrigger("Idle");
-            }
-        }
-        else
-        {
-            player.Animator?.SetBool("IsMoving", false);
-            player.Animator?.SetTrigger("Idle");
-            player.SetCurrentPositionAsTarget();
-        }
+        player.Animator?.SetBool("IsMoving", false);
+        player.Animator?.SetTrigger("Idle");
+        player.SetCurrentPositionAsTarget();
 
-        // 파티클 시스템 비활성화
         if (player.Afterimage != null && player.Afterimage.ps != null)
         {
             player.Afterimage.ps.Stop();

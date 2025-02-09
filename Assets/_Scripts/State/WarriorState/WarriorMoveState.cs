@@ -23,7 +23,10 @@ public class WarriorMoveState : BaseState<Player>
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            handler.ChangeState(typeof(WarriorDashState));
+            if (player.CanDash())
+            {
+                handler.ChangeState(typeof(WarriorDashState));
+            }
             return;
         }
 

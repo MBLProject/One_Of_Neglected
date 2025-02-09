@@ -43,7 +43,10 @@ public class StateHandler<T> where T : class
     {
         if (previousState != null)
         {
-            ChangeState(previousState.GetType());
+            var prevState = previousState;
+            previousState = currentState;
+            currentState = prevState;
+            currentState.Enter(owner);
         }
     }
 
@@ -61,5 +64,10 @@ public class StateHandler<T> where T : class
     {
         globalState?.Update(owner);
         currentState?.Update(owner);
+    }
+
+    public Type GetPreviousStateType()
+    {
+        return previousState?.GetType() ?? typeof(WarriorIdleState);
     }
 }

@@ -3,57 +3,59 @@ using UnityEngine;
 
 public class PlayerStats : ScriptableObject
 {
+    #region Event
+    // 스텟은 여기 이벤트로만 처리할 것!!! 진짜루..
     public event Action<float> OnHealthChanged;
     public event Action<int> OnLevelUp;
     public event Action<float> OnExpChanged;
+    #endregion
 
-    [Header("level")]
-    public int level = 1;
-    public int healthPerLevel;
-    public int attackPerLevel;
-    public float maxExp = 100f;
-    public float _currentExp = 0f;
+    #region Field
+    public int Level;
+    public int MaxExp;
+    public int Exp;
+    public int MaxHp;
+    public int Hp;   
+    public int Recovery;
+    public int Armor;   
+    public int Mspd;    
+    public int ATK;     
+    public int Aspd;    
+    public int Critical;
+    public int CATK;    
+    public int Amount;  
+    public int Area;    
+    public int Duration;
+    public int Cooldown;
+    public int Revival; 
+    public int Magnet;  
+    public int Growth;  
+    public int Greed;   
+    public int Curse;   
+    public int Reroll;  
+    public int Banish;
+    #endregion
 
-    [Header("default")]
-    public float maxHealth;
-    private float _currentHealth;
-    public float attackPower;
-    [SerializeField]
-    public float moveSpeed = 5f;
-    [Range(0f, 1f)]
-    public float damageReduction;
-
-    [Header("regen")]
-    public float healthRegen;
-    public float regenInterval;
     private float regenTimer = 0f;
-
-    [Header("critical")]
-    [Range(0f, 1f)]
-    public float criticalChance;
-    public float criticalDamage;
-    [Range(0f, 1f)]
-    public float cooldownReduction;
-
-    public float currentHealth
+    public float currentHp
     {
-        get => _currentHealth;
+        get => Hp;
         set
         {
-            _currentHealth = Mathf.Clamp(value, 0, maxHealth);
-            OnHealthChanged?.Invoke(_currentHealth);
+            Hp = (int)Mathf.Clamp(value, 0, MaxHp);
+            OnHealthChanged?.Invoke(Hp);
         }
     }
     public float currentExp
     {
-        get => _currentExp;
+        get => Exp;
         set
         {
-            _currentExp = value;
-            OnExpChanged?.Invoke(_currentExp);
-            if (_currentExp >= maxExp)
+            Exp = (int)value;
+            OnExpChanged?.Invoke(Exp);
+            if (Exp >= MaxExp)
             {
-                _currentExp -= maxExp;
+                Exp -= MaxExp;
                 LevelUp();
             }
         }
@@ -61,33 +63,32 @@ public class PlayerStats : ScriptableObject
 
     public void InitializeStats()
     {
-        currentHealth = maxHealth;
+        currentHp = MaxHp;
         currentExp = 0f;
     }
 
     public void LevelUp()
     {
-        level++;
-        maxHealth += healthPerLevel;
-        attackPower += attackPerLevel;
-        currentHealth = maxHealth;
-        maxExp *= 1.2f;
+        Level++;
+        currentHp = MaxHp;
 
-        OnLevelUp?.Invoke(level);
+        OnLevelUp?.Invoke(Level);
     }
+
+    //데미지 판정을 여기서??? 
     public float CalculateDamage(float incomingDamage)
     {
-        return incomingDamage * (1f - damageReduction);
+        return 1f;
+        //return incomingDamage * (1f - damageReduction);
     }
 
     public void UpadateHealthRegen(float deltaTime)
     {
-
         regenTimer += deltaTime;
-        if (regenTimer >= regenInterval)
+        if (regenTimer >= Recovery)
         {
             regenTimer = 0f;
-            currentHealth += Mathf.RoundToInt(healthRegen);
+            Recovery += Mathf.RoundToInt(Recovery);
         }
     }
 }

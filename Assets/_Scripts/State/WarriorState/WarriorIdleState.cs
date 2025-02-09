@@ -19,24 +19,22 @@ public class WarriorIdleState : BaseState<Player>
             handler.ChangeState(typeof(WarriorMoveState));
             return;
         }
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePosition - (Vector2)player.transform.position).normalized;
-        if (direction.x < 0)
-        {
-            player.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            player.transform.localScale = new Vector3(1, 1, 1);
-        }
+        
+        player.FlipModel(direction.x < 0);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            handler.ChangeState(typeof(WarriorDashState));
+            if (player.CanDash())
+            {
+                handler.ChangeState(typeof(WarriorDashState));
+            }
             return;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             handler.ChangeState(typeof(WarriorAttackState));
             return;
