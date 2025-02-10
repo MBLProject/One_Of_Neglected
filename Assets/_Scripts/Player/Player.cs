@@ -8,25 +8,25 @@ public class StatViewer
 {
     [Tooltip("레벨")] public int Level;
     [Tooltip("최대 경험치")] public int MaxExp;
-    [Tooltip("경험치")] public int Exp;
+    [Tooltip("경험치")] public float Exp;
     [Tooltip("최대체력")] public int MaxHp;
-    [Tooltip("체력")] public int Hp;
-    [Tooltip("체력회복량")] public int Recovery;
+    [Tooltip("체력")] public float Hp;
+    [Tooltip("체력회복량")] public float Recovery;
     [Tooltip("방어력")] public int Armor;
-    [Tooltip("이동속도")] public int Mspd;
-    [Tooltip("공격력")] public int ATK;
-    [Tooltip("공격속도")] public int Aspd;
-    [Tooltip("치명타 확률")] public int Critical;
-    [Tooltip("치명타 데미지")] public int CATK;
+    [Tooltip("이동속도")] public float Mspd;
+    [Tooltip("공격력")] public float ATK;
+    [Tooltip("공격속도")] public float Aspd;
+    [Tooltip("치명타 확률")] public float Critical;
+    [Tooltip("치명타 데미지")] public float CATK;
     [Tooltip("투사체 개수")] public int Amount;
-    [Tooltip("공격범위")] public int Area;
-    [Tooltip("지속시간")] public int Duration;
-    [Tooltip("쿨타임")] public int Cooldown;
+    [Tooltip("공격범위")] public float Area;
+    [Tooltip("지속시간")] public float Duration;
+    [Tooltip("쿨타임")] public float Cooldown;
     [Tooltip("부활 횟수")] public int Revival;
     [Tooltip("재화 습득범위")] public int Magnet;
-    [Tooltip("성장")] public int Growth;
-    [Tooltip("탐욕")] public int Greed;
-    [Tooltip("저주")] public int Curse;
+    [Tooltip("성장")] public float Growth;
+    [Tooltip("탐욕")] public float Greed;
+    [Tooltip("저주")] public float Curse;
     [Tooltip("새로고침 횟수")] public int Reroll;
     [Tooltip("스탯 지우기")] public int Banish;
 }
@@ -86,7 +86,7 @@ public abstract class Player : MonoBehaviour
     private void Update()
     {
         HandleSkillInput();
-        UpdateStats();
+        //UpdateStats();
         UpdateDashRecharge();
         
         if (!isSkillInProgress && Input.GetMouseButton(1))

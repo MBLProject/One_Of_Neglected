@@ -29,6 +29,6 @@ public class HPBar : MonoBehaviour
 
     private void OnDestroy()
     {
-        player.Stats.OnHealthChanged -= UpdateHPBar;
+        player.Stats.OnHpChanged -= UpdateHPBar;
     }
 }

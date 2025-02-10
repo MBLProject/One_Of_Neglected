@@ -9,7 +9,7 @@ public class StateHandler<T> where T : class
     private BaseState<T> previousState;
     private BaseState<T> globalState;
     private Dictionary<Type, BaseState<T>> states;
-
+    public BaseState<T> CurrentState => currentState;
     public StateHandler(T owner)
     {
         this.owner = owner;
