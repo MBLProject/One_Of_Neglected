@@ -16,13 +16,13 @@ public class WarriorDashState : BaseState<Player>
     {
         if (!player.CanDash())
         {
-            handler.RevertToPreviousState();
+            handler.ChangeState(typeof(WarriorIdleState));
             return;
         }
 
         player.ConsumeDash();
         player.SetDashing(true);  
-        player.SetSkillInProgress(true);
+        player.SetSkillInProgress(true, false);
 
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
@@ -39,9 +39,9 @@ public class WarriorDashState : BaseState<Player>
         
         player.FlipModel(dashDirection.x < 0);
         
-        if (player.Afterimage != null && player.Afterimage.ps != null)
+        if (player.DashEffect != null)
         {
-            player.Afterimage.ps.Play();
+            player.DashEffect.Play();
         }
         
         targetPosition = startPosition + (dashDirection * dashDistance);
@@ -69,7 +69,9 @@ public class WarriorDashState : BaseState<Player>
     public override void Exit(Player player)
     {
         player.SetDashing(false);
-        player.SetSkillInProgress(false);
+        player.SetSkillInProgress(false, false);
+        
+        player.SetCurrentPositionAsTarget();
         
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("Idle");
@@ -77,11 +79,10 @@ public class WarriorDashState : BaseState<Player>
         
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.SetTrigger("Idle");
-        player.SetCurrentPositionAsTarget();
 
-        if (player.Afterimage != null && player.Afterimage.ps != null)
+        if (player.DashEffect != null)
         {
-            player.Afterimage.ps.Stop();
+            player.DashEffect.Stop();
         }
     }
 }

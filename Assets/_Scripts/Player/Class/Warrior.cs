@@ -56,7 +56,7 @@ public class Warrior : Player
         statViewer.ATK = 1;
         statViewer.Aspd = 1;
         statViewer.Critical = 0;
-        statViewer.CATK = 0;
+        statViewer.CATK = 100;
         statViewer.Amount = 0;
         statViewer.Area = 1;
         statViewer.Duration = 1;
@@ -83,12 +83,7 @@ public class Warrior : Player
 
     protected override void HandleSkillInput()
     {
-        stats.UpadateHealthRegen(Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            stateHandler.ChangeState(typeof(WarriorDashState));
-        }
+        // 스킬 입력은 각 상태에서 처리하므로 여기서는 아무것도 하지 않음
     }
 
 

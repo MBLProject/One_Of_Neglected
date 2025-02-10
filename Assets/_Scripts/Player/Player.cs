@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Enums;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class StatViewer
@@ -34,9 +38,12 @@ public class StatViewer
 public abstract class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private Afterimage afterimage;
+    [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
-    [SerializeField] private SpriteRenderer modelRenderer;  
+    [SerializeField] private SpriteRenderer modelRenderer;
+
+    // 오토 체크!
+    public bool isAuto = false; 
 
     protected StateHandler<Player> stateHandler;
     protected bool isSkillInProgress = false;
@@ -67,10 +74,11 @@ public abstract class Player : MonoBehaviour
 
     public ClassType ClassType { get; protected set; }
 
-    public Afterimage Afterimage => afterimage;
+    public ParticleSystem DashEffect => dashEffect;
     public int CurrentDashCount => currentDashCount;
     public int MaxDashCount => maxDashCount;
 
+    public List<MonsterBase> monCheckList = new List<MonsterBase>();
 
     protected virtual void Awake()
     {
@@ -81,27 +89,32 @@ public abstract class Player : MonoBehaviour
         InitializeStatViewer();
         
         currentDashCount = maxDashCount;
+
+        if (dashEffect != null)
+        {
+            dashEffect.Stop();
+        }
     }
 
     private void Update()
     {
-        HandleSkillInput();
-        //UpdateStats();
-        UpdateDashRecharge();
+        stateHandler.Update();
         
-        if (!isSkillInProgress && Input.GetMouseButton(1))
+        UpdateDashRecharge();
+        Moncheck();
+
+        if (Input.GetMouseButton(1))
         {
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             targetPosition = new Vector2(worldPosition.x, worldPosition.y);
             savedTargetPosition = targetPosition;
-            
+
             if (stateHandler.IsInState<WarriorIdleState>())
             {
                 stateHandler.ChangeState(typeof(WarriorMoveState));
             }
         }
-        stateHandler.Update();
     }
 
     private void UpdateDashRecharge()
@@ -133,22 +146,19 @@ public abstract class Player : MonoBehaviour
     protected abstract void InitializeStats();
     protected abstract void InitializeStateHandler();
     protected abstract void InitializeClassType();
-    protected abstract void HandleSkillInput();
     protected abstract void InitializeStatViewer();
-
     private void InitializeComponents()
     {
-        afterimage = GetComponent<Afterimage>();
         if (modelRenderer == null)
         {
             modelRenderer = GetComponentInChildren<SpriteRenderer>();
         }
     }
 
-    public void SetSkillInProgress(bool inProgress)
+    public void SetSkillInProgress(bool inProgress, bool savePrevPosition = true)
     {
         isSkillInProgress = inProgress;
-        if (inProgress)
+        if (inProgress && savePrevPosition)
         {
             savedTargetPosition = targetPosition;
         }
@@ -157,49 +167,11 @@ public abstract class Player : MonoBehaviour
     public void SetDashing(bool dashing)
     {
         isDashing = dashing;
-        if (dashing)
-        {
-            isSkillInProgress = true;
-        }
-    }
-
-    public virtual void Takedamage(float damage)
-    {
-        float finalDamage = stats.CalculateDamage(damage);
-        stats.currentHp -= Mathf.RoundToInt(finalDamage);
-    }
-
-    public void ApplyAttackBuff(float amount, float duration)
-    {
-        StartCoroutine(ApplyAttackBuffCoroutine(amount, duration));
-    }
-
-    private IEnumerator ApplyAttackBuffCoroutine(float amount, float duration)
-    {
-        //stats.attackPower += amount;
-
-        yield return new WaitForSeconds(duration);
-
-        //stats.attackPower -= amount;
-    }
-
-    public void Heal(float amount)
-    {
-        stats.currentHp = Mathf.Min(stats.currentHp + amount, stats.MaxHp);
-    }
-
-    public void SyncStateChange(string stateName)
-    {
-        Type stateType = Type.GetType(stateName);
-        if (stateType != null)
-        {
-            stateHandler.ChangeState(stateType);
-        }
     }
 
     public void MoveTo(Vector2 destination)
     {
-        if (isSkillInProgress) return;
+        if (isDashing) return;
         
         if (Vector2.Distance(transform.position, destination) > moveThreshold)
         {
@@ -218,11 +190,6 @@ public abstract class Player : MonoBehaviour
     public bool IsAtDestination()
     {
         return Vector2.Distance(transform.position, targetPosition) < moveThreshold;
-    }
-
-    public void RestoreTargetPosition()
-    {
-        targetPosition = savedTargetPosition; 
     }
 
     public void SetCurrentPositionAsTarget()
@@ -271,7 +238,138 @@ public abstract class Player : MonoBehaviour
     {
         if (modelRenderer != null)
         {
-            modelRenderer.flipX = isLeft;  
+            modelRenderer.flipX = isLeft;
         }
+
+        // 파티클 시스템 방향 전환
+        if (dashEffect != null)
+        {
+            // 파티클의 로컬 스케일을 변경하여 방향 전환
+            Vector3 localScale = dashEffect.transform.localScale;
+            localScale.x = isLeft ? -Mathf.Abs(localScale.x) : Mathf.Abs(localScale.x);
+            dashEffect.transform.localScale = localScale;
+
+            // 또는 파티클 시스템의 회전을 사용할 경우:
+            // dashEffect.transform.rotation = Quaternion.Euler(0, isLeft ? 180 : 0, 0);
+        }
+    }
+
+    public void Moncheck()
+    {
+        monCheckList.Clear();
+
+        int monsterLayer = LayerMask.NameToLayer("Monster");
+        int layerMask = 1 << monsterLayer;
+
+        Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, .3f, layerMask);
+        foreach (var coll in colls)
+        {
+            if (coll.CompareTag("Monster"))
+            {
+                MonsterBase monster = coll.GetComponent<MonsterBase>();
+                if (monster != null)
+                {
+                    monCheckList.Add(monster);
+                }
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, .3f);
+        
+        if (stateHandler?.CurrentState is WarriorAttackState attackState)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, attackState.AttackRange);
+        }
+    }
+
+    public MonsterBase GetNearestMonster()
+    {
+        if (monCheckList.Count == 0) return null;
+        
+        MonsterBase nearest = null;
+        float minDistance = float.MaxValue;
+        
+        foreach (var monster in monCheckList)
+        {
+            float distance = Vector2.Distance(transform.position, monster.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearest = monster;
+            }
+        }
+        
+        return nearest;
+    }
+
+    public void LookAtTarget(Vector2 target)
+    {
+        Vector2 direction = (target - (Vector2)transform.position).normalized;
+        FlipModel(direction.x < 0);
+    }
+
+    protected abstract void HandleSkillInput();
+
+    public virtual void TakeDamage(float damage)
+    {
+        bool isCritical = false;
+        //몬스터도 크리확률이 있나?? 몰루??
+        if (Random.Range(0f, 100f) <= stats.Critical)
+        {
+            damage = Mathf.RoundToInt(damage * stats.CATK);
+            isCritical = true;
+        }
+
+        stats.currentHp -= damage;
+        ShowDamageFont(transform.position, damage, transform, isCritical);
+        if (stats.currentHp <= 0)
+        {
+            //ToDO 플레이어 사망처리
+            Debug.Log("플레이어 주금");
+        }
+    }
+
+    public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)
+    {
+        GameObject go = Resources.Load<GameObject>("DamageText");
+        if (go != null)
+        {
+            Vector2 spawnPosition = (Vector2)transform.position + Vector2.up * 0.2f;
+            
+            GameObject instance = Instantiate(go, spawnPosition, Quaternion.identity);
+            ShowDamage damageText = instance.GetComponent<ShowDamage>();
+            if (damageText != null)
+            {
+                damageText.SetInfo(spawnPosition, damage, parent, isCritical);
+            }
+        }
+    }
+
+    public MonsterBase FindNearestMonsterInRange(float range)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, LayerMask.GetMask("Monster"));
+        MonsterBase nearest = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var collider in colliders)
+        {
+            MonsterBase monster = collider.GetComponent<MonsterBase>();
+            if (monster != null)
+            {
+                float distance = Vector2.Distance(transform.position, monster.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearest = monster;
+                }
+            }
+        }
+
+        return nearest;
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using static Enums;
 
 public class Projectile : MonoBehaviour
 {
@@ -24,17 +25,24 @@ public class Projectile : MonoBehaviour
 
         while (isMoving)
         {
-            transform.position += speed * Time.deltaTime * direction;
-
-            distanceTraveled = (transform.position - startPosition).magnitude;
-
-            if (distanceTraveled > maxDistance)
+            if (!GameManager.Instance.isPaused)
             {
-                Destroy(gameObject);
-                break;
-            }
+                transform.position += speed * Time.deltaTime * direction;
 
-            await UniTask.Yield(PlayerLoopTiming.Update);
+                distanceTraveled = (transform.position - startPosition).magnitude;
+
+                if (distanceTraveled > maxDistance)
+                {
+                    Destroy(gameObject);
+                    break;
+                }
+
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+            else
+            {
+                await UniTask.Yield();
+            }
         }
     }
     public void InitProjectile(Vector3 startPos, Vector3 dir, float spd)

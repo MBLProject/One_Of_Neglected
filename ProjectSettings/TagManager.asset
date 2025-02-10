@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - BlessNode
+  - Undefined
+  - Monster
   layers:
   - Default
   - TransparentFX

@@ -14,35 +14,70 @@ public class WarriorIdleState : BaseState<Player>
 
     public override void Update(Player player)
     {
-        if (!player.IsAtDestination())
+        if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
         {
-            handler.ChangeState(typeof(WarriorMoveState));
+            handler.ChangeState(typeof(WarriorDashState));
             return;
         }
 
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)player.transform.position).normalized;
-        
-        player.FlipModel(direction.x < 0);
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (player.CanDash())
-        //    {
-        //        handler.ChangeState(typeof(WarriorDashState));
-        //    }
-        //    return;
-        //}
-
-        if (Input.GetMouseButtonDown(0))
+        // 자동 전투 모드일 때
+        if (player.isAuto)
         {
-            handler.ChangeState(typeof(WarriorAttackState));
-            return;
+            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            if (nearestMonster != null)
+            {
+                float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                
+                // 공격 범위 내에 있으면 공격
+                if (distance <= 0.3f)
+                {
+                    player.LookAtTarget(nearestMonster.transform.position);
+                    handler.ChangeState(typeof(WarriorAttackState));
+                }
+                // 범위 밖이면 이동
+                else
+                {
+                    player.targetPosition = nearestMonster.transform.position;
+                    handler.ChangeState(typeof(WarriorMoveState));
+                }
+                return;
+            }
+        }
+        else
+        {
+            // 기존의 일반 전투 로직
+            MonsterBase nearestMonster = player.GetNearestMonster();
+            if (nearestMonster != null)
+            {
+                player.LookAtTarget(nearestMonster.transform.position);
+                handler.ChangeState(typeof(WarriorAttackState));
+                return;
+            }
+        }
+
+        if (!player.IsAtDestination())
+        {
+            handler.ChangeState(typeof(WarriorMoveState));
         }
     }
 
     public override void Exit(Player player)
     {
         player.Animator?.ResetTrigger("Idle");
+        player.Animator?.ResetTrigger("Attack");
+        player.Animator?.ResetTrigger("Dash");
+        player.Animator?.ResetTrigger("IsMoving");
+        player.Animator?.Update(0);
+    }
+
+    /// <summary>
+    /// 마우스 위치에 따라 플레이어 모델 방향 플립
+    /// </summary>
+    /// <param name="player"></param>
+    public void SetModelFlip(Player player)
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePosition - (Vector2)player.transform.position).normalized;
+        player.FlipModel(direction.x < 0);
     }
 }
