@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5799624267545357804}
   - component: {fileID: 2055540228418436207}
   m_Layer: 0
-  m_Name: effect
+  m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4842,7 +4842,7 @@ GameObject:
   - component: {fileID: 3950924707371978967}
   - component: {fileID: 3649963496063361765}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4948,7 +4948,6 @@ GameObject:
   - component: {fileID: 768710949774327387}
   - component: {fileID: 2264239214267020929}
   - component: {fileID: 5920102159851198582}
-  - component: {fileID: 7503855257361944478}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4988,7 +4987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3649963496063361765}
-  afterimage: {fileID: 7503855257361944478}
+  afterimage: {fileID: 0}
   statViewer:
     Level: 0
     MaxExp: 0
@@ -5014,7 +5013,9 @@ MonoBehaviour:
     Reroll: 0
     Banish: 0
   modelRenderer: {fileID: 0}
+  isAuto: 0
   targetPosition: {x: 0, y: 0}
+  monCheckList: []
 --- !u!61 &2264239214267020929
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5087,19 +5088,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7503855257361944478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8436117267539602611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f1f892329ab9442bbf788db052210d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ps: {fileID: 5799624267545357804}
 --- !u!1001 &4011578888992895293
 PrefabInstance:
   m_ObjectHideFlags: 0

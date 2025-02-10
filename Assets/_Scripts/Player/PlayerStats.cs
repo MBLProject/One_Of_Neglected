@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerStats : ScriptableObject
 {
+    private float regenTimer = 0f;
+
     #region Field
     public int Level;
     public int MaxExp;
@@ -54,8 +56,6 @@ public class PlayerStats : ScriptableObject
     public event Action<int> OnRerollChanged;
     public event Action<int> OnBanishChanged;
     #endregion
-
-    private float regenTimer = 0f;
 
     #region Properties
     public float currentHp

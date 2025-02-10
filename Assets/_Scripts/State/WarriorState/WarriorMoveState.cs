@@ -15,24 +15,24 @@ public class WarriorMoveState : BaseState<Player>
 
     public override void Update(Player player)
     {
-        if (player.IsAtDestination())
-        {
-            handler.ChangeState(typeof(WarriorIdleState));
-            return;
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (player.CanDash())
             {
                 handler.ChangeState(typeof(WarriorDashState));
+                return;
             }
-            return;
         }
 
-        if (Input.GetMouseButton(0))
+        // 자동 전투 모드일 때 목적지에 도달하면 바로 공격
+        if (player.isAuto && player.IsAtDestination())
         {
             handler.ChangeState(typeof(WarriorAttackState));
+            return;
+        }
+        else if (player.IsAtDestination())
+        {
+            handler.ChangeState(typeof(WarriorIdleState));
             return;
         }
 
