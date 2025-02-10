@@ -25,14 +25,14 @@ public class WarriorIdleState : BaseState<Player>
         
         player.FlipModel(direction.x < 0);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (player.CanDash())
-            {
-                handler.ChangeState(typeof(WarriorDashState));
-            }
-            return;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if (player.CanDash())
+        //    {
+        //        handler.ChangeState(typeof(WarriorDashState));
+        //    }
+        //    return;
+        //}
 
         if (Input.GetMouseButtonDown(0))
         {

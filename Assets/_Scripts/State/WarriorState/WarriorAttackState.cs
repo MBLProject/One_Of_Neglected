@@ -12,14 +12,12 @@ public class WarriorAttackState : BaseState<Player>
 
     public override void Enter(Player player)
     {
-        Debug.Log("공격엔터");
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Attack");
         player.Animator?.ResetTrigger("IsMoving");
         player.Animator?.Update(0);
 
-        attackTimer = attackDuration;
         player.SetSkillInProgress(true);
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -31,28 +29,27 @@ public class WarriorAttackState : BaseState<Player>
 
     public override void Update(Player player)
     {
-        Debug.Log("공격업뎃");
-        attackTimer -= Time.deltaTime;
+        attackTimer += Time.deltaTime;
 
-        if (attackTimer <= 0)
+        if (attackTimer >= attackDuration)
         {
+            attackTimer = 0;
             handler.ChangeState(typeof(WarriorIdleState));
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (player.CanDash())
-            {
-                handler.ChangeState(typeof(WarriorDashState));
-                return;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if (player.CanDash())
+        //    {
+        //        handler.ChangeState(typeof(WarriorDashState));
+        //        return;
+        //    }
+        //}
     }
 
     public override void Exit(Player player)
     {
-        Debug.Log("공격엑싯");
         player.Animator?.ResetTrigger("Attack");
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("IsMoving");
