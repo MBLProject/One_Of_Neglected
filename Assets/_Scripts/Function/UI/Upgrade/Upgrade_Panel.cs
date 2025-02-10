@@ -24,6 +24,9 @@ public class Upgrade_Panel : Panel
     public Image point_Image;
     public TextMeshProUGUI point_Text;
 
+
+    public Bless_Panel bless_Panel;
+    public Training_Panel training_Panel;
     private void Awake()
     {
         buttons[0].onClick.AddListener(BlessReset_BTN);

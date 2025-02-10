@@ -8,8 +8,6 @@ public class UI_Manager : Singleton<UI_Manager>
     public Dictionary<string, Panel> panel_Dic = new Dictionary<string, Panel>();
     public List<Panel> panel_List = new List<Panel>();
 
-    public Dictionary<Button, bool> m_Bless_Dic =
-    new Dictionary<Button, bool>();
     protected override void Awake()
     {
         base.Awake();
@@ -21,17 +19,10 @@ public class UI_Manager : Singleton<UI_Manager>
                 panel.gameObject.SetActive(true);
             else panel.gameObject.SetActive(false);
         }
-
     }
 
     private void Start()
     {
-        m_Bless_Dic = DataManager.Instance.blessDataTable.bless_Table;
-        foreach (Panel panel in panel_List)
-        {
-            Debug.Log($"panel name : {panel.name}\npanel_Dic Contain? : {panel_Dic.ContainsKey(panel.name)}");
-        }
 
     }
-
 }
