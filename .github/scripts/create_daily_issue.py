@@ -193,7 +193,7 @@ def get_merge_commits(repo, merge_commit):
     try:
         # find the commits in the feature branch that are not in the main branch
         comparison = repo.compare(main_parent.sha, feature_parent.sha)
-        commits = comparison.commits
+        commits = list(comparison.commits)  # PaginatedList를 list로 변환
         
         print(f"Found {len(commits)} commits in merge")
         for commit in commits:
@@ -241,24 +241,33 @@ def main():
     issues = repo.get_issues(state='open', labels=[issue_label])
     today_issue = None
     previous_todos = []
+    existing_content = {'branches': {}}
 
+    # find today's issue
     for issue in issues:
         if f"Daily Development Log ({datetime.now(pytz.timezone(timezone)).strftime('%Y-%m-%d')})" in issue.title:
-            # Find today's issue
             today_issue = issue
-        elif issue.title.startswith('📅 Daily Development Log'):
-            # Get TODOs from previous day's issue
             existing_content = parse_existing_issue(issue.body)
-            # Get only unchecked TODOs
-            previous_todos.extend([(False, todo[1]) for todo in existing_content['todos'] if not todo[0]])
-            # Close previous issue
+            print(f"\n=== Current Issue's TODO List ===")
+            for todo in existing_content['todos']:
+                status = "✅ Completed" if todo[0] else "⬜ Pending"
+                print(f"{status}: {todo[1]}")
+            break
+
+    # find previous issues
+    for issue in issues:
+        if issue != today_issue and issue.title.startswith('📅 Daily Development Log'):
+            print(f"\n=== Processing Previous Issue #{issue.number} ===")
+
+            prev_content = parse_existing_issue(issue.body)
+            unchecked_todos = [(False, todo[1]) for todo in prev_content['todos'] if not todo[0]]
+            if unchecked_todos:
+                print(f"Found {len(unchecked_todos)} unchecked TODOs")
+                for _, todo_text in unchecked_todos:
+                    print(f"⬜ Migrating: {todo_text}")
+                previous_todos.extend(unchecked_todos)
             issue.edit(state='closed')
             print(f"Closed previous issue #{issue.number}")
-
-    # get the existing content of the issue
-    existing_content = {'branches': {}}
-    if today_issue:
-        existing_content = parse_existing_issue(today_issue.body)
 
     # check if the commit is already logged
     if is_commit_already_logged(commit.commit.message, existing_content):
