@@ -46,6 +46,8 @@ public class Main_Panel : Panel
     //게임 종료
     private void Exit_BTN()
     {
+        DataManager.Instance.SaveData();
+        Debug.Log("나감");
         Application.Quit();
     }
 }
