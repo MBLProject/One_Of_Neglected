@@ -101,7 +101,6 @@ def parse_existing_issue(body):
     todo_match = re.search(todo_pattern, body, re.DOTALL)
     if todo_match:
         todo_section = todo_match.group(1).strip()
-        print(f"\n=== Current Issue's TODO List ===")
         if todo_section:
             todo_lines = [line.strip() for line in todo_section.split('\n') if line.strip()]
             for line in todo_lines:
@@ -110,8 +109,6 @@ def parse_existing_issue(body):
                     is_checked = checkbox_match.group(1) == 'x'
                     todo_text = checkbox_match.group(2)
                     result['todos'].append((is_checked, todo_text))
-                    status = "✅ Completed" if is_checked else "⬜ Pending"
-                    print(f"{status}: {todo_text}")
     
     return result
 
@@ -248,10 +245,12 @@ def main():
         if f"Daily Development Log ({datetime.now(pytz.timezone(timezone)).strftime('%Y-%m-%d')})" in issue.title:
             today_issue = issue
             existing_content = parse_existing_issue(issue.body)
-            print(f"\n=== Current Issue's TODO List ===")
-            for todo in existing_content['todos']:
-                status = "✅ Completed" if todo[0] else "⬜ Pending"
-                print(f"{status}: {todo[1]}")
+            # TODO list is printed only once
+            if existing_content['todos']:
+                print(f"\n=== Current Issue's TODO List ===")
+                for todo in existing_content['todos']:
+                    status = "✅ Completed" if todo[0] else "⬜ Pending"
+                    print(f"{status}: {todo[1]}")
             break
 
     # find previous issues
@@ -306,7 +305,6 @@ def main():
     # Create todo section and merge with previous todos
     if today_issue:
         # Parse existing issue
-        existing_content = parse_existing_issue(today_issue.body)
         print(f"\n=== TODO Statistics ===")
         print(f"Current TODOs in issue: {len(existing_content['todos'])} items")
         
