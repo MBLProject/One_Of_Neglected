@@ -188,14 +188,6 @@ def main():
     commit_sha = os.environ['GITHUB_SHA']
     commit = repo.get_commit(commit_sha)
     branch = os.environ['GITHUB_REF'].replace('refs/heads/', '')
-
-    # Get parent commits to find actual work commits
-    if commit.commit.message.startswith('Merge'):
-        # If it's a merge commit, get both parents
-        parent_commits = commit.parents
-        # Process the non-merge parent (usually the second parent is the feature branch)
-        if len(parent_commits) > 1:
-            commit = parent_commits[1]  # Use the second parent (feature branch commits)
     
     # Check for excluded commit types
     if re.match(excluded_pattern, commit.commit.message):
