@@ -18,16 +18,22 @@ public class Bless_Panel : Panel
     private void Awake()
     {
         ButtonInit(attack_Left);
+        ButtonInit(attack_Right);
+        ButtonInit(deffence_Left);
+        ButtonInit(deffence_Right);
+        ButtonInit(utility_Left);
+        ButtonInit(utility_Right);
     }
 
     private void ButtonInit(List<Button> buttons)
     {
 
-        for (int i = 0; i < buttons.Count - 1; i++)
+        for (int i = 0; i < buttons.Count - 3; i++)
         {
             int k = i + 1;
             buttons[i].onClick.AddListener(() => buttons[k].interactable = true);
         }
+        buttons[buttons.Count - 2].onClick.AddListener(() => buttons[buttons.Count - 1].interactable = true);
     }
 
 }
