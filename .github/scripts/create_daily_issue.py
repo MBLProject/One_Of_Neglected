@@ -17,7 +17,7 @@ COMMIT_TYPES = {
 
 def parse_commit_message(message):
     """Parse commit message"""
-    pattern = r'(?i)\[(.*?)\] (.*?)\n\n\[body\](.*?)(?:\n\n\[todo\](.*?))?(?:\n\n\[footer\](.*?))?$'
+    pattern = r'(?i)\[(.*?)\] (.*?)(?:\s*\n\s*\[body\](.*?))?(?:\s*\n\s*\[todo\](.*?))?(?:\s*\n\s*\[footer\](.*?))?$'
     match = re.search(pattern, message, re.DOTALL | re.IGNORECASE)
     if not match:
         return None
