@@ -12,7 +12,9 @@ public class DicDataTable
 }
 public class DataManager : Singleton<DataManager>
 {
-    public DicDataTable blessDataTable = new DicDataTable();
+    public DicDataTable dicDataTable = new DicDataTable();
+    public Dictionary<Button, bool> bless_Dic = new Dictionary<Button, bool>();
+
     string path = "Assets/Resources/SaveFile/";
     protected override void Awake()
     {
@@ -22,16 +24,17 @@ public class DataManager : Singleton<DataManager>
     public void SaveData()
     {
         Debug.Log("저장");
-        blessDataTable.bless_Table = UI_Manager.Instance.m_Bless_Dic;
-        string blessData = DictionaryJsonUtility.ToJson(blessDataTable.bless_Table);
+        dicDataTable.bless_Table = bless_Dic;
+        string blessData = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
         File.WriteAllText(path + "BlessData", blessData);
     }
 
     public void LoadData()
     {
         string fromJsonData_Bless = File.ReadAllText(path + "BlessData");
-        blessDataTable.bless_Table =
+        dicDataTable.bless_Table =
         DictionaryJsonUtility.FromJson<Button, bool>(fromJsonData_Bless);
+        bless_Dic = dicDataTable.bless_Table;
     }
 
 }
