@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerStats : ScriptableObject
+public class PlayerStats
 {
     private float regenTimer = 0f;
 

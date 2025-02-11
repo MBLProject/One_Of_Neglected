@@ -1,0 +1,23 @@
+public enum StatType
+{
+    MaxHp,
+    Hp,
+    Recovery,
+    Armor,
+    Mspd,
+    ATK,
+    Aspd,
+    Critical,
+    CATK,
+    Amount,
+    Area,
+    Duration,
+    Cooldown,
+    Revival,
+    Magnet,
+    Growth,
+    Greed,
+    Curse,
+    Reroll,
+    Banish
+} 

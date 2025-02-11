@@ -1,7 +1,10 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class WarriorMoveState : BaseState<Player>
 {
+    private bool isMouseMoving = false;
+
     public WarriorMoveState(StateHandler<Player> handler) : base(handler) { }
 
     public override void Enter(Player player)
@@ -15,32 +18,103 @@ public class WarriorMoveState : BaseState<Player>
 
     public override void Update(Player player)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (player.isAuto)
         {
-            if (player.CanDash())
+            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            if (nearestMonster != null)
             {
-                handler.ChangeState(typeof(WarriorDashState));
+                float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                player.targetPosition = nearestMonster.transform.position;
+                
+                if (distance <= 0.3f)
+                {
+                    handler.ChangeState(typeof(WarriorAttackState));
+                    return;
+                }
+                else
+                {
+                    player.MoveTo(player.targetPosition);
+                    player.LookAtTarget(nearestMonster.transform.position);
+                }
+            }
+            else
+            {
+                handler.ChangeState(typeof(WarriorIdleState));
                 return;
             }
         }
-
-        // 자동 전투 모드일 때 목적지에 도달하면 바로 공격
-        if (player.isAuto && player.IsAtDestination())
+        else
         {
-            handler.ChangeState(typeof(WarriorAttackState));
-            return;
-        }
-        else if (player.IsAtDestination())
-        {
-            handler.ChangeState(typeof(WarriorIdleState));
-            return;
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (player.CanDash())
+                {
+                    handler.ChangeState(typeof(WarriorDashState));
+                    return;
+                }
+            }
 
-        player.MoveTo(player.targetPosition);
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+            bool hasKeyboardInput = horizontalInput != 0 || verticalInput != 0;
+
+            if (hasKeyboardInput)
+            {
+                isMouseMoving = false;
+                Vector2 moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
+                player.transform.Translate(moveDirection * player.Stats.CurrentMspd * Time.deltaTime);
+                
+                if (horizontalInput != 0)
+                {
+                    player.FlipModel(horizontalInput < 0);
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    isMouseMoving = true;
+                    Vector3 mousePosition = Input.mousePosition;
+                    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                    player.targetPosition = new Vector2(worldPosition.x, worldPosition.y);
+                    
+                    Vector2 direction = (player.targetPosition - (Vector2)player.transform.position).normalized;
+                    if (direction.x != 0)
+                    {
+                        player.FlipModel(direction.x < 0);
+                    }
+
+                    player.MoveTo(player.targetPosition);
+                }
+                else if (isMouseMoving)
+                {
+                    if (!player.IsAtDestination())
+                    {
+                        player.MoveTo(player.targetPosition);
+                    }
+                    else
+                    {
+                        isMouseMoving = false;
+                        handler.ChangeState(typeof(WarriorIdleState));
+                        return;
+                    }
+                }
+                else
+                {
+                    handler.ChangeState(typeof(WarriorIdleState));
+                    return;
+                }
+            }
+        }
     }
 
     public override void Exit(Player player)
     {
+        isMouseMoving = false;
+        if (!Input.GetMouseButton(1))
+        {
+            player.SetCurrentPositionAsTarget();
+        }
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");

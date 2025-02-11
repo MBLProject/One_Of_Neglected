@@ -34,6 +34,9 @@ public class StatViewer
 
 public abstract class Player : MonoBehaviour
 {
+    public const float AUTO_DETECTION_RANGE = 5f;
+    public const float ATTACK_RANGE = 0.3f;
+
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
@@ -108,19 +111,6 @@ public abstract class Player : MonoBehaviour
         
         UpdateDashRecharge();
         Moncheck();
-
-        if (Input.GetMouseButton(1))
-        {
-            Vector3 mousePosition = Input.mousePosition;
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            targetPosition = new Vector2(worldPosition.x, worldPosition.y);
-            savedTargetPosition = targetPosition;
-
-            if (stateHandler.IsInState<WarriorIdleState>())
-            {
-                stateHandler.ChangeState(typeof(WarriorMoveState));
-            }
-        }
     }
 
     protected abstract void InitializeStats();
@@ -408,5 +398,49 @@ public abstract class Player : MonoBehaviour
         {
             UpdateStats();
         }
+    }
+
+    public virtual void ModifyStat(StatType statType, float value, bool isPercentage = false)
+    {
+        float finalValue = value;
+        if (isPercentage)
+        {
+            switch (statType)
+            {
+                case StatType.MaxHp:
+                    finalValue = statViewer.MaxHp * (value / 100f);
+                    break;
+                case StatType.ATK:
+                    finalValue = statViewer.ATK * (value / 100f);
+                    break;
+            }
+        }
+
+        switch (statType)
+        {
+            case StatType.MaxHp:
+                statViewer.MaxHp += (int)finalValue;
+                break;
+            case StatType.Hp:
+                statViewer.Hp += finalValue;
+                break;
+            case StatType.Recovery:
+                statViewer.Recovery += finalValue;
+                break;
+            case StatType.Armor:
+                statViewer.Armor += (int)finalValue;
+                break;
+            case StatType.Mspd:
+                statViewer.Mspd += finalValue;
+                break;
+            case StatType.ATK:
+                statViewer.ATK += finalValue;
+                break;
+            case StatType.Aspd:
+                statViewer.Aspd += finalValue;
+                break;
+        }
+
+        UpdateStats(); 
     }
 }
