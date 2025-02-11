@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-
+using System;
+[Serializable]
 public class Skill
 {
     public Enums.SkillName skillName;
@@ -15,12 +16,12 @@ public class Skill
         this.defaultCooldown = defaultCooldown;
     }
 
-    private async void Start()
+    public virtual async void StartMainTask()
     {
         await StartSkill();
     }
 
-    private async UniTask StartSkill()
+    protected virtual async UniTask StartSkill()
     {
         isSkillActive = true;
 
