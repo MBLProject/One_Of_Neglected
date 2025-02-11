@@ -10,6 +10,9 @@ public class UI_PlayerTest : MonoBehaviour
     public Player player;
     public Button levelupTest;
     public Button damageTest;
+    public Button autoTest;
+
+    public Slider expSlider;
 
     [Header("Stats Text")]
     public TextMeshProUGUI levelText;
@@ -26,11 +29,14 @@ public class UI_PlayerTest : MonoBehaviour
     {
         levelupTest.onClick.AddListener(OnLevelupTest);
         damageTest.onClick.AddListener(OnDamageTest);
+        autoTest.onClick.AddListener(OnAutoTest);
     }
+
 
     private void Update()
     {
         UpdateStatsUI();
+        expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
     }
 
     private void UpdateStatsUI()
@@ -38,28 +44,28 @@ public class UI_PlayerTest : MonoBehaviour
         if (player == null || player.Stats == null) return;
 
         if (levelText != null)
-            levelText.text = $"Level: {player.Stats.Level}";
+            levelText.text = $"Level: {player.Stats.CurrentLevel}";
         
         if (hpText != null)
-            hpText.text = $"HP: {player.Stats.currentHp:F0}/{player.Stats.MaxHp}";
+            hpText.text = $"HP: {player.Stats.currentHp:F0}/{player.Stats.CurrentMaxHp}";
         
         if (expText != null)
-            expText.text = $"EXP: {player.Stats.currentExp:F0}/{player.Stats.MaxExp}";
+            expText.text = $"EXP: {player.Stats.currentExp:F0}/{player.Stats.CurrentMaxExp}";
         
         if (atkText != null)
-            atkText.text = $"ATK: {player.Stats.ATK:F1}";
+            atkText.text = $"ATK: {player.Stats.CurrentATK:F1}";
         
         if (aspdText != null)
-            aspdText.text = $"ASPD: {player.Stats.Aspd:F2}";
+            aspdText.text = $"ASPD: {player.Stats.CurrentAspd:F2}";
         
         if (criticalText != null)
-            criticalText.text = $"CRIT: {player.Stats.Critical:F1}%";
+            criticalText.text = $"CRIT: {player.Stats.CurrentCritical:F1}%";
         
         if (catkText != null)
-            catkText.text = $"CATK: {player.Stats.CATK * 100:F0}%";
+            catkText.text = $"CATK: {player.Stats.CurrentATK * 100:F0}%";
         
         if (mspdText != null)
-            mspdText.text = $"MSPD: {player.Stats.Mspd:F1}";
+            mspdText.text = $"MSPD: {player.Stats.CurrentMspd:F1}";
         
         if (dashCountText != null)
             dashCountText.text = $"DASH: {player.CurrentDashCount}/{player.MaxDashCount}";
@@ -74,7 +80,21 @@ public class UI_PlayerTest : MonoBehaviour
     {
         if (player.Stats != null)
         {
-            player.Stats.currentExp += player.Stats.MaxExp;
+            player.Stats.currentExp += player.Stats.CurrentMaxExp;
+        }
+    }
+
+    private void OnAutoTest()
+    {
+        if(player.isAuto == false)
+        {
+            player.isAuto = true;
+            autoTest.image.color = Color.blue;
+        }
+        else
+        {
+            player.isAuto = false;
+            autoTest.image.color = Color.white;
         }
     }
 }

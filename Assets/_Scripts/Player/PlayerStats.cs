@@ -72,7 +72,7 @@ public class PlayerStats : ScriptableObject
         get => Exp;
         set
         {
-            Exp = (int)value;
+            Exp = value;
             OnExpChanged?.Invoke(Exp);
             if (Exp >= MaxExp)
             {
@@ -87,8 +87,11 @@ public class PlayerStats : ScriptableObject
         get => Level;
         set
         {
-            Level = value;
-            OnLevelUp?.Invoke(Level);
+            if (Level != value)  // 값이 변경될 때만 이벤트 발생
+            {
+                Level = value;
+                OnLevelUp?.Invoke(Level);
+            }
         }
     }
 
@@ -301,10 +304,17 @@ public class PlayerStats : ScriptableObject
 
     public void LevelUp()
     {
-        Level++;
-        currentHp = MaxHp;
-
+        Debug.Log("레벨업");
+        Level += 1;
         OnLevelUp?.Invoke(Level);
+        Debug.Log($"현재 레벨: {Level}");
+        CurrentMaxExp = CalculateNextLevelExp();
+        currentHp = MaxHp;
+    }
+
+    private int CalculateNextLevelExp()
+    {
+        return (int)(100 * (1 + (Level - 1) * 0.2f));
     }
 
     //데미지 판정을 여기서??? 

@@ -14,11 +14,6 @@ public class Warrior : Player
         //InitializeClassType();
     }
 
-    private void Start()
-    {
-        stats.OnLevelUp += HandleLevelUp;
-    }
-
     #region Initialize
     protected override void InitializeStateHandler()
     {
@@ -34,7 +29,7 @@ public class Warrior : Player
     protected override void InitializeStats()
     {
         stats = ScriptableObject.CreateInstance<PlayerStats>();
-        stats.Level = 1;
+        stats.CurrentLevel = 1;
         stats.OnLevelUp += HandleLevelUp;
     }
 
@@ -81,10 +76,6 @@ public class Warrior : Player
         UpdateStats();
     }
 
-    protected override void HandleSkillInput()
-    {
-        // 스킬 입력은 각 상태에서 처리하므로 여기서는 아무것도 하지 않음
-    }
 
 
     private void OnDestroy()

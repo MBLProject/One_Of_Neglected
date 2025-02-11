@@ -7,6 +7,7 @@ TagManager:
   - BlessNode
   - Undefined
   - Monster
+  - Exp
   layers:
   - Default
   - TransparentFX
