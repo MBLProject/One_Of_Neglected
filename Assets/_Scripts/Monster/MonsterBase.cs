@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -72,32 +72,32 @@ public abstract class MonsterBase : MonoBehaviour
     {
         if (stateHandler == null) return;
 
-        // 플레이어가 공격 범위 내에 있는지 체크
-        if (IsPlayerInAttackRange())
+        bool playerInRange = IsPlayerInAttackRange();
+
+        // 현재 상태가 공격 상태일 때
+        if (stateHandler.CurrentState is MonsterAttackState || stateHandler.CurrentState is RangedAttackState)
         {
-            // 현재 상태가 공격 상태가 아닐 때만 전환
-            if (!(stateHandler.CurrentState is MonsterAttackState) &&
-                !(stateHandler.CurrentState is RangedAttackState))
+            // 플레이어가 범위를 벗어나면 즉시 이동 상태로 전환
+            if (!playerInRange)
             {
-                // 몬스터 타입에 따라 적절한 공격 상태로 전환
+                stateHandler.ChangeState(typeof(MonsterMoveState));
+            }
+        }
+        // 현재 상태가 이동 상태일 때
+        else if (stateHandler.CurrentState is MonsterMoveState)
+        {
+            // 플레이어가 범위 안에 있으면 공격 상태로 전환
+            if (playerInRange)
+            {
                 Type attackStateType = this is RangedMonster
                     ? typeof(RangedAttackState)
                     : typeof(MonsterAttackState);
-
                 stateHandler.ChangeState(attackStateType);
             }
         }
-
-        // 공격 범위를 벗어나면 이동 상태로
-        if (!IsPlayerInAttackRange() &&
-            (stateHandler.CurrentState is MonsterAttackState ||
-             stateHandler.CurrentState is RangedAttackState))
-        {
-            stateHandler.ChangeState(typeof(MonsterMoveState));
-        }
     }
 
-    protected virtual bool IsPlayerInAttackRange()
+    public virtual bool IsPlayerInAttackRange()
     {
         if (playerTransform == null) return false;
         return Vector2.Distance(transform.position, playerTransform.position) <= stats.attackRange;

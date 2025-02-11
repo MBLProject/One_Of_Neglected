@@ -11,11 +11,11 @@ public abstract class RangedMonster : MonsterBase
     protected override void InitializeStateHandler()
     {
         stateHandler = new StateHandler<MonsterBase>(this);
-        stateHandler.RegisterState(new MonsterIdleState(stateHandler));
+        //stateHandler.RegisterState(new MonsterIdleState(stateHandler));
         stateHandler.RegisterState(new MonsterMoveState(stateHandler));
         stateHandler.RegisterState(new RangedAttackState(stateHandler));
         stateHandler.RegisterState(new MonsterDieState(stateHandler));
-        stateHandler.ChangeState(typeof(MonsterIdleState));
+        stateHandler.ChangeState(typeof(MonsterMoveState));
     }
 
     /// <summary>
