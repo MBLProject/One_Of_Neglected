@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 public abstract class MonsterBase : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public abstract class MonsterBase : MonoBehaviour
     [Header("기본 컴포넌트")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Animator animator;
+    [SerializeField] private float dieAnimationLength = 1f;
+    private bool isDying = false;
     protected Transform playerTransform;
 
     protected MonsterStats stats;
@@ -84,14 +88,39 @@ public abstract class MonsterBase : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         stats.currentHealth -= damage;
+        animator?.SetTrigger("Hit");
         if (stats.currentHealth <= 0)
         {
             Die();
         }
     }
 
-    protected virtual void Die()
+    protected virtual async void Die()
     {
-        Destroy(gameObject);
+        if (isDying) return;
+        isDying = true;
+
+        stateHandler.ChangeState(typeof(MonsterDieState));
+        try
+        {
+            await UniTask.Delay((int)(dieAnimationLength * 1000));
+
+            OnMonsterDestroy();
+
+            //UnitManager.Instance.RemoveMonster(this);
+        }
+        finally
+        {
+            // 항상 오브젝트 제거 실행
+            if (this != null && gameObject != null)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    protected virtual void OnMonsterDestroy()
+    {
+        Debug.Log("경험치 드롭");
     }
 }

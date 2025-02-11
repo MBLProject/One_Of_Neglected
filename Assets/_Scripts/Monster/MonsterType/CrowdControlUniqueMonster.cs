@@ -8,7 +8,7 @@ public class CrowdControlUniqueMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 160f,
-            speed: 3.2f,
+            speed: 1f,
             damage: 15f,
             range: 3f,
             cooldown: 2f

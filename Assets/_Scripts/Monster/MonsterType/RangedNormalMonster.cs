@@ -9,7 +9,7 @@ public class RangedNormalMonster : RangedMonster
     {
         stats = new MonsterStats(
             health: 60f,
-            speed: 2.5f,
+            speed: 0.8f,
             damage: 8f,
             range: 5f,
             cooldown: 1.5f

@@ -9,7 +9,7 @@ public class TankUniqueMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 300f,
-            speed: 2.5f,
+            speed: 1f,
             damage: 20f,
             range: 2f,
             cooldown: 1.5f

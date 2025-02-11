@@ -8,7 +8,7 @@ public class MidGameMeleeMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 120f,
-            speed: 3.5f,
+            speed: 1f,
             damage: 15f,
             range: 1.5f,
             cooldown: 0.8f

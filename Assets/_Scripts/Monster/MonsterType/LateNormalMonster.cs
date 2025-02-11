@@ -8,7 +8,7 @@ public class LateNormalMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 200f,
-            speed: 4f,
+            speed: 1f,
             damage: 25f,
             range: 1.5f,
             cooldown: 0.7f
