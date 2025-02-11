@@ -8,19 +8,37 @@ public class WarriorIdleState : BaseState<Player>
 
     public override void Enter(Player player)
     {
-        player.Animator?.SetBool("IsMoving", false);
         player.Animator?.SetTrigger("Idle");
     }
 
     public override void Update(Player player)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetMouseButton(1))
         {
-            handler.ChangeState(typeof(WarriorDashState));
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            player.targetPosition = new Vector2(worldPosition.x, worldPosition.y);
+            handler.ChangeState(typeof(WarriorMoveState));
+            return;
+        }
+        else if (horizontalInput != 0 || verticalInput != 0)
+        {
+            handler.ChangeState(typeof(WarriorMoveState));
             return;
         }
 
-        // 자동 전투 모드일 때
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (player.CanDash())
+            {
+                handler.ChangeState(typeof(WarriorDashState));
+                return;
+            }
+        }
+
         if (player.isAuto)
         {
             MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
@@ -28,24 +46,22 @@ public class WarriorIdleState : BaseState<Player>
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
                 
-                // 공격 범위 내에 있으면 공격
                 if (distance <= 0.3f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(WarriorAttackState));
+                    return;
                 }
-                // 범위 밖이면 이동
                 else
                 {
                     player.targetPosition = nearestMonster.transform.position;
                     handler.ChangeState(typeof(WarriorMoveState));
+                    return;
                 }
-                return;
             }
         }
         else
         {
-            // 기존의 일반 전투 로직
             MonsterBase nearestMonster = player.GetNearestMonster();
             if (nearestMonster != null)
             {

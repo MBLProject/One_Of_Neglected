@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SkillDispesner : MonoBehaviour
 {
-    public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
+    //public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
+    public List<Skill> skills = new List<Skill>();
 
     public int Count;
 
@@ -21,10 +22,13 @@ public class SkillDispesner : MonoBehaviour
         switch (skillName)
         {
             case Enums.SkillName.Needle:
-                skills.Add(skillName, new Needle(defaultCooldown));
+                print($"RegisterSkill : {skillName}");
+                var needle = new Needle(defaultCooldown);
+                needle.StartMainTask();
+                skills.Add(needle);
                 break;
             case Enums.SkillName.Fireball:
-                skills.Add(skillName, new Fireball(defaultCooldown));
+                //skills.Add(skillName, new Fireball(defaultCooldown));
                 break;
         }
     }

@@ -26,7 +26,7 @@ public class Magician : Player
 
     protected override void InitializeStats()
     {
-        stats = ScriptableObject.CreateInstance<PlayerStats>();
+        stats = new PlayerStats();
         stats.CurrentLevel = 1;
         stats.OnLevelUp += HandleLevelUp;
     }

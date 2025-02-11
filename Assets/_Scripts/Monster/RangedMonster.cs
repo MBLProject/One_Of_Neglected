@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class RangedMonster : MonsterBase
 {
     [Header("원거리 공격 설정")]
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected string projectileType = "RangedNormal";
     [SerializeField] protected float projectileSpeed = 5f;
 
     protected override void InitializeStateHandler()
@@ -23,15 +23,16 @@ public abstract class RangedMonster : MonsterBase
     /// </summary>
     public virtual void RangedAttack()
     {
-        if (projectilePrefab != null && playerTransform != null)
+        if (playerTransform != null)
         {
             Vector2 direction = (playerTransform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-            if (projectileRb != null)
-            {
-                projectileRb.velocity = direction * projectileSpeed;
-            }
+            ProjectileManager.Instance.SpawnMonsterProjectile(
+                projectileType,
+                transform.position,
+                direction,
+                projectileSpeed,
+                stats.attackDamage
+                );
         }
     }
 }
