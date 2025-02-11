@@ -24,7 +24,7 @@ public class SkillDispesner : MonoBehaviour
                 skills.Add(skillName, new Needle(defaultCooldown));
                 break;
             case Enums.SkillName.Fireball:
-                skills.Add(skillName, new Fireball());
+                skills.Add(skillName, new Fireball(defaultCooldown));
                 break;
         }
     }
