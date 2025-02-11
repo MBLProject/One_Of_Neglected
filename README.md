@@ -50,8 +50,11 @@
 [Todo]
 
 할일 목록 상세 설명
+
 &nbsp; @todo 카테고리
+
 &nbsp;- 실제 태스크
+
 <br></br>
 [Footer]
 
