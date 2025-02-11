@@ -4,6 +4,10 @@ public class Enums
     {
         None,
         Warrior,
+        Log,
+        Archer,
+        Magician,
+        Trapper,
     }
 
     public enum SkillName
@@ -22,6 +26,16 @@ public class Enums
         PoisonShoes,
         GravityField,
         Mine,
+    }
+
+    public enum ExpType
+    {
+        None,
+        White,
+        Green,
+        Blue,
+        Red,
+        Purple, // 고유 몬스터 처치시 획득, 일정레벨 이하에선 LV+1, 초과시 최대 경험치의 n%만큼 지급
     }
 }
 
