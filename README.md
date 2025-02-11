@@ -153,6 +153,60 @@ Closes #128
 &nbsp;&nbsp;&nbsp;• 이전 날짜의 미완료 TODO 자동 이전<br>
 &nbsp;&nbsp;&nbsp;• TODO 상태 (완료/미완료) 보존<br>
 &nbsp;&nbsp;&nbsp;• 중복 TODO 처리<br>
+&nbsp;&nbsp;&nbsp;• @카테고리 문법으로 TODO 항목 분류<br>
+&nbsp;&nbsp;&nbsp;• 대소문자 구분 없는 카테고리 처리<br>
+&nbsp;&nbsp;&nbsp;• 미분류 항목을 위한 General 카테고리 자동 생성<br>
+
+### 💫 카테고리 기능 사용법
+
+```markdown
+[Todo]
+@Combat
+
+- 몬스터 전투 시스템 구현
+- 플레이어 공격 패턴 추가
+
+@UI
+
+- 전투 UI 레이아웃 디자인
+- 데미지 표시 효과 구현
+
+@Sound
+
+- 전투 효과음 추가
+- BGM 전환 시스템 구현
+
+- 버그 수정 및 테스트 (자동으로 General 카테고리로 분류)
+```
+
+### 📑 카테고리 표시 형식
+
+```markdown
+<details>
+<summary>📑 General</summary>
+- [ ] 버그 수정 및 테스트
+</details>
+
+<details>
+<summary>📑 Combat</summary>
+- [ ] 몬스터 전투 시스템 구현
+- [x] 플레이어 공격 패턴 추가
+</details>
+
+<details>
+<summary>📑 UI</summary>
+- [ ] 전투 UI 레이아웃 디자인
+- [ ] 데미지 표시 효과 구현
+</details>
+```
+
+### ✨ 카테고리 기능 특징
+
+&nbsp;&nbsp;&nbsp;• `@카테고리명`으로 새 카테고리 생성 또는 전환<br>
+&nbsp;&nbsp;&nbsp;• 대소문자 구분 없이 동일 카테고리로 처리 (@COMBAT = @Combat)<br>
+&nbsp;&nbsp;&nbsp;• 원본 카테고리의 대소문자는 표시에서 유지<br>
+&nbsp;&nbsp;&nbsp;• 카테고리 없는 항목은 자동으로 General에 포함<br>
+&nbsp;&nbsp;&nbsp;• 카테고리별로 접었다 펼 수 있는 details 태그로 정리<br>
 
 ## ⚙️ 환경 설정
 
