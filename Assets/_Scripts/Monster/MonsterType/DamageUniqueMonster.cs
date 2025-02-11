@@ -8,7 +8,7 @@ public class DamageUniqueMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 150f,
-            speed: 3.8f,
+            speed: 1f,
             damage: 35f,
             range: 2f,
             cooldown: 1.2f

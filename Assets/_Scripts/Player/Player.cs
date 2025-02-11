@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static Enums;
 using Random = UnityEngine.Random;
 
@@ -42,7 +39,6 @@ public abstract class Player : MonoBehaviour
     [SerializeField] public StatViewer statViewer;
     [SerializeField] private SpriteRenderer modelRenderer;
 
-    // 오토 체크!
     public bool isAuto = false; 
 
     protected StateHandler<Player> stateHandler;
@@ -64,6 +60,8 @@ public abstract class Player : MonoBehaviour
 
     public float DashRechargeTimer => dashRechargeTimer;
     public float DashRechargeTime => dashRechargeTime;
+    public int CurrentDashCount => currentDashCount;
+    public int MaxDashCount => maxDashCount;
 
     public Animator Animator => animator;
     public PlayerStats Stats
@@ -75,10 +73,7 @@ public abstract class Player : MonoBehaviour
     public ClassType ClassType { get; protected set; }
 
     public ParticleSystem DashEffect => dashEffect;
-    public int CurrentDashCount => currentDashCount;
-    public int MaxDashCount => maxDashCount;
 
-    public List<MonsterBase> monCheckList = new List<MonsterBase>();
 
     protected virtual void Awake()
     {
@@ -94,6 +89,17 @@ public abstract class Player : MonoBehaviour
         {
             dashEffect.Stop();
         }
+    }
+    private void Start()
+    {
+        stats.OnLevelUp += dev;
+    }
+
+    private void dev(int obj)
+    {
+        Debug.Log($"dev 호출 !! 받는값 {obj}");
+        statViewer.Level = obj;
+        UpdateStats();
     }
 
     private void Update()
@@ -117,32 +123,6 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    private void UpdateDashRecharge()
-    {
-        if (currentDashCount < maxDashCount)
-        {
-            dashRechargeTimer += Time.deltaTime;
-            if (dashRechargeTimer >= dashRechargeTime)
-            {
-                dashRechargeTimer = 0f;
-                currentDashCount++;
-            }
-        }
-    }
-
-    public bool CanDash()
-    {
-        return currentDashCount > 0;
-    }
-
-    public void ConsumeDash()
-    {
-        if (currentDashCount > 0)
-        {
-            currentDashCount--;
-        }
-    }
-
     protected abstract void InitializeStats();
     protected abstract void InitializeStateHandler();
     protected abstract void InitializeClassType();
@@ -155,6 +135,36 @@ public abstract class Player : MonoBehaviour
         }
     }
 
+    #region Dash
+    private void UpdateDashRecharge()
+    {
+        if (currentDashCount < maxDashCount)
+        {
+            dashRechargeTimer += Time.deltaTime;
+            if (dashRechargeTimer >= dashRechargeTime)
+            {
+                dashRechargeTimer = 0f;
+                currentDashCount++;
+            }
+        }
+    }
+    public bool CanDash()
+    {
+        return currentDashCount > 0;
+    }
+    public void ConsumeDash()
+    {
+        if (currentDashCount > 0)
+        {
+            currentDashCount--;
+        }
+    }
+    public void SetDashing(bool dashing)
+    {
+        isDashing = dashing;
+    }
+    #endregion
+
     public void SetSkillInProgress(bool inProgress, bool savePrevPosition = true)
     {
         isSkillInProgress = inProgress;
@@ -164,11 +174,6 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    public void SetDashing(bool dashing)
-    {
-        isDashing = dashing;
-    }
-
     public void MoveTo(Vector2 destination)
     {
         if (isDashing) return;
@@ -176,7 +181,7 @@ public abstract class Player : MonoBehaviour
         if (Vector2.Distance(transform.position, destination) > moveThreshold)
         {
             Vector2 direction = (destination - (Vector2)transform.position).normalized;
-            Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, stats.Mspd * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, stats.CurrentMspd * Time.deltaTime);
             
             transform.SetPositionAndRotation(new Vector3(newPosition.x, newPosition.y, transform.position.z), transform.rotation);
 
@@ -202,35 +207,27 @@ public abstract class Player : MonoBehaviour
     {
         if (stats != null)
         {
-            stats.Level = statViewer.Level;
-            stats.MaxExp = statViewer.MaxExp;
-            stats.Exp = statViewer.Exp;
-            stats.MaxHp = statViewer.MaxHp;
-            stats.Hp = statViewer.Hp;
-            stats.Recovery = statViewer.Recovery;
-            stats.Armor = statViewer.Armor;
-            stats.Mspd = statViewer.Mspd;
-            stats.ATK = statViewer.ATK;
-            stats.Aspd = statViewer.Aspd;
-            stats.Critical = statViewer.Critical;
-            stats.CATK = statViewer.CATK;
-            stats.Amount = statViewer.Amount;
-            stats.Area = statViewer.Area;
-            stats.Cooldown = statViewer.Cooldown;
-            stats.Revival = statViewer.Revival;
-            stats.Magnet = statViewer.Magnet;
-            stats.Growth = statViewer.Growth;
-            stats.Greed = statViewer.Greed;
-            stats.Curse = statViewer.Curse;
-            stats.Reroll = statViewer.Reroll;
-            stats.Banish = statViewer.Banish;
-        }
-    }
-    private void OnValidate()
-    {
-        if (stats != null)
-        {
-            UpdateStats();
+            stats.CurrentMaxExp = statViewer.MaxExp;
+            stats.currentExp = statViewer.Exp;
+            stats.CurrentMaxHp = statViewer.MaxHp;
+            stats.currentHp = statViewer.Hp;
+            stats.CurrentRecovery = statViewer.Recovery;
+            stats.CurrentArmor = statViewer.Armor;
+            stats.CurrentMspd = statViewer.Mspd;
+            stats.CurrentATK = statViewer.ATK;
+            stats.CurrentAspd = statViewer.Aspd;
+            stats.CurrentCritical = statViewer.Critical;
+            stats.CurrentCATK = statViewer.CATK;
+            stats.CurrentAmount = statViewer.Amount;
+            stats.CurrentArea = statViewer.Area;
+            stats.CurrentCooldown = statViewer.Cooldown;
+            stats.CurrentRevival = statViewer.Revival;
+            stats.CurrentMagnet = statViewer.Magnet;
+            stats.CurrentGrowth = statViewer.Growth;
+            stats.CurrentGreed = statViewer.Greed;
+            stats.CurrentCurse = statViewer.Curse;
+            stats.CurrentReroll = statViewer.Reroll;
+            stats.CurrentBanish = statViewer.Banish;
         }
     }
 
@@ -254,6 +251,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
+    public List<MonsterBase> monCheckList = new List<MonsterBase>();
     public void Moncheck()
     {
         monCheckList.Clear();
@@ -313,15 +311,18 @@ public abstract class Player : MonoBehaviour
         FlipModel(direction.x < 0);
     }
 
-    protected abstract void HandleSkillInput();
+    public virtual void CalcDamage()
+    {
 
+    }
+    
     public virtual void TakeDamage(float damage)
     {
         bool isCritical = false;
         //몬스터도 크리확률이 있나?? 몰루??
-        if (Random.Range(0f, 100f) <= stats.Critical)
+        if (Random.Range(0f, 100f) <= stats.CurrentCritical)
         {
-            damage = Mathf.RoundToInt(damage * stats.CATK);
+            damage = Mathf.RoundToInt(damage * stats.CurrentCATK);
             isCritical = true;
         }
 
@@ -371,5 +372,41 @@ public abstract class Player : MonoBehaviour
         }
 
         return nearest;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Exp"))
+        {
+            ExpObject expObject = collision.gameObject.GetComponent<ExpObject>();
+            if(expObject.expType == ExpType.White)
+            {
+                stats.currentExp += 10;
+            }
+            else if (expObject.expType == ExpType.Green)
+            {
+                stats.currentExp += 20;
+            }
+            else if (expObject.expType == ExpType.Blue)
+            {
+                stats.currentExp += 30;
+            }
+            else if (expObject.expType == ExpType.Red)
+            {
+                stats.currentExp += 40;
+            }
+            else if (expObject.expType == ExpType.Purple)
+            {
+                stats.currentExp += 50;
+            }
+            expObject.selfDestroy();
+        }
+    }
+    private void OnValidate()
+    {
+        if (stats != null)
+        {
+            UpdateStats();
+        }
     }
 }

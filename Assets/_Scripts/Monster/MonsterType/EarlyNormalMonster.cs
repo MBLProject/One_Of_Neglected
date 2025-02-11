@@ -10,9 +10,9 @@ public class EarlyNormalMonster : NormalMonster
     {
         stats = new MonsterStats(
             health: 80f,
-            speed: 3f,
+            speed: 1f,
             damage: 10f,
-            range: 1.5f,
+            range: 0.2f,
             cooldown: 1f
         );
     }

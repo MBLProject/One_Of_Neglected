@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 public abstract class MonsterBase : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public abstract class MonsterBase : MonoBehaviour
     [Header("기본 컴포넌트")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Animator animator;
+    [SerializeField] private float dieAnimationLength = 1f;
+    private bool isDying = false;
     protected Transform playerTransform;
 
     protected MonsterStats stats;
@@ -22,6 +26,8 @@ public abstract class MonsterBase : MonoBehaviour
         InitializeStats();
         InitializeStateHandler();
     }
+
+
 
     protected virtual void InitializeComponents()
     {
@@ -45,9 +51,13 @@ public abstract class MonsterBase : MonoBehaviour
     {
         if (playerTransform == null) return;
 
+        // 이동 방향 계산
         Vector2 direction = (playerTransform.position - transform.position).normalized;
-        rb.velocity = direction * stats.moveSpeed;
 
+        // Transform을 사용한 이동
+        transform.position += (Vector3)(direction * stats.moveSpeed * Time.deltaTime);
+
+        // 스프라이트 방향 설정
         if (direction.x != 0)
         {
             transform.localScale = new Vector3(
@@ -62,15 +72,26 @@ public abstract class MonsterBase : MonoBehaviour
     {
         if (stateHandler == null) return;
 
-        // 플레이어가 공격 범위 내에 있는지만 체크
-        if (IsPlayerInAttackRange() && !(stateHandler.CurrentState.GetType() == typeof(MonsterAttackState)))
+        // 플레이어가 공격 범위 내에 있는지 체크
+        if (IsPlayerInAttackRange())
         {
-            stateHandler.ChangeState(typeof(MonsterAttackState));
-            return;
+            // 현재 상태가 공격 상태가 아닐 때만 전환
+            if (!(stateHandler.CurrentState is MonsterAttackState) &&
+                !(stateHandler.CurrentState is RangedAttackState))
+            {
+                // 몬스터 타입에 따라 적절한 공격 상태로 전환
+                Type attackStateType = this is RangedMonster
+                    ? typeof(RangedAttackState)
+                    : typeof(MonsterAttackState);
+
+                stateHandler.ChangeState(attackStateType);
+            }
         }
 
         // 공격 범위를 벗어나면 이동 상태로
-        if (!IsPlayerInAttackRange() && stateHandler.CurrentState.GetType() == typeof(MonsterAttackState))
+        if (!IsPlayerInAttackRange() &&
+            (stateHandler.CurrentState is MonsterAttackState ||
+             stateHandler.CurrentState is RangedAttackState))
         {
             stateHandler.ChangeState(typeof(MonsterMoveState));
         }
@@ -84,14 +105,39 @@ public abstract class MonsterBase : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         stats.currentHealth -= damage;
+        animator?.SetTrigger("Hit");
         if (stats.currentHealth <= 0)
         {
             Die();
         }
     }
 
-    protected virtual void Die()
+    protected virtual async void Die()
     {
-        Destroy(gameObject);
+        if (isDying) return;
+        isDying = true;
+
+        stateHandler.ChangeState(typeof(MonsterDieState));
+        try
+        {
+            await UniTask.Delay((int)(dieAnimationLength * 1000));
+
+            OnMonsterDestroy();
+
+            //UnitManager.Instance.RemoveMonster(this);
+        }
+        finally
+        {
+            // 항상 오브젝트 제거 실행
+            if (this != null && gameObject != null)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    protected virtual void OnMonsterDestroy()
+    {
+        Debug.Log("경험치 드롭");
     }
 }

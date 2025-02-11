@@ -10,6 +10,7 @@ public abstract class NormalMonster : MonsterBase
         stateHandler.RegisterState(new MonsterIdleState(stateHandler));
         stateHandler.RegisterState(new MonsterMoveState(stateHandler));
         stateHandler.RegisterState(new MonsterAttackState(stateHandler));
+        stateHandler.RegisterState(new MonsterDieState(stateHandler));
         stateHandler.ChangeState(typeof(MonsterIdleState));
     }
 

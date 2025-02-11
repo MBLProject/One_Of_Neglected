@@ -17,13 +17,13 @@ public class HPBar : MonoBehaviour
     {
         transform.rotation = Quaternion.identity;
 
-        float ratio = player.Stats.Hp / (float)player.Stats.MaxHp;
+        float ratio = player.Stats.currentHp / (float)player.Stats.CurrentMaxHp;
         hpBar.value = ratio;
     }
 
     private void UpdateHPBar(float currentHp)
     {
-        float ratio = currentHp / player.Stats.MaxHp;
+        float ratio = currentHp / player.Stats.CurrentMaxHp;
         hpBar.value = ratio;
     }
 
