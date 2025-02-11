@@ -13,12 +13,16 @@ public class MonsterAttackState : MonsterStateBase
         attackTimer = 0f;
         // 이동 애니메이션 중지
         entity.Animator?.SetBool("IsMoving", false);
-        // 공격 애니메이션 시작
-        entity.Animator?.SetTrigger("Attack");
     }
 
     public override void Update(MonsterBase entity)
     {
+        if (!entity.IsPlayerInAttackRange())
+        {
+            handler.ChangeState(typeof(MonsterMoveState));
+            return;
+        }
+
         attackTimer += Time.deltaTime;
 
         if (attackTimer >= entity.Stats.attackCooldown)
@@ -30,15 +34,20 @@ public class MonsterAttackState : MonsterStateBase
 
     public override void Exit(MonsterBase entity)
     {
-        // 공격 애니메이션 리셋
+        entity.Animator?.SetBool("IsMoving", true);
         entity.Animator?.ResetTrigger("Attack");
     }
 
     private void PerformAttack(MonsterBase entity)
     {
-        //entity.Animator?.SetTrigger("Attack");
-        // 여기에 플레이어 데미지 주는 로직 구현
-        // 예: player.TakeDamage(entity.attackDamage);
+        // 공격 시도 전에 다시 한번 거리 체크
+        if (!entity.IsPlayerInAttackRange())
+        {
+            handler.ChangeState(typeof(MonsterMoveState));
+            return;
+        }
+
+        entity.Animator?.SetTrigger("Attack");
         Debug.Log("Monster attacks player!");
     }
 }
