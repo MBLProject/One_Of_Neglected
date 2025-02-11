@@ -9,9 +9,14 @@ public class Skill
 
     private bool isSkillActive = false;
 
+    protected Skill(Enums.SkillName skillName, float defaultCooldown)
+    {
+        this.skillName = skillName;
+        this.defaultCooldown = defaultCooldown;
+    }
+
     private async void Start()
     {
-
         await StartSkill();
     }
 
