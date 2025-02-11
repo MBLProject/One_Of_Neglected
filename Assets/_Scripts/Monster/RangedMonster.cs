@@ -14,6 +14,7 @@ public abstract class RangedMonster : MonsterBase
         stateHandler.RegisterState(new MonsterIdleState(stateHandler));
         stateHandler.RegisterState(new MonsterMoveState(stateHandler));
         stateHandler.RegisterState(new RangedAttackState(stateHandler));
+        stateHandler.RegisterState(new MonsterDieState(stateHandler));
         stateHandler.ChangeState(typeof(MonsterIdleState));
     }
 

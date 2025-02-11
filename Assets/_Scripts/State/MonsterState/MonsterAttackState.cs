@@ -10,6 +10,11 @@ public class MonsterAttackState : MonsterStateBase
 
     public override void Enter(MonsterBase entity)
     {
+        attackTimer = 0f;
+        // 이동 애니메이션 중지
+        entity.Animator?.SetBool("IsMoving", false);
+        // 공격 애니메이션 시작
+        entity.Animator?.SetTrigger("Attack");
     }
 
     public override void Update(MonsterBase entity)
@@ -23,9 +28,15 @@ public class MonsterAttackState : MonsterStateBase
         }
     }
 
+    public override void Exit(MonsterBase entity)
+    {
+        // 공격 애니메이션 리셋
+        entity.Animator?.ResetTrigger("Attack");
+    }
+
     private void PerformAttack(MonsterBase entity)
     {
-        entity.Animator?.SetTrigger("Attack");
+        //entity.Animator?.SetTrigger("Attack");
         // 여기에 플레이어 데미지 주는 로직 구현
         // 예: player.TakeDamage(entity.attackDamage);
         Debug.Log("Monster attacks player!");
