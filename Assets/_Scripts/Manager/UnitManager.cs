@@ -107,7 +107,10 @@ public class UnitManager : MonoBehaviour
         }
 
         GameObject playerObj = Instantiate(playerPrefab, position, Quaternion.identity);
+        playerObj.AddComponent<SkillDispesner>();
+
         currentPlayer = playerObj.GetComponent<Player>();
+
         return currentPlayer;
     }
     public void StartGame()

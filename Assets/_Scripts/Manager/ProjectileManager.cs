@@ -26,13 +26,15 @@ public class ProjectileManager : Singleton<ProjectileManager>
     public void SpawnProjectile(Enums.SkillName skillName)
     {
         // TODO : create correct Projectile by SkillName with Dictionary key
-
+        
         Vector3 startPosition = Vector3.zero; // TODO : player pos
         Vector3 direction = Random.insideUnitCircle.normalized; // TODO : closest monster
         float speed = 1f;
 
         MonsterProjectile projectile = Instantiate(projectiles[skillName]);
         projectile.InitProjectile(startPosition, direction, speed, 10f);
+
+        print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, direction : {direction}, speed : {speed}");
 
         activeProjectiles.Add(projectile);
     }

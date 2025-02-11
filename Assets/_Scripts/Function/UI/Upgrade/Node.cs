@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public NodeDefine nodeDefine;
-    public ATKNode ATK_Node;
-    public DEFNode DEF_Node;
-    public UILNode UIL_Node;
+    public ATK_Bless ATK_Node;
+    public DEF_Bless DEF_Node;
+    public UIL_Bless UIL_Node;
     //다음 노드
     public List<Node> next_Nodes;
     //이전 노드
