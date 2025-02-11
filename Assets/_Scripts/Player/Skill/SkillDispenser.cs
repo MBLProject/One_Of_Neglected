@@ -1,19 +1,41 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillDispesner : MonoBehaviour
 {
     public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
 
-    void Start()
+    public int Count;
+
+    private void Update()
     {
-        //skills.Add(Enums.SkillName.Aura, new Skill(Enums.SkillName.Aura, 1.5f));
-        //skills.Add(Enums.SkillName.Ifrit, new Skill(Enums.SkillName.Ifrit, 2.0f));
-        //skills.Add(Enums.SkillName.GravityField, new Skill(Enums.SkillName.GravityField, 3.0f));
+        // for Debug
+        Count = skills.Count;
+
+        if (Input.GetKeyUp(KeyCode.A))
+            RegisterSkill(Enums.SkillName.Needle, 1f);
     }
 
-    void Update()
+    public void RegisterSkill(Enums.SkillName skillName, float defaultCooldown)
     {
+        switch (skillName)
+        {
+            case Enums.SkillName.Needle:
+                skills.Add(skillName, new Needle(defaultCooldown));
+                break;
+            case Enums.SkillName.Fireball:
+                skills.Add(skillName, new Fireball());
+                break;
+        }
+    }
+
+    public void UnRegisterSkill(Enums.SkillName skillName)
+    {
+
+    }
+
+    public void UpdateSkill(Enums.SkillName skillName)
+    {
+
     }
 }

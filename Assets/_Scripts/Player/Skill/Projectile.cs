@@ -45,10 +45,11 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-    public void InitProjectile(Vector3 startPos, Vector3 dir, float spd)
+    public void InitProjectile(Vector3 startPos, Vector3 dir, float spd, float maxDist)
     {
         playerPosition = startPos;
         direction = dir;
         speed = spd;
+        maxDistance = maxDist;
     }
 }
