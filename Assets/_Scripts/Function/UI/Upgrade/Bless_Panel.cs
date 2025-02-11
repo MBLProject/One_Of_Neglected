@@ -15,6 +15,7 @@ public enum NodeDefine
 }
 public enum ATK_Bless
 {
+    None,
     ATK_INCREASE,
     PROJECTILE_INCREASE,
     ATK_SPEED_INCREASE,
@@ -26,6 +27,7 @@ public enum ATK_Bless
 }
 public enum DEF_Bless
 {
+    None,
     MAX_HP_INCREASE,
     DEFENSE_INCREASE,
     HP_REGEN_INCREASE,
@@ -34,8 +36,9 @@ public enum DEF_Bless
     INVINCIBILITY,
     ADVERSARY
 }
-public enum UIL_Bless
+public enum UTI_Bless
 {
+    None,
     ATK_RANGE,
     DURATION,
     COOLDOWN,
@@ -47,6 +50,7 @@ public enum UIL_Bless
 }
 public class Bless_Panel : Panel
 {
+    public Bless bless;
     //공통된걸 등록해줄 리스트
     public List<Node> ATK_Node_List;
     public List<Node> DEF_Node_List;
@@ -54,18 +58,18 @@ public class Bless_Panel : Panel
 
     private void Awake()
     {
-        Node_Initialize(ATK_Node_List);
-        Node_Initialize(DEF_Node_List);
-        Node_Initialize(UIL_Node_List);
+
     }
 
     private void Start()
     {
-
+        Node_Initialize(ref ATK_Node_List);
+        Node_Initialize(ref DEF_Node_List);
+        Node_Initialize(ref UIL_Node_List);
     }
 
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
-    private void Node_Initialize(List<Node> nodes)
+    private void Node_Initialize(ref List<Node> nodes)
     {
         foreach (Node node in nodes)
         {   //딕셔너리에 없으면 추가
@@ -77,55 +81,122 @@ public class Bless_Panel : Panel
             {
                 node.clicked = true;
                 node.can_Revert = true;
+                node.can_Interactable = false;
             }
-
+            ByNodeDefine(node);
+        }
+    }
+    private void ByNodeDefine(Node node)
+    {
+        switch (node.nodeDefine)
+        {
+            case NodeDefine.ATK:
+                Add_ATK_Bless(node);
+                break;
+            case NodeDefine.DEF:
+                Add_DEF_Bless(node);
+                break;
+            case NodeDefine.UIL:
+                Add_UTI_Bless(node);
+                break;
+        }
+    }
+    private void Add_ATK_Bless(Node node)
+    {
+        switch (node.ATK_Bless)
+        {
+            case ATK_Bless.ATK_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.ATK_Increase);
+                break;
+            case ATK_Bless.PROJECTILE_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.Projectile_Increase);
+                break;
+            case ATK_Bless.ATK_SPEED_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.ATKSpeed_Increase);
+                break;
+            case ATK_Bless.CRITICAL_DAMAGE_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.CriticalDamage_Increase);
+                break;
+            case ATK_Bless.CRITICAL_PERCENT_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.CriticalPercent_Increase);
+                break;
+            case ATK_Bless.PROJECTILE_DESTROY:
+                node.m_BTN.onClick.AddListener(bless.Projectile_Destroy);
+                break;
+            case ATK_Bless.PROJECTILE_PARRY:
+                node.m_BTN.onClick.AddListener(bless.Projectile_Parry);
+                break;
+            case ATK_Bless.GOD_KILL:
+                node.m_BTN.onClick.AddListener(bless.God_Kill);
+                break;
+            default:
+                Debug.Log("공격 메서드가 리스너에 구독 안됨");
+                break;
+        }
+    }
+    private void Add_DEF_Bless(Node node)
+    {
+        switch (node.DEF_Bless)
+        {
+            case DEF_Bless.MAX_HP_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.MaxHP_Increase);
+                break;
+            case DEF_Bless.DEFENSE_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.Defense_Increase);
+                break;
+            case DEF_Bless.HP_REGEN_INCREASE:
+                node.m_BTN.onClick.AddListener(bless.HPRegen_Increase);
+                break;
+            case DEF_Bless.BARRIER_ACTIVATE:
+                node.m_BTN.onClick.AddListener(bless.Barrier_Activate);
+                break;
+            case DEF_Bless.BARRIER_COOLDOWN:
+                node.m_BTN.onClick.AddListener(bless.Barrier_Cooldown);
+                break;
+            case DEF_Bless.INVINCIBILITY:
+                node.m_BTN.onClick.AddListener(bless.Invincibility);
+                break;
+            case DEF_Bless.ADVERSARY:
+                node.m_BTN.onClick.AddListener(bless.Adversary);
+                break;
+            default:
+                Debug.Log("방어 메서드가 리스너에 구독 안됨");
+                break;
         }
     }
 
-    private void AddListener_Bless()
+    private void Add_UTI_Bless(Node node)
     {
-
+        switch (node.UTI_Bless)
+        {
+            case UTI_Bless.ATK_RANGE:
+                node.m_BTN.onClick.AddListener(bless.ATK_Range);
+                break;
+            case UTI_Bless.DURATION:
+                node.m_BTN.onClick.AddListener(bless.Duration);
+                break;
+            case UTI_Bless.COOLDOWN:
+                node.m_BTN.onClick.AddListener(bless.Cooldown);
+                break;
+            case UTI_Bless.RESURRECTION:
+                node.m_BTN.onClick.AddListener(bless.Resurrection);
+                break;
+            case UTI_Bless.MAGNET:
+                node.m_BTN.onClick.AddListener(bless.Magnet);
+                break;
+            case UTI_Bless.GROWTH:
+                node.m_BTN.onClick.AddListener(bless.Growth);
+                break;
+            case UTI_Bless.AVARICE:
+                node.m_BTN.onClick.AddListener(bless.Avarice);
+                break;
+            case UTI_Bless.DASH:
+                node.m_BTN.onClick.AddListener(bless.Dash);
+                break;
+            default:
+                Debug.Log("유틸 메서드가 리스너에 구독 안됨");
+                break;
+        }
     }
-
-    // //노드별 리스너 구독
-    // private void ButtonInit(List<Node> nodes, Node bro_Node)
-    // {
-    //     for (int i = 0; i < nodes.Count - 3; i++)
-    //     {
-    //         nodes[i].m_BTN.onClick.AddListener(ActiveNextNode(nodes[i + 1]));
-    //         nodes[i].m_BTN.onClick.AddListener(ChangeDicVal(nodes[i], true));
-    //     }
-
-    //     for (int k = nodes.Count - 3; k < nodes.Count; k++)
-    //     {
-    //         if (k == 13)
-    //         {
-    //             nodes[k].m_BTN.onClick.AddListener(CheckBroNode(nodes, bro_Node));
-    //         }
-    //         if (k == 14)
-    //         {
-    //             nodes[k].m_BTN.onClick.AddListener(ActiveNextNode(nodes[k + 1]));
-    //         }
-    //         nodes[k].m_BTN.onClick.AddListener(ChangeDicVal(nodes[k], true));
-    //     }
-    // }
-
-    // //형제노드 활성화에 따라 다음 노드 활성화 체크
-    // private UnityAction CheckBroNode(List<Node> nodes, Node bro_Node)
-    // {
-    //     return () => nodes[14].m_BTN.interactable = DataManager.Instance.bless_Dic[bro_Node];
-    // }
-
-    // //다음 노드 활성화
-    // private UnityAction ActiveNextNode(Node nextNode)
-    // {
-    //     return () => nextNode.m_BTN.interactable = true;
-    // }
-
-    // //노드 활성화 시 딕셔너리 밸류 변경
-    // private UnityAction ChangeDicVal(Node clickedNode, bool value)
-    // {
-    //     return () => DataManager.Instance.bless_Dic[clickedNode] = value;
-    // }
 
 }

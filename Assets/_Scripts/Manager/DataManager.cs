@@ -31,11 +31,22 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadData()
     {
+        if (!File.Exists(path + "BlessData"))
+        {
+            SaveData();
+        }
         string fromJsonData_Bless = File.ReadAllText(path + "BlessData");
-        Debug.Log(fromJsonData_Bless);
-        dicDataTable.bless_Table =
-        DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
-        bless_Dic = dicDataTable.bless_Table;
+        try
+        {
+            dicDataTable.bless_Table =
+            DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
+            bless_Dic = dicDataTable.bless_Table;
+        }
+        catch
+        {
+            bless_Dic = dicDataTable.bless_Table;
+        }
+
     }
 
 }

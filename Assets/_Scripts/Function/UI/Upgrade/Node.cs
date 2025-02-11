@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public NodeDefine nodeDefine;
-    public ATK_Bless ATK_Node;
-    public DEF_Bless DEF_Node;
-    public UIL_Bless UIL_Node;
-    //다음 노드
+    public ATK_Bless ATK_Bless;
+    public DEF_Bless DEF_Bless;
+    public UTI_Bless UTI_Bless;
+    //다음 노드utility
     public List<Node> next_Nodes;
     //이전 노드
     public List<Node> prev_Nodes;
