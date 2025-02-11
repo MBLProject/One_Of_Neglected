@@ -8,12 +8,12 @@ using System;
 [Serializable]
 public class DicDataTable
 {
-    public Dictionary<Button, bool> bless_Table = new Dictionary<Button, bool>();
+    public Dictionary<Node, bool> bless_Table = new Dictionary<Node, bool>();
 }
 public class DataManager : Singleton<DataManager>
 {
     public DicDataTable dicDataTable = new DicDataTable();
-    public Dictionary<Button, bool> bless_Dic = new Dictionary<Button, bool>();
+    public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
 
     string path = "Assets/Resources/SaveFile/";
     protected override void Awake()
@@ -32,8 +32,9 @@ public class DataManager : Singleton<DataManager>
     public void LoadData()
     {
         string fromJsonData_Bless = File.ReadAllText(path + "BlessData");
+        Debug.Log(fromJsonData_Bless);
         dicDataTable.bless_Table =
-        DictionaryJsonUtility.FromJson<Button, bool>(fromJsonData_Bless);
+        DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
         bless_Dic = dicDataTable.bless_Table;
     }
 

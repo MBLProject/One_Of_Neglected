@@ -6,26 +6,69 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+public enum NodeDefine
+{
+    ATK,
+    DEF,
+    UIL
+}
+public enum ATKNode
+{
+    Power,
+    Proj,
+    ATKSpeed,
+    CriDamage,
+    CriPercent,
+    Proj_Destroy,
+    Proj_Parry,
+    God_Kill
+}
+public enum DEFNode
+{
+    MAXHp,
+    DEF,
+    HPRegen,
+    Barrier,
+    BarrierRegen,
+    Invincibility,
+    Adversary
+}
+public enum UILNode
+{
+    ATKRange,
+    Duration,
+    Colldown,
+    Resurrection,
+    Magnet,
+    Growth,
+    Avarice,
+    MovingSkill
+}
 public class Bless_Panel : Panel
 {
-    public List<Button> attack_Left;
-    public List<Button> attack_Right;
-    public List<Button> deffence_Left;
-    public List<Button> deffence_Right;
-    public List<Button> utility_Left;
-    public List<Button> utility_Right;
+    public List<Node> attack_Left;
+    public List<Node> attack_Right;
+    public List<Node> deffence_Left;
+    public List<Node> deffence_Right;
+    public List<Node> utility_Left;
+    public List<Node> utility_Right;
     public Queue<Button> revertTarget = new Queue<Button>();
+
+    //공통된걸 등록해줄 리스트
+    public List<Node> ATK_Node_List;
+    public List<Node> DEF_Node_List;
+    public List<Node> UIL_Node_List;
+
+    public LinkedList<Button> test;
 
     private void Awake()
     {
-
-        Dic_Setting(attack_Left);
-        Dic_Setting(attack_Right);
-        Dic_Setting(deffence_Right);
-        Dic_Setting(deffence_Left);
-        Dic_Setting(utility_Right);
-        Dic_Setting(utility_Left);
+        // Dic_Setting(attack_Left);
+        // Dic_Setting(attack_Right);
+        // Dic_Setting(deffence_Right);
+        // Dic_Setting(deffence_Left);
+        // Dic_Setting(utility_Right);
+        // Dic_Setting(utility_Left);
     }
 
     private void Start()
@@ -40,59 +83,60 @@ public class Bless_Panel : Panel
     }
 
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
-    private void Dic_Setting(List<Button> buttons)
+    private void Dic_Setting(List<Node> nodes)
     {
-        foreach (Button button in buttons)
+        foreach (Node node in nodes)
         {
-            if (DataManager.Instance.bless_Dic.ContainsKey(button) == false)
-                DataManager.Instance.bless_Dic.Add(button, false);
+            if (DataManager.Instance.bless_Dic.ContainsKey(node) == false)
+                DataManager.Instance.bless_Dic.Add(node, false);
             else
             {
-                if (DataManager.Instance.bless_Dic[button])
+                if (DataManager.Instance.bless_Dic[node])
                 {
-                    button.interactable = true;
+                    node.can_Interactable = true;
                 }
             }
         }
+
     }
 
     //노드별 리스너 구독
-    private void ButtonInit(List<Button> m_Buttons, Button bro_BTN)
+    private void ButtonInit(List<Node> nodes, Node bro_Node)
     {
-        for (int i = 0; i < m_Buttons.Count - 3; i++)
+        for (int i = 0; i < nodes.Count - 3; i++)
         {
-            m_Buttons[i].onClick.AddListener(ActiveNextNode(m_Buttons[i + 1]));
-            m_Buttons[i].onClick.AddListener(ChangeDicVal(m_Buttons[i], true));
+            nodes[i].m_BTN.onClick.AddListener(ActiveNextNode(nodes[i + 1]));
+            nodes[i].m_BTN.onClick.AddListener(ChangeDicVal(nodes[i], true));
         }
 
-        for (int k = m_Buttons.Count - 3; k < m_Buttons.Count; k++)
+        for (int k = nodes.Count - 3; k < nodes.Count; k++)
         {
             if (k == 13)
             {
-                m_Buttons[k].onClick.AddListener(CheckBroNode(m_Buttons, bro_BTN));
+                nodes[k].m_BTN.onClick.AddListener(CheckBroNode(nodes, bro_Node));
             }
             if (k == 14)
             {
-                m_Buttons[k].onClick.AddListener(ActiveNextNode(m_Buttons[k + 1]));
+                nodes[k].m_BTN.onClick.AddListener(ActiveNextNode(nodes[k + 1]));
             }
-            m_Buttons[k].onClick.AddListener(ChangeDicVal(m_Buttons[k], true));
+            nodes[k].m_BTN.onClick.AddListener(ChangeDicVal(nodes[k], true));
         }
     }
 
     //형제노드 활성화에 따라 다음 노드 활성화 체크
-    private UnityAction CheckBroNode(List<Button> m_Buttons, Button bro_BTN)
+    private UnityAction CheckBroNode(List<Node> nodes, Node bro_Node)
     {
-        return () => m_Buttons[14].interactable = DataManager.Instance.bless_Dic[bro_BTN];
+        return () => nodes[14].m_BTN.interactable = DataManager.Instance.bless_Dic[bro_Node];
     }
 
     //다음 노드 활성화
-    private UnityAction ActiveNextNode(Button nextNode)
+    private UnityAction ActiveNextNode(Node nextNode)
     {
-        return () => nextNode.interactable = true;
+        return () => nextNode.m_BTN.interactable = true;
     }
 
     //노드 활성화 시 딕셔너리 밸류 변경
-    private UnityAction ChangeDicVal(Button clickedNode, bool value)
+    private UnityAction ChangeDicVal(Node clickedNode, bool value)
     {
         return () => DataManager.Instance.bless_Dic[clickedNode] = value;
     }
