@@ -24,7 +24,7 @@ public class StatViewer
     [Tooltip("지속시간")] public float Duration;
     [Tooltip("쿨타임")] public float Cooldown;
     [Tooltip("부활 횟수")] public int Revival;
-    [Tooltip("재화 습득범위")] public int Magnet;
+    [Tooltip("재화 습득범위")] public float Magnet;
     [Tooltip("성장")] public float Growth;
     [Tooltip("탐욕")] public float Greed;
     [Tooltip("저주")] public float Curse;
@@ -34,6 +34,7 @@ public class StatViewer
 
 public abstract class Player : MonoBehaviour
 {
+    //오토 관련 필드 -> UnitList 쓰면 안쓸듯??
     public const float AUTO_DETECTION_RANGE = 5f;
     public const float ATTACK_RANGE = 0.3f;
 
@@ -55,7 +56,7 @@ public abstract class Player : MonoBehaviour
 
     protected float moveThreshold = 0.1f;
 
-    [Header("Dash Settings")]
+    #region DashSettings
     protected int maxDashCount = 3;
     protected int currentDashCount;
     protected float dashRechargeTime = 5f;
@@ -65,7 +66,9 @@ public abstract class Player : MonoBehaviour
     public float DashRechargeTime => dashRechargeTime;
     public int CurrentDashCount => currentDashCount;
     public int MaxDashCount => maxDashCount;
+    #endregion
 
+    public ClassType ClassType { get; protected set; }
     public Animator Animator => animator;
     public PlayerStats Stats
     {
@@ -73,10 +76,7 @@ public abstract class Player : MonoBehaviour
         protected set { stats = value; }
     }
 
-    public ClassType ClassType { get; protected set; }
-
     public ParticleSystem DashEffect => dashEffect;
-
 
     protected virtual void Awake()
     {
@@ -93,23 +93,13 @@ public abstract class Player : MonoBehaviour
             dashEffect.Stop();
         }
     }
-    private void Start()
-    {
-        stats.OnLevelUp += dev;
-    }
-
-    private void dev(int obj)
-    {
-        Debug.Log($"dev 호출 !! 받는값 {obj}");
-        statViewer.Level = obj;
-        UpdateStats();
-    }
 
     private void Update()
     {
         stateHandler.Update();
         
         UpdateDashRecharge();
+        stats.UpadateHpRegen(Time.deltaTime);
         Moncheck();
     }
 
@@ -155,15 +145,7 @@ public abstract class Player : MonoBehaviour
     }
     #endregion
 
-    public void SetSkillInProgress(bool inProgress, bool savePrevPosition = true)
-    {
-        isSkillInProgress = inProgress;
-        if (inProgress && savePrevPosition)
-        {
-            savedTargetPosition = targetPosition;
-        }
-    }
-
+    #region move
     public void MoveTo(Vector2 destination)
     {
         if (isDashing) return;
@@ -193,6 +175,184 @@ public abstract class Player : MonoBehaviour
         savedTargetPosition = targetPosition;
     }
 
+    #endregion
+
+    #region 임시 전투로직
+    public List<MonsterBase> monCheckList = new List<MonsterBase>();
+    public void Moncheck()
+    {
+        monCheckList.Clear();
+
+        int monsterLayer = LayerMask.NameToLayer("Monster");
+        int layerMask = 1 << monsterLayer;
+
+        Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, .3f, layerMask);
+        foreach (var coll in colls)
+        {
+            if (coll.CompareTag("Monster"))
+            {
+                MonsterBase monster = coll.GetComponent<MonsterBase>();
+                if (monster != null)
+                {
+                    monCheckList.Add(monster);
+                }
+            }
+        }
+    }
+    public MonsterBase GetNearestMonster()
+    {
+        if (monCheckList.Count == 0) return null;
+        
+        MonsterBase nearest = null;
+        float minDistance = float.MaxValue;
+        
+        foreach (var monster in monCheckList)
+        {
+            float distance = Vector2.Distance(transform.position, monster.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearest = monster;
+            }
+        }
+        
+        return nearest;
+    }
+    public MonsterBase FindNearestMonsterInRange(float range)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, LayerMask.GetMask("Monster"));
+        MonsterBase nearest = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var collider in colliders)
+        {
+            MonsterBase monster = collider.GetComponent<MonsterBase>();
+            if (monster != null)
+            {
+                float distance = Vector2.Distance(transform.position, monster.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearest = monster;
+                }
+            }
+        }
+
+        return nearest;
+    }
+    #endregion
+
+    #region Utils
+    public void SetSkillInProgress(bool inProgress, bool savePrevPosition = true)
+    {
+        isSkillInProgress = inProgress;
+        if (inProgress && savePrevPosition)
+        {
+            savedTargetPosition = targetPosition;
+        }
+    }
+    public void LookAtTarget(Vector2 target)
+    {
+        Vector2 direction = (target - (Vector2)transform.position).normalized;
+        FlipModel(direction.x < 0);
+    }
+    public void FlipModel(bool isLeft)
+    {
+        if (modelRenderer != null)
+        {
+            modelRenderer.flipX = isLeft;
+        }
+
+        if (dashEffect != null)
+        {
+            Vector3 localScale = dashEffect.transform.localScale;
+            localScale.x = isLeft ? -Mathf.Abs(localScale.x) : Mathf.Abs(localScale.x);
+            dashEffect.transform.localScale = localScale;
+        }
+    }
+    public virtual void TakeDamage(float damage)
+    {
+        bool isCritical = false;
+        //몬스터도 크리확률이 있나?? 몰루??
+        if (Random.Range(0f, 100f) <= stats.CurrentCritical)
+        {
+            damage = Mathf.RoundToInt(damage * stats.CurrentCATK);
+            isCritical = true;
+        }
+
+        stats.currentHp -= damage;
+        ShowDamageFont(transform.position, damage, transform, isCritical);
+        if (stats.currentHp <= 0)
+        {
+            //ToDO 플레이어 사망처리
+            Debug.Log("플레이어 주금");
+        }
+    }
+    public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)
+    {
+        GameObject go = Resources.Load<GameObject>("DamageText");
+        if (go != null)
+        {
+            Vector2 spawnPosition = (Vector2)transform.position + Vector2.up * 0.2f;
+            
+            GameObject instance = Instantiate(go, spawnPosition, Quaternion.identity);
+            ShowDamage damageText = instance.GetComponent<ShowDamage>();
+            if (damageText != null)
+            {
+                damageText.SetInfo(spawnPosition, damage, parent, isCritical);
+            }
+        }
+    }
+    #endregion
+
+    #region stat
+    /// <summary>
+    /// 기존 스탯에 value만큼 더함
+    /// </summary>
+    /// <param name="statType">스탯 타입</param>
+    /// <param name="value">더해지는 값</param>
+    public void ModifyStat(StatType statType, float value)
+    {
+        stats.ModifyStatValue(statType, value);
+        UpdateStatViewer();
+    }
+    /// <summary>
+    /// 기존 스탯을 value값으로 바꿈
+    /// </summary>
+    /// <param name="statType">스탯 타입</param>
+    /// <param name="value">바꾸는 값</param>
+    public void SetStat(StatType statType, float value)
+    {
+        stats.SetStatValue(statType, value);
+        UpdateStatViewer();
+    }
+    private void UpdateStatViewer()
+    {
+        statViewer.Level = stats.CurrentLevel;
+        statViewer.MaxHp = stats.CurrentMaxHp;
+        statViewer.Hp = stats.currentHp;
+        statViewer.MaxExp = stats.CurrentMaxExp;
+        statViewer.Exp = stats.currentExp;
+        statViewer.MaxHp = stats.CurrentMaxHp;
+        statViewer.Recovery = stats.CurrentRecovery;
+        statViewer.Armor = stats.CurrentArmor;
+        statViewer.Mspd = stats.CurrentMspd;
+        statViewer.ATK = stats.CurrentATK;
+        statViewer.Aspd = stats.CurrentAspd;
+        statViewer.Critical = stats.CurrentCritical;
+        statViewer.CATK = stats.CurrentCATK;
+        statViewer.Amount = stats.CurrentAmount;
+        statViewer.Area = stats.CurrentArea;
+        statViewer.Cooldown = stats.CurrentCooldown;
+        statViewer.Revival = stats.CurrentRevival;
+        statViewer.Magnet = stats.CurrentMagnet;
+        statViewer.Growth = stats.CurrentGrowth;
+        statViewer.Greed = stats.CurrentGreed;
+        statViewer.Curse = stats.CurrentCurse;
+        statViewer.Reroll = stats.CurrentReroll;
+        statViewer.Banish = stats.CurrentBanish;
+    }
+
     protected void UpdateStats()
     {
         if (stats != null)
@@ -220,149 +380,7 @@ public abstract class Player : MonoBehaviour
             stats.CurrentBanish = statViewer.Banish;
         }
     }
-
-    public void FlipModel(bool isLeft)
-    {
-        if (modelRenderer != null)
-        {
-            modelRenderer.flipX = isLeft;
-        }
-
-        // 파티클 시스템 방향 전환
-        if (dashEffect != null)
-        {
-            // 파티클의 로컬 스케일을 변경하여 방향 전환
-            Vector3 localScale = dashEffect.transform.localScale;
-            localScale.x = isLeft ? -Mathf.Abs(localScale.x) : Mathf.Abs(localScale.x);
-            dashEffect.transform.localScale = localScale;
-
-            // 또는 파티클 시스템의 회전을 사용할 경우:
-            // dashEffect.transform.rotation = Quaternion.Euler(0, isLeft ? 180 : 0, 0);
-        }
-    }
-
-    public List<MonsterBase> monCheckList = new List<MonsterBase>();
-    public void Moncheck()
-    {
-        monCheckList.Clear();
-
-        int monsterLayer = LayerMask.NameToLayer("Monster");
-        int layerMask = 1 << monsterLayer;
-
-        Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, .3f, layerMask);
-        foreach (var coll in colls)
-        {
-            if (coll.CompareTag("Monster"))
-            {
-                MonsterBase monster = coll.GetComponent<MonsterBase>();
-                if (monster != null)
-                {
-                    monCheckList.Add(monster);
-                }
-            }
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, .3f);
-        
-        if (stateHandler?.CurrentState is WarriorAttackState attackState)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, attackState.AttackRange);
-        }
-    }
-
-    public MonsterBase GetNearestMonster()
-    {
-        if (monCheckList.Count == 0) return null;
-        
-        MonsterBase nearest = null;
-        float minDistance = float.MaxValue;
-        
-        foreach (var monster in monCheckList)
-        {
-            float distance = Vector2.Distance(transform.position, monster.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearest = monster;
-            }
-        }
-        
-        return nearest;
-    }
-
-    public void LookAtTarget(Vector2 target)
-    {
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
-        FlipModel(direction.x < 0);
-    }
-
-    public virtual void CalcDamage()
-    {
-
-    }
-    
-    public virtual void TakeDamage(float damage)
-    {
-        bool isCritical = false;
-        //몬스터도 크리확률이 있나?? 몰루??
-        if (Random.Range(0f, 100f) <= stats.CurrentCritical)
-        {
-            damage = Mathf.RoundToInt(damage * stats.CurrentCATK);
-            isCritical = true;
-        }
-
-        stats.currentHp -= damage;
-        ShowDamageFont(transform.position, damage, transform, isCritical);
-        if (stats.currentHp <= 0)
-        {
-            //ToDO 플레이어 사망처리
-            Debug.Log("플레이어 주금");
-        }
-    }
-
-    public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)
-    {
-        GameObject go = Resources.Load<GameObject>("DamageText");
-        if (go != null)
-        {
-            Vector2 spawnPosition = (Vector2)transform.position + Vector2.up * 0.2f;
-            
-            GameObject instance = Instantiate(go, spawnPosition, Quaternion.identity);
-            ShowDamage damageText = instance.GetComponent<ShowDamage>();
-            if (damageText != null)
-            {
-                damageText.SetInfo(spawnPosition, damage, parent, isCritical);
-            }
-        }
-    }
-
-    public MonsterBase FindNearestMonsterInRange(float range)
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, LayerMask.GetMask("Monster"));
-        MonsterBase nearest = null;
-        float minDistance = float.MaxValue;
-
-        foreach (var collider in colliders)
-        {
-            MonsterBase monster = collider.GetComponent<MonsterBase>();
-            if (monster != null)
-            {
-                float distance = Vector2.Distance(transform.position, monster.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearest = monster;
-                }
-            }
-        }
-
-        return nearest;
-    }
+    #endregion
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -399,48 +417,15 @@ public abstract class Player : MonoBehaviour
             UpdateStats();
         }
     }
-
-    public virtual void ModifyStat(StatType statType, float value, bool isPercentage = false)
+    void OnDrawGizmos()
     {
-        float finalValue = value;
-        if (isPercentage)
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, .3f);
+        
+        if (stateHandler?.CurrentState is WarriorAttackState attackState)
         {
-            switch (statType)
-            {
-                case StatType.MaxHp:
-                    finalValue = statViewer.MaxHp * (value / 100f);
-                    break;
-                case StatType.ATK:
-                    finalValue = statViewer.ATK * (value / 100f);
-                    break;
-            }
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, attackState.AttackRange);
         }
-
-        switch (statType)
-        {
-            case StatType.MaxHp:
-                statViewer.MaxHp += (int)finalValue;
-                break;
-            case StatType.Hp:
-                statViewer.Hp += finalValue;
-                break;
-            case StatType.Recovery:
-                statViewer.Recovery += finalValue;
-                break;
-            case StatType.Armor:
-                statViewer.Armor += (int)finalValue;
-                break;
-            case StatType.Mspd:
-                statViewer.Mspd += finalValue;
-                break;
-            case StatType.ATK:
-                statViewer.ATK += finalValue;
-                break;
-            case StatType.Aspd:
-                statViewer.Aspd += finalValue;
-                break;
-        }
-
-        UpdateStats(); 
     }
 }

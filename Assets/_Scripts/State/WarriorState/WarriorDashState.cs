@@ -10,6 +10,8 @@ public class WarriorDashState : BaseState<Player>
     private Vector2 targetPosition;
     private float lerpProgress;
 
+    private ParticleSystem currentDashEffect;
+
     public WarriorDashState(StateHandler<Player> handler) : base(handler) { }
 
     public override void Enter(Player player)
@@ -34,14 +36,29 @@ public class WarriorDashState : BaseState<Player>
         
         startPosition = player.transform.position;
         
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        dashDirection = (mousePosition - (Vector2)player.transform.position).normalized;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        bool hasKeyboardInput = horizontalInput != 0 || verticalInput != 0;
+
+        if (hasKeyboardInput)
+        {
+            dashDirection = new Vector2(horizontalInput, verticalInput).normalized;
+        }
+        else
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dashDirection = (mousePosition - (Vector2)player.transform.position).normalized;
+        }
         
         player.FlipModel(dashDirection.x < 0);
         
         if (player.DashEffect != null)
         {
-            player.DashEffect.Play();
+            currentDashEffect = GameObject.Instantiate(player.DashEffect, player.transform.position, Quaternion.identity);
+            currentDashEffect.transform.SetParent(player.transform);
+            float angle = Mathf.Atan2(dashDirection.y, dashDirection.x) * Mathf.Rad2Deg;
+            currentDashEffect.transform.rotation = Quaternion.Euler(0, dashDirection.x < 0 ? 180 : 0, 0);
+            currentDashEffect.Play();
         }
         
         targetPosition = startPosition + (dashDirection * dashDistance);
@@ -80,9 +97,10 @@ public class WarriorDashState : BaseState<Player>
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.SetTrigger("Idle");
 
-        if (player.DashEffect != null)
+        if (currentDashEffect != null)
         {
-            player.DashEffect.Stop();
+            currentDashEffect.Stop();
+            GameObject.Destroy(currentDashEffect.gameObject, 1f);
         }
     }
 }
