@@ -10,13 +10,13 @@ public class Projectile : MonoBehaviour
     protected float damage;
 
     public float maxDistance = 10f;
-    private Vector3 startPosition;
+    protected Vector3 startPosition;
 
     private bool isMoving = true;
 
     protected virtual void Start()
     {
-        startPosition = transform.position;
+        transform.position = startPosition;
         MoveProjectileAsync().Forget();
     }
 
@@ -48,6 +48,7 @@ public class Projectile : MonoBehaviour
     }
     public void InitProjectile(Vector3 startPos, Vector3 dir, float spd, float dmg, float maxDist = 0f)
     {
+        this.startPosition = startPos;
         direction = dir;
         speed = spd;
         maxDistance = maxDist;
