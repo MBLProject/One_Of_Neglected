@@ -23,7 +23,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    [Header("?꾨━???ㅼ젙")]
+    [Header("?�리???�정")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -33,15 +33,15 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("?ㅽ룿 ?ㅼ젙")]
+    [Header("?�폰 ?�정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 3f;
 
-    [Header("寃뚯엫 ?쒓컙 ?ㅼ젙")]
-    [SerializeField] private float earlyGameDuration = 180f;  // 3遺?
-    [SerializeField] private float midGameDuration = 420f;    // 7遺?
-    [SerializeField] private float lateGameDuration = 600f;   // 10遺?
+    [Header("게임 ?�간 ?�정")]
+    [SerializeField] private float earlyGameDuration = 180f;  // 3�?
+    [SerializeField] private float midGameDuration = 420f;    // 7�?
+    [SerializeField] private float lateGameDuration = 600f;   // 10�?
 
     private float gameTime = 0f;
     private float spawnTimer = 0f;
@@ -80,25 +80,25 @@ public class UnitManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
-        // ??긽 ?먭굅由?紐ъ뒪???ㅽ룿
+        // ??�� ?�거�?몬스???�폰
         SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
 
-        // ?쒓컙?蹂?紐ъ뒪???ㅽ룿
-        if (gameTime <= earlyGameDuration)  // 0~3遺?
+        // ?�간??�?몬스???�폰
+        if (gameTime <= earlyGameDuration)  // 0~3�?
         {
             SpawnMonsterAtRandomPosition(MonsterType.EarlyNormal);
         }
-        else if (gameTime <= midGameDuration)  // 3~7遺?
+        else if (gameTime <= midGameDuration)  // 3~7�?
         {
             SpawnMonsterAtRandomPosition(MonsterType.MidNormal);
         }
-        else if (gameTime <= lateGameDuration)  // 7~10遺?
+        else if (gameTime <= lateGameDuration)  // 7~10�?
         {
             SpawnMonsterAtRandomPosition(MonsterType.LateNormal);
         }
     }
 
-    //?뚮젅?댁뼱 ?앹꽦愿??
+    //?�레?�어 ?�성�???
     public Player SpawnPlayer(Vector2 position)
     {
         if (currentPlayer != null)
@@ -132,7 +132,7 @@ public class UnitManager : MonoBehaviour
     }
 
 
-    // 紐ъ뒪???앹꽦 硫붿꽌??
+    // 몬스???�성 메서??
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -149,14 +149,14 @@ public class UnitManager : MonoBehaviour
         return monster;
     }
 
-    // ?쒕뜡 ?꾩튂??紐ъ뒪???앹꽦
+    // ?�덤 ?�치??몬스???�성
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
         Vector2 randomPosition = GetRandomSpawnPosition();
         return SpawnMonster(type, randomPosition);
     }
 
-    // 紐ъ뒪???쒓굅
+    // 몬스???�거
     public void RemoveMonster(MonsterBase monster)
     {
         if (monster != null)
@@ -165,7 +165,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 紐⑤뱺 紐ъ뒪???쒓굅
+    // 모든 몬스???�거
     public void ClearAllMonsters()
     {
         foreach (var monster in activeMonsters.ToArray())
@@ -178,7 +178,7 @@ public class UnitManager : MonoBehaviour
         activeMonsters.Clear();
     }
 
-    // ?쒕뜡 ?ㅽ룿 ?꾩튂 怨꾩궛
+    // ?�덤 ?�폰 ?�치 계산
     private Vector2 GetRandomSpawnPosition()
     {
         if (mainCamera == null) return Vector2.zero;
@@ -193,7 +193,7 @@ public class UnitManager : MonoBehaviour
         );
     }
 
-    // 紐ъ뒪????낆뿉 ?곕Ⅸ ?꾨━??諛섑솚
+    // 몬스?????�에 ?�른 ?�리??반환
     private GameObject GetMonsterPrefab(MonsterType type)
     {
         return type switch
@@ -209,10 +209,10 @@ public class UnitManager : MonoBehaviour
         };
     }
 
-    // ?쒖꽦?붾맂 紐ъ뒪????諛섑솚
+    // ?�성?�된 몬스????반환
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
-    // ?뱀젙 踰붿쐞 ?댁쓽 紐ъ뒪??李얘린
+    // ?�정 범위 ?�의 몬스??찾기
     public List<MonsterBase> GetMonstersInRange(Vector2 position, float range)
     {
         return activeMonsters.FindAll(monster =>
@@ -224,7 +224,7 @@ public class UnitManager : MonoBehaviour
     public Player GetPlayer() => currentPlayer;
 }
 
-// 紐ъ뒪??????닿굅??
+// 몬스???????�거??
 public enum MonsterType
 {
     EarlyNormal,

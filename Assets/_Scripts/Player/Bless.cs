@@ -6,42 +6,42 @@ public class Bless : MonoBehaviour
 {
     #region 공격가호
 
-    public void ATK_Increase()
+    public void ATK_Modify()
     {
         Debug.Log("공격력 증가");
     }
 
-    public void Projectile_Increase()
+    public void ProjAmount_Modify()
     {
         Debug.Log("투사체 증가");
     }
 
-    public void ATKSpeed_Increase()
+    public void ASPD_Modify()
     {
         Debug.Log("공속 증가");
     }
 
-    public void CriticalDamage_Increase()
+    public void CriDamage_Modify()
     {
         Debug.Log("치뎀 증가");
     }
 
-    public void CriticalPercent_Increase()
+    public void CriRate_Modify()
     {
         Debug.Log("치확 증가");
     }
 
-    public void Projectile_Destroy()
+    public void ProjDestroy_Modify()
     {
         Debug.Log("투사체 파괴");
     }
 
-    public void Projectile_Parry()
+    public void ProjParry_Modify()
     {
         Debug.Log("투사체 패링");
     }
 
-    public void God_Kill()
+    public void GodKill_Modify()
     {
         Debug.Log("신살");
     }
@@ -50,37 +50,37 @@ public class Bless : MonoBehaviour
 
     #region 방어가호
 
-    public void MaxHP_Increase()
+    public void MaxHP_Modify()
     {
         Debug.Log("최대체력 증가");
     }
 
-    public void Defense_Increase()
+    public void Defense_Modify()
     {
         Debug.Log("방어력 증가");
     }
 
-    public void HPRegen_Increase()
+    public void HPRegen_Modify()
     {
         Debug.Log("체력회복 증가");
     }
 
-    public void Barrier_Activate()
+    public void Barrier_Modify()
     {
         Debug.Log("배리어 생성");
     }
 
-    public void Barrier_Cooldown()
+    public void BarrierCooldown_Modify()
     {
         Debug.Log("배리어 회복");
     }
 
-    public void Invincibility()
+    public void Invincibility_Modify()
     {
         Debug.Log("피격 시 무적");
     }
 
-    public void Adversary()
+    public void Adversary_Modify()
     {
         Debug.Log("대적자");
     }
@@ -89,42 +89,42 @@ public class Bless : MonoBehaviour
 
     #region 유틸가호
 
-    public void ATK_Range()
+    public void ATKRange_Modify()
     {
         Debug.Log("공격범위");
     }
 
-    public void Duration()
+    public void Duration_Modify()
     {
         Debug.Log("지속시간");
     }
 
-    public void Cooldown()
+    public void Cooldown_Modify()
     {
         Debug.Log("쿨타임");
     }
 
-    public void Resurrection()
+    public void Revival_Modify()
     {
         Debug.Log("부활");
     }
 
-    public void Magnet()
+    public void Magnet_Modify()
     {
         Debug.Log("자석");
     }
 
-    public void Growth()
+    public void Growth_Modify()
     {
         Debug.Log("성장");
     }
 
-    public void Avarice()
+    public void Greed_Modify()
     {
         Debug.Log("탐욕");
     }
 
-    public void Dash()
+    public void DashCount_Modify()
     {
         Debug.Log("대쉬");
     }

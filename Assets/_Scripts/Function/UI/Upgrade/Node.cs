@@ -68,6 +68,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 Debug.Log("되돌림");
                 BTN_Reverted();
                 CtrlAroundNodes(next_Nodes, false);
+
             }
         }
     }
@@ -86,6 +87,10 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         m_BTN.interactable = false;
         can_Revert = true;
         clicked = true;
+        foreach (Node prevNode in prev_Nodes)
+        {
+            prevNode.can_Revert = false;
+        }
         DataManager.Instance.bless_Dic[this] = true;
     }
     public void BTN_Reverted()
@@ -93,6 +98,10 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         can_Revert = false;
         clicked = false;
         m_BTN.interactable = true;
+        foreach (Node prevNode in prev_Nodes)
+        {
+            prevNode.can_Revert = true;
+        }
         DataManager.Instance.bless_Dic[this] = false;
     }
     private void Check_PrevNodes_Of_NextNode(Node node)
@@ -101,8 +110,19 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         if (node.prev_Nodes.Count == 1)
         {
             node.m_BTN.interactable = true;
+            return;
         }
-
+        if (node.prev_Nodes.Count > 1)
+        {
+            foreach (Node prevNode in node.prev_Nodes)
+            {
+                if (prevNode.clicked == false)
+                {
+                    return;
+                }
+            }
+            node.m_BTN.interactable = true;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

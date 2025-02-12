@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public enum NodeDefine
 {
     ATK,
@@ -106,28 +107,28 @@ public class Bless_Panel : Panel
         switch (node.ATK_Bless)
         {
             case ATK_Bless.ATK_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.ATK_Increase);
+                node.m_BTN.onClick.AddListener(bless.ATK_Modify);
                 break;
             case ATK_Bless.PROJECTILE_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.Projectile_Increase);
+                node.m_BTN.onClick.AddListener(bless.ProjAmount_Modify);
                 break;
             case ATK_Bless.ATK_SPEED_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.ATKSpeed_Increase);
+                node.m_BTN.onClick.AddListener(bless.ASPD_Modify);
                 break;
             case ATK_Bless.CRITICAL_DAMAGE_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.CriticalDamage_Increase);
+                node.m_BTN.onClick.AddListener(bless.CriDamage_Modify);
                 break;
             case ATK_Bless.CRITICAL_PERCENT_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.CriticalPercent_Increase);
+                node.m_BTN.onClick.AddListener(bless.CriRate_Modify);
                 break;
             case ATK_Bless.PROJECTILE_DESTROY:
-                node.m_BTN.onClick.AddListener(bless.Projectile_Destroy);
+                node.m_BTN.onClick.AddListener(bless.ProjDestroy_Modify);
                 break;
             case ATK_Bless.PROJECTILE_PARRY:
-                node.m_BTN.onClick.AddListener(bless.Projectile_Parry);
+                node.m_BTN.onClick.AddListener(bless.ProjParry_Modify);
                 break;
             case ATK_Bless.GOD_KILL:
-                node.m_BTN.onClick.AddListener(bless.God_Kill);
+                node.m_BTN.onClick.AddListener(bless.GodKill_Modify);
                 break;
             default:
                 Debug.Log("공격 메서드가 리스너에 구독 안됨");
@@ -139,25 +140,25 @@ public class Bless_Panel : Panel
         switch (node.DEF_Bless)
         {
             case DEF_Bless.MAX_HP_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.MaxHP_Increase);
+                node.m_BTN.onClick.AddListener(bless.MaxHP_Modify);
                 break;
             case DEF_Bless.DEFENSE_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.Defense_Increase);
+                node.m_BTN.onClick.AddListener(bless.Defense_Modify);
                 break;
             case DEF_Bless.HP_REGEN_INCREASE:
-                node.m_BTN.onClick.AddListener(bless.HPRegen_Increase);
+                node.m_BTN.onClick.AddListener(bless.HPRegen_Modify);
                 break;
             case DEF_Bless.BARRIER_ACTIVATE:
-                node.m_BTN.onClick.AddListener(bless.Barrier_Activate);
+                node.m_BTN.onClick.AddListener(bless.Barrier_Modify);
                 break;
             case DEF_Bless.BARRIER_COOLDOWN:
-                node.m_BTN.onClick.AddListener(bless.Barrier_Cooldown);
+                node.m_BTN.onClick.AddListener(bless.BarrierCooldown_Modify);
                 break;
             case DEF_Bless.INVINCIBILITY:
-                node.m_BTN.onClick.AddListener(bless.Invincibility);
+                node.m_BTN.onClick.AddListener(bless.Invincibility_Modify);
                 break;
             case DEF_Bless.ADVERSARY:
-                node.m_BTN.onClick.AddListener(bless.Adversary);
+                node.m_BTN.onClick.AddListener(bless.Adversary_Modify);
                 break;
             default:
                 Debug.Log("방어 메서드가 리스너에 구독 안됨");
@@ -170,28 +171,28 @@ public class Bless_Panel : Panel
         switch (node.UTI_Bless)
         {
             case UTI_Bless.ATK_RANGE:
-                node.m_BTN.onClick.AddListener(bless.ATK_Range);
+                node.m_BTN.onClick.AddListener(bless.ATKRange_Modify);
                 break;
             case UTI_Bless.DURATION:
-                node.m_BTN.onClick.AddListener(bless.Duration);
+                node.m_BTN.onClick.AddListener(bless.Duration_Modify);
                 break;
             case UTI_Bless.COOLDOWN:
-                node.m_BTN.onClick.AddListener(bless.Cooldown);
+                node.m_BTN.onClick.AddListener(bless.Cooldown_Modify);
                 break;
             case UTI_Bless.RESURRECTION:
-                node.m_BTN.onClick.AddListener(bless.Resurrection);
+                node.m_BTN.onClick.AddListener(bless.Revival_Modify);
                 break;
             case UTI_Bless.MAGNET:
-                node.m_BTN.onClick.AddListener(bless.Magnet);
+                node.m_BTN.onClick.AddListener(bless.Magnet_Modify);
                 break;
             case UTI_Bless.GROWTH:
-                node.m_BTN.onClick.AddListener(bless.Growth);
+                node.m_BTN.onClick.AddListener(bless.Growth_Modify);
                 break;
             case UTI_Bless.AVARICE:
-                node.m_BTN.onClick.AddListener(bless.Avarice);
+                node.m_BTN.onClick.AddListener(bless.Greed_Modify);
                 break;
             case UTI_Bless.DASH:
-                node.m_BTN.onClick.AddListener(bless.Dash);
+                node.m_BTN.onClick.AddListener(bless.DashCount_Modify);
                 break;
             default:
                 Debug.Log("유틸 메서드가 리스너에 구독 안됨");
