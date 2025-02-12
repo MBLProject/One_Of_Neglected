@@ -7,6 +7,7 @@ public class UI_Manager : Singleton<UI_Manager>
 {
     public Dictionary<string, Panel> panel_Dic = new Dictionary<string, Panel>();
     public List<Panel> panel_List = new List<Panel>();
+    public Player p;
 
     protected override void Awake()
     {

@@ -45,7 +45,7 @@ public class WarriorIdleState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                
+
                 if (distance <= 0.3f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
