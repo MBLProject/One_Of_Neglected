@@ -54,6 +54,7 @@
 &nbsp; @todo 카테고리
 
 &nbsp;- 실제 태스크
+&nbsp;- (issue) 이슈를 발행할 태스크
 
 <br></br>
 [Footer]
