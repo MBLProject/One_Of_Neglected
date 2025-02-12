@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public delegate void NodeReset();
+public delegate void CellReset();
+
 public class Upgrade_Panel : Panel
 {
     public TextMeshProUGUI upgradePanel_TMP;
@@ -23,7 +26,6 @@ public class Upgrade_Panel : Panel
     [Header("가호/단련 포인트 표기")]
     public Image point_Image;
     public TextMeshProUGUI point_Text;
-
 
     public Bless_Panel bless_Panel;
     public Training_Panel training_Panel;
@@ -97,10 +99,12 @@ public class Upgrade_Panel : Panel
     {
         //TODO : 스킬셋 초기화
         Debug.Log("가호 리셋");
+        bless_Panel.nodeReset?.Invoke();
     }
     private void TrainingReset_BTN()
     {
         Debug.Log("단련 리셋");
+        training_Panel.cellReset?.Invoke();
     }
     //메인 패널로 돌아가는 메서드
     private void Return_BTN()

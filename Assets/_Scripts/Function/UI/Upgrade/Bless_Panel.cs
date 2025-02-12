@@ -57,6 +57,7 @@ public class Bless_Panel : Panel
     public List<Node> DEF_Node_List;
     public List<Node> UIL_Node_List;
 
+    public NodeReset nodeReset;
     private void Awake()
     {
 

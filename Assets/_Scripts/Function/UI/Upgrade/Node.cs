@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField]
+    private Bless_Panel bless_Panel;
     public NodeDefine nodeDefine;
     public ATK_Bless ATK_Bless;
     public DEF_Bless DEF_Bless;
@@ -23,6 +25,8 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     private void Awake()
     {
+        if (bless_Panel == null) bless_Panel = GetComponentInParent<Bless_Panel>();
+        bless_Panel.nodeReset += NodeReset;
         m_BTN = GetComponent<Button>();
         if (prev_Nodes.Count == 0)
         {
@@ -32,7 +36,16 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         SetNextNode(next_Nodes);
     }
-
+    private void NodeReset()
+    {
+        if (prev_Nodes.Count > 0)
+        {
+            clicked = false;
+            can_Revert = false;
+            m_BTN.interactable = false;
+        }
+        DataManager.Instance.bless_Dic[this] = false;
+    }
     private void Start()
     {
         if (can_Interactable)
