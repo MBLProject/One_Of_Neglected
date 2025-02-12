@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -32,16 +31,48 @@ public class ProjectileManager : Singleton<ProjectileManager>
         // TODO : create correct Projectile by SkillName with Dictionary key
 
         Vector3 startPosition = UnitManager.Instance.GetPlayer().gameObject.transform.position; // TODO : player pos
-        Vector3 direction = Random.insideUnitCircle.normalized; // TODO : closest monster
         float speed = 1f;
 
-        Projectile projectile = Instantiate(projectiles[skillName]);
-        projectile.InitProjectile(startPosition, direction, speed, damage, 10f);
+        // find nearest monster's position
+        Vector3 targetPosition = FindNearestMonsterPosition(startPosition, 3f);
+        
+        // if target is null, shoot with random direction
+        if (targetPosition == Vector3.zero)
+        {
+            Vector3 randomDirection = Random.insideUnitCircle.normalized;
+            targetPosition = startPosition + randomDirection * 5f;
+        }
 
-        print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, direction : {direction}, speed : {speed}");
+        Projectile projectile = Instantiate(projectiles[skillName]);
+        projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f);
+
+        print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, targetPosition : {targetPosition}, speed : {speed}");
 
         activeProjectiles.Add(projectile);
     }
+
+    private Vector3 FindNearestMonsterPosition(Vector3 center, float radius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius);
+        float closestDistance = float.MaxValue;
+        Vector3 nearestMonsterPosition = Vector3.zero;
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Monster"))
+            {
+                float distance = Vector3.Distance(center, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    nearestMonsterPosition = collider.transform.position;
+                }
+            }
+        }
+
+        return nearestMonsterPosition;
+    }
+
     public void SpawnMonsterProjectile(string projectileType, Vector3 startPosition, Vector3 direction, float speed, float damage)
     {
         if (!monsterProjectiles.ContainsKey(projectileType))
@@ -71,7 +102,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
     }
 
-    // ?덉쟾???뺣━瑜??꾪븳 硫붿꽌??異붽?
     private void OnDestroy()
     {
         activeProjectiles.Clear();

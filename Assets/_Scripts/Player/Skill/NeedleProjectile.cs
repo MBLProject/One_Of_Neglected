@@ -6,7 +6,7 @@ public class NeedleProjectile : Projectile
 {
     protected override void Start()
     {
-        base.Start();
-
+        transform.position = startPosition;
+        MoveProjectileAsync().Forget();
     }
 }
