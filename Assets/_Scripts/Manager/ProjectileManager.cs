@@ -15,12 +15,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     private void Start()
     {
+        projectiles.Add(Enums.SkillName.Javelin, Resources.Load<Projectile>("Using/Projectile/JavelinProjectile"));
         projectiles.Add(Enums.SkillName.Needle, Resources.Load<Projectile>("Using/Projectile/NeedleProjectile"));
 
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
     }
 
-    public void SpawnProjectile(Enums.SkillName skillName, float damage)
+    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level)
     {
         if (!projectiles.ContainsKey(skillName))
         {
@@ -70,7 +71,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
     }
 
-    // 안전한 정리를 위한 메서드 추가
+    // ?덉쟾???뺣━瑜??꾪븳 硫붿꽌??異붽?
     private void OnDestroy()
     {
         activeProjectiles.Clear();

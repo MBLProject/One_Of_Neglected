@@ -13,22 +13,25 @@ public class SkillDispesner : MonoBehaviour
         // for Debug
         Count = skills.Count;
 
-        if (Input.GetKeyUp(KeyCode.A))
-            RegisterSkill(Enums.SkillName.Needle, 1f);
+        if (Input.GetKeyUp(KeyCode.P))
+            RegisterSkill(Enums.SkillName.Javelin, 1f);
     }
 
     public void RegisterSkill(Enums.SkillName skillName, float defaultCooldown)
     {
         switch (skillName)
         {
+            case Enums.SkillName.Javelin:
+                print($"RegisterSkill : {skillName}");
+                var javelin = new Javelin(defaultCooldown);
+                javelin.StartMainTask();
+                skills.Add(javelin);
+                break;
             case Enums.SkillName.Needle:
                 print($"RegisterSkill : {skillName}");
                 var needle = new Needle(defaultCooldown);
                 needle.StartMainTask();
                 skills.Add(needle);
-                break;
-            case Enums.SkillName.Fireball:
-                //skills.Add(skillName, new Fireball(defaultCooldown));
                 break;
         }
     }

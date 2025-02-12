@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class RangedMonster : MonsterBase
 {
-    [Header("원거리 공격 설정")]
+    [Header("?먭굅由?怨듦꺽 ?ㅼ젙")]
     [SerializeField] protected string projectileType = "RangedNormal";
     [SerializeField] protected float projectileSpeed = 5f;
 
@@ -19,7 +19,7 @@ public abstract class RangedMonster : MonsterBase
     }
 
     /// <summary>
-    /// 원거리 공격 실행
+    /// ?먭굅由?怨듦꺽 ?ㅽ뻾
     /// </summary>
     public virtual void RangedAttack()
     {
