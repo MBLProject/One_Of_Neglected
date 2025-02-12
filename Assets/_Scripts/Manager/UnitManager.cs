@@ -5,10 +5,10 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class UnitManager : MonoBehaviour
 {
-   private  static UnitManager instance;
-   public static UnitManager Instance
+    private static UnitManager instance;
+    public static UnitManager Instance
     {
-        get 
+        get
         {
             if (instance == null)
             {
@@ -23,7 +23,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    [Header("프리팹 설정")]
+    [Header("?꾨━???ㅼ젙")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -33,15 +33,15 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("스폰 설정")]
+    [Header("?ㅽ룿 ?ㅼ젙")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 3f;
 
-    [Header("게임 시간 설정")]
-    [SerializeField] private float earlyGameDuration = 180f;  // 3분
-    [SerializeField] private float midGameDuration = 420f;    // 7분
-    [SerializeField] private float lateGameDuration = 600f;   // 10분
+    [Header("寃뚯엫 ?쒓컙 ?ㅼ젙")]
+    [SerializeField] private float earlyGameDuration = 180f;  // 3遺?
+    [SerializeField] private float midGameDuration = 420f;    // 7遺?
+    [SerializeField] private float lateGameDuration = 600f;   // 10遺?
 
     private float gameTime = 0f;
     private float spawnTimer = 0f;
@@ -80,25 +80,25 @@ public class UnitManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
-        // 항상 원거리 몬스터 스폰
+        // ??긽 ?먭굅由?紐ъ뒪???ㅽ룿
         SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
 
-        // 시간대별 몬스터 스폰
-        if (gameTime <= earlyGameDuration)  // 0~3분
+        // ?쒓컙?蹂?紐ъ뒪???ㅽ룿
+        if (gameTime <= earlyGameDuration)  // 0~3遺?
         {
             SpawnMonsterAtRandomPosition(MonsterType.EarlyNormal);
         }
-        else if (gameTime <= midGameDuration)  // 3~7분
+        else if (gameTime <= midGameDuration)  // 3~7遺?
         {
             SpawnMonsterAtRandomPosition(MonsterType.MidNormal);
         }
-        else if (gameTime <= lateGameDuration)  // 7~10분
+        else if (gameTime <= lateGameDuration)  // 7~10遺?
         {
             SpawnMonsterAtRandomPosition(MonsterType.LateNormal);
         }
     }
 
-    //플레이어 생성관련
+    //?뚮젅?댁뼱 ?앹꽦愿??
     public Player SpawnPlayer(Vector2 position)
     {
         if (currentPlayer != null)
@@ -132,7 +132,7 @@ public class UnitManager : MonoBehaviour
     }
 
 
-    // 몬스터 생성 메서드
+    // 紐ъ뒪???앹꽦 硫붿꽌??
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -149,14 +149,14 @@ public class UnitManager : MonoBehaviour
         return monster;
     }
 
-    // 랜덤 위치에 몬스터 생성
+    // ?쒕뜡 ?꾩튂??紐ъ뒪???앹꽦
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
         Vector2 randomPosition = GetRandomSpawnPosition();
         return SpawnMonster(type, randomPosition);
     }
 
-    // 몬스터 제거
+    // 紐ъ뒪???쒓굅
     public void RemoveMonster(MonsterBase monster)
     {
         if (monster != null)
@@ -165,7 +165,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 모든 몬스터 제거
+    // 紐⑤뱺 紐ъ뒪???쒓굅
     public void ClearAllMonsters()
     {
         foreach (var monster in activeMonsters.ToArray())
@@ -178,7 +178,7 @@ public class UnitManager : MonoBehaviour
         activeMonsters.Clear();
     }
 
-    // 랜덤 스폰 위치 계산
+    // ?쒕뜡 ?ㅽ룿 ?꾩튂 怨꾩궛
     private Vector2 GetRandomSpawnPosition()
     {
         if (mainCamera == null) return Vector2.zero;
@@ -193,7 +193,7 @@ public class UnitManager : MonoBehaviour
         );
     }
 
-    // 몬스터 타입에 따른 프리팹 반환
+    // 紐ъ뒪????낆뿉 ?곕Ⅸ ?꾨━??諛섑솚
     private GameObject GetMonsterPrefab(MonsterType type)
     {
         return type switch
@@ -209,10 +209,10 @@ public class UnitManager : MonoBehaviour
         };
     }
 
-    // 활성화된 몬스터 수 반환
+    // ?쒖꽦?붾맂 紐ъ뒪????諛섑솚
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
-    // 특정 범위 내의 몬스터 찾기
+    // ?뱀젙 踰붿쐞 ?댁쓽 紐ъ뒪??李얘린
     public List<MonsterBase> GetMonstersInRange(Vector2 position, float range)
     {
         return activeMonsters.FindAll(monster =>
@@ -224,7 +224,7 @@ public class UnitManager : MonoBehaviour
     public Player GetPlayer() => currentPlayer;
 }
 
-// 몬스터 타입 열거형
+// 紐ъ뒪??????닿굅??
 public enum MonsterType
 {
     EarlyNormal,

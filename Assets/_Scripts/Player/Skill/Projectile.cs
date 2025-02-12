@@ -4,16 +4,17 @@ using static Enums;
 
 public class Projectile : MonoBehaviour
 {
-    public Vector3 playerPosition;
     public Vector3 direction;
     public float speed;
+
+    protected float damage;
 
     public float maxDistance = 10f;
     private Vector3 startPosition;
 
     private bool isMoving = true;
 
-    void Start()
+    protected virtual void Start()
     {
         startPosition = transform.position;
         MoveProjectileAsync().Forget();
@@ -45,14 +46,41 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-    public void InitProjectile(Vector3 startPos, Vector3 dir, float spd, float maxDist)
+    public void InitProjectile(Vector3 startPos, Vector3 dir, float spd, float dmg, float maxDist = 0f)
     {
-        playerPosition = startPos;
         direction = dir;
         speed = spd;
         maxDistance = maxDist;
-        
+        damage = dmg;
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if (collision.TryGetComponent(out MonsterBase monster))
+                monster.TakeDamage(damage);
+
+            DestroyProjectile();
+        }
+    }
+
+    private void DestroyProjectile()
+    {
+        if (!isMoving) return;
+
+        isMoving = false;
+
+        ProjectileManager.Instance?.RemoveProjectile(this);
+
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        isMoving = false;
     }
 }

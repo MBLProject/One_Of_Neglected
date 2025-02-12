@@ -2,30 +2,22 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using static Enums;
 
-public class MonsterProjectile : MonoBehaviour
+public class MonsterProjectile : Projectile
 {
-    private Vector3 direction;
-    private float speed;
-    private float damage;
-    private bool isDestroyed = false;  // 파괴 여부 체크용 플래그
-
-    public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
+    protected override void Start()
     {
-        transform.position = startPos;
-        this.direction = direction;
-        this.speed = speed;
-        this.damage = damage;
-
         MoveProjectileAsync().Forget();
     }
 
-    private async UniTaskVoid MoveProjectileAsync()
+    private bool isDestroyed = false;  // ?뚭눼 ?щ? 泥댄겕???뚮옒洹?
+
+    protected override async UniTaskVoid MoveProjectileAsync()
     {
         try
         {
-            while (!isDestroyed)  // isDestroyed 체크
+            while (!isDestroyed)  // isDestroyed 泥댄겕
             {
-                if (this == null || gameObject == null)  // null 체크 추가
+                if (this == null || gameObject == null)  // null 泥댄겕 異붽?
                 {
                     return;
                 }
@@ -36,14 +28,14 @@ public class MonsterProjectile : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            // 에러 로깅 (선택사항)
+            // ?먮윭 濡쒓퉭 (?좏깮?ы빆)
             Debug.LogWarning($"Projectile movement interrupted: {e.Message}");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 충돌 처리
+        // 異⑸룎 泥섎━
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();
@@ -61,11 +53,11 @@ public class MonsterProjectile : MonoBehaviour
 
     private void DestroyProjectile()
     {
-        if (isDestroyed) return;  // 이미 파괴되었다면 리턴
+        if (isDestroyed) return;  // ?대? ?뚭눼?섏뿀?ㅻ㈃ 由ы꽩
 
         isDestroyed = true;
 
-        // 프로젝타일 매니저에서 제거
+        // ?꾨줈?앺???留ㅻ땲??먯꽌 ?쒓굅
         ProjectileManager.Instance?.RemoveProjectile(this);
 
         Destroy(gameObject);

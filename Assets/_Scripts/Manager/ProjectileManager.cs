@@ -6,33 +6,36 @@ using UnityEngine;
 
 public class ProjectileManager : Singleton<ProjectileManager>
 {
-    public List<MonsterProjectile> activeProjectiles = new List<MonsterProjectile>();
+    public List<Projectile> activeProjectiles = new List<Projectile>();
 
-    public Dictionary<Enums.SkillName, MonsterProjectile> projectiles = new Dictionary<Enums.SkillName, MonsterProjectile>();
+    public Dictionary<Enums.SkillName, Projectile> projectiles = new Dictionary<Enums.SkillName, Projectile>();
+    public Dictionary<string, MonsterProjectile> monsterProjectiles = new Dictionary<string, MonsterProjectile>();
 
     public int count;
 
-    private string path = "Resources/SaveFile/";
-
-    public Dictionary<string, MonsterProjectile> monsterProjectiles = new Dictionary<string, MonsterProjectile>();
-
     private void Start()
     {
-        projectiles.Add(Enums.SkillName.Needle, Resources.Load<MonsterProjectile>("Using/Projectile/NeedleProjectile"));
+        projectiles.Add(Enums.SkillName.Needle, Resources.Load<Projectile>("Using/Projectile/NeedleProjectile"));
 
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
     }
 
-    public void SpawnProjectile(Enums.SkillName skillName)
+    public void SpawnProjectile(Enums.SkillName skillName, float damage)
     {
+        if (!projectiles.ContainsKey(skillName))
+        {
+            Debug.LogError($"Projectile type {skillName} not found!");
+            return;
+        }
+
         // TODO : create correct Projectile by SkillName with Dictionary key
-        
-        Vector3 startPosition = Vector3.zero; // TODO : player pos
+
+        Vector3 startPosition = UnitManager.Instance.GetPlayer().gameObject.transform.position; // TODO : player pos
         Vector3 direction = Random.insideUnitCircle.normalized; // TODO : closest monster
         float speed = 1f;
 
-        MonsterProjectile projectile = Instantiate(projectiles[skillName]);
-        projectile.InitProjectile(startPosition, direction, speed, 10f);
+        Projectile projectile = Instantiate(projectiles[skillName]);
+        projectile.InitProjectile(startPosition, direction, speed, damage, 10f);
 
         print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, direction : {direction}, speed : {speed}");
 
@@ -59,6 +62,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
     }
 
+    public void RemoveProjectile(Projectile projectile)
+    {
+        if (activeProjectiles.Contains(projectile))
+        {
+            activeProjectiles.Remove(projectile);
+        }
+    }
+
     // 안전한 정리를 위한 메서드 추가
     private void OnDestroy()
     {
@@ -67,6 +78,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     private void Update()
     {
-        count = projectiles.Count+monsterProjectiles.Count;
+        count = projectiles.Count + monsterProjectiles.Count;
     }
 }
