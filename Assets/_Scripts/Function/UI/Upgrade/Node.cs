@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,7 +12,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public ATK_Bless ATK_Bless;
     public DEF_Bless DEF_Bless;
     public UTI_Bless UTI_Bless;
-    //다음 노드utility
+    //다음 노드
     public List<Node> next_Nodes;
     //이전 노드
     public List<Node> prev_Nodes;
@@ -18,10 +20,19 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public bool can_Interactable = false;
     public bool can_Revert = false;
     public bool clicked = false;
+
     private void Awake()
     {
         m_BTN = GetComponent<Button>();
+        if (prev_Nodes.Count == 0)
+        {
+            m_BTN.interactable = true;
+        }
+        m_BTN.onClick.AddListener(BTN_Clicked);
+
+        SetNextNode(next_Nodes);
     }
+
     private void Start()
     {
         if (can_Interactable)
@@ -38,21 +49,59 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
 
     }
+
+    private void SetNextNode(List<Node> next_Nodes)
+    {
+        foreach (Node node in next_Nodes)
+        {
+            m_BTN.onClick.AddListener(() => Check_PrevNodes_Of_NextNode(node));
+        }
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            Debug.Log("감지");
             if (can_Revert)
             {
-                m_BTN.interactable = false;
-                DataManager.Instance.bless_Dic[this] = false;
+                Debug.Log("되돌림");
+                BTN_Reverted();
+                CtrlAroundNodes(next_Nodes, false);
             }
         }
     }
-    public void Clicked()
+    private void CtrlAroundNodes(List<Node> nodes, bool interactable)
     {
+        if (nodes.Count > 0)
+        {
+            foreach (Node node in nodes)
+            {
+                node.m_BTN.interactable = interactable;
+            }
+        }
+    }
+    public void BTN_Clicked()
+    {
+        m_BTN.interactable = false;
         can_Revert = true;
         clicked = true;
+        DataManager.Instance.bless_Dic[this] = true;
+    }
+    public void BTN_Reverted()
+    {
+        can_Revert = false;
+        clicked = false;
+        m_BTN.interactable = true;
+        DataManager.Instance.bless_Dic[this] = false;
+    }
+    private void Check_PrevNodes_Of_NextNode(Node node)
+    {
+
+        if (node.prev_Nodes.Count == 1)
+        {
+            node.m_BTN.interactable = true;
+        }
 
     }
 
@@ -65,4 +114,5 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         //TODO 툴팁 비활성화
     }
+
 }
