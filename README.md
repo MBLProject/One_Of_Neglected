@@ -105,9 +105,9 @@
 <br></br>
 [Todo]
 
-&nbsp;- 채팅 메시지 암호화 기능 추가
+&nbsp;- (issue) 채팅 메시지 암호화 기능 추가
 
-&nbsp;- 이모티콘 크기 최적화 작업
+&nbsp;- (issue) 이모티콘 크기 최적화 작업
 
 &nbsp;- 채팅 히스토리 백업 시스템 구현
 
@@ -159,6 +159,8 @@ Closes #128
 &nbsp;&nbsp;&nbsp;• @카테고리 문법으로 TODO 항목 분류<br>
 &nbsp;&nbsp;&nbsp;• 대소문자 구분 없는 카테고리 처리<br>
 &nbsp;&nbsp;&nbsp;• 미분류 항목을 위한 General 카테고리 자동 생성<br>
+&nbsp;&nbsp;&nbsp;• 카테고리별 완료/전체 통계 자동 생성 (예: Combat (2/5))<br>
+&nbsp;&nbsp;&nbsp;• (issue) 접두사로 할일 항목 자동 이슈화<br>
 
 ### 💫 카테고리 기능 사용법
 
@@ -168,6 +170,7 @@ Closes #128
 
 - 몬스터 전투 시스템 구현
 - 플레이어 공격 패턴 추가
+- (issue) 보스 AI 패턴 최적화 필요
 
 @UI
 
@@ -186,18 +189,19 @@ Closes #128
 
 ```markdown
 <details>
-<summary>📑 General</summary>
+<summary>📑 General (0/1)</summary>
 - [ ] 버그 수정 및 테스트
 </details>
 
 <details>
-<summary>📑 Combat</summary>
+<summary>📑 Combat (1/3)</summary>
 - [ ] 몬스터 전투 시스템 구현
 - [x] 플레이어 공격 패턴 추가
+- [ ] #123 (자동 생성된 보스 AI 이슈)
 </details>
 
 <details>
-<summary>📑 UI</summary>
+<summary>📑 UI (0/2)</summary>
 - [ ] 전투 UI 레이아웃 디자인
 - [ ] 데미지 표시 효과 구현
 </details>
@@ -210,6 +214,8 @@ Closes #128
 &nbsp;&nbsp;&nbsp;• 원본 카테고리의 대소문자는 표시에서 유지<br>
 &nbsp;&nbsp;&nbsp;• 카테고리 없는 항목은 자동으로 General에 포함<br>
 &nbsp;&nbsp;&nbsp;• 카테고리별로 접었다 펼 수 있는 details 태그로 정리<br>
+&nbsp;&nbsp;&nbsp;• 각 카테고리의 진행 상황이 (완료/전체) 형식으로 표시<br>
+&nbsp;&nbsp;&nbsp;• `(issue)` 접두사가 붙은 항목은 자동으로 이슈로 생성되고 번호로 대체<br>
 
 ## ⚙️ 환경 설정
 
