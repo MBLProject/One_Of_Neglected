@@ -4,13 +4,14 @@ using static Enums;
 
 public class Projectile : MonoBehaviour
 {
-    public Vector3 direction;
     public float speed;
 
     protected float damage;
 
     public float maxDistance = 10f;
     protected Vector3 startPosition;
+
+    protected Vector3 targetPosition;
 
     private bool isMoving = true;
 
@@ -22,17 +23,18 @@ public class Projectile : MonoBehaviour
 
     protected virtual async UniTaskVoid MoveProjectileAsync()
     {
-        float distanceTraveled = 0f;
+        float traveledDistance = 0f;
 
         while (isMoving)
         {
             if (!GameManager.Instance.isPaused)
             {
+                Vector3 direction = (targetPosition - transform.position).normalized;
                 transform.position += speed * Time.deltaTime * direction;
 
-                distanceTraveled = (transform.position - startPosition).magnitude;
+                traveledDistance = (transform.position - startPosition).magnitude;
 
-                if (distanceTraveled > maxDistance)
+                if (traveledDistance > maxDistance)
                 {
                     Destroy(gameObject);
                     break;
@@ -46,13 +48,15 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-    public void InitProjectile(Vector3 startPos, Vector3 dir, float spd, float dmg, float maxDist = 0f)
+    public void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f)
     {
         this.startPosition = startPos;
-        direction = dir;
+        this.targetPosition = targetPos;
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;
+
+        Vector3 direction = (targetPos - startPos).normalized;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
