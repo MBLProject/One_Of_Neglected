@@ -109,10 +109,7 @@ public abstract class Player : MonoBehaviour
     protected abstract void InitializeStatViewer();
     private void InitializeComponents()
     {
-        if (modelRenderer == null)
-        {
-            modelRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
+
     }
 
     #region Dash
