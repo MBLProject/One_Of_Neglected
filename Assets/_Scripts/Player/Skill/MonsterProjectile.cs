@@ -2,30 +2,23 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using static Enums;
 
-public class MonsterProjectile : MonoBehaviour
+public class MonsterProjectile : Projectile
 {
-    private Vector3 direction;
-    private float speed;
-    private float damage;
-    private bool isDestroyed = false;  // 파괴 여부 체크용 플래그
-
-    public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
+    protected override void Start()
     {
-        transform.position = startPos;
-        this.direction = direction;
-        this.speed = speed;
-        this.damage = damage;
-
+        transform.position = startPosition;
         MoveProjectileAsync().Forget();
     }
 
-    private async UniTaskVoid MoveProjectileAsync()
+    private bool isDestroyed = false;  // ???댘 ??? 筌ｋ똾寃?????삋域?
+
+    protected override async UniTaskVoid MoveProjectileAsync()
     {
         try
         {
-            while (!isDestroyed)  // isDestroyed 체크
+            while (!isDestroyed)  // isDestroyed 筌ｋ똾寃?
             {
-                if (this == null || gameObject == null)  // null 체크 추가
+                if (this == null || gameObject == null)  // null 筌ｋ똾寃??곕떽?
                 {
                     return;
                 }
@@ -36,14 +29,14 @@ public class MonsterProjectile : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            // 에러 로깅 (선택사항)
+            // ?癒?쑎 嚥≪뮄??(?醫뤾문??鍮?
             Debug.LogWarning($"Projectile movement interrupted: {e.Message}");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 충돌 처리
+        // ?겸뫖猷?筌ｌ꼶??
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();
@@ -61,11 +54,11 @@ public class MonsterProjectile : MonoBehaviour
 
     private void DestroyProjectile()
     {
-        if (isDestroyed) return;  // 이미 파괴되었다면 리턴
+        if (isDestroyed) return;  // ??? ???댘??뤿???삠늺 ?귐뗪쉘
 
         isDestroyed = true;
 
-        // 프로젝타일 매니저에서 제거
+        // ?袁⑥쨮?????筌띲끇????癒?퐣 ??볤탢
         ProjectileManager.Instance?.RemoveProjectile(this);
 
         Destroy(gameObject);

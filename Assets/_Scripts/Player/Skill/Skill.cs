@@ -7,6 +7,7 @@ public class Skill
     public Enums.SkillName skillName;
     public float cooldown;
     private float defaultCooldown;
+    private float damage = 1f;
 
     private bool isSkillActive = false;
 
@@ -43,7 +44,7 @@ public class Skill
     protected virtual void Fire()
     {
         Debug.Log($"Fire {skillName.ToString()}!");
-        ProjectileManager.Instance.SpawnProjectile(skillName);
+        ProjectileManager.Instance.SpawnProjectile(skillName, damage);
     }
 
     public static async UniTask DelayFloat(float delayInSeconds)
