@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public struct MonsterStats
 {
     public float maxHealth;     // 최대 체력
