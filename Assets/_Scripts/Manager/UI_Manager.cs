@@ -26,4 +26,9 @@ public class UI_Manager : Singleton<UI_Manager>
     {
 
     }
+    private void OnEnable()
+    {
+        DataManager.Instance.LoadBlessData();
+
+    }
 }

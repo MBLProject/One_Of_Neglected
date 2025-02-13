@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
+using DG.Tweening.Plugins;
 [Serializable]
 public class DicDataTable
 {
@@ -17,6 +18,12 @@ public class PlayerProperty
     public int blessPoint;
     public int remnants;
 }
+[Serializable]
+public class BTS
+{
+
+}
+
 public class DataManager : Singleton<DataManager>
 {
     public DicDataTable dicDataTable = new DicDataTable();
@@ -31,9 +38,10 @@ public class DataManager : Singleton<DataManager>
     string path = "Assets/Resources/SaveFile/";
     protected override void Awake()
     {
-
         base.Awake();
-        LoadBlessData();
+    }
+    private void Start()
+    {
         LoadPlayerProperty();
     }
     public void SaveData()
@@ -52,6 +60,7 @@ public class DataManager : Singleton<DataManager>
     {
         if (!File.Exists(path + "BlessData"))
         {
+            dicDataTable.bless_Table = bless_Dic;
             string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
             File.WriteAllText(path + "BlessData", Data);
         }

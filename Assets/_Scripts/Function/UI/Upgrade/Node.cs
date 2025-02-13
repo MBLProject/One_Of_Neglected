@@ -22,41 +22,26 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public bool can_Interactable = false;
     public bool can_Revert = false;
     public bool clicked = false;
-
+    ColorBlock colorBlock_Origin;
+    ColorBlock colorBlock_Temp;
     private void Awake()
     {
+        m_BTN = GetComponent<Button>();
         if (bless_Panel == null) bless_Panel = GetComponentInParent<Bless_Panel>();
         bless_Panel.nodeReset += NodeReset;
-        m_BTN = GetComponent<Button>();
-        if (prev_Nodes.Count == 0)
-        {
-            m_BTN.interactable = true;
-        }
         m_BTN.onClick.AddListener(BTN_Clicked);
+        if (prev_Nodes.Count == 0) m_BTN.interactable = true;
+
+        colorBlock_Origin = m_BTN.colors;
+        colorBlock_Temp = colorBlock_Origin;
 
         SetNextNode(next_Nodes);
+
     }
-    private void NodeReset()
-    {
-        if (prev_Nodes.Count > 0)
-        {
-            clicked = false;
-            can_Revert = false;
-            m_BTN.interactable = false;
-        }
-        DataManager.Instance.bless_Dic[this] = false;
-    }
+
     private void Start()
     {
-        if (can_Interactable)
-        {
-            m_BTN.interactable = can_Interactable;
-        }
-        if (clicked)
-        {
-            can_Revert = true;
-            can_Interactable = false;
-        }
+
     }
     private void OnEnable()
     {
@@ -97,9 +82,13 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void BTN_Clicked()
     {
-        m_BTN.interactable = false;
-        can_Revert = true;
         clicked = true;
+        can_Revert = true;
+        m_BTN.interactable = false;
+
+        colorBlock_Temp.disabledColor = colorBlock_Origin.normalColor;
+        m_BTN.colors = colorBlock_Temp;
+
         foreach (Node prevNode in prev_Nodes)
         {
             prevNode.can_Revert = false;
@@ -108,9 +97,12 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void BTN_Reverted()
     {
-        can_Revert = false;
         clicked = false;
+        can_Revert = false;
         m_BTN.interactable = true;
+
+        colorBlock_Temp.disabledColor = colorBlock_Origin.disabledColor;
+        m_BTN.colors = colorBlock_Temp;
         foreach (Node prevNode in prev_Nodes)
         {
             prevNode.can_Revert = true;
@@ -137,7 +129,16 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             node.m_BTN.interactable = true;
         }
     }
+    private void NodeReset()
+    {
+        clicked = false;
+        can_Revert = false;
+        m_BTN.colors = colorBlock_Origin;
+        if (prev_Nodes.Count > 0) m_BTN.interactable = false;
+        else m_BTN.interactable = true;
 
+        DataManager.Instance.bless_Dic[this] = false;
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         //TODO 툴팁 활성화

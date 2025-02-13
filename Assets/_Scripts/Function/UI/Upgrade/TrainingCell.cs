@@ -90,7 +90,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-
+            if (outline.enabled == false) return;
             if (isDisplayLv == false && trainingCount != 0)
                 tinyCells[trainingCount - 1].sprite = training_Panel.tinyCellOff_Sprite;
 

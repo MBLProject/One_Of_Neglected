@@ -65,6 +65,7 @@ public class Bless_Panel : Panel
 
     private void Start()
     {
+        DataManager.Instance.LoadBlessData();
         Node_Initialize(ref ATK_Node_List);
         Node_Initialize(ref DEF_Node_List);
         Node_Initialize(ref UIL_Node_List);
@@ -81,9 +82,7 @@ public class Bless_Panel : Panel
             }
             if (DataManager.Instance.bless_Dic[node] == true)
             {
-                node.clicked = true;
-                node.can_Revert = true;
-                node.can_Interactable = false;
+                node.m_BTN.onClick?.Invoke();
             }
             ByNodeDefine(node);
         }
