@@ -1,24 +1,24 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using static Enums;
+using System.Threading;
 
 public class MonsterProjectile : Projectile
 {
     protected override void Start()
     {
-        transform.position = startPosition;
-        MoveProjectileAsync().Forget();
+        base.Start();
     }
 
-    private bool isDestroyed = false;  // ???�� ??? 泥댄�?????���?
+    private bool isDestroyed = false;  // ???댘 ??? 筌ｋ똾寃?????삋域?
 
-    protected override async UniTaskVoid MoveProjectileAsync()
+    protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
     {
         try
         {
-            while (!isDestroyed)  // isDestroyed 泥댄�?
+            while (!isDestroyed)  // isDestroyed 筌ｋ똾寃?
             {
-                if (this == null || gameObject == null)  // null 泥댄�??�붽?
+                if (this == null || gameObject == null)  // null 筌ｋ똾寃??곕떽?
                 {
                     return;
                 }
@@ -31,14 +31,14 @@ public class MonsterProjectile : Projectile
         }
         catch (System.Exception e)
         {
-            // ?�?�� 濡쒓??(?좏깮??�?
+            // ?癒?쑎 嚥≪뮄??(?醫뤾문??鍮?
             Debug.LogWarning($"Projectile movement interrupted: {e.Message}");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ?�⑸�?泥섎??
+        // ?겸뫖猷?筌ｌ꼶??
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();
@@ -56,11 +56,11 @@ public class MonsterProjectile : Projectile
 
     private void DestroyProjectile()
     {
-        if (isDestroyed) return;  // ???? ???��??��???�㈃ ?�ы꽩
+        if (isDestroyed) return;  // ???? ???댘??뤿???삠늺 ?귐뗪쉘
 
         isDestroyed = true;
 
-        // ?꾨줈?????留ㅻ????�?�� ??�굅
+        // ?袁⑥쨮?????筌띲끇????癒?퐣 ??볤탢
         ProjectileManager.Instance?.RemoveProjectile(this);
 
         Destroy(gameObject);

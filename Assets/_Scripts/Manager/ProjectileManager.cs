@@ -35,7 +35,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         // find nearest monster's position
         Vector3 targetPosition = FindNearestMonsterPosition(startPosition, 3f);
-        
+
         // if target is null, shoot with random direction
         if (targetPosition == Vector3.zero)
         {
@@ -46,7 +46,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         Projectile projectile = Instantiate(projectiles[skillName]);
         projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f);
 
-        print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, targetPosition : {targetPosition}, speed : {speed}");
+        //print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, targetPosition : {targetPosition}, speed : {speed}");
 
         activeProjectiles.Add(projectile);
     }
@@ -96,14 +96,18 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     public void RemoveProjectile(Projectile projectile)
     {
+        print("RemoveProjectile!");
         if (activeProjectiles.Contains(projectile))
         {
             activeProjectiles.Remove(projectile);
         }
+        Destroy(projectile.gameObject);
     }
 
     private void OnDestroy()
     {
+        print("OnDestroy : ProjectileManager!");
+
         activeProjectiles.Clear();
     }
 

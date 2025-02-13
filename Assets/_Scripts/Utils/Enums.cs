@@ -35,7 +35,7 @@ public class Enums
         Green,
         Blue,
         Red,
-        Purple, // 고유 몬스터 처치시 획득, 일정레벨 이하에선 LV+1, 초과시 최대 경험치의 n%만큼 지급
+        Purple, // 怨좎쑀 紐ъ뒪??泥섏튂???띾뱷, ?쇱젙?덈꺼 ?댄븯?먯꽑 LV+1, 珥덇낵??理쒕? 寃쏀뿕移섏쓽 n%留뚰겮 吏湲?
     }
 
     public enum StatType
