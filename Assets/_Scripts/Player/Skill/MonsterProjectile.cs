@@ -10,33 +10,35 @@ public class MonsterProjectile : Projectile
         MoveProjectileAsync().Forget();
     }
 
-    private bool isDestroyed = false;  // ???댘 ??? 筌ｋ똾寃?????삋域?
+    private bool isDestroyed = false;  // ???�� ??? 泥댄�?????���?
 
     protected override async UniTaskVoid MoveProjectileAsync()
     {
         try
         {
-            while (!isDestroyed)  // isDestroyed 筌ｋ똾寃?
+            while (!isDestroyed)  // isDestroyed 泥댄�?
             {
-                if (this == null || gameObject == null)  // null 筌ｋ똾寃??곕떽?
+                if (this == null || gameObject == null)  // null 泥댄�??�붽?
                 {
                     return;
                 }
 
-                transform.position += direction * speed * Time.deltaTime;
+                Vector3 direction = (targetPosition - transform.position).normalized;
+                transform.position += speed * Time.deltaTime * direction;
+
                 await UniTask.Yield();
             }
         }
         catch (System.Exception e)
         {
-            // ?癒?쑎 嚥≪뮄??(?醫뤾문??鍮?
+            // ?�?�� 濡쒓??(?좏깮??�?
             Debug.LogWarning($"Projectile movement interrupted: {e.Message}");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ?겸뫖猷?筌ｌ꼶??
+        // ?�⑸�?泥섎??
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();
@@ -54,11 +56,11 @@ public class MonsterProjectile : Projectile
 
     private void DestroyProjectile()
     {
-        if (isDestroyed) return;  // ??? ???댘??뤿???삠늺 ?귐뗪쉘
+        if (isDestroyed) return;  // ???? ???��??��???�㈃ ?�ы꽩
 
         isDestroyed = true;
 
-        // ?袁⑥쨮?????筌띲끇????癒?퐣 ??볤탢
+        // ?꾨줈?????留ㅻ????�?�� ??�굅
         ProjectileManager.Instance?.RemoveProjectile(this);
 
         Destroy(gameObject);
