@@ -37,14 +37,18 @@ public class Training_Panel : Panel, IPointerExitHandler
     public Queue<TrainingCell> ClickedCell_Queue = new();
     public Sprite tinyCellOn_Sprite;
     public Sprite tinyCellOff_Sprite;
+    [SerializeField]
+    Training training;
     public CellReset cellReset;
     public List<TrainingCell> trainingCells_List;
-    Training training;
-    public Dictionary<TrainingCell, Training_Category> keyValuePairs = new();
-    public Dictionary<Training_Category, Action> keyValuePairs2 = new();
+
     private void Start()
     {
 
+    }
+
+    private void OnEnable()
+    {
         Cell_Initialize(ref trainingCells_List);
     }
 
@@ -60,68 +64,137 @@ public class Training_Panel : Panel, IPointerExitHandler
             switch (cell.training_Category)
             {
                 case Training_Category.MaxHp:
-                    // Handle MaxHp case
-
+                    cell.method_Action += training.MaxHp_Modify;
                     break;
                 case Training_Category.HpRegen:
-                    // Handle HpRegen case
+                    cell.method_Action += training.HpRegen_Modify;
                     break;
                 case Training_Category.Defense:
-                    // Handle Defense case
+                    cell.method_Action += training.Defense_Modify;
                     break;
                 case Training_Category.Mspd:
-                    // Handle Mspd case
+                    cell.method_Action += training.Mspd_Modify;
                     break;
                 case Training_Category.ATK:
-                    // Handle ATK case
+                    cell.method_Action += training.ATK_Modify;
                     break;
                 case Training_Category.Aspd:
-                    // Handle Aspd case
+                    cell.method_Action += training.Aspd_Modify;
                     break;
                 case Training_Category.CriRate:
-                    // Handle CriRate case
+                    cell.method_Action += training.CriRate_Modify;
                     break;
                 case Training_Category.CriDamage:
-                    // Handle CriDamage case
+                    cell.method_Action += training.CriDamage_Modify;
                     break;
                 case Training_Category.ProjAmount:
-                    // Handle ProjAmount case
+                    cell.method_Action += training.ProjAmount_Modify;
                     break;
                 case Training_Category.ATKRange:
-                    // Handle ATKRange case
+                    cell.method_Action += training.ATKRange_Modify;
                     break;
                 case Training_Category.Duration:
-                    // Handle Duration case
+                    cell.method_Action += training.Duration_Modify;
                     break;
                 case Training_Category.Cooldown:
-                    // Handle Cooldown case
+                    cell.method_Action += training.Cooldown_Modify;
                     break;
                 case Training_Category.Revival:
-                    // Handle Revival case
+                    cell.method_Action += training.Revival_Modify;
                     break;
                 case Training_Category.Magnet:
-                    // Handle Magnet case
+                    cell.method_Action += training.Magnet_Modify;
                     break;
                 case Training_Category.Growth:
-                    // Handle Growth case
+                    cell.method_Action += training.Growth_Modify;
                     break;
                 case Training_Category.Greed:
-                    // Handle Greed case
+                    cell.method_Action += training.Greed_Modify;
                     break;
                 case Training_Category.Curse:
-                    // Handle Curse case
+                    cell.method_Action += training.Curse_Modify;
                     break;
                 case Training_Category.Reroll:
-                    // Handle Reroll case
+                    cell.method_Action += training.Reroll_Modify;
                     break;
                 case Training_Category.Banish:
-                    // Handle Banish case
+                    cell.method_Action += training.Banish_Modify;
                     break;
                 default:
-                    // Handle default case
+                    Debug.Log("액션구독문제");
+                    break;
+            }
+
+        }
+    }
+    private void OnDisable()
+    {
+        foreach (TrainingCell cell in trainingCells_List)
+        {
+            switch (cell.training_Category)
+            {
+
+                case Training_Category.MaxHp:
+                    cell.method_Action -= training.MaxHp_Modify;
+                    break;
+                case Training_Category.HpRegen:
+                    cell.method_Action -= training.HpRegen_Modify;
+                    break;
+                case Training_Category.Defense:
+                    cell.method_Action -= training.Defense_Modify;
+                    break;
+                case Training_Category.Mspd:
+                    cell.method_Action -= training.Mspd_Modify;
+                    break;
+                case Training_Category.ATK:
+                    cell.method_Action -= training.ATK_Modify;
+                    break;
+                case Training_Category.Aspd:
+                    cell.method_Action -= training.Aspd_Modify;
+                    break;
+                case Training_Category.CriRate:
+                    cell.method_Action -= training.CriRate_Modify;
+                    break;
+                case Training_Category.CriDamage:
+                    cell.method_Action -= training.CriDamage_Modify;
+                    break;
+                case Training_Category.ProjAmount:
+                    cell.method_Action -= training.ProjAmount_Modify;
+                    break;
+                case Training_Category.ATKRange:
+                    cell.method_Action -= training.ATKRange_Modify;
+                    break;
+                case Training_Category.Duration:
+                    cell.method_Action -= training.Duration_Modify;
+                    break;
+                case Training_Category.Cooldown:
+                    cell.method_Action -= training.Cooldown_Modify;
+                    break;
+                case Training_Category.Revival:
+                    cell.method_Action -= training.Revival_Modify;
+                    break;
+                case Training_Category.Magnet:
+                    cell.method_Action -= training.Magnet_Modify;
+                    break;
+                case Training_Category.Growth:
+                    cell.method_Action -= training.Growth_Modify;
+                    break;
+                case Training_Category.Greed:
+                    cell.method_Action -= training.Greed_Modify;
+                    break;
+                case Training_Category.Curse:
+                    cell.method_Action -= training.Curse_Modify;
+                    break;
+                case Training_Category.Reroll:
+                    cell.method_Action -= training.Reroll_Modify;
+                    break;
+                case Training_Category.Banish:
+                    cell.method_Action -= training.Banish_Modify;
+                    break;
+                default:
+                    Debug.Log("액션구독해제문제");
                     break;
             }
         }
     }
-
 }
