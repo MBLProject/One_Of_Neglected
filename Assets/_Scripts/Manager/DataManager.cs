@@ -17,6 +17,25 @@ public class PlayerProperty
     public int gold;
     public int Bless_Point;
     public int remnants;
+    public int MaxHp_TrainingCount;
+    public int HpRegen_TrainingCount;
+    public int Defense_TrainingCount;
+    public int Mspd_TrainingCount;
+    public int ATK_TrainingCount;
+    public int Aspd_TrainingCount;
+    public int CriRate_TrainingCount;
+    public int CriDamage_TrainingCount;
+    public int ProjAmount_TrainingCount;
+    public int ATKRange_TrainingCount;
+    public int Duration_TrainingCount;
+    public int Cooldown_TrainingCount;
+    public int Revival_TrainingCount;
+    public int Magnet_TrainingCount;
+    public int Growth_TrainingCount;
+    public int Greed_TrainingCount;
+    public int Curse_TrainingCount;
+    public int Reroll_TrainingCount;
+    public int Banish_TrainingCount;
 }
 [Serializable]
 public class BTS
