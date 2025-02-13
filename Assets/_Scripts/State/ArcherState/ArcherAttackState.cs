@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorAttackState : BaseState<Player>
+public class ArcherAttackState : BaseState<Player>
 {
-    private const float BASE_ATTACK_DURATION = 0.5f; 
+    private const float BASE_ATTACK_DURATION = 0.5f;
     private float attackTimer;
     private bool hasDealtDamage = false;  // 한 번의 공격에 한 번만 데미지를 주기 위한 플래그
     private float attackRange = 0.5f;     // 공격 범위
 
-    public WarriorAttackState(StateHandler<Player> handler) : base(handler) { }
+    public ArcherAttackState(StateHandler<Player> handler) : base(handler) { }
 
     private float GetCurrentAttackDuration(Player player)
     {
@@ -20,8 +18,8 @@ public class WarriorAttackState : BaseState<Player>
     public override void Enter(Player player)
     {
         attackTimer = 0f;
-        hasDealtDamage = false;  
-        
+        hasDealtDamage = false;
+
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Attack");
         player.Animator?.ResetTrigger("IsMoving");
@@ -33,7 +31,7 @@ public class WarriorAttackState : BaseState<Player>
             player.Animator.speed = animSpeedMultiplier;
             player.Animator.SetTrigger("Attack");
         }
-        
+
         MonsterBase nearestMonster = player.GetNearestMonster();
         if (nearestMonster != null)
         {
@@ -68,7 +66,7 @@ public class WarriorAttackState : BaseState<Player>
 
         if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
         {
-            handler.ChangeState(typeof(WarriorDashState));
+            handler.ChangeState(typeof(ArcherDashState));
             return;
         }
 
@@ -76,14 +74,14 @@ public class WarriorAttackState : BaseState<Player>
         {
             attackTimer = 0;
             hasDealtDamage = false;
-            
+
             if (player.isAuto)
             {
                 MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
                 if (nearestMonster != null)
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                    
+
                     if (distance <= 0.3f)
                     {
                         Enter(player);
@@ -92,19 +90,19 @@ public class WarriorAttackState : BaseState<Player>
                     else
                     {
                         player.targetPosition = nearestMonster.transform.position;
-                        handler.ChangeState(typeof(WarriorMoveState));
+                        handler.ChangeState(typeof(ArcherMoveState));
                         return;
                     }
                 }
             }
-            
+
             if (!player.IsAtDestination())
             {
-                handler.ChangeState(typeof(WarriorMoveState));
+                handler.ChangeState(typeof(ArcherMoveState));
             }
             else
             {
-                handler.ChangeState(typeof(WarriorIdleState));
+                handler.ChangeState(typeof(ArcherIdleState));
             }
         }
     }
@@ -113,13 +111,13 @@ public class WarriorAttackState : BaseState<Player>
     {
         //TODO 공격 판정 다시 만들기
         Vector2 playerPosition = player.transform.position;
-        float attackAngle = 90f;  
-        
+        float attackAngle = 90f;
+
         int monsterLayer = LayerMask.NameToLayer("Monster");
         int layerMask = 1 << monsterLayer;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(playerPosition, attackRange, layerMask);
-        
+
         foreach (var hit in hits)
         {
             if (hit.CompareTag("Monster"))
@@ -138,7 +136,7 @@ public class WarriorAttackState : BaseState<Player>
                         {
                             damage *= (1f + player.Stats.CurrentCriDamage);
                         }
-                        
+
                         monster.TakeDamage(damage);
                     }
                 }
@@ -152,11 +150,11 @@ public class WarriorAttackState : BaseState<Player>
         {
             player.Animator.speed = 1f;
         }
-        
+
         player.Animator?.ResetTrigger("Attack");
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("IsMoving");
-        
+
         player.Animator?.Update(0);
     }
 

@@ -41,18 +41,19 @@ public class Enums
     public enum StatType
     {
         Level,
+        MaxExp,
         Exp,
         MaxHp,
         Hp,
-        Recovery,
-        Armor,
+        HpRegen,
+        Defense,
         Mspd,
         ATK,
         Aspd,
-        Critical,
-        CATK,
-        Amount,
-        Area,
+        CriRate,
+        CriDamage,
+        ProjAmount,
+        ATKRange,
         Duration,
         Cooldown,
         Revival,
@@ -61,7 +62,15 @@ public class Enums
         Greed,
         Curse,
         Reroll,
-        Banish
+        Banish,
+        GodKill,
+        Barrier,
+        BarrierCooldown,
+        Invincibility,
+        DashCount,
+        Adversary,
+        ProjDestroy,
+        ProjParry
     }
 
 }

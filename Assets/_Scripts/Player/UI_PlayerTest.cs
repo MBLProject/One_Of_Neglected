@@ -59,7 +59,7 @@ public class UI_PlayerTest : MonoBehaviour
             aspdText.text = $"ASPD: {player.Stats.CurrentAspd:F2}";
         
         if (criticalText != null)
-            criticalText.text = $"CRIT: {player.Stats.CurrentCritical:F1}%";
+            criticalText.text = $"CRIT: {player.Stats.CurrentCriRate:F1}%";
         
         if (catkText != null)
             catkText.text = $"CATK: {player.Stats.CurrentATK * 100:F0}%";

@@ -12,15 +12,15 @@ public class StatViewer
     [Tooltip("경험치")] public float Exp;
     [Tooltip("최대체력")] public int MaxHp;
     [Tooltip("체력")] public float Hp;
-    [Tooltip("체력회복량")] public float Recovery;
-    [Tooltip("방어력")] public int Armor;
+    [Tooltip("체력회복량")] public float HpRegen;
+    [Tooltip("방어력")] public int Defense;
     [Tooltip("이동속도")] public float Mspd;
     [Tooltip("공격력")] public float ATK;
     [Tooltip("공격속도")] public float Aspd;
-    [Tooltip("치명타 확률")] public float Critical;
-    [Tooltip("치명타 데미지")] public float CATK;
-    [Tooltip("투사체 개수")] public int Amount;
-    [Tooltip("공격범위")] public float Area;
+    [Tooltip("치명타 확률")] public float CriRate;
+    [Tooltip("치명타 데미지")] public float CriDamage;
+    [Tooltip("투사체 개수")] public int ProjAmount;
+    [Tooltip("공격범위")] public float ATKRange;
     [Tooltip("지속시간")] public float Duration;
     [Tooltip("쿨타임")] public float Cooldown;
     [Tooltip("부활 횟수")] public int Revival;
@@ -30,6 +30,14 @@ public class StatViewer
     [Tooltip("저주")] public float Curse;
     [Tooltip("새로고침 횟수")] public int Reroll;
     [Tooltip("스탯 지우기")] public int Banish;
+    [Tooltip("신 처치")] public bool GodKill;
+    [Tooltip("방어막")] public bool Barrier;
+    [Tooltip("방어막 쿨타임")] public float BarrierCooldown;
+    [Tooltip("무적")] public bool Invincibility;
+    [Tooltip("대시 횟수")] public int DashCount;
+    [Tooltip("역경")] public bool Adversary;
+    [Tooltip("투사체 파괴")] public bool ProjDestroy;
+    [Tooltip("투사체 반사")] public bool ProjParry;
 }
 
 public abstract class Player : MonoBehaviour
@@ -80,7 +88,6 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Awake()
     {
-        InitializeComponents();
         InitializeStateHandler();
         InitializeStats();
         InitializeClassType();
@@ -107,10 +114,7 @@ public abstract class Player : MonoBehaviour
     protected abstract void InitializeStateHandler();
     protected abstract void InitializeClassType();
     protected abstract void InitializeStatViewer();
-    private void InitializeComponents()
-    {
 
-    }
 
     #region Dash
     private void UpdateDashRecharge()
@@ -271,9 +275,9 @@ public abstract class Player : MonoBehaviour
     {
         bool isCritical = false;
         //몬스터도 크리확률이 있나?? 몰루??
-        if (Random.Range(0f, 100f) <= stats.CurrentCritical)
+        if (Random.Range(0f, 100f) <= stats.CurrentCriRate)
         {
-            damage = Mathf.RoundToInt(damage * stats.CurrentCATK);
+            damage = Mathf.RoundToInt(damage * stats.CurrentCriDamage);
             isCritical = true;
         }
 
@@ -331,15 +335,16 @@ public abstract class Player : MonoBehaviour
         statViewer.MaxExp = stats.CurrentMaxExp;
         statViewer.Exp = stats.currentExp;
         statViewer.MaxHp = stats.CurrentMaxHp;
-        statViewer.Recovery = stats.CurrentRecovery;
-        statViewer.Armor = stats.CurrentArmor;
+        statViewer.HpRegen = stats.CurrentHpRegen;
+        statViewer.Defense = stats.CurrentDefense;
         statViewer.Mspd = stats.CurrentMspd;
         statViewer.ATK = stats.CurrentATK;
         statViewer.Aspd = stats.CurrentAspd;
-        statViewer.Critical = stats.CurrentCritical;
-        statViewer.CATK = stats.CurrentCATK;
-        statViewer.Amount = stats.CurrentAmount;
-        statViewer.Area = stats.CurrentArea;
+        statViewer.CriRate = stats.CurrentCriRate;
+        statViewer.CriDamage = stats.CurrentCriDamage;
+        statViewer.ProjAmount = stats.CurrentProjAmount;
+        statViewer.ATKRange = stats.CurrentATKRange;
+        statViewer.Duration = stats.CurrentDuration;
         statViewer.Cooldown = stats.CurrentCooldown;
         statViewer.Revival = stats.CurrentRevival;
         statViewer.Magnet = stats.CurrentMagnet;
@@ -348,6 +353,14 @@ public abstract class Player : MonoBehaviour
         statViewer.Curse = stats.CurrentCurse;
         statViewer.Reroll = stats.CurrentReroll;
         statViewer.Banish = stats.CurrentBanish;
+        statViewer.GodKill = stats.CurrentGodKill;
+        statViewer.Barrier = stats.CurrentBarrier;
+        statViewer.BarrierCooldown = stats.CurrentBarrierCooldown;
+        statViewer.Invincibility = stats.CurrentInvincibility;
+        statViewer.DashCount = stats.CurrentDashCount;
+        statViewer.Adversary = stats.CurrentAdversary;
+        statViewer.ProjDestroy = stats.CurrentProjDestroy;
+        statViewer.ProjParry = stats.CurrentProjParry;
     }
 
     protected void UpdateStats()
@@ -358,15 +371,16 @@ public abstract class Player : MonoBehaviour
             stats.currentExp = statViewer.Exp;
             stats.CurrentMaxHp = statViewer.MaxHp;
             stats.currentHp = statViewer.Hp;
-            stats.CurrentRecovery = statViewer.Recovery;
-            stats.CurrentArmor = statViewer.Armor;
+            stats.CurrentHpRegen = statViewer.HpRegen;
+            stats.CurrentDefense = statViewer.Defense;
             stats.CurrentMspd = statViewer.Mspd;
             stats.CurrentATK = statViewer.ATK;
             stats.CurrentAspd = statViewer.Aspd;
-            stats.CurrentCritical = statViewer.Critical;
-            stats.CurrentCATK = statViewer.CATK;
-            stats.CurrentAmount = statViewer.Amount;
-            stats.CurrentArea = statViewer.Area;
+            stats.CurrentCriRate = statViewer.CriRate;
+            stats.CurrentCriDamage = statViewer.CriDamage;
+            stats.CurrentProjAmount = statViewer.ProjAmount;
+            stats.CurrentATKRange = statViewer.ATKRange;
+            stats.CurrentDuration = statViewer.Duration;
             stats.CurrentCooldown = statViewer.Cooldown;
             stats.CurrentRevival = statViewer.Revival;
             stats.CurrentMagnet = statViewer.Magnet;
@@ -375,6 +389,14 @@ public abstract class Player : MonoBehaviour
             stats.CurrentCurse = statViewer.Curse;
             stats.CurrentReroll = statViewer.Reroll;
             stats.CurrentBanish = statViewer.Banish;
+            stats.CurrentGodKill = statViewer.GodKill;
+            stats.CurrentBarrier = statViewer.Barrier;
+            stats.CurrentBarrierCooldown = statViewer.BarrierCooldown;
+            stats.CurrentInvincibility = statViewer.Invincibility;
+            stats.CurrentDashCount = statViewer.DashCount;
+            stats.CurrentAdversary = statViewer.Adversary;
+            stats.CurrentProjDestroy = statViewer.ProjDestroy;
+            stats.CurrentProjParry = statViewer.ProjParry;
         }
     }
     #endregion
@@ -419,10 +441,6 @@ public abstract class Player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, .3f);
         
-        if (stateHandler?.CurrentState is WarriorAttackState attackState)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, attackState.AttackRange);
-        }
+       
     }
 }
