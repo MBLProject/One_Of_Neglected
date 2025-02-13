@@ -40,7 +40,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         if (targetPosition == Vector3.zero)
         {
             Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            targetPosition = startPosition + randomDirection * 5f;
+            targetPosition = startPosition + randomDirection * 15f;
         }
 
         Projectile projectile = Instantiate(projectiles[skillName]);

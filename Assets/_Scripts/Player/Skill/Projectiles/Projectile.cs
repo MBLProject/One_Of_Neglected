@@ -13,13 +13,15 @@ public class Projectile : MonoBehaviour
     protected Vector3 targetPosition;
     protected bool isMoving;
     protected int pierceCount = 0;
+    protected float lifeTime = 5f;
 
-    protected CancellationTokenSource cts; // 🔹 UniTask 취소용 토큰
+    protected CancellationTokenSource cts;
+
     protected virtual void Start()
     {
         isMoving = true;
         transform.position = startPosition;
-        cts = new CancellationTokenSource(); // 🔹 취소 토큰 초기화
+        cts = new CancellationTokenSource();
         MoveProjectileAsync(cts.Token).Forget();
     }
 
@@ -31,10 +33,8 @@ public class Projectile : MonoBehaviour
 
             while (isMoving && !token.IsCancellationRequested)
             {
-                // 오브젝트가 파괴되었으면 UniTask 실행을 멈추도록 확인
                 if (gameObject == null || !isMoving)
                 {
-                    print("gameObject == null || !isMoving!!!");
                     break;
                 }
 
@@ -45,22 +45,19 @@ public class Projectile : MonoBehaviour
 
                     traveledDistance = (transform.position - startPosition).magnitude;
 
-                    //if (traveledDistance >= maxDistance)
-                    //{
-                    //    print("traveledDistance > maxDistance!!!");
-                    //    print("DestroyProjectile!!!00");
+                    if (traveledDistance >= maxDistance)
+                    {
+                        DestroyProjectile();
+                        break;
+                    }
 
-                    //    break;
-                    //}
-
-                    await UniTask.Yield(PlayerLoopTiming.Update, token);  // 🔹 토큰을 통해 안전 종료 가능
+                    await UniTask.Yield(PlayerLoopTiming.Update, token);
                 }
                 else
                 {
-                    await UniTask.Yield(token); // 🔹 토큰 추가
+                    await UniTask.Yield(token);
                 }
             }
-            print("UniTask Quit!!!");
         }
         catch (Exception ex)
         {
@@ -68,7 +65,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0)
+    public void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         this.startPosition = startPos;
         this.targetPosition = targetPos;
@@ -76,6 +73,11 @@ public class Projectile : MonoBehaviour
         maxDistance = maxDist;
         damage = dmg;
         pierceCount = pierceCnt;
+        lifeTime = lifetime;
+
+        CancelInvoke("DestroyProjectile");
+
+        Invoke("DestroyProjectile", lifeTime);
 
         Vector3 direction = (targetPos - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -102,48 +104,27 @@ public class Projectile : MonoBehaviour
 
     protected void DestroyProjectile()
     {
-        print("DestroyProjectile!!!!0000");
+        if (!isMoving || gameObject == null)
+        {
+            return;
+        }
 
-        if (!isMoving)
-        {
-            print("!isMoving!!");
-            return;  // 🔹 오브젝트가 이미 파괴되었으면 처리하지 않음
-        }
-        if (gameObject == null)
-        {
-            print("gameObject == null!!");
-            return;  // 🔹 오브젝트가 이미 파괴되었으면 처리하지 않음
-        }
-        print("DestroyProjectile!!!!1");
         isMoving = false;
-        print("DestroyProjectile!!!!2");
+
+        CancelInvoke("DestroyProjectile");
+
+        cts?.Cancel();
+        cts?.Dispose();
+        cts = null;
 
         ProjectileManager.Instance?.RemoveProjectile(this);
-        print("DestroyProjectile!!!!3");
 
         Destroy(gameObject);
     }
 
     protected virtual void OnBecameInvisible()
     {
-        print("OnBecameInvisible!!!!!");
-
         if (pierceCount > 0) return;
         DestroyProjectile();
-    }
-
-    private void OnDestroy()
-    {
-        print($"DestroyProjectile!!!!4 : {isMoving}");
-        Debug.Log("Stack Trace: " + Environment.StackTrace);
-
-        //var token = this.GetCancellationTokenOnDestroy();
-        cts?.Cancel();
-        cts?.Dispose();
-        if (cts != null) cts = null;
-
-        ProjectileManager.Instance?.RemoveProjectile(this);
-
-        print("DestroyProjectile!!!!5");
     }
 }
