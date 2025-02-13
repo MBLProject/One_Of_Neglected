@@ -5,11 +5,11 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public bool isPaused = false;
-    private bool isGameStarted = false;  // 寃뚯엫 ?쒖옉 ?곹깭 泥댄겕
+    private bool isGameStarted = false;  // ?濡ろ뜐?????筌믨퀣援????ㅺ컼??癲ル슪???띿물?
 
     private void Update()
     {
-        // ?ㅽ럹?댁뒪諛붾줈 寃뚯엫 ?쒖옉
+        // ????됱뱻???⑤８痢?袁⑸즴??繞??濡ろ뜐?????筌믨퀣援?
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted)
         {
             Debug.Log("Game Started by Space key!");
@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
             StartGame();
         }
 
-        // ESC濡?寃뚯엫 ?쇱떆?뺤?/?ш컻
+        // ESC???濡ろ뜐?????繹먮굝六?嶺?/????
         if (Input.GetKeyDown(KeyCode.Escape) && isGameStarted)
         {
             if (isPaused)
@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        // R?ㅻ줈 寃뚯엫 ?ъ떆??
+        // R????겾??濡ろ뜐????????
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Game Restarted by R key!");

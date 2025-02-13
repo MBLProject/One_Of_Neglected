@@ -8,6 +8,7 @@ public class SkillDispesner : MonoBehaviour
 
     public int Count;
 
+
     private void Update()
     {
         // for Debug
