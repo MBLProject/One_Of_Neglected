@@ -48,7 +48,6 @@ public class Skill
 
                 float adjustedCooldown = defaultCooldown - (shotCount * 0.5f + projectileCount * 0.25f);
                 if (adjustedCooldown > 0) await DelayFloat(adjustedCooldown);
-                break;
             }
             else
             {
