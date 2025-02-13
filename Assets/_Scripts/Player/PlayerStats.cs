@@ -12,15 +12,15 @@ public class PlayerStats
     private float Exp;
     private int MaxHp;
     private float Hp;   
-    private float Recovery;
-    private int Armor;   
+    private float HpRegen;
+    private int Defense;   
     private float Mspd;    
     private float ATK;     
     private float Aspd;    
-    private float Critical;
-    private float CATK;    
-    private int Amount;  
-    private float Area;    
+    private float CriRate;
+    private float CriDamage;    
+    private int ProjAmount;  
+    private float ATKRange;    
     private float Duration;
     private float Cooldown;
     private int Revival; 
@@ -30,6 +30,15 @@ public class PlayerStats
     private float Curse;   
     private int Reroll;  
     private int Banish;
+    private bool GodKill;
+    private bool Barrier;
+    private float BarrierCooldown;
+    private bool Invincibility;
+    private int DashCount;
+    private bool Adversary;
+    private bool ProjDestroy;
+    private bool projParry;
+
     #endregion
 
     #region Event
@@ -39,15 +48,15 @@ public class PlayerStats
     public event Action<float> OnExpChanged;
     public event Action<int> OnMaxExpChanged;
     public event Action<int> OnMaxHpChanged;
-    public event Action<float> OnRecoveryChanged;
-    public event Action<int> OnArmorChanged;
+    public event Action<float> OnHpRegenChanged;
+    public event Action<int> OnDefenseChanged;
     public event Action<float> OnMspdChanged;
     public event Action<float> OnATKChanged;
     public event Action<float> OnAspdChanged;
-    public event Action<float> OnCriticalChanged;
-    public event Action<float> OnCATKChanged;
-    public event Action<int> OnAmountChanged;
-    public event Action<float> OnAreaChanged;
+    public event Action<float> OnCriRateChanged;
+    public event Action<float> OnCriDamageChanged;
+    public event Action<int> OnProjAmountChanged;
+    public event Action<float> OnATKRangeChanged;
     public event Action<float> OnDurationChanged;
     public event Action<float> OnCooldownChanged;
     public event Action<int> OnRevivalChanged;
@@ -57,6 +66,14 @@ public class PlayerStats
     public event Action<float> OnCurseChanged;
     public event Action<int> OnRerollChanged;
     public event Action<int> OnBanishChanged;
+    public event Action<bool> OnGodKillChanged;
+    public event Action<bool> OnBarrierChanged;
+    public event Action<float> OnBarrierCooldownChanged;
+    public event Action<bool> OnInvincibilityChanged;
+    public event Action<int> OnDashCountChanged;
+    public event Action<bool> OnAdversaryChanged;
+    public event Action<bool> OnProjDestroyChanged;
+    public event Action<bool> OnProjParryChanged;
     #endregion
 
     #region Properties
@@ -113,22 +130,22 @@ public class PlayerStats
             OnHpChanged?.Invoke(Hp);
         }
     }
-    public float CurrentRecovery
+    public float CurrentHpRegen
     {
-        get => Recovery;
+        get => HpRegen;
         set
         {
-            Recovery = value;
-            OnRecoveryChanged?.Invoke(Recovery);
+            HpRegen = value;
+            OnHpRegenChanged?.Invoke(HpRegen);
         }
     }
-    public int CurrentArmor
+    public int CurrentDefense
     {
-        get => Armor;
+        get => Defense;
         set
         {
-            Armor = value;
-            OnArmorChanged?.Invoke(Armor);
+            Defense = value;
+            OnDefenseChanged?.Invoke(Defense);
         }
     }
     public float CurrentMspd
@@ -158,40 +175,40 @@ public class PlayerStats
             OnAspdChanged?.Invoke(Aspd);
         }
     }
-    public float CurrentCritical
+    public float CurrentCriRate
     {
-        get => Critical;
+        get => CriRate;
         set
         {
-            Critical = value;
-            OnCriticalChanged?.Invoke(Critical);
+            CriRate = value;
+            OnCriRateChanged?.Invoke(CriRate);
         }
     }
-    public float CurrentCATK
+    public float CurrentCriDamage
     {
-        get => CATK;
+        get => CriDamage;
         set
         {
-            CATK = value;
-            OnCATKChanged?.Invoke(CATK);
+            CriDamage = value;
+            OnCriDamageChanged?.Invoke(CriDamage);
         }
     }
-    public int CurrentAmount
+    public int CurrentProjAmount
     {
-        get => Amount;
+        get => ProjAmount;
         set
         {
-            Amount = value;
-            OnAmountChanged?.Invoke(Amount);
+            ProjAmount = value;
+            OnProjAmountChanged?.Invoke(ProjAmount);
         }
     }
-    public float CurrentArea
+    public float CurrentATKRange
     {
-        get => Area;
+        get => ATKRange;
         set
         {
-            Area = value;
-            OnAreaChanged?.Invoke(Area);
+            ATKRange = value;
+            OnATKRangeChanged?.Invoke(ATKRange);
         }
     }
     public float CurrentDuration
@@ -275,6 +292,78 @@ public class PlayerStats
             OnBanishChanged?.Invoke(Banish);
         }
     }
+    public bool CurrentGodKill
+    {
+        get => GodKill;
+        set
+        {
+            GodKill = value;
+            OnGodKillChanged?.Invoke(GodKill);
+        }
+    }
+    public bool CurrentBarrier
+    {
+        get => Barrier;
+        set
+        {
+            Barrier = value;
+            OnBarrierChanged?.Invoke(Barrier);
+        }
+    }
+    public float CurrentBarrierCooldown
+    {
+        get => BarrierCooldown;
+        set
+        {
+            BarrierCooldown = value;
+            OnBarrierCooldownChanged?.Invoke(BarrierCooldown);
+        }
+    }
+    public bool CurrentInvincibility
+    {
+        get => Invincibility;
+        set
+        {
+            Invincibility = value;
+            OnInvincibilityChanged?.Invoke(Invincibility);
+        }
+    }
+    public int CurrentDashCount
+    {
+        get => DashCount;
+        set
+        {
+            DashCount = value;
+            OnDashCountChanged?.Invoke(DashCount);
+        }
+    }
+    public bool CurrentAdversary
+    {
+        get => Adversary;
+        set
+        {
+            Adversary = value;
+            OnAdversaryChanged?.Invoke(Adversary);
+        }
+    }
+    public bool CurrentProjDestroy
+    {
+        get => ProjDestroy;
+        set
+        {
+            ProjDestroy = value;
+            OnProjDestroyChanged?.Invoke(ProjDestroy);
+        }
+    }
+    public bool CurrentProjParry
+    {
+        get => projParry;
+        set
+        {
+            projParry = value;
+            OnProjParryChanged?.Invoke(projParry);
+        }
+    }
     #endregion
 
     #region Func
@@ -307,7 +396,7 @@ public class PlayerStats
         if (regenTimer >= regenPeriod)
         {
             regenTimer = 0f;
-            currentHp += (int)Recovery;
+            currentHp += (int)HpRegen;
         }
     }
     #endregion
@@ -331,11 +420,11 @@ public class PlayerStats
             case StatType.Hp:
                 currentHp += finalValue;
                 break;
-            case StatType.Recovery:
-                CurrentRecovery += finalValue;
+            case StatType.HpRegen:
+                CurrentHpRegen += finalValue;
                 break;
-            case StatType.Armor:
-                CurrentArmor += (int)finalValue;
+            case StatType.Defense:
+                CurrentDefense += (int)finalValue;
                 break;
             case StatType.Mspd:
                 CurrentMspd += finalValue;
@@ -346,17 +435,17 @@ public class PlayerStats
             case StatType.ATK:
                 CurrentATK += finalValue;
                 break;
-            case StatType.Critical:
-                CurrentCritical += finalValue;
+            case StatType.CriRate:
+                CurrentCriRate += finalValue;
                 break;
-            case StatType.CATK:
-                CurrentCATK += finalValue;
+            case StatType.CriDamage:
+                CurrentCriDamage += finalValue;
                 break;
-            case StatType.Amount:
-                CurrentAmount += (int)finalValue;
+            case StatType.ProjAmount:
+                CurrentProjAmount += (int)finalValue;
                 break;
-            case StatType.Area:
-                CurrentArea += finalValue;
+            case StatType.ATKRange:
+                CurrentATKRange += finalValue;
                 break;
             case StatType.Duration:
                 CurrentDuration += finalValue;
@@ -385,6 +474,30 @@ public class PlayerStats
             case StatType.Banish:
                 CurrentBanish += (int)finalValue;
                 break;
+            case StatType.GodKill:
+                CurrentGodKill = Convert.ToBoolean(finalValue);
+                break;
+            case StatType.Barrier:
+                CurrentBarrier = Convert.ToBoolean(finalValue);
+                break;
+            case StatType.BarrierCooldown:
+                CurrentBarrierCooldown += finalValue;
+                break;
+            case StatType.Invincibility:
+                CurrentInvincibility = Convert.ToBoolean(finalValue);
+                break;
+            case StatType.DashCount:
+                CurrentDashCount += (int)finalValue;
+                break;
+            case StatType.Adversary:
+                CurrentAdversary = Convert.ToBoolean(finalValue);
+                break;
+            case StatType.ProjDestroy:
+                CurrentProjDestroy = Convert.ToBoolean(finalValue);
+                break;
+            case StatType.ProjParry:
+                CurrentProjParry = Convert.ToBoolean(finalValue);
+                break;
         }
     }
 
@@ -404,11 +517,11 @@ public class PlayerStats
             case StatType.Hp:
                 currentHp = value;
                 break;
-            case StatType.Recovery:
-                CurrentRecovery = value;
+            case StatType.HpRegen:
+                CurrentHpRegen = value;
                 break;
-            case StatType.Armor:
-                CurrentArmor = (int)value;
+            case StatType.Defense:
+                CurrentDefense = (int)value;
                 break;
             case StatType.Mspd:
                 CurrentMspd = value;
@@ -419,17 +532,17 @@ public class PlayerStats
             case StatType.ATK:
                 CurrentATK = value;
                 break;
-            case StatType.Critical:
-                CurrentCritical = value;
+            case StatType.CriRate:
+                CurrentCriRate = value;
                 break;
-            case StatType.CATK:
-                CurrentCATK = value;
+            case StatType.CriDamage:
+                CurrentCriDamage = value;
                 break;
-            case StatType.Amount:
-                CurrentAmount = (int)value;
+            case StatType.ProjAmount:
+                CurrentProjAmount = (int)value;
                 break;
-            case StatType.Area:
-                CurrentArea = value;
+            case StatType.ATKRange:
+                CurrentATKRange = value;
                 break;
             case StatType.Duration:
                 CurrentDuration = value;
@@ -457,6 +570,30 @@ public class PlayerStats
                 break;
             case StatType.Banish:
                 CurrentBanish = (int)value;
+                break;
+            case StatType.GodKill:
+                CurrentGodKill = Convert.ToBoolean(value);
+                break;
+            case StatType.Barrier:
+                CurrentBarrier = Convert.ToBoolean(value);
+                break;
+            case StatType.BarrierCooldown:
+                CurrentBarrierCooldown = value;
+                break;
+            case StatType.Invincibility:
+                CurrentInvincibility = Convert.ToBoolean(value);
+                break;
+            case StatType.DashCount:
+                CurrentDashCount = (int)value;
+                break;
+            case StatType.Adversary:
+                CurrentAdversary = Convert.ToBoolean(value);
+                break;
+            case StatType.ProjDestroy:
+                CurrentProjDestroy = Convert.ToBoolean(value);
+                break;
+            case StatType.ProjParry:
+                CurrentProjParry = Convert.ToBoolean(value);
                 break;
         }
     }
