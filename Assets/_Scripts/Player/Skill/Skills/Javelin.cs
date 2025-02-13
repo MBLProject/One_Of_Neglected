@@ -9,7 +9,7 @@ public class Javelin : Skill
     public override void StartMainTask()
     {
         base.StartMainTask();
-        Debug.Log("Start! : Javelin");
+        //Debug.Log("Start! : Javelin");
     }
 
 }
