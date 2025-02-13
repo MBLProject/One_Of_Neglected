@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,30 +22,26 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Button m_BTN;
     public bool can_Interactable = false;
     public bool can_Revert = false;
+
     public bool clicked = false;
     ColorBlock colorBlock_Origin;
     ColorBlock colorBlock_Temp;
+    public Action<bool> revertAction;
+
     private void Awake()
     {
+
         m_BTN = GetComponent<Button>();
         if (bless_Panel == null) bless_Panel = GetComponentInParent<Bless_Panel>();
         bless_Panel.nodeReset += NodeReset;
         m_BTN.onClick.AddListener(BTN_Clicked);
+
         if (prev_Nodes.Count == 0) m_BTN.interactable = true;
 
         colorBlock_Origin = m_BTN.colors;
         colorBlock_Temp = colorBlock_Origin;
 
         SetNextNode(next_Nodes);
-
-    }
-
-    private void Start()
-    {
-
-    }
-    private void OnEnable()
-    {
 
     }
 
@@ -60,13 +57,11 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("감지");
             if (can_Revert)
             {
-                Debug.Log("되돌림");
                 BTN_Reverted();
                 CtrlAroundNodes(next_Nodes, false);
-
+                revertAction?.Invoke(false);
             }
         }
     }
@@ -82,6 +77,8 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void BTN_Clicked()
     {
+        if (DataManager.Instance.player_Property.Bless_Point == 0) return;
+
         clicked = true;
         can_Revert = true;
         m_BTN.interactable = false;
@@ -100,7 +97,6 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         clicked = false;
         can_Revert = false;
         m_BTN.interactable = true;
-
         colorBlock_Temp.disabledColor = colorBlock_Origin.disabledColor;
         m_BTN.colors = colorBlock_Temp;
         foreach (Node prevNode in prev_Nodes)
@@ -111,6 +107,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     private void Check_PrevNodes_Of_NextNode(Node node)
     {
+        if (DataManager.Instance.player_Property.Bless_Point == 0) return;
 
         if (node.prev_Nodes.Count == 1)
         {
@@ -131,6 +128,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     private void NodeReset()
     {
+        if (clicked) revertAction?.Invoke(false);
         clicked = false;
         can_Revert = false;
         m_BTN.colors = colorBlock_Origin;
@@ -138,6 +136,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         else m_BTN.interactable = true;
 
         DataManager.Instance.bless_Dic[this] = false;
+
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

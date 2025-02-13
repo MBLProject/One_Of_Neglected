@@ -15,25 +15,48 @@ public class DicDataTable
 public class PlayerProperty
 {
     public int gold;
-    public int blessPoint;
+    public int Bless_Point;
     public int remnants;
 }
 [Serializable]
 public class BTS
 {
-
+    public int MaxHp;
+    public float HpRegen;
+    public int Defense;
+    public float Mspd;
+    public float ATK;
+    public float Aspd;
+    public float CriRate;
+    public float CriDamage;
+    public int ProjAmount;
+    public float ATKRange;
+    public float Duration;
+    public float Cooldown;
+    public int Revival;
+    public float Magnet;
+    public float Growth;
+    public float Greed;
+    public float Curse;
+    public int Reroll;
+    public int Banish;
+    public float BarrierCooldown;
+    public int DashCount;
+    public bool Barrier;
+    public bool ProjDestroy;
+    public bool projParry;
+    public bool Invincibility;
+    public bool Adversary;
+    public bool GodKill;
 }
 
 public class DataManager : Singleton<DataManager>
 {
     public DicDataTable dicDataTable = new DicDataTable();
     public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
-    public PlayerProperty playerProperty = new PlayerProperty
-    {
-        gold = 0,
-        blessPoint = 0,
-        remnants = 0
-    };
+    public PlayerProperty player_Property = new PlayerProperty();
+
+    public BTS BTS = new BTS();
 
     string path = "Assets/Resources/SaveFile/";
     protected override void Awake()
@@ -42,8 +65,14 @@ public class DataManager : Singleton<DataManager>
     }
     private void Start()
     {
-        LoadPlayerProperty();
+        string fromJsonData;
+        fromJsonData = Load_JsonUtility<PlayerProperty>("PlayerProperty", player_Property);
+        player_Property = JsonUtility.FromJson<PlayerProperty>(fromJsonData);
+
+        fromJsonData = Load_JsonUtility<BTS>("BTS", BTS);
+        BTS = JsonUtility.FromJson<BTS>(fromJsonData);
     }
+
     public void SaveData()
     {
         Debug.Log("저장");
@@ -52,10 +81,30 @@ public class DataManager : Singleton<DataManager>
         string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
         File.WriteAllText(path + "BlessData", Data);
 
-        Data = JsonUtility.ToJson(playerProperty);
-        File.WriteAllText(path + "PlayerProperty", Data);
-    }
+        Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property);
+        Save_JsonUtility<BTS>("BTS", BTS);
 
+        // Data = JsonUtility.ToJson(playerProperty);
+        // File.WriteAllText(path + "PlayerProperty", Data);
+
+        // Data = JsonUtility.ToJson(BTS);
+        // File.WriteAllText(path + "BTS", Data);
+    }
+    public void Save_JsonUtility<T>(string fileName, T data)
+    {
+        string Data = JsonUtility.ToJson(data);
+        File.WriteAllText(path + fileName, Data);
+    }
+    public string Load_JsonUtility<T>(string fileName, T data)
+    {
+        if (!File.Exists(path + fileName))
+        {
+            string Data = JsonUtility.ToJson(data);
+            File.WriteAllText(path + fileName, Data);
+        }
+        string fromJsonData = File.ReadAllText(path + fileName);
+        return fromJsonData;
+    }
     public void LoadBlessData()
     {
         if (!File.Exists(path + "BlessData"))
@@ -71,15 +120,5 @@ public class DataManager : Singleton<DataManager>
         DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
         bless_Dic = dicDataTable.bless_Table;
     }
-    public void LoadPlayerProperty()
-    {
-        if (!File.Exists(path + "PlayerProperty"))
-        {
-            string Data = JsonUtility.ToJson(playerProperty);
-            File.WriteAllText(path + "PlayerProperty", Data);
-        }
-        string fromJsonData = File.ReadAllText(path + "PlayerProperty");
-        playerProperty = JsonUtility.FromJson<PlayerProperty>(fromJsonData);
 
-    }
 }

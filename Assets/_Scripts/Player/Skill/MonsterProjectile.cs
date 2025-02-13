@@ -10,15 +10,15 @@ public class MonsterProjectile : Projectile
         MoveProjectileAsync().Forget();
     }
 
-    private bool isDestroyed = false;  // ???ˆ¼ ??? ï§£ëŒ„ê²?????˜’æ´?
+    private bool isDestroyed = false;  // ???ï¿½ï¿½ ??? ï§£ëŒ„ï¿½?????ï¿½ï¿½ï¿½?
 
     protected override async UniTaskVoid MoveProjectileAsync()
     {
         try
         {
-            while (!isDestroyed)  // isDestroyed ï§£ëŒ„ê²?
+            while (!isDestroyed)  // isDestroyed ï§£ëŒ„ï¿½?
             {
-                if (this == null || gameObject == null)  // null ï§£ëŒ„ê²??°ë¶½?
+                if (this == null || gameObject == null)  // null ï§£ëŒ„ï¿½??ï¿½ë¶½?
                 {
                     return;
                 }
@@ -31,14 +31,14 @@ public class MonsterProjectile : Projectile
         }
         catch (System.Exception e)
         {
-            // ?ë¨?œ­ æ¿¡ì’“??(?ì¢ê¹®??ë¹?
+            // ?ï¿½?ï¿½ï¿½ æ¿¡ì’“??(?ì¢ê¹®??ï¿½?
             Debug.LogWarning($"Projectile movement interrupted: {e.Message}");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ?°â‘¸ë£?ï§£ì„??
+        // ?ï¿½â‘¸ï¿½?ï§£ì„??
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();
@@ -56,11 +56,11 @@ public class MonsterProjectile : Projectile
 
     private void DestroyProjectile()
     {
-        if (isDestroyed) return;  // ???? ???ˆ¼??ë???»ãˆƒ ?±Ñ‹ê½©
+        if (isDestroyed) return;  // ???? ???ï¿½ï¿½??ï¿½ï¿½???ï¿½ãˆƒ ?ï¿½Ñ‹ê½©
 
         isDestroyed = true;
 
-        // ?ê¾¨ì¤ˆ?????ï§ã…»????ë¨?½Œ ??“êµ…
+        // ?ê¾¨ì¤ˆ?????ï§ã…»????ï¿½?ï¿½ï¿½ ??ï¿½êµ…
         ProjectileManager.Instance?.RemoveProjectile(this);
 
         Destroy(gameObject);
