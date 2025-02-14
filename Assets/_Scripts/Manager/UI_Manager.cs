@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class UI_Manager : Singleton<UI_Manager>
     public Player p;
 
     public Upgrade_Panel upgrade_Panel;
+
+    public Button ctrlPanel_CloseBTN;
 
     protected override void Awake()
     {
@@ -24,6 +27,8 @@ public class UI_Manager : Singleton<UI_Manager>
         }
         if (upgrade_Panel == null)
             upgrade_Panel = panel_Dic["Upgrade_Panel"].GetComponentInChildren<Upgrade_Panel>();
+
+        ctrlPanel_CloseBTN.onClick.AddListener(CtrlPanelOff);
     }
 
     private void Start()
@@ -34,5 +39,11 @@ public class UI_Manager : Singleton<UI_Manager>
     {
         DataManager.Instance.LoadBlessData();
 
+    }
+
+    private void CtrlPanelOff()
+    {
+        panel_Dic["Control_Panel"].PanelClose();
+        panel_Dic["Main_Panel"].PanelOpen();
     }
 }
