@@ -80,35 +80,33 @@ public class ProjectileManager : Singleton<ProjectileManager>
         switch (skillName)
         {
             case Enums.SkillName.Javelin:
-                // 가장 가까운 몬스터 한 마리를 타겟으로 설정
-                Vector2? nearest = UnitManager.Instance.GetNearestMonsterPosition();
+                Vector3? nearest = UnitManager.Instance.GetNearestMonsterPosition();
                 if (nearest.HasValue)
                     targetPositions.Add(nearest.Value);
                 break;
 
             case Enums.SkillName.Needle:
-                // 일정 범위 내의 모든 몬스터를 타겟으로 설정
-                List<Vector2> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
+                List<Vector3> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
                 if (needleTargets.Count > 0)
                     targetPositions.AddRange(needleTargets);
                 break;
 
             case Enums.SkillName.Shuriken:
-                Vector2? shurikenTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                Vector3? shurikenTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (shurikenTarget.HasValue)
                     targetPositions.Add(shurikenTarget.Value);
                 break;
 
             case Enums.SkillName.Fireball:
                 // 가장 가까운 몬스터가 있으면 타겟팅, 없으면 직선 방향 발사
-                Vector2? fireballTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                Vector3? fireballTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (fireballTarget.HasValue)
                     targetPositions.Add(fireballTarget.Value);
                 break;
 
             default:
                 // 기본적으로 가장 가까운 몬스터를 타겟팅, 없으면 랜덤 방향
-                Vector2? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (defaultTarget.HasValue)
                     targetPositions.Add(defaultTarget.Value);
                 break;
