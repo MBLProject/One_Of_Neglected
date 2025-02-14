@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -261,6 +262,33 @@ public class UnitManager : MonoBehaviour
             }
         }
         return nearestMonster;
+    }
+
+    public List<Vector2> GetMonsterPositionsInRange(float minRange, float maxRange)
+    {
+        var positionsInRange = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => (Vector2)data.position)
+            .ToList();
+
+        return positionsInRange;
+    }
+
+    /// <summary>
+    /// 가장 가까운 몬스터의 위치 반환
+    /// </summary>
+    public Vector2? GetNearestMonsterPosition()
+    {
+        var nearestMonster = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .OrderBy(data => data.distance)
+            .FirstOrDefault();
+
+        return nearestMonster?.position;
     }
 
     //public List<MonsterBase> GetMonstersInMinMaxRange(Vector2 position)
