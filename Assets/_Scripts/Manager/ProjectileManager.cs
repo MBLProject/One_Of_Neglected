@@ -1,7 +1,10 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ProjectileManager : Singleton<ProjectileManager>
 {
@@ -20,7 +23,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
     }
 
-    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level)
+    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay)
     {
         if (!projectiles.ContainsKey(skillName))
         {
@@ -28,49 +31,95 @@ public class ProjectileManager : Singleton<ProjectileManager>
             return;
         }
 
-        // TODO : create correct Projectile by SkillName with Dictionary key
-
-        Vector3 startPosition = UnitManager.Instance.GetPlayer().gameObject.transform.position; // TODO : player pos
+        Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
         float speed = 1f;
 
-        // find nearest monster's position
-        Vector3 targetPosition = FindNearestMonsterPosition(startPosition, 3f);
+        List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
+        int totalShots = shotCount * projectileCount;
 
-        // if target is null, shoot with random direction
-        if (targetPosition == Vector3.zero)
+        // Needle ?뱀꽦: targetPositions 媛쒖닔蹂대떎 珥??ъ궗泥?媛쒖닔媛 留롮쑝硫?泥섏쓬遺??諛섎났
+        bool isNeedle = skillName == Enums.SkillName.Needle;
+        int currentIndex = 0;
+
+        UniTask.Void(async () =>
         {
-            Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            targetPosition = startPosition + randomDirection * 15f;
-        }
+            for (int i = 0; i < shotCount; i++)
+            {
+                for (int j = 0; j < projectileCount; j++)
+                {
+                    if (targetPositions.Count == 0) continue;
 
-        Projectile projectile = Instantiate(projectiles[skillName]);
-        projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f);
+                    Vector3 targetPosition;
+                    if (isNeedle)
+                    {
+                        targetPosition = targetPositions[currentIndex];
+                        currentIndex = (currentIndex + 1) % targetPositions.Count;
+                    }
+                    else
+                    {
+                        targetPosition = targetPositions[j % targetPositions.Count];
+                    }
 
-        //print($"SpawnProjectile : {skillName}, startPosition : {startPosition}, targetPosition : {targetPosition}, speed : {speed}");
+                    Projectile projectile = Instantiate(projectiles[skillName]);
+                    projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f);
+                    activeProjectiles.Add(projectile);
 
-        activeProjectiles.Add(projectile);
+                    await UniTask.Delay(TimeSpan.FromSeconds(shotDelay));
+                }
+                await UniTask.Delay(TimeSpan.FromSeconds(pierceDelay));
+            }
+        });
     }
 
-    private Vector3 FindNearestMonsterPosition(Vector3 center, float radius)
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius);
-        float closestDistance = float.MaxValue;
-        Vector3 nearestMonsterPosition = Vector3.zero;
 
-        foreach (Collider2D collider in colliders)
+
+    private List<Vector3> GetTargetPositionsBySkill(Enums.SkillName skillName, Vector3 startPosition)
+    {
+        List<Vector3> targetPositions = new List<Vector3>();
+
+        switch (skillName)
         {
-            if (collider.CompareTag("Monster"))
-            {
-                float distance = Vector3.Distance(center, collider.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    nearestMonsterPosition = collider.transform.position;
-                }
-            }
+            case Enums.SkillName.Javelin:
+                Vector3? nearest = UnitManager.Instance.GetNearestMonsterPosition();
+                if (nearest.HasValue)
+                    targetPositions.Add(nearest.Value);
+                break;
+
+            case Enums.SkillName.Needle:
+                List<Vector3> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
+                if (needleTargets.Count > 0)
+                    targetPositions.AddRange(needleTargets);
+                break;
+
+            case Enums.SkillName.Shuriken:
+                Vector3? shurikenTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                if (shurikenTarget.HasValue)
+                    targetPositions.Add(shurikenTarget.Value);
+                break;
+
+            case Enums.SkillName.Fireball:
+                // 媛??媛源뚯슫 紐ъ뒪?곌? ?덉쑝硫??寃잜똿, ?놁쑝硫?吏곸꽑 諛⑺뼢 諛쒖궗
+                Vector3? fireballTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                if (fireballTarget.HasValue)
+                    targetPositions.Add(fireballTarget.Value);
+                break;
+
+            default:
+                // 湲곕낯?곸쑝濡?媛??媛源뚯슫 紐ъ뒪?곕? ?寃잜똿, ?놁쑝硫??쒕뜡 諛⑺뼢
+                Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
+                if (defaultTarget.HasValue)
+                    targetPositions.Add(defaultTarget.Value);
+                break;
         }
 
-        return nearestMonsterPosition;
+        // ?寃잛씠 ?놁쑝硫?湲곕낯 ?쒕뜡 諛⑺뼢 ?ㅼ젙
+        if (targetPositions.Count == 0)
+        {
+            Vector3 randomDirection = Random.insideUnitCircle.normalized;
+            targetPositions.Add(startPosition + randomDirection * 15f);
+        }
+
+        return targetPositions;
     }
 
     public void SpawnMonsterProjectile(string projectileType, Vector3 startPosition, Vector3 direction, float speed, float damage)

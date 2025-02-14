@@ -7,6 +7,7 @@ public class Skill
 {
     public Enums.SkillName skillName;
     public float cooldown;
+
     protected float defaultCooldown;
     protected float damage = 1f;
     protected int level = 1;
@@ -14,12 +15,28 @@ public class Skill
     protected int shotCount = 1;
     protected int projectileCount = 1;
 
+    protected float projectileDelay = 0.1f;
+    protected float shotDelay = 0.5f;
+
     protected bool isSkillActive = false;
 
-    protected Skill(Enums.SkillName skillName, float defaultCooldown)
+    protected Skill(Enums.SkillName skillName, float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f)
     {
         this.skillName = skillName;
         this.defaultCooldown = defaultCooldown;
+        this.projectileDelay = pierceDelay;
+        this.shotDelay = shotDelay;
+    }
+
+    public void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    {
+        this.damage = damage;
+        this.level = level;
+        this.pierceCount = pierceCount;
+        this.shotCount = shotCount;
+        this.projectileCount = projectileCount;
+        this.projectileDelay = projectileDelay;
+        this.shotDelay = shotDelay;
     }
 
     public virtual async void StartMainTask()
@@ -35,19 +52,8 @@ public class Skill
         {
             if (!GameManager.Instance.isPaused)
             {
-                //Debug.Log($"Fire! : {skillName}");
-                for (int i = 0; i < shotCount; ++i)
-                {
-                    for (int j = 0; j < projectileCount; ++j)
-                    {
-                        Fire();
-                        await DelayFloat(0.25f);
-                    }
-                    await DelayFloat(0.5f);
-                }
-
-                float adjustedCooldown = defaultCooldown - (shotCount * 0.5f + projectileCount * 0.25f);
-                if (adjustedCooldown > 0) await DelayFloat(adjustedCooldown);
+                Fire(); // ?⑤컻 ?몄텧
+                await UniTask.Delay(TimeSpan.FromSeconds(defaultCooldown));
             }
             else
             {
@@ -58,14 +64,13 @@ public class Skill
 
     protected virtual void Fire()
     {
-        ProjectileManager.Instance.SpawnProjectile(skillName, damage, level);
+        ProjectileManager.Instance.SpawnProjectile(skillName, damage, level, shotCount, projectileCount, projectileDelay, shotDelay);
     }
+
 
     public static async UniTask DelayFloat(float delayInSeconds)
     {
         int delayInMilliseconds = (int)(delayInSeconds * 1000);
-
         await UniTask.Delay(delayInMilliseconds);
     }
 }
-

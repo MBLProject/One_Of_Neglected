@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -23,7 +24,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    [Header("?�리???�정")]
+    [Header("?占쎈━???占쎌젙")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -33,18 +34,18 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("?�폰 ?�정")]
+    [Header("?占쏀룿 ?占쎌젙")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 3f;
 
-    [Header("게임 ?�간 ?�정")]
-    [SerializeField] private float earlyGameDuration = 180f;  // 3�?
-    [SerializeField] private float midGameDuration = 420f;    // 7�?
-    [SerializeField] private float lateGameDuration = 600f;   // 10�?
+    [Header("寃뚯엫 ?占쎄컙 ?占쎌젙")]
+    [SerializeField] private float earlyGameDuration = 180f;  // 3占?
+    [SerializeField] private float midGameDuration = 420f;    // 7占?
+    [SerializeField] private float lateGameDuration = 600f;   // 10占?
 
-    [Header("스킬 범위 설정")]
-    [SerializeField] private float minRange = 0.5f;  // 최소 스킬 사용 거리
+    [Header("?ㅽ궗 踰붿쐞 ?ㅼ젙")]
+    [SerializeField] private float minRange = 0.5f;  // 理쒖냼 ?ㅽ궗 ?ъ슜 嫄곕━
     private float gameTime = 0f;
     private float spawnTimer = 0f;
     private bool isGameStarted = false;
@@ -85,25 +86,25 @@ public class UnitManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
-        // ??�� ?�거�?몬스???�폰
+        // ??占쏙옙 ?占쎄굅占?紐ъ뒪???占쏀룿
         SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
 
-        // ?�간??�?몬스???�폰
-        if (gameTime <= earlyGameDuration)  // 0~3�?
+        // ?占쎄컙??占?紐ъ뒪???占쏀룿
+        if (gameTime <= earlyGameDuration)  // 0~3占?
         {
             SpawnMonsterAtRandomPosition(MonsterType.EarlyNormal);
         }
-        else if (gameTime <= midGameDuration)  // 3~7�?
+        else if (gameTime <= midGameDuration)  // 3~7占?
         {
             SpawnMonsterAtRandomPosition(MonsterType.MidNormal);
         }
-        else if (gameTime <= lateGameDuration)  // 7~10�?
+        else if (gameTime <= lateGameDuration)  // 7~10占?
         {
             SpawnMonsterAtRandomPosition(MonsterType.LateNormal);
         }
     }
 
-    //?�레?�어 ?�성�???
+    //?占쎈젅?占쎌뼱 ?占쎌꽦占???
     public Player SpawnPlayer(Vector2 position)
     {
         if (currentPlayer != null)
@@ -137,7 +138,7 @@ public class UnitManager : MonoBehaviour
     }
 
 
-    // 몬스???�성 메서??
+    // 紐ъ뒪???占쎌꽦 硫붿꽌??
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -154,14 +155,14 @@ public class UnitManager : MonoBehaviour
         return monster;
     }
 
-    // ?�덤 ?�치??몬스???�성
+    // ?占쎈뜡 ?占쎌튂??紐ъ뒪???占쎌꽦
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
         Vector2 randomPosition = GetRandomSpawnPosition();
         return SpawnMonster(type, randomPosition);
     }
 
-    // 몬스???�거
+    // 紐ъ뒪???占쎄굅
     public void RemoveMonster(MonsterBase monster)
     {
         if (monster != null)
@@ -170,7 +171,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 모든 몬스???�거
+    // 紐⑤뱺 紐ъ뒪???占쎄굅
     public void ClearAllMonsters()
     {
         foreach (var monster in activeMonsters.ToArray())
@@ -183,7 +184,7 @@ public class UnitManager : MonoBehaviour
         activeMonsters.Clear();
     }
 
-    // ?�덤 ?�폰 ?�치 계산
+    // ?占쎈뜡 ?占쏀룿 ?占쎌튂 怨꾩궛
     private Vector2 GetRandomSpawnPosition()
     {
         if (mainCamera == null) return Vector2.zero;
@@ -198,7 +199,7 @@ public class UnitManager : MonoBehaviour
         );
     }
 
-    // 몬스?????�에 ?�른 ?�리??반환
+    // 紐ъ뒪?????占쎌뿉 ?占쎈Ⅸ ?占쎈━??諛섑솚
     private GameObject GetMonsterPrefab(MonsterType type)
     {
         return type switch
@@ -217,11 +218,11 @@ public class UnitManager : MonoBehaviour
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
     /// <summary>
-    /// 범위 사이에 있는 몬스터를 가까운 순서로 리스트화 정렬 반환
+    /// 踰붿쐞 ?ъ씠???덈뒗 紐ъ뒪?곕? 媛源뚯슫 ?쒖꽌濡?由ъ뒪?명솕 ?뺣젹 諛섑솚
     /// </summary>
     /// <param name="minRange"></param>
     /// <param name="maxRange"></param>
-    /// <returns>거리순으로 정렬된 몬스터 리스트</returns>
+    /// <returns>嫄곕━?쒖쑝濡??뺣젹??紐ъ뒪??由ъ뒪??/returns>
     public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
     {
         var monstersInRange = activeMonsters.FindAll(monster =>
@@ -242,7 +243,7 @@ public class UnitManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 몬스터 리스트에서 가장 가까운 몬스터 반환
+    /// 紐ъ뒪??由ъ뒪?몄뿉??媛??媛源뚯슫 紐ъ뒪??諛섑솚
     /// </summary>
     public MonsterBase GetNearestMonster()
     {
@@ -262,6 +263,32 @@ public class UnitManager : MonoBehaviour
         }
         return nearestMonster;
     }
+
+    public List<Vector3> GetMonsterPositionsInRange(float minRange, float maxRange)
+    {
+        return activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => data.position)
+            .ToList();
+    }
+
+    /// <summary>
+    /// 가장 가까운 몬스터의 위치 반환
+    /// </summary>
+    public Vector3? GetNearestMonsterPosition()
+    {
+        var nearestMonster = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .OrderBy(data => data.distance)
+            .FirstOrDefault();
+
+        return nearestMonster?.position;
+    }
+
 
     //public List<MonsterBase> GetMonstersInMinMaxRange(Vector2 position)
     //{
