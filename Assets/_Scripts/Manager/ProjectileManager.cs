@@ -37,7 +37,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
         int totalShots = shotCount * projectileCount;
 
-        // Needle 특성: targetPositions 개수보다 총 투사체 개수가 많으면 처음부터 반복
+        // Needle ?뱀꽦: targetPositions 媛쒖닔蹂대떎 珥??ъ궗泥?媛쒖닔媛 留롮쑝硫?泥섏쓬遺??諛섎났
         bool isNeedle = skillName == Enums.SkillName.Needle;
         int currentIndex = 0;
 
@@ -98,21 +98,21 @@ public class ProjectileManager : Singleton<ProjectileManager>
                 break;
 
             case Enums.SkillName.Fireball:
-                // 가장 가까운 몬스터가 있으면 타겟팅, 없으면 직선 방향 발사
+                // 媛??媛源뚯슫 紐ъ뒪?곌? ?덉쑝硫??寃잜똿, ?놁쑝硫?吏곸꽑 諛⑺뼢 諛쒖궗
                 Vector3? fireballTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (fireballTarget.HasValue)
                     targetPositions.Add(fireballTarget.Value);
                 break;
 
             default:
-                // 기본적으로 가장 가까운 몬스터를 타겟팅, 없으면 랜덤 방향
+                // 湲곕낯?곸쑝濡?媛??媛源뚯슫 紐ъ뒪?곕? ?寃잜똿, ?놁쑝硫??쒕뜡 諛⑺뼢
                 Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (defaultTarget.HasValue)
                     targetPositions.Add(defaultTarget.Value);
                 break;
         }
 
-        // 타겟이 없으면 기본 랜덤 방향 설정
+        // ?寃잛씠 ?놁쑝硫?湲곕낯 ?쒕뜡 諛⑺뼢 ?ㅼ젙
         if (targetPositions.Count == 0)
         {
             Vector3 randomDirection = Random.insideUnitCircle.normalized;

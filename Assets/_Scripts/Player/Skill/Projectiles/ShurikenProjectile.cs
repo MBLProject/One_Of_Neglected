@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class ShurikenProjectile : Projectile
 {
+    public int spin = 1;
+    public int mul = 1;
+
     protected override void Start()
     {
         base.Start();
@@ -18,7 +21,7 @@ public class ShurikenProjectile : Projectile
         {
             if (!GameManager.Instance.isPaused)
             {
-                transform.Rotate(0, 0, 360 * 7 * Time.deltaTime);
+                transform.Rotate(0, 0, 360 / spin * mul * Time.deltaTime);
 
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
@@ -29,7 +32,7 @@ public class ShurikenProjectile : Projectile
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
         {
@@ -63,9 +66,9 @@ public class ShurikenProjectile : Projectile
         }
     }
 
-    protected override void OnBecameInvisible()        //화면 밖으로 나갔을 때 실행됨
+    protected override void OnBecameInvisible()
     {
-        if (pierceCount > 0) return;        // 관통력이 남아있다면? 무시
-        else DestroyProjectile();           // 관통력을 모두 소진했다면? 삭제
+        if (pierceCount > 0) return;
+        else DestroyProjectile();
     }
 }
