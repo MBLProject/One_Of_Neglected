@@ -37,7 +37,7 @@ public class Upgrade_Panel : Panel
         bless_Toggle.interactable = false;
         training_Toggle.onValueChanged.AddListener(ToggleEvents);
         //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
-        point_Text.text = "0";
+        point_Text.text = DataManager.Instance.player_Property.Bless_Point.ToString();
     }
     private void Update()
     {
@@ -64,8 +64,8 @@ public class Upgrade_Panel : Panel
             upgradePanel_TMP.text = "단련";
             HelpElemets(helpPopup_TrainingElements, helpPopup_BlessElements);
             point_Image.sprite = Resources.Load<Sprite>("Using/UI/Coin");
-            //TODO : 보유 골드 데이터매니저에서 가져오기
-            point_Text.text = "0";
+
+            DisplayGold();
 
             bless_Toggle.interactable = true;
             training_Toggle.interactable = false;
@@ -81,8 +81,8 @@ public class Upgrade_Panel : Panel
             upgradePanel_TMP.text = "가호";
             HelpElemets(helpPopup_BlessElements, helpPopup_TrainingElements);
             point_Image.sprite = Resources.Load<Sprite>("Using/UI/Bless");
-            //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
-            point_Text.text = "0";
+
+            DisplayBlessPoint();
 
             bless_Toggle.interactable = false;
             training_Toggle.interactable = true;
@@ -124,5 +124,14 @@ public class Upgrade_Panel : Panel
         {
             obj.SetActive(false);
         }
+    }
+
+    public void DisplayGold()
+    {
+        point_Text.text = DataManager.Instance.player_Property.gold.ToString();
+    }
+    public void DisplayBlessPoint()
+    {
+        point_Text.text = DataManager.Instance.player_Property.Bless_Point.ToString();
     }
 }

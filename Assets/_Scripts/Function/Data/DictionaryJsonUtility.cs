@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AppleTV;
 using UnityEngine;
 
 #region Data_Serializable_Class
@@ -43,14 +44,18 @@ public static class DictionaryJsonUtility
     #region Dictionary_Data_Load
     public static Dictionary<TKey, TValue> FromJson<TKey, TValue>(string jsonData)
     {
+
         JsonDataArray<TKey, TValue> dataList = JsonUtility.FromJson<JsonDataArray<TKey, TValue>>(jsonData);
+
         Dictionary<TKey, TValue> returnDictionary = new Dictionary<TKey, TValue>();
+
         for (int i = 0; i < dataList.data.Count; i++)
         {
             DataDictionary<TKey, TValue> dictionaryData = dataList.data[i];
             returnDictionary[dictionaryData.Key] = dictionaryData.Value;
         }
         return returnDictionary;
+
     }
     #endregion
 }

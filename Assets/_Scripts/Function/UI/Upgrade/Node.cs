@@ -26,7 +26,9 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public bool clicked = false;
     ColorBlock colorBlock_Origin;
     ColorBlock colorBlock_Temp;
-    public Action<bool> revertAction;
+
+    public event Action<bool> methodAction;
+    public event Action baseNodeAction;
 
     private void Awake()
     {
@@ -61,7 +63,6 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             {
                 BTN_Reverted();
                 CtrlAroundNodes(next_Nodes, false);
-                revertAction?.Invoke(false);
             }
         }
     }
@@ -91,6 +92,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             prevNode.can_Revert = false;
         }
         DataManager.Instance.bless_Dic[this] = true;
+
     }
     public void BTN_Reverted()
     {
@@ -104,11 +106,14 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             prevNode.can_Revert = true;
         }
         DataManager.Instance.bless_Dic[this] = false;
+        methodAction?.Invoke(false);
+        baseNodeAction?.Invoke();
     }
     private void Check_PrevNodes_Of_NextNode(Node node)
     {
         if (DataManager.Instance.player_Property.Bless_Point == 0) return;
-
+        methodAction?.Invoke(true);
+        baseNodeAction?.Invoke();
         if (node.prev_Nodes.Count == 1)
         {
             node.m_BTN.interactable = true;
@@ -128,7 +133,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     private void NodeReset()
     {
-        if (clicked) revertAction?.Invoke(false);
+        if (clicked) methodAction?.Invoke(false);
         clicked = false;
         can_Revert = false;
         m_BTN.colors = colorBlock_Origin;
@@ -136,7 +141,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         else m_BTN.interactable = true;
 
         DataManager.Instance.bless_Dic[this] = false;
-
+        baseNodeAction?.Invoke();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

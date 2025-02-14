@@ -44,7 +44,11 @@ public class Training_Panel : Panel, IPointerExitHandler
 
     private void Start()
     {
-
+        ByCellCategory();
+        foreach (TrainingCell cell in trainingCells_List)
+        {
+            cell.baseCellAction += UI_Manager.Instance.upgrade_Panel.DisplayGold;
+        }
     }
 
     private void OnEnable()
@@ -123,6 +127,7 @@ public class Training_Panel : Panel, IPointerExitHandler
                 default:
                     Debug.Log("액션구독문제");
                     break;
+
             }
 
         }
@@ -131,9 +136,9 @@ public class Training_Panel : Panel, IPointerExitHandler
     {
         foreach (TrainingCell cell in trainingCells_List)
         {
+            cell.baseCellAction -= UI_Manager.Instance.upgrade_Panel.DisplayGold;
             switch (cell.training_Category)
             {
-
                 case Training_Category.MaxHp:
                     cell.method_Action -= training.MaxHp_Modify;
                     break;
@@ -193,6 +198,95 @@ public class Training_Panel : Panel, IPointerExitHandler
                     break;
                 default:
                     Debug.Log("액션구독해제문제");
+                    break;
+            }
+        }
+    }
+
+    private void ByCellCategory()
+    {
+        foreach (TrainingCell cell in trainingCells_List)
+        {
+            switch (cell.training_Category)
+            {
+                case Training_Category.MaxHp:
+                    cell.trainingCount = DataManager.Instance.player_Property.MaxHp_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.HpRegen:
+                    cell.trainingCount = DataManager.Instance.player_Property.HpRegen_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Defense:
+                    cell.trainingCount = DataManager.Instance.player_Property.Defense_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Mspd:
+                    cell.trainingCount = DataManager.Instance.player_Property.Mspd_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.ATK:
+                    cell.trainingCount = DataManager.Instance.player_Property.ATK_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Aspd:
+                    cell.trainingCount = DataManager.Instance.player_Property.Aspd_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.CriRate:
+                    cell.trainingCount = DataManager.Instance.player_Property.CriRate_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.CriDamage:
+                    cell.trainingCount = DataManager.Instance.player_Property.CriDamage_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.ProjAmount:
+                    cell.trainingCount = DataManager.Instance.player_Property.ProjAmount_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.ATKRange:
+                    cell.trainingCount = DataManager.Instance.player_Property.ATKRange_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Duration:
+                    cell.trainingCount = DataManager.Instance.player_Property.Duration_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Cooldown:
+                    cell.trainingCount = DataManager.Instance.player_Property.Cooldown_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Revival:
+                    cell.trainingCount = DataManager.Instance.player_Property.Revival_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Magnet:
+                    cell.trainingCount = DataManager.Instance.player_Property.Magnet_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Growth:
+                    cell.trainingCount = DataManager.Instance.player_Property.Growth_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Greed:
+                    cell.trainingCount = DataManager.Instance.player_Property.Greed_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Curse:
+                    cell.trainingCount = DataManager.Instance.player_Property.Curse_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Reroll:
+                    cell.trainingCount = DataManager.Instance.player_Property.Reroll_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                case Training_Category.Banish:
+                    cell.trainingCount = DataManager.Instance.player_Property.Banish_TrainingCount;
+                    cell.ByTrainingCount();
+                    break;
+                default:
+                    Debug.Log("셀 카테고리 문제");
                     break;
             }
         }

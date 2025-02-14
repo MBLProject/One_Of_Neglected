@@ -81,15 +81,16 @@ public class DataManager : Singleton<DataManager>
     protected override void Awake()
     {
         base.Awake();
-    }
-    private void Start()
-    {
         string fromJsonData;
         fromJsonData = Load_JsonUtility<PlayerProperty>("PlayerProperty", player_Property);
         player_Property = JsonUtility.FromJson<PlayerProperty>(fromJsonData);
 
         fromJsonData = Load_JsonUtility<BTS>("BTS", BTS);
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
+    }
+    private void Start()
+    {
+
     }
 
     public void SaveData()
@@ -100,8 +101,8 @@ public class DataManager : Singleton<DataManager>
         string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
         File.WriteAllText(path + "BlessData", Data);
 
-        Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property);
-        Save_JsonUtility<BTS>("BTS", BTS);
+        Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property, true);
+        Save_JsonUtility<BTS>("BTS", BTS, true);
 
         // Data = JsonUtility.ToJson(playerProperty);
         // File.WriteAllText(path + "PlayerProperty", Data);
@@ -109,9 +110,9 @@ public class DataManager : Singleton<DataManager>
         // Data = JsonUtility.ToJson(BTS);
         // File.WriteAllText(path + "BTS", Data);
     }
-    public void Save_JsonUtility<T>(string fileName, T data)
+    public void Save_JsonUtility<T>(string fileName, T data, bool pretty = false)
     {
-        string Data = JsonUtility.ToJson(data);
+        string Data = JsonUtility.ToJson(data, pretty);
         File.WriteAllText(path + fileName, Data);
     }
     public string Load_JsonUtility<T>(string fileName, T data)

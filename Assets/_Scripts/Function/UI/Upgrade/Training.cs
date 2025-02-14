@@ -138,4 +138,26 @@ public class Training : MonoBehaviour
         DataManager.Instance.player_Property.Banish_TrainingCount = trainingCount;
     }
 
+    public void OnResetBTNClick()
+    {
+        DataManager.Instance.player_Property.MaxHp_TrainingCount = 0;
+        DataManager.Instance.player_Property.HpRegen_TrainingCount = 0;
+        DataManager.Instance.player_Property.Defense_TrainingCount = 0;
+        DataManager.Instance.player_Property.Mspd_TrainingCount = 0;
+        DataManager.Instance.player_Property.ATK_TrainingCount = 0;
+        DataManager.Instance.player_Property.Aspd_TrainingCount = 0;
+        DataManager.Instance.player_Property.CriRate_TrainingCount = 0;
+        DataManager.Instance.player_Property.CriDamage_TrainingCount = 0;
+        DataManager.Instance.player_Property.ProjAmount_TrainingCount = 0;
+        DataManager.Instance.player_Property.ATKRange_TrainingCount = 0;
+        DataManager.Instance.player_Property.Duration_TrainingCount = 0;
+        DataManager.Instance.player_Property.Cooldown_TrainingCount = 0;
+        DataManager.Instance.player_Property.Revival_TrainingCount = 0;
+        DataManager.Instance.player_Property.Magnet_TrainingCount = 0;
+        DataManager.Instance.player_Property.Growth_TrainingCount = 0;
+        DataManager.Instance.player_Property.Greed_TrainingCount = 0;
+        DataManager.Instance.player_Property.Curse_TrainingCount = 0;
+        DataManager.Instance.player_Property.Reroll_TrainingCount = 0;
+        DataManager.Instance.player_Property.Banish_TrainingCount = 0;
+    }
 }

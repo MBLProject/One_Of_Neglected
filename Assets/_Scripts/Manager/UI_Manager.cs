@@ -9,6 +9,8 @@ public class UI_Manager : Singleton<UI_Manager>
     public List<Panel> panel_List = new List<Panel>();
     public Player p;
 
+    public Upgrade_Panel upgrade_Panel;
+
     protected override void Awake()
     {
         base.Awake();
@@ -20,6 +22,8 @@ public class UI_Manager : Singleton<UI_Manager>
                 panel.gameObject.SetActive(true);
             else panel.gameObject.SetActive(false);
         }
+        if (upgrade_Panel == null)
+            upgrade_Panel = panel_Dic["Upgrade_Panel"].GetComponentInChildren<Upgrade_Panel>();
     }
 
     private void Start()
