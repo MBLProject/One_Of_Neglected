@@ -5,6 +5,10 @@ using System.Threading;
 
 public class MonsterProjectile : Projectile
 {
+
+    private float lifetime = 5f;  // 기본 라이프타임 5초
+    private float elapsedTime = 0f;
+
     protected override void Start()
     {
         base.Start();
@@ -20,6 +24,13 @@ public class MonsterProjectile : Projectile
             {
                 if (this == null || gameObject == null)  // null 筌ｋ똾寃??곕떽?
                 {
+                    return;
+                }
+                // 시간 체크
+                elapsedTime += Time.deltaTime;
+                if (elapsedTime >= lifetime)
+                {
+                    DestroyProjectile();
                     return;
                 }
 

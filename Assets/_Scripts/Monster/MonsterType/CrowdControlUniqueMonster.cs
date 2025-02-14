@@ -11,7 +11,18 @@ public class CrowdControlUniqueMonster : NormalMonster
             speed: 1f,
             damage: 15f,
             range: 3f,
-            cooldown: 2f
+            cooldown: 1.5f,
+            defense: 5f,
+            regen: 5f,
+            regenDelay: 3f
         );
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (stats.healthRegen > 0)
+        {
+            stats.RegenerateHealth(Time.deltaTime);
+        }
     }
 }
