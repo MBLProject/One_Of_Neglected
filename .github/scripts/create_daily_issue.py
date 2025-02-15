@@ -267,8 +267,8 @@ def parse_existing_issue(body):
                     continue
                     
                 # process category header - extract category name and ignore statistics
-                if '<summary>📑' in line:
-                    category_match = re.match(r'<summary>📑\s*([^()]+?)(?:\s*\(\d+/\d+\))?\s*</summary>', line)
+                if '<summary>' in line:
+                    category_match = re.match(r'<summary>(?:<h3[^>]*>)?📑\s*([^()]+?)(?:\s*\(\d+/\d+\))?(?:</h3>)?</summary>', line)
                     if category_match:
                         current_category = category_match.group(1).strip()
                         print(f"\nFound category: {current_category}")
@@ -432,7 +432,7 @@ def create_todo_section(todos):
             print(f"Added todo line: {text}")
         
         section = f'''<details>
-<summary><h3 style="display: inline;">📑 {category} ({completed}/{total})</h3></summary>
+<summary>📑 {category} ({completed}/{total})</summary>
 
 {'\n'.join(todo_lines)}
 
