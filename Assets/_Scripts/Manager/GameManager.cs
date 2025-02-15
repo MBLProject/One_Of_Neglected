@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public bool isPaused = false;
-    private bool isGameStarted = false;
+    public bool isGameStarted = false;
 
     private void Update()
     {
