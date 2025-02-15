@@ -432,7 +432,7 @@ def create_todo_section(todos):
             print(f"Added todo line: {text}")
         
         section = f'''<details>
-<summary>📑 {category} ({completed}/{total})</summary>
+<summary><h3 style="display: inline;">📑 {category} ({completed}/{total})</h3></summary>
 
 {'\n'.join(todo_lines)}
 
