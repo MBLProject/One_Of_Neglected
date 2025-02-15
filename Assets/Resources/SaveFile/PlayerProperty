@@ -1,10 +1,10 @@
 {
     "gold": 0,
-    "Bless_Point": 3,
+    "Bless_Point": 0,
     "remnants": 0,
-    "MaxHp_TrainingCount": 5,
-    "HpRegen_TrainingCount": 3,
-    "Defense_TrainingCount": 1,
+    "MaxHp_TrainingCount": 0,
+    "HpRegen_TrainingCount": 0,
+    "Defense_TrainingCount": 0,
     "Mspd_TrainingCount": 0,
     "ATK_TrainingCount": 0,
     "Aspd_TrainingCount": 0,
@@ -18,7 +18,7 @@
     "Magnet_TrainingCount": 0,
     "Growth_TrainingCount": 0,
     "Greed_TrainingCount": 0,
-    "Curse_TrainingCount": 21,
+    "Curse_TrainingCount": 0,
     "Reroll_TrainingCount": 0,
     "Banish_TrainingCount": 0
 }

@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
     public static string nextScene;
+    public TextMeshProUGUI loadingText;
+    public RectTransform loadingIMG;
+    public float rotateSpeed;
+    public Image bgIMG;
+
     private void Start()
     {
         StartCoroutine(LoadSceneCoroutine());
+
     }
     public static void SceneLoad(string sceneName)
     {
@@ -24,14 +32,16 @@ public class GameSceneManager : MonoBehaviour
         op.allowSceneActivation = false;
         while (!op.isDone)
         {
+            Debug.Log(op.progress);
+            bgIMG.color = new Color(bgIMG.color.r, bgIMG.color.g, bgIMG.color.b, bgIMG.color.a + (op.progress * -255));
+            loadingIMG.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
             Debug.Log("씬로드중");
             if (op.progress >= 0.9f)
             {
                 Debug.Log("90퍼 이상 로드완료");
-                op.allowSceneActivation = true;
+                // op.allowSceneActivation = true;
                 yield break;
             }
         }
-        Debug.Log("루틴 종료");
     }
 }
