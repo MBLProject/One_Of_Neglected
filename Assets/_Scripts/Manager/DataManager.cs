@@ -87,6 +87,8 @@ public class DataManager : Singleton<DataManager>
 
         fromJsonData = Load_JsonUtility<BTS>("BTS", BTS);
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
+        LoadBlessData();
+
     }
     private void Start()
     {

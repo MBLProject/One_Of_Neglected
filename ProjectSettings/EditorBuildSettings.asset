@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Public_Scenes/Game.unity
     guid: 77f23b0dbd93db34d8da926e27e5615d
-  - enabled: 1
-    path: Assets/_Scenes/Personal_Scenes/KCY_Scenes.unity
-    guid: 402fb1f7bc1c5b74cbd27ac46462eed9
   m_configObjects: {}

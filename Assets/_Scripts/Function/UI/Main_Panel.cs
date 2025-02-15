@@ -12,7 +12,10 @@ public class Main_Panel : Panel
         buttons[3].onClick.AddListener(Option_Panel);
         buttons[4].onClick.AddListener(Exit_BTN);
     }
+    private void Start()
+    {
 
+    }
     //게임 시작
     private void Start_BTN()
     {

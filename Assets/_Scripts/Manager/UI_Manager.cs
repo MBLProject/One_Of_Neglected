@@ -8,11 +8,9 @@ public class UI_Manager : Singleton<UI_Manager>
 {
     public Dictionary<string, Panel> panel_Dic = new Dictionary<string, Panel>();
     public List<Panel> panel_List = new List<Panel>();
-    public Player p;
-
     public Upgrade_Panel upgrade_Panel;
-
-    public Button ctrlPanel_CloseBTN;
+    public float sounds_Value;
+    public float effects_Value;
 
     protected override void Awake()
     {
@@ -28,22 +26,11 @@ public class UI_Manager : Singleton<UI_Manager>
         if (upgrade_Panel == null)
             upgrade_Panel = panel_Dic["Upgrade_Panel"].GetComponentInChildren<Upgrade_Panel>();
 
-        ctrlPanel_CloseBTN.onClick.AddListener(CtrlPanelOff);
     }
 
     private void Start()
     {
-
-    }
-    private void OnEnable()
-    {
-        DataManager.Instance.LoadBlessData();
-
+        panel_Dic["Option_Panel"].GetComponent<Option_Panel>().OnStart();
     }
 
-    private void CtrlPanelOff()
-    {
-        panel_Dic["Control_Panel"].PanelClose();
-        panel_Dic["Main_Panel"].PanelOpen();
-    }
 }

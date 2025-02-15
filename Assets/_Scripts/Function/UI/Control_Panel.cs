@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Control_Panel : Panel
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
+        buttons[0].onClick.AddListener(CtrlBTNClick);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CtrlBTNClick()
     {
-
+        PanelClose();
+        UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
     }
 }

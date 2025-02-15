@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -50,9 +49,9 @@ public enum UTI_Bless
     Greed,
     DASH
 }
+
 public class Bless_Panel : Panel
 {
-
     public Bless bless;
     //공통된걸 등록해줄 리스트
     public List<Node> ATK_Node_List;
@@ -67,12 +66,14 @@ public class Bless_Panel : Panel
 
     private void Start()
     {
-        DataManager.Instance.LoadBlessData();
+
+    }
+    private void OnEnable()
+    {
         Node_Initialize(ref ATK_Node_List);
         Node_Initialize(ref DEF_Node_List);
         Node_Initialize(ref UTI_Node_List);
     }
-
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
     private void Node_Initialize(ref List<Node> nodes)
     {
@@ -203,14 +204,92 @@ public class Bless_Panel : Panel
         foreach (Node node in ATK_Node_List)
         {
             node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            switch (node.ATK_Bless)
+            {
+                case ATK_Bless.ATK_INCREASE:
+                    node.methodAction -= bless.ATK_Modify;
+                    break;
+                case ATK_Bless.PROJECTILE_INCREASE:
+                    node.methodAction -= bless.ProjAmount_Modify;
+                    break;
+                case ATK_Bless.ATK_SPEED_INCREASE:
+                    node.methodAction -= bless.ASPD_Modify;
+                    break;
+                case ATK_Bless.CRITICAL_DAMAGE_INCREASE:
+                    node.methodAction -= bless.CriDamage_Modify;
+                    break;
+                case ATK_Bless.CRITICAL_PERCENT_INCREASE:
+                    node.methodAction -= bless.CriRate_Modify;
+                    break;
+                case ATK_Bless.PROJECTILE_DESTROY:
+                    node.methodAction -= bless.ProjDestroy_Modify;
+                    break;
+                case ATK_Bless.PROJECTILE_PARRY:
+                    node.methodAction -= bless.ProjParry_Modify;
+                    break;
+                case ATK_Bless.GOD_KILL:
+                    node.methodAction -= bless.GodKill_Modify;
+                    break;
+            }
         }
         foreach (Node node in DEF_Node_List)
         {
             node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            switch (node.DEF_Bless)
+            {
+                case DEF_Bless.MAX_HP_INCREASE:
+                    node.methodAction -= bless.MaxHP_Modify;
+                    break;
+                case DEF_Bless.DEFENSE_INCREASE:
+                    node.methodAction -= bless.Defense_Modify;
+                    break;
+                case DEF_Bless.HP_REGEN_INCREASE:
+                    node.methodAction -= bless.HPRegen_Modify;
+                    break;
+                case DEF_Bless.BARRIER_ACTIVATE:
+                    node.methodAction -= bless.Barrier_Modify;
+                    break;
+                case DEF_Bless.BARRIER_COOLDOWN:
+                    node.methodAction -= bless.BarrierCooldown_Modify;
+                    break;
+                case DEF_Bless.INVINCIBILITY:
+                    node.methodAction -= bless.Invincibility_Modify;
+                    break;
+                case DEF_Bless.ADVERSARY:
+                    node.methodAction -= bless.Adversary_Modify;
+                    break;
+            }
         }
         foreach (Node node in UTI_Node_List)
         {
             node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            switch (node.UTI_Bless)
+            {
+                case UTI_Bless.ATK_RANGE:
+                    node.methodAction -= bless.ATKRange_Modify;
+                    break;
+                case UTI_Bless.DURATION:
+                    node.methodAction -= bless.Duration_Modify;
+                    break;
+                case UTI_Bless.COOLDOWN:
+                    node.methodAction -= bless.Cooldown_Modify;
+                    break;
+                case UTI_Bless.Revival:
+                    node.methodAction -= bless.Revival_Modify;
+                    break;
+                case UTI_Bless.MAGNET:
+                    node.methodAction -= bless.Magnet_Modify;
+                    break;
+                case UTI_Bless.GROWTH:
+                    node.methodAction -= bless.Growth_Modify;
+                    break;
+                case UTI_Bless.Greed:
+                    node.methodAction -= bless.Greed_Modify;
+                    break;
+                case UTI_Bless.DASH:
+                    node.methodAction -= bless.DashCount_Modify;
+                    break;
+            }
         }
     }
 
