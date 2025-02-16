@@ -1,4 +1,7 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static Enums;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ArcherAttackState : BaseState<Player>
 {
@@ -7,6 +10,7 @@ public class ArcherAttackState : BaseState<Player>
     private bool hasDealtDamage = false;  // 한 번의 공격에 한 번만 데미지를 주기 위한 플래그
     private float attackRange = 0.5f;     // 공격 범위
 
+    [SerializeField] protected string projectileType = "NormalArcher";
     public ArcherAttackState(StateHandler<Player> handler) : base(handler) { }
 
     private float GetCurrentAttackDuration(Player player)
@@ -14,7 +18,7 @@ public class ArcherAttackState : BaseState<Player>
         float speedMultiplier = 1f / (1f + (player.Stats.CurrentAspd / 100f));
         return BASE_ATTACK_DURATION * speedMultiplier;
     }
-
+        
     public override void Enter(Player player)
     {
         attackTimer = 0f;
@@ -32,7 +36,7 @@ public class ArcherAttackState : BaseState<Player>
             player.Animator.SetTrigger("Attack");
         }
 
-        MonsterBase nearestMonster = player.GetNearestMonster();
+        MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
         if (nearestMonster != null)
         {
             player.LookAtTarget(nearestMonster.transform.position);
@@ -46,7 +50,8 @@ public class ArcherAttackState : BaseState<Player>
 
         if (player.isAuto)
         {
-            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
+            if (Vector2.Distance(player.transform.position, nearestMonster.transform.position) < 0.3f)
             if (nearestMonster != null)
             {
                 player.LookAtTarget(nearestMonster.transform.position);
@@ -55,7 +60,13 @@ public class ArcherAttackState : BaseState<Player>
 
         if (!hasDealtDamage && attackTimer >= currentAttackDuration * 0.5f)
         {
-            DealDamageToMonsters(player);
+            Vector2 direction = (player.transform.position - UnitManager.Instance.GetNearestMonster().transform.position).normalized;
+
+            ProjectileManager.Instance.SpawnMonsterProjectile("NormalArcher",
+                player.transform.position, direction, 1, player.Stats.CurrentATK);
+            //ProjectileManager.Instance.SpawnProjectile(skillName:Enums.SkillName.Javelin, player.Stats.CurrentATK, 1);
+
+            
             hasDealtDamage = true;
         }
 
@@ -77,7 +88,7 @@ public class ArcherAttackState : BaseState<Player>
 
             if (player.isAuto)
             {
-                MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+                MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
                 if (nearestMonster != null)
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
@@ -107,42 +118,6 @@ public class ArcherAttackState : BaseState<Player>
         }
     }
 
-    private void DealDamageToMonsters(Player player)
-    {
-        //TODO 공격 판정 다시 만들기
-        Vector2 playerPosition = player.transform.position;
-        float attackAngle = 90f;
-
-        int monsterLayer = LayerMask.NameToLayer("Monster");
-        int layerMask = 1 << monsterLayer;
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(playerPosition, attackRange, layerMask);
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Monster"))
-            {
-                Vector2 directionToMonster = (hit.transform.position - player.transform.position).normalized;
-                float angle = Vector2.Angle(player.transform.right * (player.Animator.GetComponent<SpriteRenderer>().flipX ? -1 : 1), directionToMonster);
-
-                if (angle <= attackAngle * 0.5f)
-                {
-                    MonsterBase monster = hit.GetComponent<MonsterBase>();
-                    if (monster != null)
-                    {
-                        bool isCritical = UnityEngine.Random.value <= player.Stats.CurrentCriRate;
-                        float damage = player.Stats.CurrentATK;
-                        if (isCritical)
-                        {
-                            damage *= (1f + player.Stats.CurrentCriDamage);
-                        }
-
-                        monster.TakeDamage(damage);
-                    }
-                }
-            }
-        }
-    }
 
     public override void Exit(Player player)
     {

@@ -21,12 +21,12 @@ public class ArcherIdleState : BaseState<Player>
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             player.targetPosition = new Vector2(worldPosition.x, worldPosition.y);
-            handler.ChangeState(typeof(WarriorMoveState));
+            handler.ChangeState(typeof(ArcherMoveState));
             return;
         }
         else if (horizontalInput != 0 || verticalInput != 0)
         {
-            handler.ChangeState(typeof(WarriorMoveState));
+            handler.ChangeState(typeof(ArcherMoveState));
             return;
         }
 
@@ -34,46 +34,46 @@ public class ArcherIdleState : BaseState<Player>
         {
             if (player.CanDash())
             {
-                handler.ChangeState(typeof(WarriorDashState));
+                handler.ChangeState(typeof(ArcherDashState));
                 return;
             }
         }
 
         if (player.isAuto)
         {
-            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                if (distance <= 0.3f)
+                if (distance <= 5f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
-                    handler.ChangeState(typeof(WarriorAttackState));
+                    handler.ChangeState(typeof(ArcherAttackState));
                     return;
                 }
                 else
                 {
                     player.targetPosition = nearestMonster.transform.position;
-                    handler.ChangeState(typeof(WarriorMoveState));
+                    handler.ChangeState(typeof(ArcherMoveState));
                     return;
                 }
             }
         }
         else
         {
-            MonsterBase nearestMonster = player.GetNearestMonster();
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
             if (nearestMonster != null)
             {
                 player.LookAtTarget(nearestMonster.transform.position);
-                handler.ChangeState(typeof(WarriorAttackState));
+                handler.ChangeState(typeof(ArcherAttackState));
                 return;
             }
         }
 
         if (!player.IsAtDestination())
         {
-            handler.ChangeState(typeof(WarriorMoveState));
+            handler.ChangeState(typeof(ArcherMoveState));
         }
     }
 

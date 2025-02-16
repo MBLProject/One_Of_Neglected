@@ -12,6 +12,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     public Dictionary<Enums.SkillName, Projectile> projectiles = new Dictionary<Enums.SkillName, Projectile>();
     public Dictionary<string, MonsterProjectile> monsterProjectiles = new Dictionary<string, MonsterProjectile>();
+    public Dictionary<string, PlayerProjectile> playerProjectiles = new Dictionary<string, PlayerProjectile>();
 
     public int count;
 
@@ -23,6 +24,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         projectiles.Add(Enums.SkillName.Needle, Resources.Load<Projectile>("Using/Projectile/NeedleProjectile"));
 
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
+
+        playerProjectiles.Add("WarriorAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarriorAttackProjectile"));
     }
 
     public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay)
@@ -93,8 +96,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
         });
     }
 
-
-
     private List<Vector3> GetTargetPositionsBySkill(Enums.SkillName skillName, Vector3 startPosition)
     {
         List<Vector3> targetPositions = new List<Vector3>();
@@ -157,6 +158,22 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         activeProjectiles.Add(projectile);
     }
+
+    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, float speed, float damge)
+    {
+        if (!playerProjectiles.ContainsKey(prefabName))
+        {
+            Debug.LogError($"Projectile type {prefabName} not found!");
+            return;
+        }
+
+        PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
+        projectile.InitProjectile(startPos, targetPos, speed, damge);
+        
+
+        activeProjectiles.Add(projectile);
+    }
+
     public void RemoveProjectile(MonsterProjectile projectile)
     {
         if (activeProjectiles.Contains(projectile))

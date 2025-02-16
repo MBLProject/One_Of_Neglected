@@ -249,9 +249,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  dashRechargeImage1: {fileID: 0}
-  dashRechargeImage2: {fileID: 0}
-  dashRechargeImage3: {fileID: 0}
+  dashRechargeImages:
+  - {fileID: 4165538511278107421}
+  - {fileID: 8543804878029863357}
+  - {fileID: 1172327148718699965}
 --- !u!1 &4475292252948341037
 GameObject:
   m_ObjectHideFlags: 0

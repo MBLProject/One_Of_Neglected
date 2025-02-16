@@ -42,20 +42,21 @@ public class StatViewer
 
 public abstract class Player : MonoBehaviour
 {
-    //오토 관련 필드 -> UnitList 쓰면 안쓸듯??
-    public const float AUTO_DETECTION_RANGE = 5f;
-    public const float ATTACK_RANGE = 0.3f;
-
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
-    [SerializeField] private SpriteRenderer modelRenderer;
+    [SerializeField] public SpriteRenderer modelRenderer;
+    [SerializeField] private GameObject barrierEffect;  // 베리어 스프라이트 애니메이션
+    [SerializeField] private CircleCollider2D hitCollider;    // 피격 판정용
+    [SerializeField] private CircleCollider2D magnetCollider; // Exp 수집용
 
+    // 자동사냥 모드!
     public bool isAuto = false; 
 
     protected StateHandler<Player> stateHandler;
     protected bool isSkillInProgress = false;
-    protected bool isDashing = false;  
+    protected bool isDashing = false;
+    protected bool isBarrier = false;
 
     protected PlayerStats stats;
 
@@ -65,15 +66,29 @@ public abstract class Player : MonoBehaviour
     protected float moveThreshold = 0.1f;
 
     #region DashSettings
-    protected int maxDashCount = 3;
-    protected int currentDashCount;
     protected float dashRechargeTime = 5f;
     protected float dashRechargeTimer = 0f;
+    protected int currentDashCount;
 
     public float DashRechargeTimer => dashRechargeTimer;
     public float DashRechargeTime => dashRechargeTime;
     public int CurrentDashCount => currentDashCount;
-    public int MaxDashCount => maxDashCount;
+    public int MaxDashCount => stats.CurrentDashCount;
+    #endregion
+
+    #region BarrierSettings
+    protected float barrierRechargeTimer = 0f;
+    protected bool hasBarrierCharge = false;  // 현재 베리어 차지 보유 여부
+
+    public float BarrierRechargeTimer => barrierRechargeTimer;
+    public float BarrierRechargeTime => stats.CurrentBarrierCooldown;
+    public bool HasBarrierCharge => hasBarrierCharge;
+    #endregion
+
+    #region InvincibilitySettings
+    private bool isInvincible = false;
+    private float invincibilityDuration = 0.1f;
+    private float invincibilityTimer = 0f;
     #endregion
 
     public ClassType ClassType { get; protected set; }
@@ -83,7 +98,6 @@ public abstract class Player : MonoBehaviour
         get { return stats; }
         protected set { stats = value; }
     }
-
     public ParticleSystem DashEffect => dashEffect;
 
     protected virtual void Awake()
@@ -93,21 +107,51 @@ public abstract class Player : MonoBehaviour
         InitializeClassType();
         InitializeStatViewer();
         
-        currentDashCount = maxDashCount;
+        // 스탯 변경 이벤트 구독
+        SubscribeToStatEvents();
+        
+        currentDashCount = stats.CurrentDashCount;
+
+        // 베리어 초기화
+        isBarrier = stats.CurrentBarrier;
+        hasBarrierCharge = isBarrier;
+        if (barrierEffect != null)
+        {
+            barrierEffect.SetActive(hasBarrierCharge);
+        }
 
         if (dashEffect != null)
         {
             dashEffect.Stop();
+        }
+
+        // 콜라이더 레이어 설정으로 충돌 검사 최적화
+        if (magnetCollider != null)
+        {
+            magnetCollider.radius = stats.CurrentMagnet;
+            magnetCollider.isTrigger = true;
+            
+            // magnetCollider의 게임오브젝트에 레이어 설정
+            magnetCollider.gameObject.layer = LayerMask.NameToLayer("PlayerMagnet");
+        }
+
+        if (hitCollider != null)
+        {
+            hitCollider.radius = 0.3f;
+            hitCollider.isTrigger = true;
+            
+            // hitCollider의 게임오브젝트에 레이어 설정
+            hitCollider.gameObject.layer = LayerMask.NameToLayer("PlayerHitbox");
         }
     }
 
     private void Update()
     {
         stateHandler.Update();
-        
         UpdateDashRecharge();
+        UpdateBarrierRecharge();
+        UpdateInvincibility();
         stats.UpadateHpRegen(Time.deltaTime);
-        Moncheck();
     }
 
     protected abstract void InitializeStats();
@@ -115,11 +159,52 @@ public abstract class Player : MonoBehaviour
     protected abstract void InitializeClassType();
     protected abstract void InitializeStatViewer();
 
+    private void SubscribeToStatEvents()
+    {
+        // 모든 스탯 변경 이벤트 구독
+        stats.OnLevelUp += (value) => statViewer.Level = value;
+        stats.OnMaxExpChanged += (value) => statViewer.MaxExp = value;
+        stats.OnExpChanged += (value) => statViewer.Exp = value;
+        stats.OnMaxHpChanged += (value) => statViewer.MaxHp = value;
+        stats.OnHpChanged += (value) => statViewer.Hp = value;
+        stats.OnHpRegenChanged += (value) => statViewer.HpRegen = value;
+        stats.OnDefenseChanged += (value) => statViewer.Defense = value;
+        stats.OnMspdChanged += (value) => statViewer.Mspd = value;
+        stats.OnATKChanged += (value) => statViewer.ATK = value;
+        stats.OnAspdChanged += (value) => statViewer.Aspd = value;
+        stats.OnCriRateChanged += (value) => statViewer.CriRate = value;
+        stats.OnCriDamageChanged += (value) => statViewer.CriDamage = value;
+        stats.OnProjAmountChanged += (value) => statViewer.ProjAmount = value;
+        stats.OnATKRangeChanged += (value) => statViewer.ATKRange = value;
+        stats.OnDurationChanged += (value) => statViewer.Duration = value;
+        stats.OnCooldownChanged += (value) => statViewer.Cooldown = value;
+        stats.OnRevivalChanged += (value) => statViewer.Revival = value;
+        stats.OnMagnetChanged += (value) => {
+            statViewer.Magnet = value;
+            if (magnetCollider != null)
+            {
+                magnetCollider.radius = value;
+            }
+        };
+        stats.OnGrowthChanged += (value) => statViewer.Growth = value;
+        stats.OnGreedChanged += (value) => statViewer.Greed = value;
+        stats.OnCurseChanged += (value) => statViewer.Curse = value;
+        stats.OnRerollChanged += (value) => statViewer.Reroll = value;
+        stats.OnBanishChanged += (value) => statViewer.Banish = value;
+        stats.OnGodKillChanged += (value) => statViewer.GodKill = value;
+        stats.OnBarrierChanged += (value) => statViewer.Barrier = value;
+        stats.OnBarrierCooldownChanged += (value) => statViewer.BarrierCooldown = value;
+        stats.OnInvincibilityChanged += (value) => statViewer.Invincibility = value;
+        stats.OnDashCountChanged += (value) => statViewer.DashCount = value;
+        stats.OnAdversaryChanged += (value) => statViewer.Adversary = value;
+        stats.OnProjDestroyChanged += (value) => statViewer.ProjDestroy = value;
+        stats.OnProjParryChanged += (value) => statViewer.ProjParry = value;
+    }
 
     #region Dash
     private void UpdateDashRecharge()
     {
-        if (currentDashCount < maxDashCount)
+        if (currentDashCount < stats.CurrentDashCount)
         {
             dashRechargeTimer += Time.deltaTime;
             if (dashRechargeTimer >= dashRechargeTime)
@@ -164,82 +249,14 @@ public abstract class Player : MonoBehaviour
             }
         }
     }
-
     public bool IsAtDestination()
     {
         return Vector2.Distance(transform.position, targetPosition) < moveThreshold;
     }
-
     public void SetCurrentPositionAsTarget()
     {
         targetPosition = transform.position;
         savedTargetPosition = targetPosition;
-    }
-
-    #endregion
-
-    #region 임시 전투로직
-    public List<MonsterBase> monCheckList = new List<MonsterBase>();
-    public void Moncheck()
-    {
-        monCheckList.Clear();
-
-        int monsterLayer = LayerMask.NameToLayer("Monster");
-        int layerMask = 1 << monsterLayer;
-
-        Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, .3f, layerMask);
-        foreach (var coll in colls)
-        {
-            if (coll.CompareTag("Monster"))
-            {
-                MonsterBase monster = coll.GetComponent<MonsterBase>();
-                if (monster != null)
-                {
-                    monCheckList.Add(monster);
-                }
-            }
-        }
-    }
-    public MonsterBase GetNearestMonster()
-    {
-        if (monCheckList.Count == 0) return null;
-        
-        MonsterBase nearest = null;
-        float minDistance = float.MaxValue;
-        
-        foreach (var monster in monCheckList)
-        {
-            float distance = Vector2.Distance(transform.position, monster.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearest = monster;
-            }
-        }
-        
-        return nearest;
-    }
-    public MonsterBase FindNearestMonsterInRange(float range)
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, LayerMask.GetMask("Monster"));
-        MonsterBase nearest = null;
-        float minDistance = float.MaxValue;
-
-        foreach (var collider in colliders)
-        {
-            MonsterBase monster = collider.GetComponent<MonsterBase>();
-            if (monster != null)
-            {
-                float distance = Vector2.Distance(transform.position, monster.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearest = monster;
-                }
-            }
-        }
-
-        return nearest;
     }
     #endregion
 
@@ -273,8 +290,22 @@ public abstract class Player : MonoBehaviour
     }
     public virtual void TakeDamage(float damage)
     {
+        // 순서 어떻게 할지에 따라 무적상태에서 피격시 베리어 깨지게 할 수 있읍니다.
+        // 무적 체크
+        if (isInvincible) return;
+
+        // 베리어 체크
+        if (isBarrier && hasBarrierCharge)
+        {
+            hasBarrierCharge = false;
+            if (barrierEffect != null)
+            {
+                barrierEffect.SetActive(false);
+            }
+            return;  
+        }
+
         bool isCritical = false;
-        //몬스터도 크리확률이 있나?? 몰루??
         if (Random.Range(0f, 100f) <= stats.CurrentCriRate)
         {
             damage = Mathf.RoundToInt(damage * stats.CurrentCriDamage);
@@ -283,6 +314,14 @@ public abstract class Player : MonoBehaviour
 
         stats.currentHp -= damage;
         ShowDamageFont(transform.position, damage, transform, isCritical);
+
+        // Invincibility가 true인 경우 데미지를 받은 후 무적 상태 적용
+        if (stats.CurrentInvincibility)
+        {
+            isInvincible = true;
+            invincibilityTimer = 0f;
+        }
+
         if (stats.currentHp <= 0)
         {
             //ToDO 플레이어 사망처리
@@ -362,7 +401,6 @@ public abstract class Player : MonoBehaviour
         statViewer.ProjDestroy = stats.CurrentProjDestroy;
         statViewer.ProjParry = stats.CurrentProjParry;
     }
-
     protected void UpdateStats()
     {
         if (stats != null)
@@ -401,34 +439,89 @@ public abstract class Player : MonoBehaviour
     }
     #endregion
 
+    private void UpdateBarrierRecharge()
+    {
+        if (!isBarrier) return;  // Barrier가 false면 충전하지 않음
+
+        if (!hasBarrierCharge)
+        {
+            barrierRechargeTimer += Time.deltaTime;
+            if (barrierRechargeTimer >= stats.CurrentBarrierCooldown)
+            {
+                barrierRechargeTimer = 0f;
+                hasBarrierCharge = true;
+                if (barrierEffect != null)
+                {
+                    barrierEffect.SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void UpdateInvincibility()
+    {
+        if (isInvincible)
+        {
+            invincibilityTimer += Time.deltaTime;
+            if (invincibilityTimer >= invincibilityDuration)
+            {
+                isInvincible = false;
+                invincibilityTimer = 0f;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Exp 아이템 처리
         if (collision.CompareTag("Exp"))
         {
             ExpObject expObject = collision.gameObject.GetComponent<ExpObject>();
-            if(expObject.expType == ExpType.White)
+            if (expObject != null)
             {
-                stats.currentExp += 10;
+                CollectExp(expObject);
             }
-            else if (expObject.expType == ExpType.Green)
-            {
-                stats.currentExp += 20;
-            }
-            else if (expObject.expType == ExpType.Blue)
-            {
-                stats.currentExp += 30;
-            }
-            else if (expObject.expType == ExpType.Red)
-            {
-                stats.currentExp += 40;
-            }
-            else if (expObject.expType == ExpType.Purple)
-            {
-                stats.currentExp += 50;
-            }
-            expObject.selfDestroy();
+            return;
         }
     }
+
+    private void CollectExp(ExpObject expObject)
+    {
+        float expAmount = 0;
+        switch (expObject.expType)
+        {
+            case ExpType.White:
+                expAmount = 10;
+                break;
+            case ExpType.Green:
+                expAmount = 20;
+                break;
+            case ExpType.Blue:
+                expAmount = 30;
+                break;
+            case ExpType.Red:
+                expAmount = 40;
+                break;
+            case ExpType.Purple:
+                if (stats.CurrentLevel <= 10)
+                {
+                    stats.currentExp = stats.CurrentMaxExp;
+                    expObject.selfDestroy();
+                    return;
+                }
+                else
+                {
+                    expAmount = stats.currentExp * 0.3f;
+                }
+                break;
+        }
+
+        //그리드 처리
+        expAmount *= (1 + stats.CurrentGreed);
+        stats.currentExp += expAmount;
+        expObject.selfDestroy();
+    }
+
     private void OnValidate()
     {
         if (stats != null)
@@ -440,7 +533,5 @@ public abstract class Player : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, .3f);
-        
-       
     }
 }

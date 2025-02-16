@@ -19,7 +19,7 @@ public class ArcherMoveState : BaseState<Player>
     {
         if (player.isAuto)
         {
-            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
