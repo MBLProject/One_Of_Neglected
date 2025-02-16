@@ -16,12 +16,12 @@ public class Archer : Player
     protected override void InitializeStateHandler()
     {
         stateHandler = new StateHandler<Player>(this);
-        stateHandler.RegisterState(new WarriorIdleState(stateHandler));
-        stateHandler.RegisterState(new WarriorMoveState(stateHandler));
-        stateHandler.RegisterState(new WarriorDashState(stateHandler));
-        stateHandler.RegisterState(new WarriorAttackState(stateHandler));
+        stateHandler.RegisterState(new ArcherIdleState(stateHandler));
+        stateHandler.RegisterState(new ArcherMoveState(stateHandler));
+        stateHandler.RegisterState(new ArcherDashState(stateHandler));
+        stateHandler.RegisterState(new ArcherAttackState(stateHandler));
 
-        stateHandler.ChangeState(typeof(WarriorIdleState));
+        stateHandler.ChangeState(typeof(ArcherIdleState));
     }
 
     protected override void InitializeStats()

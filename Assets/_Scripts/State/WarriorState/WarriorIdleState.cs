@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class WarriorIdleState : BaseState<Player>
 {
     public WarriorIdleState(StateHandler<Player> handler) : base(handler) { }
+
+    private float warriorBaseDetect = .7f;
+
 
     public override void Enter(Player player)
     {
@@ -41,7 +45,7 @@ public class WarriorIdleState : BaseState<Player>
 
         if (player.isAuto)
         {
-            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
@@ -62,12 +66,17 @@ public class WarriorIdleState : BaseState<Player>
         }
         else
         {
-            MonsterBase nearestMonster = player.GetNearestMonster();
-            if (nearestMonster != null)
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
+
+            if ((nearestMonster != null))
             {
-                player.LookAtTarget(nearestMonster.transform.position);
-                handler.ChangeState(typeof(WarriorAttackState));
-                return;
+                float dist = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                if (dist <= warriorBaseDetect)
+                {
+                    player.LookAtTarget(nearestMonster.transform.position);
+                    handler.ChangeState(typeof(WarriorAttackState));
+                    return;
+                }
             }
         }
 

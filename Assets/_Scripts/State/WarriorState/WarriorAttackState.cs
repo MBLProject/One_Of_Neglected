@@ -33,8 +33,8 @@ public class WarriorAttackState : BaseState<Player>
             player.Animator.speed = animSpeedMultiplier;
             player.Animator.SetTrigger("Attack");
         }
-        
-        MonsterBase nearestMonster = player.GetNearestMonster();
+
+        MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
         if (nearestMonster != null)
         {
             player.LookAtTarget(nearestMonster.transform.position);
@@ -48,7 +48,8 @@ public class WarriorAttackState : BaseState<Player>
 
         if (player.isAuto)
         {
-            MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+            MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
+            if(Vector2.Distance(player.transform.position, nearestMonster.transform.position) < 0.3f)
             if (nearestMonster != null)
             {
                 player.LookAtTarget(nearestMonster.transform.position);
@@ -57,7 +58,21 @@ public class WarriorAttackState : BaseState<Player>
 
         if (!hasDealtDamage && attackTimer >= currentAttackDuration * 0.5f)
         {
-            DealDamageToMonsters(player);
+            bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
+            Vector2 direction = isLookingRight ? Vector2.right : Vector2.left;
+            Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
+            
+            // 공격 방향을 기준으로 타겟 위치 설정 (좌우 방향만 사용)
+            Vector3 targetPosition = spawnPosition + (Vector3)(direction * 1f); // 방향에 따라 약간 앞쪽을 타겟으로 설정
+            
+            ProjectileManager.Instance.SpawnPlayerProjectile(
+                "WarriorAttackProjectile",
+                spawnPosition,
+                targetPosition,
+                0f,
+                player.Stats.CurrentATK
+            );
+            
             hasDealtDamage = true;
         }
 
@@ -79,7 +94,7 @@ public class WarriorAttackState : BaseState<Player>
             
             if (player.isAuto)
             {
-                MonsterBase nearestMonster = player.FindNearestMonsterInRange(5f);
+                MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
                 if (nearestMonster != null)
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);

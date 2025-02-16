@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7272245377737186}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,8 @@ GameObject:
   - component: {fileID: 5219599423296379568}
   - component: {fileID: 1516777555291174357}
   - component: {fileID: 5710690821959339977}
-  m_Layer: 0
+  - component: {fileID: 1715556114936358285}
+  m_Layer: 8
   m_Name: Magician
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -94,15 +95,15 @@ MonoBehaviour:
     Exp: 0
     MaxHp: 0
     Hp: 0
-    Recovery: 0
-    Armor: 0
+    HpRegen: 0
+    Defense: 0
     Mspd: 0
     ATK: 0
     Aspd: 0
-    Critical: 0
-    CATK: 0
-    Amount: 0
-    Area: 0
+    CriRate: 0
+    CriDamage: 0
+    ProjAmount: 0
+    ATKRange: 0
     Duration: 0
     Cooldown: 0
     Revival: 0
@@ -112,10 +113,20 @@ MonoBehaviour:
     Curse: 0
     Reroll: 0
     Banish: 0
+    GodKill: 0
+    Barrier: 0
+    BarrierCooldown: 0
+    Invincibility: 0
+    DashCount: 0
+    Adversary: 0
+    ProjDestroy: 0
+    ProjParry: 0
   modelRenderer: {fileID: 167505427872152222}
+  barrierEffect: {fileID: 0}
+  hitCollider: {fileID: 0}
+  magnetCollider: {fileID: 0}
   isAuto: 0
   targetPosition: {x: 0, y: 0}
-  monCheckList: []
 --- !u!61 &1516777555291174357
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,6 +199,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1715556114936358285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172665384722685855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fa5a8e4ec06074898aa63ac8535108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Count: 0
 --- !u!1 &397090573769536464
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +223,7 @@ GameObject:
   - component: {fileID: 2761359350634138540}
   - component: {fileID: 7470554817117618128}
   - component: {fileID: 3570212177503801785}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5704148859723098323}
   - component: {fileID: 6332441280832812284}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DashCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +363,7 @@ GameObject:
   - component: {fileID: 43573568172552056}
   - component: {fileID: 3267159851250152983}
   - component: {fileID: 4615526174577454412}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SecondDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +439,7 @@ GameObject:
   - component: {fileID: 6686630907139684153}
   - component: {fileID: 7918393779508683510}
   - component: {fileID: 7130950110999807616}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SecondDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +514,7 @@ GameObject:
   - component: {fileID: 239040168896899376}
   - component: {fileID: 5352771237258147858}
   - component: {fileID: 758446270556294420}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +551,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -1349,7 +1373,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1787,22 +1811,22 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 0.5882353}
-        key1: {r: 1, g: 1, b: 1, a: 0}
-        key2: {r: 0, g: 0, b: 0, a: 1}
-        key3: {r: 0, g: 0, b: 0, a: 1}
-        key4: {r: 0, g: 0, b: 0, a: 0}
-        key5: {r: 0, g: 0, b: 0, a: 0}
-        key6: {r: 0, g: 0, b: 0, a: 0}
-        key7: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 1, g: 0, b: 0.668427, a: 1}
+        key1: {r: 1, g: 0, b: 0, a: 1}
+        key2: {r: 1, g: 0.4175558, b: 0, a: 1}
+        key3: {r: 1, g: 0.84245956, b: 0, a: 1}
+        key4: {r: 0.5292448, g: 1, b: 0, a: 0}
+        key5: {r: 0, g: 0.7271428, b: 1, a: 0}
+        key6: {r: 0, g: 0.1953187, b: 1, a: 0}
+        key7: {r: 0.54534054, g: 0, b: 1, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
-        ctime4: 0
-        ctime5: 0
-        ctime6: 0
-        ctime7: 0
+        ctime1: 9902
+        ctime2: 18304
+        ctime3: 28146
+        ctime4: 36908
+        ctime5: 45430
+        ctime6: 56113
+        ctime7: 65535
         atime0: 0
         atime1: 65535
         atime2: 65535
@@ -1813,7 +1837,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_ColorSpace: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 8
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -5320,7 +5344,7 @@ GameObject:
   - component: {fileID: 6743086529341086468}
   - component: {fileID: 167505427872152222}
   - component: {fileID: 7612480505811161188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5426,7 +5450,7 @@ GameObject:
   - component: {fileID: 8848460860491820511}
   - component: {fileID: 1733500228928404825}
   - component: {fileID: 711979211283333284}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ThirdDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5499,7 +5523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3084104586441265854}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5537,7 +5561,7 @@ GameObject:
   - component: {fileID: 5733627511927339436}
   - component: {fileID: 8348150512382025901}
   - component: {fileID: 6785063828356659562}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ThirdDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5614,7 +5638,7 @@ GameObject:
   - component: {fileID: 1794359484456775653}
   - component: {fileID: 6024340391559466648}
   - component: {fileID: 6556085639801331866}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5712,7 +5736,7 @@ GameObject:
   - component: {fileID: 9112808627948175564}
   - component: {fileID: 5745278981645110693}
   - component: {fileID: 238700003412789733}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FirstDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5787,7 +5811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3266277685521244735}
   - component: {fileID: 4053208186984531225}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5878,7 +5902,7 @@ GameObject:
   - component: {fileID: 6686131309237266885}
   - component: {fileID: 2455405503245095014}
   - component: {fileID: 6045203445449048441}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5952,7 +5976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091988885791320571}
   - component: {fileID: 1762995454632714908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnvRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6021,7 +6045,7 @@ GameObject:
   - component: {fileID: 5510362003449681196}
   - component: {fileID: 4447488830664161514}
   - component: {fileID: 2294715897659999697}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DashBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6107,9 +6131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5219599423296379568}
-  dashRechargeImage1: {fileID: 2814697106575321559}
-  dashRechargeImage2: {fileID: 7130950110999807616}
-  dashRechargeImage3: {fileID: 711979211283333284}
+  dashRechargeImages: []
 --- !u!1 &8846712112812751763
 GameObject:
   m_ObjectHideFlags: 0
@@ -6121,7 +6143,7 @@ GameObject:
   - component: {fileID: 8163186278281157510}
   - component: {fileID: 2663162062284849447}
   - component: {fileID: 2814697106575321559}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FirstDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

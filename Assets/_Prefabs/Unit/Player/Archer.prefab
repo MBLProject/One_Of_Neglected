@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6946921516757057915}
   - component: {fileID: 3478016460241993116}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnvRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 8833628417884031720}
   - component: {fileID: 112776114815643669}
   - component: {fileID: 2790771988024397603}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ThirdDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,9 +100,9 @@ RectTransform:
   - {fileID: 3522836148813006584}
   m_Father: {fileID: 2225853410109995333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32, y: -2.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &112776114815643669
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 8955185492006562876}
   - component: {fileID: 8243207168251567739}
   - component: {fileID: 340666834673233801}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ RectTransform:
   m_Father: {fileID: 3748019837630949735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158028799259351188}
   - component: {fileID: 8233950504443962923}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 5752276254936214108}
   - component: {fileID: 5149925970510705696}
   - component: {fileID: 1577713002594226359}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FirstDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,9 +341,9 @@ RectTransform:
   - {fileID: 8013121197855639423}
   m_Father: {fileID: 2225853410109995333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 18, y: -2.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5149925970510705696
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 2276670002062137023}
   - component: {fileID: 8357543108874327058}
   - component: {fileID: 4208800228947904030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5224,7 +5224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2225853410109995333}
   - component: {fileID: 7195624286611068440}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DashCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5291,7 +5291,7 @@ GameObject:
   - component: {fileID: 4369428468409495930}
   - component: {fileID: 1124734014408258557}
   - component: {fileID: 2720003201439292524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Archer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5338,15 +5338,15 @@ MonoBehaviour:
     Exp: 0
     MaxHp: 0
     Hp: 0
-    Recovery: 0
-    Armor: 0
+    HpRegen: 0
+    Defense: 0
     Mspd: 0
     ATK: 0
     Aspd: 0
-    Critical: 0
-    CATK: 0
-    Amount: 0
-    Area: 0
+    CriRate: 0
+    CriDamage: 0
+    ProjAmount: 0
+    ATKRange: 0
     Duration: 0
     Cooldown: 0
     Revival: 0
@@ -5356,10 +5356,20 @@ MonoBehaviour:
     Curse: 0
     Reroll: 0
     Banish: 0
+    GodKill: 0
+    Barrier: 0
+    BarrierCooldown: 0
+    Invincibility: 0
+    DashCount: 0
+    Adversary: 0
+    ProjDestroy: 0
+    ProjParry: 0
   modelRenderer: {fileID: 1405563908811981059}
+  barrierEffect: {fileID: 0}
+  hitCollider: {fileID: 0}
+  magnetCollider: {fileID: 0}
   isAuto: 0
   targetPosition: {x: 0, y: 0}
-  monCheckList: []
 --- !u!61 &1124734014408258557
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5441,7 +5451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3748019837630949735}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5477,7 +5487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2084540884495755984}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5514,7 +5524,7 @@ GameObject:
   - component: {fileID: 1232661426876797375}
   - component: {fileID: 5423311987376340412}
   - component: {fileID: 767693876644020673}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5590,7 +5600,7 @@ GameObject:
   - component: {fileID: 3325511717815699682}
   - component: {fileID: 2068768151606776068}
   - component: {fileID: 6138295752657982440}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DashBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5676,9 +5686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4369428468409495930}
-  dashRechargeImage1: {fileID: 1264479530772944222}
-  dashRechargeImage2: {fileID: 8189748347409996085}
-  dashRechargeImage3: {fileID: 8407618699040801922}
+  dashRechargeImages: []
 --- !u!1 &5156705809461928163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5690,7 +5698,7 @@ GameObject:
   - component: {fileID: 3522836148813006584}
   - component: {fileID: 5104512093846311541}
   - component: {fileID: 8407618699040801922}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ThirdDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5765,7 +5773,7 @@ GameObject:
   - component: {fileID: 8013121197855639423}
   - component: {fileID: 441203487002297287}
   - component: {fileID: 1264479530772944222}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FirstDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5840,7 +5848,7 @@ GameObject:
   - component: {fileID: 9129129224810256559}
   - component: {fileID: 1405563908811981059}
   - component: {fileID: 7091675688262679349}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5946,7 +5954,7 @@ GameObject:
   - component: {fileID: 2837266452666359006}
   - component: {fileID: 4712990378194076384}
   - component: {fileID: 1361966024162241292}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SecondDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5968,9 +5976,9 @@ RectTransform:
   - {fileID: 2675223648853187871}
   m_Father: {fileID: 2225853410109995333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -2.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4712990378194076384
@@ -6022,7 +6030,7 @@ GameObject:
   - component: {fileID: 2675223648853187871}
   - component: {fileID: 7457769454601846371}
   - component: {fileID: 8189748347409996085}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SecondDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6098,7 +6106,7 @@ GameObject:
   - component: {fileID: 118798924409513882}
   - component: {fileID: 2455368319130618561}
   - component: {fileID: 1686423311576664080}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
