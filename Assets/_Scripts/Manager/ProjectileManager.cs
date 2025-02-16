@@ -15,6 +15,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     public int count;
 
+    private Projectile currentAuraProjectile;
+
     private void Start()
     {
         projectiles.Add(Enums.SkillName.Javelin, Resources.Load<Projectile>("Using/Projectile/JavelinProjectile"));
@@ -34,11 +36,27 @@ public class ProjectileManager : Singleton<ProjectileManager>
         Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
         float speed = 1f;
 
+        if (skillName == Enums.SkillName.Aura)
+        {
+            if (currentAuraProjectile != null)
+            {
+                RemoveProjectile(currentAuraProjectile);
+            }
+            
+            Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
+            projectile.InitProjectile(startPosition, startPosition, speed, damage, 10000f, 0, 100000f);
+            currentAuraProjectile = projectile;
+            activeProjectiles.Add(projectile);
+            
+            return;
+        }
+
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
         int totalShots = shotCount * projectileCount;
 
         // Needle ?뱀꽦: targetPositions 媛쒖닔蹂대떎 珥??ъ궗泥?媛쒖닔媛 留롮쑝硫?泥섏쓬遺??諛섎났
         bool isNeedle = skillName == Enums.SkillName.Needle;
+        bool isAura = skillName == Enums.SkillName.Aura;
         int currentIndex = 0;
 
         UniTask.Void(async () =>
@@ -54,6 +72,10 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     {
                         targetPosition = targetPositions[currentIndex];
                         currentIndex = (currentIndex + 1) % targetPositions.Count;
+                    }
+                    else if(isAura)
+                    {
+                        targetPosition = startPosition;
                     }
                     else
                     {

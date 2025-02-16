@@ -17,6 +17,8 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected MonsterStats stats;
 
+    public event Action<MonsterBase> OnDeath;
+
     public MonsterStats Stats => stats;
     public Animator Animator => animator;
 
@@ -131,6 +133,7 @@ public abstract class MonsterBase : MonoBehaviour
             // 항상 오브젝트 제거 실행
             if (this != null && gameObject != null)
             {
+                OnDeath?.Invoke(this);
                 Destroy(gameObject);
             }
         }
