@@ -4,27 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class UnitManager : MonoBehaviour
+public class UnitManager : Singleton<UnitManager>
 {
-    private static UnitManager instance;
-    public static UnitManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<UnitManager>();
-                if (instance == null)
-                {
-                    GameObject go = new GameObject("UnitManager");
-                    instance = go.AddComponent<UnitManager>();
-                }
-            }
-            return instance;
-        }
-    }
-
-    [Header("??醫롫윥?????醫롫윪??")]
+    [Header("프리팹 설정")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -34,77 +16,109 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("??醫?????醫롫윪??")]
+    [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
-    [SerializeField] private float spawnInterval = 3f;
+    [SerializeField] private float spawnInterval = 0.5f; 
+    private float nextSpawnTime = 0f;  
 
-    [Header("?롪퍓?????醫롫윞????醫롫윪??")]
-    [SerializeField] private float earlyGameDuration = 180f;  // 3??
-    [SerializeField] private float midGameDuration = 420f;    // 7??
-    [SerializeField] private float lateGameDuration = 600f;   // 10??
-
-    [Header("???꾪뀬 ?뺢퀡??????깆젧")]
-    [SerializeField] private float minRange = 0.5f;  // 嶺뚣끉裕?????꾪뀬 ????濾곌쑨???
-    private float gameTime = 0f;
-    private float spawnTimer = 0f;
     private bool isGameStarted = false;
-
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
     private Camera mainCamera;
 
-    public float GetGameTime() => gameTime;
     public Player GetPlayer() => currentPlayer;
 
-    private void Awake()
+ 
+
+
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
+        base.Awake();
+        mainCamera = Camera.main;
+
+        if (TimeManager.Instance != null)
         {
-            Destroy(gameObject);
-            return;
+            //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
+            TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
         }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-        mainCamera = Camera.main;
     }
 
+    private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
     private void Update()
     {
-        if (!isGameStarted) return;
+        if (!isGameStarted || GameManager.Instance.isPaused) return;
 
-        gameTime += Time.deltaTime;
-        spawnTimer += Time.deltaTime;
-
-        if (spawnTimer >= spawnInterval)
+        if (Time.time >= nextSpawnTime)
         {
-            SpawnMonsters();
-            spawnTimer = 0f;
+            SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
+            SpawnMonsterAtRandomPosition(currentNormalMonsterType);
+
+            nextSpawnTime = Time.time + spawnInterval;
         }
     }
 
-    private void SpawnMonsters()
+    private void OnEnable()
     {
-        // ???醫롫짗????醫롫윞?대겭??嶺뚮ㄳ?낅츩????醫???
-        SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
-
-        // ??醫롫윞?????嶺뚮ㄳ?낅츩????醫???
-        if (gameTime <= earlyGameDuration)  // 0~3??
+        if (TimeManager.Instance != null)
         {
-            SpawnMonsterAtRandomPosition(MonsterType.EarlyNormal);
-        }
-        else if (gameTime <= midGameDuration)  // 3~7??
-        {
-            SpawnMonsterAtRandomPosition(MonsterType.MidNormal);
-        }
-        else if (gameTime <= lateGameDuration)  // 7~10??
-        {
-            SpawnMonsterAtRandomPosition(MonsterType.LateNormal);
+            //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
+            TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
         }
     }
 
-    //??醫롫윥???醫롫윪????醫롫윪??????
+    private void OnDisable()
+    {
+        if (TimeManager.Instance != null)
+        {
+            //TimeManager.Instance.OnThirtySecondsPassed -= SpawnUniqueMonster;
+            TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
+        }
+    }
+
+    //private void SpawnUniqueMonster()
+    //{
+    //    float gameTime = TimeManager.Instance.GameTime;
+    //    MonsterType monsterType;
+
+    //    if (gameTime <= 180f)        // 0~3분
+    //    {
+    //        monsterType = MonsterType.DamageUnique;
+    //    }
+    //    else if (gameTime <= 420f)   // 3~7분
+    //    {
+    //        monsterType = MonsterType.CrowdControlUnique;
+    //    }
+    //    else                         // 7분 이후
+    //    {
+    //        monsterType = MonsterType.TankUnique;
+    //    }
+
+    //    SpawnMonsterAtRandomPosition(monsterType);
+    //}
+
+    private void SpawnStrongMonsters()
+    {
+        float gameTime = TimeManager.Instance.GameTime;
+
+        if (gameTime <= 180f)        // 0~3분
+        {
+            currentNormalMonsterType = MonsterType.EarlyNormal;
+            Debug.Log("[UnitManager] 몬스터 타입 변경: EarlyNormal");
+        }
+        else if (gameTime <= 420f)   // 3~7분
+        {
+            currentNormalMonsterType = MonsterType.MidNormal;
+            Debug.Log("[UnitManager] 몬스터 타입 변경: MidNormal");
+        }
+        else if (gameTime > 420f)    // 7분 초과 
+        {
+            currentNormalMonsterType = MonsterType.LateNormal;
+            Debug.Log($"[UnitManager] 몬스터 타입 변경: LateNormal");
+        }
+    }
+
     public Player SpawnPlayer(Vector2 position)
     {
         if (currentPlayer != null)
@@ -114,17 +128,21 @@ public class UnitManager : MonoBehaviour
 
         GameObject playerObj = Instantiate(playerPrefab, position, Quaternion.identity);
         playerObj.AddComponent<SkillDispesner>();
-
         currentPlayer = playerObj.GetComponent<Player>();
 
         return currentPlayer;
     }
+
     public void StartGame()
     {
-        gameTime = 0f;
-        spawnTimer = 0f;
         isGameStarted = true;
         ClearAllMonsters();
+        currentNormalMonsterType = MonsterType.EarlyNormal;
+        nextSpawnTime = Time.time;
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
+        }
     }
 
     public void PauseGame()
@@ -137,8 +155,6 @@ public class UnitManager : MonoBehaviour
         isGameStarted = true;
     }
 
-
-    // 嶺뚮ㄳ?낅츩????醫롫윪??嶺뚮∥?꾥땻??
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -155,14 +171,12 @@ public class UnitManager : MonoBehaviour
         return monster;
     }
 
-    // ??醫롫윥????醫롫윪???嶺뚮ㄳ?낅츩????醫롫윪??
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
         Vector2 randomPosition = GetRandomSpawnPosition();
         return SpawnMonster(type, randomPosition);
     }
 
-    // 嶺뚮ㄳ?낅츩????醫롫윞??
     public void RemoveMonster(MonsterBase monster)
     {
         if (monster != null)
@@ -171,7 +185,6 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 嶺뚮ㅄ維獄?嶺뚮ㄳ?낅츩????醫롫윞??
     public void ClearAllMonsters()
     {
         foreach (var monster in activeMonsters.ToArray())
@@ -184,7 +197,6 @@ public class UnitManager : MonoBehaviour
         activeMonsters.Clear();
     }
 
-    // ??醫롫윥????醫?????醫롫윪????ｌ뫒亦?
     private Vector2 GetRandomSpawnPosition()
     {
         if (mainCamera == null) return Vector2.zero;
@@ -199,30 +211,28 @@ public class UnitManager : MonoBehaviour
         );
     }
 
-    // 嶺뚮ㄳ?낅츩??????醫롫윪????醫롫윥????醫롫윥????꾩룇瑗??
     private GameObject GetMonsterPrefab(MonsterType type)
     {
-        return type switch
-        {
-            MonsterType.EarlyNormal => earlyNormalMonsterPrefab,
-            MonsterType.RangedNormal => rangedNormalMonsterPrefab,
-            MonsterType.MidNormal => midNormalMonsterPrefab,
-            MonsterType.LateNormal => lateNormalMonsterPrefab,
-            MonsterType.DamageUnique => damageUniqueMonsterPrefab,
-            MonsterType.CrowdControlUnique => crowdControlUniqueMonsterPrefab,
-            MonsterType.TankUnique => tankUniqueMonsterPrefab,
-            _ => null
-        };
+        if (type == MonsterType.EarlyNormal)
+            return earlyNormalMonsterPrefab;
+        else if (type == MonsterType.RangedNormal)
+            return rangedNormalMonsterPrefab;
+        else if (type == MonsterType.MidNormal)
+            return midNormalMonsterPrefab;
+        else if (type == MonsterType.LateNormal)
+            return lateNormalMonsterPrefab;
+        else if (type == MonsterType.DamageUnique)
+            return damageUniqueMonsterPrefab;
+        else if (type == MonsterType.CrowdControlUnique)
+            return crowdControlUniqueMonsterPrefab;
+        else if (type == MonsterType.TankUnique)
+            return tankUniqueMonsterPrefab;
+        else
+            return null;
     }
 
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
-    /// <summary>
-    /// ?뺢퀡???????????덈츎 嶺뚮ㄳ?낅츩??? ?띠럾?濚밸Ŧ?????戮?맋???洹먮봾裕?筌뤿굞???筌먲퐣議??꾩룇瑗??
-    /// </summary>
-    /// <param name="minRange"></param>
-    /// <param name="maxRange"></param>
-    /// <returns>濾곌쑨????戮곕さ???筌먲퐣議??嶺뚮ㄳ?낅츩???洹먮봾裕??/returns>
     public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
     {
         var monstersInRange = activeMonsters.FindAll(monster =>
@@ -242,9 +252,6 @@ public class UnitManager : MonoBehaviour
         return monstersInRange;
     }
 
-    /// <summary>
-    /// 嶺뚮ㄳ?낅츩???洹먮봾裕?筌뤾쑬????띠럾????띠럾?濚밸Ŧ???嶺뚮ㄳ?낅츩???꾩룇瑗??
-    /// </summary>
     public MonsterBase GetNearestMonster()
     {
         MonsterBase nearestMonster = null;
@@ -266,59 +273,49 @@ public class UnitManager : MonoBehaviour
 
     public List<Vector3> GetMonsterPositionsInRange(float minRange, float maxRange)
     {
-        return activeMonsters
-            .Where(monster => monster != null)
-            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
-            .Where(data => data.distance >= minRange && data.distance <= maxRange)
-            .OrderBy(data => data.distance)
-            .Select(data => data.position)
-            .ToList();
+        List<Vector3> positions = new List<Vector3>();
+
+        foreach (var monster in activeMonsters)
+        {
+            if (monster == null) continue;
+
+            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
+            if (distance >= minRange && distance <= maxRange)
+            {
+                positions.Add(monster.transform.position);
+            }
+        }
+
+        // 거리순으로 정렬
+        positions.Sort((a, b) =>
+        {
+            float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
+            float distanceB = Vector2.Distance(currentPlayer.transform.position, b);
+            return distanceA.CompareTo(distanceB);
+        });
+
+        return positions;
     }
 
-    /// <summary>
-    /// 揶쎛??揶쎛繹먮슣??筌뤣딅뮞?怨쀬벥 ?袁⑺뒄 獄쏆꼹??
-    /// </summary>
     public Vector3? GetNearestMonsterPosition()
     {
-        var nearestMonster = activeMonsters
-            .Where(monster => monster != null)
-            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
-            .OrderBy(data => data.distance)
-            .FirstOrDefault();
+        Vector3? nearestPosition = null;
+        float nearestDistance = float.MaxValue;
 
-        return nearestMonster?.position;
+        foreach (var monster in activeMonsters)
+        {
+            if (monster == null) continue;
+
+            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestPosition = monster.transform.position;
+                nearestDistance = distance;
+            }
+        }
+
+        return nearestPosition;
     }
-
-
-    //public List<MonsterBase> GetMonstersInMinMaxRange(Vector2 position)
-    //{
-    //    return activeMonsters.FindAll(monster => 
-    //    {
-    //        if (monster == null) return false;
-    //        float distance = Vector2.Distance(position, monster.transform.position);
-    //        return distance >= minRange && distance <= maxRange;
-    //    });
-    //}
-
-    //public MonsterBase GetNearestMonsterInMinMaxRange(Vector2 position)
-    //{
-    //    MonsterBase nearestMonster = null;
-    //    float nearestDistance = float.MaxValue;
-
-    //    foreach (var monster in activeMonsters)
-    //    {
-    //        if (monster == null) continue;
-
-    //        float distance = Vector2.Distance(position, monster.transform.position);
-    //        if (distance >= minRange && distance <= maxRange && distance < nearestDistance)
-    //        {
-    //            nearestMonster = monster;
-    //            nearestDistance = distance;
-    //        }
-    //    }
-
-    //    return nearestMonster;
-    //}
 }
 
 public enum MonsterType
@@ -331,6 +328,5 @@ public enum MonsterType
     CrowdControlUnique,
     TankUnique
 }
-
 
 

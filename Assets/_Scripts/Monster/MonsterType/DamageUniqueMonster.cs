@@ -7,14 +7,14 @@ public class DamageUniqueMonster : NormalMonster
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
-            health: 150f,
-            speed: 1f,
-            damage: 35f,
-            range: 2f,
-            cooldown: 1.5f,
-            defense: 5f,
-            regen: 5f,
-            regenDelay: 3f
+            health: 100f,
+            speed: 1.2f,
+            damage: 10f,
+            range: 0.5f,
+            cooldown: 1f,
+            defense: 1f,
+            regen: 1f,
+            regenDelay: 1f
         );
     }
     protected override void Update()

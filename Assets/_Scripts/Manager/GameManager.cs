@@ -50,6 +50,15 @@ public class GameManager : Singleton<GameManager>
         isPaused = false;
         isGameStarted = true;
 
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.ResetTime();
+        }
+        else
+        {
+            Debug.LogError("TimeManager is not initialized!");
+        }
+
         if (UnitManager.Instance != null)
         {
             UnitManager.Instance.StartGame();

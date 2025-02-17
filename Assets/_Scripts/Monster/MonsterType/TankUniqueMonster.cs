@@ -10,10 +10,10 @@ public class TankUniqueMonster : NormalMonster
         stats = new MonsterStats(
             health: 300f,
             speed: 1f,
-            damage: 20f,
+            damage: 5f,
             range: 2f,
             cooldown: 1.5f,
-            defense: 5f,        
+            defense: 4f,        
             regen: 5f,          
             regenDelay: 3f
         );
