@@ -3,11 +3,8 @@ using UnityEngine;
 using static Enums;
 public class PlayerStats
 {
-    private float regenTimer = 0f;
-    private float regenPeriod = 1f;
-
-    #region Field
-    private int Level;
+    #region Field               
+    private int Level;      
     private int MaxExp;
     private float Exp;
     private int MaxHp;
@@ -105,11 +102,6 @@ public class PlayerStats
         {
             Exp = value;
             OnExpChanged?.Invoke(Exp);
-            if (Exp >= MaxExp)
-            {
-                Exp -= MaxExp;
-                LevelUp();
-            }
         }
     }
     public int CurrentMaxHp
@@ -362,41 +354,6 @@ public class PlayerStats
         {
             projParry = value;
             OnProjParryChanged?.Invoke(projParry);
-        }
-    }
-    #endregion
-
-    #region Func
-    public void InitializeStats()
-    {
-        currentHp = MaxHp;
-        currentExp = 0f;
-    }
-
-
-    /// <summary>
-    /// 레벨업 메서드, 혹시 몰라서 일단 만듦
-    /// </summary>
-    public void LevelUp()
-    {
-        Level += 1;
-        OnLevelUp?.Invoke(Level);
-        CurrentMaxExp = CalculateNextLevelExp();
-    }
-
-    private int CalculateNextLevelExp()
-    {
-        //일단 레벨당 경험치 대충 처리함
-        return (int)(100 * (1 + (Level - 1) * 0.2f));
-    }
-
-    public void UpadateHpRegen(float deltaTime)
-    {
-        regenTimer += deltaTime;
-        if (regenTimer >= regenPeriod)
-        {
-            regenTimer = 0f;
-            currentHp += (int)HpRegen;
         }
     }
     #endregion

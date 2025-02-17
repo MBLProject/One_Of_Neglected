@@ -34,6 +34,30 @@ public class SkillDispesner : MonoBehaviour
                 needle.StartMainTask();
                 skills.Add(Enums.SkillName.Needle, needle);
                 break;
+            case Enums.SkillName.Claw:
+                print($"RegisterSkill : {skillName}");
+                var claw = new Claw(defaultCooldown);
+                claw.StartMainTask();
+                skills.Add(Enums.SkillName.Claw, claw);
+                break;
+            case Enums.SkillName.Aura:
+                print($"RegisterSkill : {skillName}");
+                var aura = new Aura(defaultCooldown);
+                aura.StartMainTask();
+                skills.Add(Enums.SkillName.Needle, aura);
+                break;
+            case Enums.SkillName.Shuriken:
+                print($"RegisterSkill : {skillName}");
+                var shuriken = new Shuriken(defaultCooldown);
+                shuriken.StartMainTask();
+                skills.Add(Enums.SkillName.Shuriken, shuriken);
+                break;
+            case Enums.SkillName.PoisonShoes:
+                print($"RegisterSkill : {skillName}");
+                var poisonShoes = new PoisonShoes(defaultCooldown);
+                poisonShoes.StartMainTask();
+                skills.Add(Enums.SkillName.Needle, poisonShoes);
+                break;
         }
     }
 

@@ -7,26 +7,17 @@ using TMPro;
 
 public class UI_PlayerTest : MonoBehaviour
 {
-    public Player player;
+    [SerializeField] private Player player;
     public Button levelupTest;
     public Button damageTest;
     public Button autoTest;
 
     public Slider expSlider;
 
-    [Header("Stats Text")]
-    public TextMeshProUGUI levelText;
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI expText;
-    public TextMeshProUGUI atkText;
-    public TextMeshProUGUI aspdText;
-    public TextMeshProUGUI criticalText;
-    public TextMeshProUGUI catkText;
-    public TextMeshProUGUI mspdText;
-    public TextMeshProUGUI dashCountText;
 
     private void Start()
     {
+        player = UnitManager.Instance.GetPlayer();
         levelupTest.onClick.AddListener(OnLevelupTest);
         damageTest.onClick.AddListener(OnDamageTest);
         autoTest.onClick.AddListener(OnAutoTest);
@@ -35,40 +26,11 @@ public class UI_PlayerTest : MonoBehaviour
 
     private void Update()
     {
-        UpdateStatsUI();
+        if(!player)
+        {
+            player = UnitManager.Instance.GetPlayer();
+        }
         expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
-    }
-
-    private void UpdateStatsUI()
-    {
-        if (player == null || player.Stats == null) return;
-
-        if (levelText != null)
-            levelText.text = $"Level: {player.Stats.CurrentLevel}";
-        
-        if (hpText != null)
-            hpText.text = $"HP: {player.Stats.currentHp:F0}/{player.Stats.CurrentMaxHp}";
-        
-        if (expText != null)
-            expText.text = $"EXP: {player.Stats.currentExp:F0}/{player.Stats.CurrentMaxExp}";
-        
-        if (atkText != null)
-            atkText.text = $"ATK: {player.Stats.CurrentATK:F1}";
-        
-        if (aspdText != null)
-            aspdText.text = $"ASPD: {player.Stats.CurrentAspd:F2}";
-        
-        if (criticalText != null)
-            criticalText.text = $"CRIT: {player.Stats.CurrentCriRate:F1}%";
-        
-        if (catkText != null)
-            catkText.text = $"CATK: {player.Stats.CurrentATK * 100:F0}%";
-        
-        if (mspdText != null)
-            mspdText.text = $"MSPD: {player.Stats.CurrentMspd:F1}";
-        
-        if (dashCountText != null)
-            dashCountText.text = $"DASH: {player.CurrentDashCount}/{player.MaxDashCount}";
     }
 
     private void OnDamageTest()

@@ -10,9 +10,9 @@ public class NeedleProjectile : Projectile
 
     protected override void Start()
     {
-        isMoving = false; // 이동 없음
-        transform.position = targetPosition; // 적의 위치에서 생성됨
-        projectileCollider = GetComponent<Collider2D>(); // 콜라이더 참조
+        isMoving = false;
+        transform.position = targetPosition;
+        projectileCollider = GetComponent<Collider2D>();
         cts = new CancellationTokenSource();
         DespawnNeedleAtPosition().Forget();
     }

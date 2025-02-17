@@ -71,8 +71,6 @@ public class Archer : Player
         statViewer.ProjParry = false;
 
         UpdateStats();
-        
-        stats.InitializeStats();
     }
     #endregion
 

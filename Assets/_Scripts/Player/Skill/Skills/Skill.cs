@@ -52,7 +52,7 @@ public class Skill
         {
             if (!GameManager.Instance.isPaused)
             {
-                Fire(); // ?⑤컻 ?몄텧
+                Fire(); // ??ㅼ뻣 ?紐꾪뀱
                 await UniTask.Delay(TimeSpan.FromSeconds(defaultCooldown));
             }
             else

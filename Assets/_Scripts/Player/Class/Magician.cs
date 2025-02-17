@@ -72,7 +72,6 @@ public class Magician : Player
 
         UpdateStats();
         
-        stats.InitializeStats();
     }
     #endregion
 
