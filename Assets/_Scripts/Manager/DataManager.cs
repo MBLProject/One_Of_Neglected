@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 using DG.Tweening.Plugins;
+using DG.Tweening.Core.Easing;
 [Serializable]
 public class DicDataTable
 {
@@ -15,27 +16,29 @@ public class DicDataTable
 public class PlayerProperty
 {
     public int gold;
-    public int Bless_Point;
-    public int remnants;
-    public int MaxHp_TrainingCount;
-    public int HpRegen_TrainingCount;
-    public int Defense_TrainingCount;
-    public int Mspd_TrainingCount;
-    public int ATK_TrainingCount;
-    public int Aspd_TrainingCount;
-    public int CriRate_TrainingCount;
-    public int CriDamage_TrainingCount;
-    public int ProjAmount_TrainingCount;
-    public int ATKRange_TrainingCount;
-    public int Duration_TrainingCount;
-    public int Cooldown_TrainingCount;
-    public int Revival_TrainingCount;
-    public int Magnet_TrainingCount;
-    public int Growth_TrainingCount;
-    public int Greed_TrainingCount;
-    public int Curse_TrainingCount;
-    public int Reroll_TrainingCount;
-    public int Banish_TrainingCount;
+    public int bless_Point;
+    public int remnants_Point;
+    public List<bool> class_Unlocked =
+    new List<bool>() { true, false, false };
+    [HideInInspector] public int MaxHp_TrainingCount;
+    [HideInInspector] public int HpRegen_TrainingCount;
+    [HideInInspector] public int Defense_TrainingCount;
+    [HideInInspector] public int Mspd_TrainingCount;
+    [HideInInspector] public int ATK_TrainingCount;
+    [HideInInspector] public int Aspd_TrainingCount;
+    [HideInInspector] public int CriRate_TrainingCount;
+    [HideInInspector] public int CriDamage_TrainingCount;
+    [HideInInspector] public int ProjAmount_TrainingCount;
+    [HideInInspector] public int ATKRange_TrainingCount;
+    [HideInInspector] public int Duration_TrainingCount;
+    [HideInInspector] public int Cooldown_TrainingCount;
+    [HideInInspector] public int Revival_TrainingCount;
+    [HideInInspector] public int Magnet_TrainingCount;
+    [HideInInspector] public int Growth_TrainingCount;
+    [HideInInspector] public int Greed_TrainingCount;
+    [HideInInspector] public int Curse_TrainingCount;
+    [HideInInspector] public int Reroll_TrainingCount;
+    [HideInInspector] public int Banish_TrainingCount;
 }
 [Serializable]
 public class BTS
@@ -78,6 +81,9 @@ public class DataManager : Singleton<DataManager>
     public BTS BTS = new BTS();
 
     string path = "Assets/Resources/SaveFile/";
+
+    public int classSelect_Num;
+
     protected override void Awake()
     {
         base.Awake();

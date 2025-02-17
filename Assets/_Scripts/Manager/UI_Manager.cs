@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Manager : Singleton<UI_Manager>
@@ -25,6 +26,15 @@ public class UI_Manager : Singleton<UI_Manager>
         }
         if (upgrade_Panel == null)
             upgrade_Panel = panel_Dic["Upgrade_Panel"].GetComponentInChildren<Upgrade_Panel>();
+
+        SceneManager.sceneLoaded += (x, y) =>
+        {
+            if (x.name == "Game")
+            {
+                gameObject.GetComponent<RectTransform>().GetChild(0).
+                gameObject.SetActive(false);
+            }
+        };
 
     }
 

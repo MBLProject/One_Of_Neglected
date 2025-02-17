@@ -1,7 +1,12 @@
 {
     "gold": 0,
-    "Bless_Point": 0,
-    "remnants": 0,
+    "bless_Point": 0,
+    "remnants_Point": 10000,
+    "class_Unlocked": [
+        true,
+        false,
+        false
+    ],
     "MaxHp_TrainingCount": 0,
     "HpRegen_TrainingCount": 0,
     "Defense_TrainingCount": 0,

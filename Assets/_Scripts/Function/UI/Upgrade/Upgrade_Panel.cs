@@ -36,7 +36,7 @@ public class Upgrade_Panel : Panel
         bless_Toggle.interactable = false;
         training_Toggle.onValueChanged.AddListener(ToggleEvents);
         //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
-        point_Text.text = DataManager.Instance.player_Property.Bless_Point.ToString();
+        point_Text.text = DataManager.Instance.player_Property.bless_Point.ToString();
     }
     private void Update()
     {
@@ -131,6 +131,6 @@ public class Upgrade_Panel : Panel
     }
     public void DisplayBlessPoint()
     {
-        point_Text.text = DataManager.Instance.player_Property.Bless_Point.ToString();
+        point_Text.text = DataManager.Instance.player_Property.bless_Point.ToString();
     }
 }

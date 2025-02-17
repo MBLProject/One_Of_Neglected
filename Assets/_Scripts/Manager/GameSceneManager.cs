@@ -16,7 +16,7 @@ public class GameSceneManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(LoadSceneCoroutine());
-
+        StartCoroutine(LoadingProduction());
     }
     public static void SceneLoad(string sceneName)
     {
@@ -30,18 +30,31 @@ public class GameSceneManager : MonoBehaviour
         yield return null;
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
+
         while (!op.isDone)
         {
             Debug.Log(op.progress);
             bgIMG.color = new Color(bgIMG.color.r, bgIMG.color.g, bgIMG.color.b, bgIMG.color.a + (op.progress * -255));
-            loadingIMG.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
             Debug.Log("씬로드중");
+
             if (op.progress >= 0.9f)
             {
                 Debug.Log("90퍼 이상 로드완료");
-                // op.allowSceneActivation = true;
+                yield return new WaitForSeconds(3f);
+                op.allowSceneActivation = true;
                 yield break;
             }
+
         }
+    }
+
+    private IEnumerator LoadingProduction()
+    {
+        while (true)
+        {
+            loadingIMG.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+            yield return null;
+        }
+
     }
 }
