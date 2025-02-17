@@ -112,10 +112,10 @@ public class UnitManager : Singleton<UnitManager>
             currentNormalMonsterType = MonsterType.MidNormal;
             Debug.Log("[UnitManager] 몬스터 타입 변경: MidNormal");
         }
-        else                         // 7분 이후
+        else if (gameTime > 420f)    // 7분 초과 
         {
             currentNormalMonsterType = MonsterType.LateNormal;
-            Debug.Log("[UnitManager] 몬스터 타입 변경: LateNormal");
+            Debug.Log($"[UnitManager] 몬스터 타입 변경: LateNormal");
         }
     }
 
