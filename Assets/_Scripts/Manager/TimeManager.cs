@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,9 @@ public class TimeManager : Singleton<TimeManager>
     // 마지막 이벤트 발생 시간 저장
     private float lastThirtySecEvent = -30f;  // 30초 이벤트
     private float lastOneMinEvent = -60f;     // 1분 이벤트
-    private int lastMinute = -1;              // 분 변경 체크
+
+    public event Action OnThirtySecondsPassed;  
+    public event Action OnMinutePassed;
 
     private void Update()
     {
@@ -44,42 +47,17 @@ public class TimeManager : Singleton<TimeManager>
         if (gameTime >= lastThirtySecEvent + 30f)
         {
             lastThirtySecEvent = Mathf.Floor(gameTime / 30f) * 30f;
-            OnThirtySecondsInterval();
+            OnThirtySecondsPassed?.Invoke();
         }
 
         // 1분 이벤트 체크
         if (gameTime >= lastOneMinEvent + 60f)
         {
-            int currentMinute = Mathf.FloorToInt(gameTime / 60f);
             lastOneMinEvent = Mathf.Floor(gameTime / 60f) * 60f;
-            OnMinuteInterval(currentMinute);
+            OnMinutePassed?.Invoke();
         }
     }
 
-    private void OnThirtySecondsInterval()
-    {
-        Debug.Log($"30초 이벤트 발생! 현재 시간: {GetFormattedTime()}");
-        // 여기에 30초마다 실행할 이벤트 추가
-    }
-
-    private void OnMinuteInterval(int minute)
-    {
-        Debug.Log($"분 이벤트 발생! {minute}분 경과");
-
-        // 여기에 분마다 실행할 이벤트 추가
-        switch (minute)
-        {
-            case 1:
-                // 1분 경과 시 이벤트
-                break;
-            case 2:
-                // 2분 경과 시 이벤트
-                break;
-            case 3:
-                // 3분 경과 시 이벤트
-                break;
-        }
-    }
 
     public string GetFormattedTime()
     {
@@ -93,7 +71,6 @@ public class TimeManager : Singleton<TimeManager>
         gameTime = 0f;
         lastThirtySecEvent = -30f;
         lastOneMinEvent = -60f;
-        lastMinute = -1;
     }
 
     public void SetDebugTime(float time)

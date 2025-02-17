@@ -17,10 +17,6 @@ public abstract class RangedMonster : MonsterBase
         stateHandler.RegisterState(new MonsterDieState(stateHandler));
         stateHandler.ChangeState(typeof(MonsterMoveState));
     }
-
-    /// <summary>
-    /// ?먭굅由?怨듦꺽 ?ㅽ뻾
-    /// </summary>
     public virtual void RangedAttack()
     {
         if (playerTransform != null)
