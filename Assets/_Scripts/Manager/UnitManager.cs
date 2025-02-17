@@ -24,7 +24,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    [Header("?占쎈━???占쎌젙")]
+    [Header("??醫롫윥?????醫롫윪??")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -34,18 +34,18 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("?占쏀룿 ?占쎌젙")]
+    [Header("??醫?????醫롫윪??")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 3f;
 
-    [Header("寃뚯엫 ?占쎄컙 ?占쎌젙")]
-    [SerializeField] private float earlyGameDuration = 180f;  // 3占?
-    [SerializeField] private float midGameDuration = 420f;    // 7占?
-    [SerializeField] private float lateGameDuration = 600f;   // 10占?
+    [Header("?롪퍓?????醫롫윞????醫롫윪??")]
+    [SerializeField] private float earlyGameDuration = 180f;  // 3??
+    [SerializeField] private float midGameDuration = 420f;    // 7??
+    [SerializeField] private float lateGameDuration = 600f;   // 10??
 
-    [Header("?ㅽ궗 踰붿쐞 ?ㅼ젙")]
-    [SerializeField] private float minRange = 0.5f;  // 理쒖냼 ?ㅽ궗 ?ъ슜 嫄곕━
+    [Header("???꾪뀬 ?뺢퀡??????깆젧")]
+    [SerializeField] private float minRange = 0.5f;  // 嶺뚣끉裕?????꾪뀬 ????濾곌쑨???
     private float gameTime = 0f;
     private float spawnTimer = 0f;
     private bool isGameStarted = false;
@@ -86,25 +86,25 @@ public class UnitManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
-        // ??占쏙옙 ?占쎄굅占?紐ъ뒪???占쏀룿
+        // ???醫롫짗????醫롫윞?대겭??嶺뚮ㄳ?낅츩????醫???
         SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
 
-        // ?占쎄컙??占?紐ъ뒪???占쏀룿
-        if (gameTime <= earlyGameDuration)  // 0~3占?
+        // ??醫롫윞?????嶺뚮ㄳ?낅츩????醫???
+        if (gameTime <= earlyGameDuration)  // 0~3??
         {
             SpawnMonsterAtRandomPosition(MonsterType.EarlyNormal);
         }
-        else if (gameTime <= midGameDuration)  // 3~7占?
+        else if (gameTime <= midGameDuration)  // 3~7??
         {
             SpawnMonsterAtRandomPosition(MonsterType.MidNormal);
         }
-        else if (gameTime <= lateGameDuration)  // 7~10占?
+        else if (gameTime <= lateGameDuration)  // 7~10??
         {
             SpawnMonsterAtRandomPosition(MonsterType.LateNormal);
         }
     }
 
-    //?占쎈젅?占쎌뼱 ?占쎌꽦占???
+    //??醫롫윥???醫롫윪????醫롫윪??????
     public Player SpawnPlayer(Vector2 position)
     {
         if (currentPlayer != null)
@@ -138,7 +138,7 @@ public class UnitManager : MonoBehaviour
     }
 
 
-    // 紐ъ뒪???占쎌꽦 硫붿꽌??
+    // 嶺뚮ㄳ?낅츩????醫롫윪??嶺뚮∥?꾥땻??
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -155,14 +155,14 @@ public class UnitManager : MonoBehaviour
         return monster;
     }
 
-    // ?占쎈뜡 ?占쎌튂??紐ъ뒪???占쎌꽦
+    // ??醫롫윥????醫롫윪???嶺뚮ㄳ?낅츩????醫롫윪??
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
         Vector2 randomPosition = GetRandomSpawnPosition();
         return SpawnMonster(type, randomPosition);
     }
 
-    // 紐ъ뒪???占쎄굅
+    // 嶺뚮ㄳ?낅츩????醫롫윞??
     public void RemoveMonster(MonsterBase monster)
     {
         if (monster != null)
@@ -171,7 +171,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 紐⑤뱺 紐ъ뒪???占쎄굅
+    // 嶺뚮ㅄ維獄?嶺뚮ㄳ?낅츩????醫롫윞??
     public void ClearAllMonsters()
     {
         foreach (var monster in activeMonsters.ToArray())
@@ -184,7 +184,7 @@ public class UnitManager : MonoBehaviour
         activeMonsters.Clear();
     }
 
-    // ?占쎈뜡 ?占쏀룿 ?占쎌튂 怨꾩궛
+    // ??醫롫윥????醫?????醫롫윪????ｌ뫒亦?
     private Vector2 GetRandomSpawnPosition()
     {
         if (mainCamera == null) return Vector2.zero;
@@ -199,7 +199,7 @@ public class UnitManager : MonoBehaviour
         );
     }
 
-    // 紐ъ뒪?????占쎌뿉 ?占쎈Ⅸ ?占쎈━??諛섑솚
+    // 嶺뚮ㄳ?낅츩??????醫롫윪????醫롫윥????醫롫윥????꾩룇瑗??
     private GameObject GetMonsterPrefab(MonsterType type)
     {
         return type switch
@@ -218,11 +218,11 @@ public class UnitManager : MonoBehaviour
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
     /// <summary>
-    /// 踰붿쐞 ?ъ씠???덈뒗 紐ъ뒪?곕? 媛源뚯슫 ?쒖꽌濡?由ъ뒪?명솕 ?뺣젹 諛섑솚
+    /// ?뺢퀡???????????덈츎 嶺뚮ㄳ?낅츩??? ?띠럾?濚밸Ŧ?????戮?맋???洹먮봾裕?筌뤿굞???筌먲퐣議??꾩룇瑗??
     /// </summary>
     /// <param name="minRange"></param>
     /// <param name="maxRange"></param>
-    /// <returns>嫄곕━?쒖쑝濡??뺣젹??紐ъ뒪??由ъ뒪??/returns>
+    /// <returns>濾곌쑨????戮곕さ???筌먲퐣議??嶺뚮ㄳ?낅츩???洹먮봾裕??/returns>
     public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
     {
         var monstersInRange = activeMonsters.FindAll(monster =>
@@ -243,7 +243,7 @@ public class UnitManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 紐ъ뒪??由ъ뒪?몄뿉??媛??媛源뚯슫 紐ъ뒪??諛섑솚
+    /// 嶺뚮ㄳ?낅츩???洹먮봾裕?筌뤾쑬????띠럾????띠럾?濚밸Ŧ???嶺뚮ㄳ?낅츩???꾩룇瑗??
     /// </summary>
     public MonsterBase GetNearestMonster()
     {
@@ -276,7 +276,7 @@ public class UnitManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 가장 가까운 몬스터의 위치 반환
+    /// 揶쎛??揶쎛繹먮슣??筌뤣딅뮞?怨쀬벥 ?袁⑺뒄 獄쏆꼹??
     /// </summary>
     public Vector3? GetNearestMonsterPosition()
     {

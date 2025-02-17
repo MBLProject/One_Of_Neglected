@@ -17,6 +17,7 @@ public class AuraProjectile : Projectile
         transform.SetParent(UnitManager.Instance.GetPlayer().transform);
         transform.localPosition = Vector3.zero;
         cts = new CancellationTokenSource();
+        MoveProjectileAsync(cts.Token).Forget();
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
@@ -25,7 +26,7 @@ public class AuraProjectile : Projectile
         {
             if (!GameManager.Instance.isPaused)
             {
-                transform.Rotate(0, 0, 360 * 10 * Time.deltaTime);
+                transform.Rotate(0, 0, 360 * 5 * Time.deltaTime);
 
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }

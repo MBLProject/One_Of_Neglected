@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shuriken : Skill
 {
-    protected Shuriken(Enums.SkillName skillName, float defaultCooldown) : base(skillName, defaultCooldown) { }
+    public Shuriken(float defaultCooldown) : base(Enums.SkillName.Shuriken, defaultCooldown) { }
 
 
 }
