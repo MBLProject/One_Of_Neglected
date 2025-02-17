@@ -33,7 +33,7 @@ public class WarriorAttackProjectile : PlayerProjectile
             if (clips.Length > 0)
             {
                 animationDuration = clips[0].length;
-                float aspdMultiplier = 1f + (GetPlayerAspd() / 100f);
+                float aspdMultiplier = GetPlayerAspd();
                 float baseSpeedMultiplier = EFFECT_ANIMATION_FRAMES / ATTACK_ANIMATION_FRAMES;
                 animator.speed = baseSpeedMultiplier * aspdMultiplier;
             }
@@ -42,20 +42,21 @@ public class WarriorAttackProjectile : PlayerProjectile
         Vector2 direction = (targetPosition - startPosition).normalized;
         spriteRenderer.flipX = direction.x > 0;
 
-        float rangeMultiplier = GetPlayerRange() / 0.5f; 
+        float rangeMultiplier = GetPlayerRange() / 0.4f; 
         transform.localScale = Vector3.one * BASE_SCALE * rangeMultiplier * BASE_SYNC;
         
         if (TryGetComponent<Collider2D>(out var collider))
         {
-            if (collider is BoxCollider2D boxCollider)
+            if (collider is CircleCollider2D circleCollider)
             {
-                boxCollider.size *= rangeMultiplier * BASE_SYNC;
+                circleCollider.radius *= rangeMultiplier * BASE_SYNC / 3;
             }
+            
         }
 
         damage = GetPlayerDamage();
         speed = 0f;
-        Destroy(gameObject, .5f);
+        Destroy(gameObject, animationDuration / animator.speed);
     }
 
     private float GetPlayerAspd()
