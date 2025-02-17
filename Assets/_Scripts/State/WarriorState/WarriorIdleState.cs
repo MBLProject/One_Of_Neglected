@@ -7,9 +7,6 @@ public class WarriorIdleState : BaseState<Player>
 {
     public WarriorIdleState(StateHandler<Player> handler) : base(handler) { }
 
-    private float warriorBaseDetect = .7f;
-
-
     public override void Enter(Player player)
     {
         player.Animator?.SetTrigger("Idle");
@@ -50,7 +47,7 @@ public class WarriorIdleState : BaseState<Player>
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                if (distance <= 0.3f)
+                if (distance <= player.Stats.CurrentATKRange * 1.25f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(WarriorAttackState));
@@ -71,7 +68,7 @@ public class WarriorIdleState : BaseState<Player>
             if ((nearestMonster != null))
             {
                 float dist = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                if (dist <= warriorBaseDetect)
+                if (dist <= player.Stats.CurrentATKRange * 1.25f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(WarriorAttackState));

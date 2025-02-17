@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
-using System;
 using System.Linq;
 
-public class AuraProjectile : Projectile
+public class PoisonShoesProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
+    private float duration = 5f; // 잔류 시간
+    private float damagePerFrame = 0.5f; // 프레임 당 데미지
 
     protected override void Start()
     {
         isMoving = true;
-        transform.SetParent(UnitManager.Instance.GetPlayer().transform);
-        transform.localPosition = Vector3.zero;
+        transform.position = startPosition; // 시작 위치 설정
         cts = new CancellationTokenSource();
         MoveProjectileAsync(cts.Token).Forget();
+        Destroy(gameObject, duration); // 일정 시간 후에 파괴
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
@@ -26,8 +26,11 @@ public class AuraProjectile : Projectile
         {
             if (!GameManager.Instance.isPaused)
             {
-                transform.Rotate(0, 0, 360 * 5 * Time.deltaTime);
-
+                // 몬스터에게 데미지 주기
+                foreach (var monster in monstersInRange.ToList())
+                {
+                    monster.TakeDamage(damagePerFrame);
+                }
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
             else
@@ -57,13 +60,5 @@ public class AuraProjectile : Projectile
     {
         monstersInRange.Remove(monster);
         monster.OnDeath -= RemoveMonsterFromSet;
-    }
-
-    private void FixedUpdate()
-    {
-        foreach (var monster in monstersInRange.ToList())
-        {
-            monster.TakeDamage(damage);
-        }
     }
 }

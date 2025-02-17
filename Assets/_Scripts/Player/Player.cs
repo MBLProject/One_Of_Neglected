@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class StatViewer
 {
-    [Tooltip("레벨")] public int Level;
+    [Tooltip("레벨")] public int Level;                        
     [Tooltip("최대 경험치")] public int MaxExp;
     [Tooltip("경험치")] public float Exp;
     [Tooltip("최대체력")] public int MaxHp;
@@ -33,9 +33,9 @@ public class StatViewer
     [Tooltip("신 처치")] public bool GodKill;
     [Tooltip("방어막")] public bool Barrier;
     [Tooltip("방어막 쿨타임")] public float BarrierCooldown;
-    [Tooltip("무적")] public bool Invincibility;
+    [Tooltip("피격시 무적")] public bool Invincibility;
     [Tooltip("대시 횟수")] public int DashCount;
-    [Tooltip("역경")] public bool Adversary;
+    [Tooltip("대적자")] public bool Adversary;
     [Tooltip("투사체 파괴")] public bool ProjDestroy;
     [Tooltip("투사체 반사")] public bool ProjParry;
 }
@@ -46,9 +46,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
     [SerializeField] public SpriteRenderer modelRenderer;
-    [SerializeField] private GameObject barrierEffect;  // 베리어 스프라이트 애니메이션
-    [SerializeField] private CircleCollider2D hitCollider;    // 피격 판정용
-    [SerializeField] private CircleCollider2D magnetCollider; // Exp 수집용
+    [SerializeField] private GameObject barrierEffect; 
+    [SerializeField] private CircleCollider2D magnetCollider; 
 
     // 자동사냥 모드!
     public bool isAuto = false; 
@@ -78,7 +77,7 @@ public abstract class Player : MonoBehaviour
 
     #region BarrierSettings
     protected float barrierRechargeTimer = 0f;
-    protected bool hasBarrierCharge = false;  // 현재 베리어 차지 보유 여부
+    protected bool hasBarrierCharge = false;  
 
     public float BarrierRechargeTimer => barrierRechargeTimer;
     public float BarrierRechargeTime => stats.CurrentBarrierCooldown;
@@ -124,24 +123,10 @@ public abstract class Player : MonoBehaviour
         {
             dashEffect.Stop();
         }
-
-        // 콜라이더 레이어 설정으로 충돌 검사 최적화
         if (magnetCollider != null)
         {
             magnetCollider.radius = stats.CurrentMagnet;
             magnetCollider.isTrigger = true;
-            
-            // magnetCollider의 게임오브젝트에 레이어 설정
-            magnetCollider.gameObject.layer = LayerMask.NameToLayer("PlayerMagnet");
-        }
-
-        if (hitCollider != null)
-        {
-            hitCollider.radius = 0.3f;
-            hitCollider.isTrigger = true;
-            
-            // hitCollider의 게임오브젝트에 레이어 설정
-            hitCollider.gameObject.layer = LayerMask.NameToLayer("PlayerHitbox");
         }
     }
 
@@ -151,7 +136,7 @@ public abstract class Player : MonoBehaviour
         UpdateDashRecharge();
         UpdateBarrierRecharge();
         UpdateInvincibility();
-        stats.UpadateHpRegen(Time.deltaTime);
+        UpdateHpRegen();
     }
 
     protected abstract void InitializeStats();
@@ -207,7 +192,7 @@ public abstract class Player : MonoBehaviour
         if (currentDashCount < stats.CurrentDashCount)
         {
             dashRechargeTimer += Time.deltaTime;
-            if (dashRechargeTimer >= dashRechargeTime)
+            if (dashRechargeTimer >= dashRechargeTime * stats.CurrentCooldown)
             {
                 dashRechargeTimer = 0f;
                 currentDashCount++;
@@ -239,7 +224,8 @@ public abstract class Player : MonoBehaviour
         if (Vector2.Distance(transform.position, destination) > moveThreshold)
         {
             Vector2 direction = (destination - (Vector2)transform.position).normalized;
-            Vector2 newPosition = Vector2.MoveTowards(transform.position, destination, stats.CurrentMspd * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(transform.position
+                , destination, stats.CurrentMspd * Time.deltaTime);
             
             transform.SetPositionAndRotation(new Vector3(newPosition.x, newPosition.y, transform.position.z), transform.rotation);
 
@@ -441,12 +427,12 @@ public abstract class Player : MonoBehaviour
 
     private void UpdateBarrierRecharge()
     {
-        if (!isBarrier) return;  // Barrier가 false면 충전하지 않음
+        if (!isBarrier) return;
 
         if (!hasBarrierCharge)
         {
             barrierRechargeTimer += Time.deltaTime;
-            if (barrierRechargeTimer >= stats.CurrentBarrierCooldown)
+            if (barrierRechargeTimer >= stats.CurrentBarrierCooldown * stats.CurrentCooldown)
             {
                 barrierRechargeTimer = 0f;
                 hasBarrierCharge = true;
@@ -463,7 +449,7 @@ public abstract class Player : MonoBehaviour
         if (isInvincible)
         {
             invincibilityTimer += Time.deltaTime;
-            if (invincibilityTimer >= invincibilityDuration)
+            if (invincibilityTimer >= invincibilityDuration * stats.CurrentDuration)
             {
                 isInvincible = false;
                 invincibilityTimer = 0f;
@@ -471,17 +457,16 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private float regenTimer = 0f;
+    private void UpdateHpRegen()
     {
-        // Exp 아이템 처리
-        if (collision.CompareTag("Exp"))
+        regenTimer += Time.deltaTime;
+        if (regenTimer >= 1)
         {
-            ExpObject expObject = collision.gameObject.GetComponent<ExpObject>();
-            if (expObject != null)
-            {
-                CollectExp(expObject);
-            }
-            return;
+            regenTimer = 0f;
+            stats.currentHp += stats.CurrentHpRegen;
+            
+            // 여기에 HP회복 이펙트 등 추가 가능
         }
     }
 
@@ -503,6 +488,7 @@ public abstract class Player : MonoBehaviour
                 expAmount = 40;
                 break;
             case ExpType.Purple:
+                //특정 레벨 이상 처리
                 if (stats.CurrentLevel <= 10)
                 {
                     stats.currentExp = stats.CurrentMaxExp;
@@ -516,10 +502,50 @@ public abstract class Player : MonoBehaviour
                 break;
         }
 
-        //그리드 처리
-        expAmount *= (1 + stats.CurrentGreed);
+        expAmount *= stats.CurrentGreed;
         stats.currentExp += expAmount;
+
+        while (stats.currentExp >= stats.CurrentMaxExp)
+        {
+            LevelUp();
+        }
+        
         expObject.selfDestroy();
+    }
+
+    private void LevelUp()
+    {
+        stats.currentExp -= stats.CurrentMaxExp;
+        stats.CurrentLevel += 1;
+        stats.CurrentMaxExp = CalculateNextLevelExp();
+
+        //레벨업 로직 처리하시오 -> 증강이나 특성 선택창 열리면 되오
+        
+        // 특성 선택창 오픈!!!
+
+        if(stats.CurrentLevel % 10 == 0)
+        {
+            //증강 선택창 오픈!!!
+        }
+        
+    }
+
+    private int CalculateNextLevelExp()
+    {
+        return (int)(100 * (1 + (stats.CurrentLevel - 1) * 0.2f));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Exp"))
+        {
+            ExpObject expObject = collision.gameObject.GetComponent<ExpObject>();
+            if (expObject != null)
+            {
+                CollectExp(expObject);
+            }
+            return;
+        }
     }
 
     private void OnValidate()
@@ -528,10 +554,5 @@ public abstract class Player : MonoBehaviour
         {
             UpdateStats();
         }
-    }
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, .3f);
     }
 }

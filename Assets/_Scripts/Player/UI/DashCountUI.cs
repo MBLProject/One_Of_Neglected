@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +34,7 @@ public class DashCountUI : MonoBehaviour
                 }
                 else if (i == player.CurrentDashCount)
                 {
-                    dashRechargeImages[i].fillAmount = player.DashRechargeTimer / player.DashRechargeTime;
+                    dashRechargeImages[i].fillAmount = player.DashRechargeTimer / (player.DashRechargeTime * player.Stats.CurrentCooldown);
                 }
                 else
                 {

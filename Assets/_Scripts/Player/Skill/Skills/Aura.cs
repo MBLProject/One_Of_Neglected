@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class Aura : Skill
 {
-
-    protected Aura(Enums.SkillName skillName, float defaultCooldown, float pierceDelay = 0.1F, float shotDelay = 0.5F) : base(skillName, defaultCooldown, pierceDelay, shotDelay) { }
+    public Aura(float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f) : base(Enums.SkillName.Aura, defaultCooldown, pierceDelay, shotDelay) { }
 
     protected override async UniTask StartSkill()
     {

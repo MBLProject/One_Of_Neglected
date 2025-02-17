@@ -14,7 +14,7 @@ public class Enums
     {
         None,
         Needle,
-        Clow,
+        Claw,
         Javelin,
         Aura,
         Cape,
