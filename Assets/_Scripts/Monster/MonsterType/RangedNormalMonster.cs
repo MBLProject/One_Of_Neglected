@@ -12,7 +12,7 @@ public class RangedNormalMonster : RangedMonster
             speed: 0.8f,
             damage: 5f,
             range: 5f,
-            cooldown: 0.5f        
+            cooldown: 1.5f        
         );
     }
 }
