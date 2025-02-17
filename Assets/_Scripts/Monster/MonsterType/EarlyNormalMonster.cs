@@ -9,11 +9,12 @@ public class EarlyNormalMonster : NormalMonster
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
-            health: 80f,
+            health: 10f,
             speed: 1f,
-            damage: 10f,
+            damage: 5f,
             range: 0.5f,
-            cooldown: 1f
+            cooldown: 1f,
+            defense:1
         );
     }
 }

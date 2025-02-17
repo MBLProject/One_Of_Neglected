@@ -5,10 +5,13 @@ using System.Threading;
 
 public class MonsterProjectile : Projectile
 {
-
-    private float lifetime = 5f;  // 기본 라이프타임 5초
     private float elapsedTime = 0f;
-
+    public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
+    {
+        
+        Vector3 targetPos = startPos + direction * 100f; 
+        base.InitProjectile(startPos, targetPos, speed, damage);
+    }
     protected override void Start()
     {
         base.Start();
@@ -28,12 +31,13 @@ public class MonsterProjectile : Projectile
                 }
                 // 시간 체크
                 elapsedTime += Time.deltaTime;
-                if (elapsedTime >= lifetime)
+                if (elapsedTime >= lifeTime)
                 {
                     DestroyProjectile();
                     return;
                 }
 
+                // 부모 클래스와 동일한 이동 로직 사용
                 Vector3 direction = (targetPosition - transform.position).normalized;
                 transform.position += speed * Time.deltaTime * direction;
 
