@@ -167,7 +167,7 @@ public class UnitManager : Singleton<UnitManager>
 
 
         GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
-        playerObj.AddComponent<SkillDispesner>();
+        playerObj.AddComponent<SkillDispenser>();
         currentPlayer = playerObj.GetComponent<Player>();
 
         return currentPlayer;
