@@ -7,9 +7,9 @@ public class LateNormalMonster : NormalMonster
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
-            health: 100f,
+            health: 80f,
             speed: 1.5f,
-            damage: 15f,
+            damage: 19f,
             range: 1f,
             cooldown: 1f,
             defense: 3f

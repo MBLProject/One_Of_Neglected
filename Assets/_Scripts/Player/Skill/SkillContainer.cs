@@ -26,6 +26,7 @@ public class SkillContainer : MonoBehaviour
     {
         foreach (SkillName skillName in System.Enum.GetValues(typeof(SkillName)))
         {
+            if (skillName == SkillName.None) continue;
             AddSelectableSkill(skillName);
         }
     }
@@ -52,7 +53,7 @@ public class SkillContainer : MonoBehaviour
         {
             return skillName;
         }
-        return Enums.SkillName.None;
+        return SkillName.None;
     }
 
     public bool CanAddActiveSkill()

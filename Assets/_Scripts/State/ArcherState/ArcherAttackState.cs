@@ -1,24 +1,21 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using static Enums;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using Transform = UnityEngine.Transform;
 
 public class ArcherAttackState : BaseState<Player>
 {
     private const float BASE_ATTACK_DURATION = 0.5f;
     private float attackTimer;
-    private bool hasDealtDamage = false;  // 한 번의 공격에 한 번만 데미지를 주기 위한 플래그
-    private float attackRange = 0.5f;     // 공격 범위
+    private bool hasDealtDamage = false;
 
-    [SerializeField] protected string projectileType = "NormalArcher";
     public ArcherAttackState(StateHandler<Player> handler) : base(handler) { }
 
     private float GetCurrentAttackDuration(Player player)
     {
-        float speedMultiplier = 1f / (1f + (player.Stats.CurrentAspd / 100f));
-        return BASE_ATTACK_DURATION * speedMultiplier;
+        // 공격 속도가 1보다 클 때는 더 빠르게, 1보다 작을 때는 더 느리게
+        return BASE_ATTACK_DURATION / player.Stats.CurrentAspd;
     }
-        
+
+
     public override void Enter(Player player)
     {
         attackTimer = 0f;
@@ -29,11 +26,26 @@ public class ArcherAttackState : BaseState<Player>
         player.Animator?.ResetTrigger("IsMoving");
         player.Animator?.Update(0);
 
-        float animSpeedMultiplier = 1f + (player.Stats.CurrentAspd / 100f);
+        float animSpeedMultiplier = player.Stats.CurrentAspd;
         if (player.Animator != null)
         {
             player.Animator.speed = animSpeedMultiplier;
             player.Animator.SetTrigger("Attack");
+        }
+
+        Archer archer = player as Archer;
+        if (archer != null && archer.AttackEffect != null)
+        {
+            archer.AttackEffect.SetActive(true);
+            Animator effectAnimator = archer.AttackEffect.GetComponent<Animator>();
+            if (effectAnimator != null)
+            {
+                effectAnimator.speed = animSpeedMultiplier;
+                effectAnimator.Play("AttackEffect", 0, 0f);
+            }
+
+            bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
+            UpdateEffectTransform(archer.AttackEffect, isLookingRight);
         }
 
         MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
@@ -52,21 +64,34 @@ public class ArcherAttackState : BaseState<Player>
         {
             MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
             if (Vector2.Distance(player.transform.position, nearestMonster.transform.position) < 0.3f)
-            if (nearestMonster != null)
-            {
-                player.LookAtTarget(nearestMonster.transform.position);
-            }
+                if (nearestMonster != null)
+                {
+                    player.LookAtTarget(nearestMonster.transform.position);
+                }
         }
 
         if (!hasDealtDamage && attackTimer >= currentAttackDuration * 0.5f)
         {
-            Vector2 direction = (player.transform.position - UnitManager.Instance.GetNearestMonster().transform.position).normalized;
+            bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
+            Vector2 direction = isLookingRight ? Vector2.right : Vector2.left;
+            Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
 
-            ProjectileManager.Instance.SpawnMonsterProjectile("NormalArcher",
-                player.transform.position, direction, 1, player.Stats.CurrentATK);
-            //ProjectileManager.Instance.SpawnProjectile(skillName:Enums.SkillName.Javelin, player.Stats.CurrentATK, 1);
+            // 몬스터 위치 가져오기
+            Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ?? 
+                (player.transform.position + (Vector3)(direction * 10f));
 
-            
+
+            ProjectileManager.Instance.SpawnPlayerProjectile(
+                "ArcherAttackProjectile",
+                player.transform.position,
+                targetPosition,
+                1f,
+                player.Stats.CurrentATK,
+                10f,
+                0,
+                5
+            );
+
             hasDealtDamage = true;
         }
 
@@ -93,9 +118,10 @@ public class ArcherAttackState : BaseState<Player>
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                    if (distance <= 0.3f)
+                    if (distance <= player.Stats.CurrentATKRange * 1.25f)
                     {
-                        Enter(player);
+                        handler.ChangeState(typeof(ArcherIdleState));
+                        //Enter(player);
                         return;
                     }
                     else
@@ -118,12 +144,18 @@ public class ArcherAttackState : BaseState<Player>
         }
     }
 
-
     public override void Exit(Player player)
     {
         if (player.Animator != null)
         {
             player.Animator.speed = 1f;
+        }
+
+        // 공격 이펙트 비활성화
+        Archer archer = player as Archer;
+        if (archer != null && archer.AttackEffect != null)
+        {
+            archer.AttackEffect.SetActive(false);
         }
 
         player.Animator?.ResetTrigger("Attack");
@@ -133,5 +165,32 @@ public class ArcherAttackState : BaseState<Player>
         player.Animator?.Update(0);
     }
 
-    public float AttackRange => attackRange;
+    private void UpdateEffectTransform(GameObject effectObject, bool isLookingRight)
+    {
+        if (effectObject != null)
+        {
+            SpriteRenderer effectSprite = effectObject.GetComponent<SpriteRenderer>();
+            Transform effectTransform = effectObject.transform;
+
+            if (isLookingRight)
+            {
+                effectTransform.localPosition = new Vector3(-0.15f, -0.02f, 0);
+                if (effectSprite != null)
+                {
+                    effectSprite.flipX = false;
+                    effectSprite.flipY = false;
+                }
+            }
+            else
+            {
+                effectTransform.localPosition = new Vector3(0.15f, -0.02f, 0);
+                if (effectSprite != null)
+                {
+                    effectSprite.flipX = true;
+                    effectSprite.flipY = false;
+                }
+            }
+        }
+    }
+
 }

@@ -23,6 +23,7 @@ public class PlayerProjectile : Projectile
         try
         {
             float traveledDistance = 0f;
+         
 
             while (isMoving && !token.IsCancellationRequested)
             {
@@ -33,17 +34,15 @@ public class PlayerProjectile : Projectile
 
                 if (!GameManager.Instance.isPaused)
                 {
-                    Vector3 direction = (targetPosition - transform.position).normalized;
+                    Vector3 direction = (targetPosition - startPosition).normalized;
                     transform.position += speed * Time.deltaTime * direction;
 
                     traveledDistance = (transform.position - startPosition).magnitude;
-
                     if (traveledDistance >= maxDistance)
                     {
                         DestroyProjectile();
                         break;
                     }
-
                     await UniTask.Yield(PlayerLoopTiming.Update, token);
                 }
                 else

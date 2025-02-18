@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 public class WarriorIdleState : BaseState<Player>
@@ -90,16 +87,5 @@ public class WarriorIdleState : BaseState<Player>
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("IsMoving");
         player.Animator?.Update(0);
-    }
-
-    /// <summary>
-    /// 마우스 위치에 따라 플레이어 모델 방향 플립
-    /// </summary>
-    /// <param name="player"></param>
-    public void SetModelFlip(Player player)
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)player.transform.position).normalized;
-        player.FlipModel(direction.x < 0);
     }
 }

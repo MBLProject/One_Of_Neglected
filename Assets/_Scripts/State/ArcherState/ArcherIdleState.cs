@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherIdleState : BaseState<Player>
@@ -46,7 +44,7 @@ public class ArcherIdleState : BaseState<Player>
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                if (distance <= 5f)
+                if (distance <= player.Stats.CurrentATKRange * 1.25f * 3)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(ArcherAttackState));
@@ -63,17 +61,17 @@ public class ArcherIdleState : BaseState<Player>
         else
         {
             MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
-            if (nearestMonster != null)
-            {
-                player.LookAtTarget(nearestMonster.transform.position);
-                handler.ChangeState(typeof(ArcherAttackState));
-                return;
-            }
-        }
 
-        if (!player.IsAtDestination())
-        {
-            handler.ChangeState(typeof(ArcherMoveState));
+            if ((nearestMonster != null))
+            {
+                float dist = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                if (dist <= player.Stats.CurrentATKRange * 1.25f * 3)
+                {
+                    player.LookAtTarget(nearestMonster.transform.position);
+                    handler.ChangeState(typeof(ArcherAttackState));
+                    return;
+                }
+            }
         }
     }
 
@@ -84,16 +82,5 @@ public class ArcherIdleState : BaseState<Player>
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("IsMoving");
         player.Animator?.Update(0);
-    }
-
-    /// <summary>
-    /// 마우스 위치에 따라 플레이어 모델 방향 플립
-    /// </summary>
-    /// <param name="player"></param>
-    public void SetModelFlip(Player player)
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)player.transform.position).normalized;
-        player.FlipModel(direction.x < 0);
     }
 }

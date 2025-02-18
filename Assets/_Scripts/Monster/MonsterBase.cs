@@ -12,6 +12,12 @@ public abstract class MonsterBase : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Animator animator;
     [SerializeField] private float dieAnimationLength = 1f;
+
+    [Header("스탯 증가량 설정")]
+    [SerializeField] protected float damageIncreasePerInterval;  // 30초마다 증가할 공격력
+    [SerializeField] protected float healthIncreasePerInterval;  // 30초마다 증가할 체력
+    [SerializeField] protected float statUpdateInterval = 30f;   // 스탯 업데이트 간격
+
     private bool isDying = false;
     protected Transform playerTransform;
 
@@ -29,6 +35,25 @@ public abstract class MonsterBase : MonoBehaviour
         InitializeStateHandler();
     }
 
+    // TimeManager의 30초 이벤트 구독
+    protected virtual void OnEnable()
+    {
+        var timeManager = TimeManager.Instance;
+        if (timeManager != null)
+        {
+            timeManager.OnThirtySecondsPassed += UpdateMonsterStats;
+        }
+    }
+
+    // 이벤트 구독 해제
+    protected virtual void OnDisable()
+    {
+        var timeManager = TimeManager.Instance;
+        if (timeManager != null)
+        {
+            timeManager.OnThirtySecondsPassed -= UpdateMonsterStats;
+        }
+    }
 
 
     protected virtual void InitializeComponents()
@@ -47,6 +72,56 @@ public abstract class MonsterBase : MonoBehaviour
     {
         stateHandler?.Update();
         CheckStateTransitions();
+    }
+
+
+    // 30초마다 호출되어 몬스터 스탯을 업데이트하는 메서드
+    protected virtual void UpdateMonsterStats()
+    {
+        float currentTime = TimeManager.Instance.GameTime;
+
+        // Early 몬스터 (0~3분)
+        if (this is EarlyNormalMonster && currentTime <= 180f)
+        {
+            int intervals = Mathf.FloorToInt(currentTime / statUpdateInterval);
+            UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
+        }
+        // Mid 몬스터 (3~7분)
+        else if (this is MidNormalMonster && currentTime > 180f && currentTime <= 420f)
+        {
+            int intervals = Mathf.FloorToInt((currentTime - 180f) / statUpdateInterval);
+            UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
+        }
+        // Late 몬스터 (7~10분)
+        else if (this is LateNormalMonster && currentTime > 420f && currentTime <= 600f)
+        {
+
+            int intervals = Mathf.FloorToInt((currentTime - 420f) / statUpdateInterval);
+            UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
+        }
+    }
+
+    // 실제 스탯 업데이트를 처리하는 헬퍼 메서드
+    private void UpdateStats(int intervals, float dmgIncrease, float hpIncrease)
+    {
+        // Late 몬스터의 경우 공격력 20 제한
+        if (this is LateNormalMonster)
+        {
+            stats.attackDamage = Mathf.Min(stats.attackDamage + (intervals * dmgIncrease), 20f);
+        }
+        else
+        {
+            stats.attackDamage += (intervals * dmgIncrease);
+        }
+
+        float newMaxHealth = stats.maxHealth + (intervals * hpIncrease);
+        float healthDiff = newMaxHealth - stats.maxHealth;
+        stats.maxHealth = newMaxHealth;
+        stats.currentHealth += healthDiff;
+
+        Debug.Log($"[{gameObject.name}] Stats Updated\n" +
+                 $"Current Attack: {stats.attackDamage}\n" +
+                 $"Current Health: {stats.maxHealth}");
     }
 
     public virtual void MoveTowardsPlayer()

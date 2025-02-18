@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MidGameMeleeMonster : NormalMonster
+public class MidNormalMonster : NormalMonster
 {
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
             health: 40f,
             speed: 1.2f,
-            damage: 1f,
+            damage: 11f,
             range: 1f,
             cooldown: 1f,
             defense:2f
