@@ -159,4 +159,4 @@ public abstract class MonsterBase : MonoBehaviour
     {
         Debug.Log("경험치 드롭");
     }
-}
+}  

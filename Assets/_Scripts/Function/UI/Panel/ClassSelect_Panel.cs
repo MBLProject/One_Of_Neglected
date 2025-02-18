@@ -13,7 +13,6 @@ public class ClassSelect_Panel : Panel
     public Button return_BTN;
     private void Awake()
     {
-
         return_BTN.onClick.AddListener(Return_BTN);
     }
     private void Start()

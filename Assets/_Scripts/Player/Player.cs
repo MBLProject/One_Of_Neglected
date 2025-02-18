@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class StatViewer
 {
-    [Tooltip("레벨")] public int Level;                        
+    [Tooltip("레벨")] public int Level;
     [Tooltip("최대 경험치")] public int MaxExp;
     [Tooltip("경험치")] public float Exp;
     [Tooltip("최대체력")] public int MaxHp;
@@ -46,11 +46,11 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
     [SerializeField] public SpriteRenderer modelRenderer;
-    [SerializeField] private GameObject barrierEffect; 
-    [SerializeField] private CircleCollider2D magnetCollider; 
+    [SerializeField] private GameObject barrierEffect;
+    [SerializeField] private CircleCollider2D magnetCollider;
 
     // 자동사냥 모드!
-    public bool isAuto = false; 
+    public bool isAuto = false;
 
     protected StateHandler<Player> stateHandler;
     protected bool isSkillInProgress = false;
@@ -60,7 +60,7 @@ public abstract class Player : MonoBehaviour
     protected PlayerStats stats;
 
     public Vector2 targetPosition;
-    private Vector2 savedTargetPosition; 
+    private Vector2 savedTargetPosition;
 
     protected float moveThreshold = 0.1f;
 
@@ -77,7 +77,7 @@ public abstract class Player : MonoBehaviour
 
     #region BarrierSettings
     protected float barrierRechargeTimer = 0f;
-    protected bool hasBarrierCharge = false;  
+    protected bool hasBarrierCharge = false;
 
     public float BarrierRechargeTimer => barrierRechargeTimer;
     public float BarrierRechargeTime => stats.CurrentBarrierCooldown;
@@ -105,10 +105,10 @@ public abstract class Player : MonoBehaviour
         InitializeStats();
         InitializeClassType();
         InitializeStatViewer();
-        
+
         // 스탯 변경 이벤트 구독
         SubscribeToStatEvents();
-        
+
         currentDashCount = stats.CurrentDashCount;
 
         // 베리어 초기화
@@ -164,7 +164,8 @@ public abstract class Player : MonoBehaviour
         stats.OnDurationChanged += (value) => statViewer.Duration = value;
         stats.OnCooldownChanged += (value) => statViewer.Cooldown = value;
         stats.OnRevivalChanged += (value) => statViewer.Revival = value;
-        stats.OnMagnetChanged += (value) => {
+        stats.OnMagnetChanged += (value) =>
+        {
             statViewer.Magnet = value;
             if (magnetCollider != null)
             {
@@ -220,13 +221,13 @@ public abstract class Player : MonoBehaviour
     public void MoveTo(Vector2 destination)
     {
         if (isDashing) return;
-        
+
         if (Vector2.Distance(transform.position, destination) > moveThreshold)
         {
             Vector2 direction = (destination - (Vector2)transform.position).normalized;
             Vector2 newPosition = Vector2.MoveTowards(transform.position
                 , destination, stats.CurrentMspd * Time.deltaTime);
-            
+
             transform.SetPositionAndRotation(new Vector3(newPosition.x, newPosition.y, transform.position.z), transform.rotation);
 
             if (direction.x != 0)
@@ -288,7 +289,7 @@ public abstract class Player : MonoBehaviour
             {
                 barrierEffect.SetActive(false);
             }
-            return;  
+            return;
         }
 
         bool isCritical = false;
@@ -320,7 +321,7 @@ public abstract class Player : MonoBehaviour
         if (go != null)
         {
             Vector2 spawnPosition = (Vector2)transform.position + Vector2.up * 0.2f;
-            
+
             GameObject instance = Instantiate(go, spawnPosition, Quaternion.identity);
             ShowDamage damageText = instance.GetComponent<ShowDamage>();
             if (damageText != null)
@@ -465,7 +466,7 @@ public abstract class Player : MonoBehaviour
         {
             regenTimer = 0f;
             stats.currentHp += stats.CurrentHpRegen;
-            
+
             // 여기에 HP회복 이펙트 등 추가 가능
         }
     }
@@ -509,7 +510,7 @@ public abstract class Player : MonoBehaviour
         {
             LevelUp();
         }
-        
+
         expObject.selfDestroy();
     }
 
@@ -519,15 +520,7 @@ public abstract class Player : MonoBehaviour
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
 
-        //레벨업 로직 처리하시오 -> 증강이나 특성 선택창 열리면 되오
-        
-        // 특성 선택창 오픈!!!
-
-        if(stats.CurrentLevel % 10 == 0)
-        {
-            //증강 선택창 오픈!!!
-        }
-        
+        UI_Manager.Instance.panel_Dic["Augment_Panel"].PanelOpen();
     }
 
     private int CalculateNextLevelExp()
