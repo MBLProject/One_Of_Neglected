@@ -520,7 +520,7 @@ public abstract class Player : MonoBehaviour
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
 
-        UI_Manager.Instance.panel_Dic["Augment_Panel"].PanelOpen();
+        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
     }
 
     private int CalculateNextLevelExp()
