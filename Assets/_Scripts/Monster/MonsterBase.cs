@@ -95,6 +95,7 @@ public abstract class MonsterBase : MonoBehaviour
         // Late 몬스터 (7~10분)
         else if (this is LateNormalMonster && currentTime > 420f && currentTime <= 600f)
         {
+
             int intervals = Mathf.FloorToInt((currentTime - 420f) / statUpdateInterval);
             UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
         }
@@ -103,19 +104,24 @@ public abstract class MonsterBase : MonoBehaviour
     // 실제 스탯 업데이트를 처리하는 헬퍼 메서드
     private void UpdateStats(int intervals, float dmgIncrease, float hpIncrease)
     {
-        // 새로운 스탯 계산
-        float newDamage = stats.attackDamage + (intervals * dmgIncrease);
-        float newMaxHealth = stats.maxHealth + (intervals * hpIncrease);
+        // Late 몬스터의 경우 공격력 20 제한
+        if (this is LateNormalMonster)
+        {
+            stats.attackDamage = Mathf.Min(stats.attackDamage + (intervals * dmgIncrease), 20f);
+        }
+        else
+        {
+            stats.attackDamage += (intervals * dmgIncrease);
+        }
 
-        // 체력 차이를 계산하여 현재 체력도 비례하여 증가
+        float newMaxHealth = stats.maxHealth + (intervals * hpIncrease);
         float healthDiff = newMaxHealth - stats.maxHealth;
         stats.maxHealth = newMaxHealth;
         stats.currentHealth += healthDiff;
-        stats.attackDamage = newDamage;
 
-        Debug.Log($"[{gameObject.name}] Stats Updated at {TimeManager.Instance.GetFormattedTime()}\n" +
-                 $"Damage: {stats.attackDamage:F1} (Increase: {dmgIncrease:F1})\n" +
-                 $"Health: {stats.maxHealth:F1} (Increase: {hpIncrease:F1})");
+        Debug.Log($"[{gameObject.name}] Stats Updated\n" +
+                 $"Current Attack: {stats.attackDamage}\n" +
+                 $"Current Health: {stats.maxHealth}");
     }
 
     public virtual void MoveTowardsPlayer()

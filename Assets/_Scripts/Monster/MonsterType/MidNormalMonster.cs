@@ -9,7 +9,7 @@ public class MidNormalMonster : NormalMonster
         stats = new MonsterStats(
             health: 40f,
             speed: 1.2f,
-            damage: 1f,
+            damage: 11f,
             range: 1f,
             cooldown: 1f,
             defense:2f
