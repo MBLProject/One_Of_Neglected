@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UnitManager : Singleton<UnitManager>
 {
     [Header("프리팹 설정")]
-    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -29,9 +29,6 @@ public class UnitManager : Singleton<UnitManager>
 
     public Player GetPlayer() => currentPlayer;
 
- 
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -46,6 +43,13 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
+
+    private void Start()
+    {
+        // 임시로 처리함, 테스트용도임, 추후 제거 필요
+        SpawnPlayerByType(1);
+    }
+
     private void Update()
     {
         if (!isGameStarted || GameManager.Instance.isPaused) return;
@@ -119,14 +123,33 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
 
-    public Player SpawnPlayer(Vector2 position)
+    public Player SpawnPlayerByType(int PlayerType)
     {
         if (currentPlayer != null)
         {
             return currentPlayer;
         }
 
-        GameObject playerObj = Instantiate(playerPrefab, position, Quaternion.identity);
+        GameObject _player;
+        //Enum처리 해도 될거같긴 함
+        if (PlayerType == 1)
+        {
+            // 1. 전사
+            _player = Resources.Load<GameObject>("Using/Player/Warrior"); 
+        }
+        else if( PlayerType == 2)
+        {
+            // 2. 궁수
+            _player = Resources.Load<GameObject>("Using/Archer/Warrior");
+        }
+        else
+        {
+            // 3. 법사
+            _player = Resources.Load<GameObject>("Using/Magician/Warrior");
+        }
+
+
+        GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
         playerObj.AddComponent<SkillDispesner>();
         currentPlayer = playerObj.GetComponent<Player>();
 
