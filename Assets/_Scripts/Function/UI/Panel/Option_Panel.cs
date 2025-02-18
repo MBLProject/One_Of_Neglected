@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Option_Panel : Panel
@@ -20,8 +21,19 @@ public class Option_Panel : Panel
     {
         buttons[0].onClick.AddListener(OnCheckBTNClick);
         buttons[1].onClick.AddListener(ReturnMainPanel);
+        buttons[2].onClick.AddListener(ReturnTitle_BTN);
     }
-
+    private void OnEnable()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            buttons[2].gameObject.SetActive(true);
+        }
+        else
+        {
+            buttons[2].gameObject.SetActive(false);
+        }
+    }
     public void OnStart()
     {
         List<string> options = new List<string>
@@ -75,9 +87,26 @@ public class Option_Panel : Panel
 
     private void ReturnMainPanel()
     {
-        PanelClose();
-        sounds_Slider.value = UI_Manager.Instance.sounds_Value;
-        effects_Slider.value = UI_Manager.Instance.effects_Value;
-        UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+            PanelClose();
+            sounds_Slider.value = UI_Manager.Instance.sounds_Value;
+            effects_Slider.value = UI_Manager.Instance.effects_Value;
+            UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
+
+        }
+        else
+        {
+            PanelClose();
+            //TODO : 게임 시작하도록
+        }
     }
+
+    private void ReturnTitle_BTN()
+    {
+        UI_Manager.Instance.RectGroup_Activation(true, false);
+        GameSceneManager.SceneLoad("Title");
+        PanelClose();
+    }
+
 }

@@ -33,7 +33,6 @@ public class GameSceneManager : MonoBehaviour
 
         while (!op.isDone)
         {
-            Debug.Log(op.progress);
             bgIMG.color = new Color(bgIMG.color.r, bgIMG.color.g, bgIMG.color.b, bgIMG.color.a + (op.progress * -255));
             Debug.Log("씬로드중");
 

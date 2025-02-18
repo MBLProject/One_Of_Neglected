@@ -25,17 +25,16 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     public Sprite m_WeaponIcon;
     public Button m_BTN;
     public Outline m_Outline;
-
     public bool isUnlocked;
-
     public int requireRemnents;
-
+    public Action<int> selectAction;
     private void Awake()
     {
         if (classSelect_Panel == null) classSelect_Panel = GetComponentInParent<ClassSelect_Panel>();
         if (m_BTN == null) m_BTN = GetComponent<Button>();
         if (m_Outline == null) m_Outline = GetComponent<Outline>();
         m_BTN.onClick.AddListener(ClassSelect);
+        Debug.Log("하이");
         //TODO : 저장된 m_level변수로 레벨 불러오기
     }
     private void Start()
@@ -95,6 +94,7 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
                 break;
             }
         }
+        UI_Manager.Instance.panel_Dic["ClassSelect_Panel"].PanelClose();
         GameSceneManager.SceneLoad("Game");
     }
 }
