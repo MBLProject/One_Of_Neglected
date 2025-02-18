@@ -11,7 +11,7 @@ public class TimeManager : Singleton<TimeManager>
 
     [Header("디버그 설정")]
     [SerializeField] private bool isDebugMode = false;
-    [SerializeField, Range(0f, 600f)] private float debugTime = 0f;
+    [SerializeField, Range(0f, 660f)] private float debugTime = 0f;
 
     // 마지막 이벤트 발생 시간 저장
     private float lastThirtySecEvent = -30f;  // 30초 이벤트
@@ -76,6 +76,6 @@ public class TimeManager : Singleton<TimeManager>
     public void SetDebugTime(float time)
     {
         if (!isDebugMode) return;
-        debugTime = Mathf.Clamp(time, 0f, 600f);
+        debugTime = Mathf.Clamp(time, 0f, 660f);
     }
 }

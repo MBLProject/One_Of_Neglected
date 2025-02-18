@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("ÇÁ¸®ÆÕ ¼³Á¤")]
-    [SerializeField] private GameObject playerPrefab;
+    [Header("í”„ë¦¬íŒ¹ ì„¤ì •")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -15,22 +16,21 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject damageUniqueMonsterPrefab;
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
+    [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("½ºÆù ¼³Á¤")]
+    [Header("ìŠ¤í° ì„¤ì •")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f; 
-    private float nextSpawnTime = 0f;  
+    private float nextSpawnTime = 0f;
 
+    private BossMonster currentBoss;
     private bool isGameStarted = false;
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
-
- 
-
 
     protected override void Awake()
     {
@@ -46,6 +46,18 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
+
+    private void Start()
+    {
+        
+        // ì„ì‹œë¡œ ì²˜ë¦¬í•¨, í…ŒìŠ¤íŠ¸ìš©ë„ì„, ì¶”í›„ ì œê±° í•„ìš”
+        if(DataManager.Instance.classSelect_Num == 0)
+        {
+            DataManager.Instance.classSelect_Num = 1;
+        }
+        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
+    }
+
     private void Update()
     {
         if (!isGameStarted || GameManager.Instance.isPaused) return;
@@ -82,15 +94,15 @@ public class UnitManager : Singleton<UnitManager>
     //    float gameTime = TimeManager.Instance.GameTime;
     //    MonsterType monsterType;
 
-    //    if (gameTime <= 180f)        // 0~3ºĞ
+    //    if (gameTime <= 180f)        // 0~3ë¶„
     //    {
     //        monsterType = MonsterType.DamageUnique;
     //    }
-    //    else if (gameTime <= 420f)   // 3~7ºĞ
+    //    else if (gameTime <= 420f)   // 3~7ë¶„
     //    {
     //        monsterType = MonsterType.CrowdControlUnique;
     //    }
-    //    else                         // 7ºĞ ÀÌÈÄ
+    //    else                         // 7ë¶„ ì´í›„
     //    {
     //        monsterType = MonsterType.TankUnique;
     //    }
@@ -102,32 +114,60 @@ public class UnitManager : Singleton<UnitManager>
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)        // 0~3ºĞ
+        if (gameTime <= 180f)        // 0~3ë¶„
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] ¸ó½ºÅÍ Å¸ÀÔ º¯°æ: EarlyNormal");
+            Debug.Log("[UnitManager] ëª¬ìŠ¤í„° íƒ€ì… ë³€ê²½: EarlyNormal");
         }
-        else if (gameTime <= 420f)   // 3~7ºĞ
+        else if (gameTime <= 420f)   // 3~7ë¶„
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] ¸ó½ºÅÍ Å¸ÀÔ º¯°æ: MidNormal");
+            Debug.Log("[UnitManager] ëª¬ìŠ¤í„° íƒ€ì… ë³€ê²½: MidNormal");
         }
-        else if (gameTime > 420f)    // 7ºĞ ÃÊ°ú 
+        else if (gameTime <= 600f)   // 7~10ë¶„
         {
             currentNormalMonsterType = MonsterType.LateNormal;
-            Debug.Log($"[UnitManager] ¸ó½ºÅÍ Å¸ÀÔ º¯°æ: LateNormal");
+        }
+        else if (gameTime >= 600f)   // 10ë¶„ ì´ìƒ
+        {
+            Debug.Log("[UnitManager] ë³´ìŠ¤ í˜ì´ì¦ˆ ì‹œì‘!");
+            ClearAllMonsters();
+
+            Vector2 spawnPosition = GetBossSpawnPosition();
+            GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
+
+            isGameStarted = false;
         }
     }
 
-    public Player SpawnPlayer(Vector2 position)
+    public Player SpawnPlayerByType(int PlayerType)
     {
         if (currentPlayer != null)
         {
             return currentPlayer;
         }
 
-        GameObject playerObj = Instantiate(playerPrefab, position, Quaternion.identity);
-        playerObj.AddComponent<SkillDispenser>();
+        GameObject _player;
+        //Enumì²˜ë¦¬ í•´ë„ ë ê±°ê°™ê¸´ í•¨
+        if (PlayerType == 1)
+        {
+            // 1. ì „ì‚¬
+            _player = Resources.Load<GameObject>("Using/Player/Warrior"); 
+        }
+        else if( PlayerType == 2)
+        {
+            // 2. ê¶ìˆ˜
+            _player = Resources.Load<GameObject>("Using/Player/Archer");
+        }
+        else
+        {
+            // 3. ë²•ì‚¬
+            _player = Resources.Load<GameObject>("Using/Player/Magician");
+        }
+
+
+        GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
+        playerObj.AddComponent<SkillDispesner>();
         currentPlayer = playerObj.GetComponent<Player>();
 
         return currentPlayer;
@@ -154,7 +194,18 @@ public class UnitManager : Singleton<UnitManager>
     {
         isGameStarted = true;
     }
+    private Vector2 GetBossSpawnPosition()
+    {
+        if (currentPlayer == null) return Vector2.zero;
 
+        float angle = Random.Range(0f, 360f);
+        float distance = spawnRadius;  // ìµœëŒ€ ê±°ë¦¬ì— ì†Œí™˜
+
+        return (Vector2)currentPlayer.transform.position + new Vector2(
+            Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
+            Mathf.Sin(angle * Mathf.Deg2Rad) * distance
+        );
+    }
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
@@ -286,7 +337,7 @@ public class UnitManager : Singleton<UnitManager>
             }
         }
 
-        // °Å¸®¼øÀ¸·Î Á¤·Ä
+        // ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬
         positions.Sort((a, b) =>
         {
             float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
