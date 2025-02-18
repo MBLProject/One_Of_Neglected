@@ -58,25 +58,22 @@ public class Bless_Panel : Panel
     public List<Node> DEF_Node_List;
     public List<Node> UTI_Node_List;
 
+    public List<Image> ATK_Node_Line;
+    public List<Image> DEF_Node_Line;
+    public List<Image> UTI_Node_Line;
+
     public NodeReset nodeReset;
-    private void Awake()
-    {
 
-    }
-
-    private void Start()
-    {
-
-    }
     private void OnEnable()
     {
-        Node_Initialize(ref ATK_Node_List);
-        Node_Initialize(ref DEF_Node_List);
-        Node_Initialize(ref UTI_Node_List);
+        Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
+        Node_Initialize(ref DEF_Node_List, ref DEF_Node_Line);
+        Node_Initialize(ref UTI_Node_List, ref UTI_Node_Line);
     }
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
-    private void Node_Initialize(ref List<Node> nodes)
+    private void Node_Initialize(ref List<Node> nodes, ref List<Image> nodeLines)
     {
+        int i = 0;
         foreach (Node node in nodes)
         {   //딕셔너리에 없으면 추가
             if (DataManager.Instance.bless_Dic.ContainsKey(node) == false)
@@ -89,9 +86,14 @@ public class Bless_Panel : Panel
             }
 
             node.baseNodeAction += UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
-
             ByNodeDefine(node);
 
+            if (node.next_Nodes.Count != 0)
+            {
+                node.m_Line = nodeLines[i];
+            }
+
+            i++;
         }
     }
     private void ByNodeDefine(Node node)

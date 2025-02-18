@@ -26,13 +26,17 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     public Button m_BTN;
     public Outline m_Outline;
 
+    public bool isUnlocked;
+
+    public int requireRemnents;
+
     private void Awake()
     {
         if (classSelect_Panel == null) classSelect_Panel = GetComponentInParent<ClassSelect_Panel>();
         if (m_BTN == null) m_BTN = GetComponent<Button>();
         if (m_Outline == null) m_Outline = GetComponent<Outline>();
+        m_BTN.onClick.AddListener(ClassSelect);
         //TODO : 저장된 m_level변수로 레벨 불러오기
-
     }
     private void Start()
     {
@@ -46,17 +50,51 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (m_Outline.enabled) return;
-
-            m_Outline.enabled = true;
+            UnlockClass();
+            if (isUnlocked == false) return;
+            if (m_BTN.interactable) return;
             m_BTN.interactable = true;
             if (classSelect_Panel.selection_Queue.Count > 0)
             {
                 ClassInfo classInfo = classSelect_Panel.selection_Queue.Dequeue();
                 classInfo.m_BTN.interactable = false;
-                classInfo.m_Outline.enabled = false;
             }
             classSelect_Panel.selection_Queue.Enqueue(this);
         }
+    }
+
+    private void UnlockClass()
+    {
+        if (isUnlocked) return;
+        if (DataManager.Instance.player_Property.remnants_Point - requireRemnents >= 0)
+        {
+            DataManager.Instance.player_Property.remnants_Point -= requireRemnents;
+
+            classSelect_Panel.remnents_TMP.text =
+            DataManager.Instance.player_Property.remnants_Point.ToString();
+
+            isUnlocked = true;
+
+            for (int i = 0; i < classSelect_Panel.classInfos.Count; i++)
+            {
+                if (classSelect_Panel.classInfos[i] == this)
+                {
+                    DataManager.Instance.player_Property.class_Unlocked[i] = true;
+                }
+            }
+        }
+    }
+
+    private void ClassSelect()
+    {
+        for (int i = 0; i < classSelect_Panel.classInfos.Count; i++)
+        {
+            if (classSelect_Panel.classInfos[i] == this)
+            {
+                DataManager.Instance.classSelect_Num = i;
+                break;
+            }
+        }
+        GameSceneManager.SceneLoad("Game");
     }
 }

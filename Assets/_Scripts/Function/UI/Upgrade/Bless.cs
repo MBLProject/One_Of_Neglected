@@ -12,12 +12,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.ATK += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.ATK -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -27,12 +27,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.ProjAmount += 1;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.ProjAmount -= 1;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -42,12 +42,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Aspd += 2;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Aspd -= 2;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -57,12 +57,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.CriDamage += 10;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.CriDamage -= 10;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -72,12 +72,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.CriRate += 15;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.CriRate -= 15;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -87,11 +87,11 @@ public class Bless : MonoBehaviour
         DataManager.Instance.BTS.ProjDestroy = On;
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -101,11 +101,11 @@ public class Bless : MonoBehaviour
         DataManager.Instance.BTS.projParry = On;
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -113,13 +113,14 @@ public class Bless : MonoBehaviour
     {
         Debug.Log("신살");
         DataManager.Instance.BTS.GodKill = On;
+        Debug.Log(On);
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -133,12 +134,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.MaxHp += 10;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.MaxHp -= 10;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -148,12 +149,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Defense += 2;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Defense -= 2;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -163,12 +164,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.HpRegen += 1;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.HpRegen -= 1;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -178,11 +179,11 @@ public class Bless : MonoBehaviour
         DataManager.Instance.BTS.Barrier = On;
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -207,11 +208,11 @@ public class Bless : MonoBehaviour
         }
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -221,11 +222,11 @@ public class Bless : MonoBehaviour
         DataManager.Instance.BTS.Invincibility = On;
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -235,11 +236,11 @@ public class Bless : MonoBehaviour
         DataManager.Instance.BTS.Adversary = On;
         if (On)
         {
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -253,12 +254,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.ATKRange += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.ATKRange -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -268,12 +269,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Duration += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Duration -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -283,12 +284,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Cooldown += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Cooldown -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -298,12 +299,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Revival += 1;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Revival -= 1;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -313,12 +314,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Magnet += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Magnet -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -328,12 +329,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Growth += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Growth -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -343,12 +344,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.Greed += 5;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.Greed -= 5;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
@@ -358,12 +359,12 @@ public class Bless : MonoBehaviour
         if (On)
         {
             DataManager.Instance.BTS.DashCount += 1;
-            DataManager.Instance.player_Property.Bless_Point--;
+            DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
             DataManager.Instance.BTS.DashCount -= 1;
-            DataManager.Instance.player_Property.Bless_Point++;
+            DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
