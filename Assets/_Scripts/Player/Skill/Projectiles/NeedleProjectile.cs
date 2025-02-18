@@ -10,31 +10,44 @@ public class NeedleProjectile : Projectile
 
     protected override void Start()
     {
-        isMoving = false;
+        isMoving = true;
         transform.position = targetPosition;
         projectileCollider = GetComponent<Collider2D>();
         cts = new CancellationTokenSource();
         DespawnNeedleAtPosition().Forget();
     }
 
-    protected override async void OnTriggerEnter2D(Collider2D collision)
+    private async UniTaskVoid DespawnNeedleAtPosition()
     {
-        if (collision.CompareTag("Monster"))
+        try
         {
-            if (collision.TryGetComponent(out MonsterBase monster))
-                monster.TakeDamage(damage);
-
-            if (projectileCollider != null)
-                projectileCollider.enabled = false;
-
-            await UniTask.Delay(TimeSpan.FromSeconds(0.25f), cancellationToken: cts.Token);
-            DestroyProjectile();
+            await UniTask.Delay(TimeSpan.FromSeconds(0.25f));
+            if (isMoving)
+            {
+                DestroyProjectile();
+                isMoving = false;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Needle despawn was canceled.");
         }
     }
 
-    private async UniTaskVoid DespawnNeedleAtPosition()
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(0.25f), cancellationToken: cts.Token);
-        DestroyProjectile();
+        this.startPosition = startPos;
+        this.targetPosition = targetPos;
+        speed = spd;
+        maxDistance = maxDist;
+        damage = dmg;
+        pierceCount = pierceCnt;
+        lifeTime = lifetime;
+
+        CancelInvoke("DestroyProjectile");
+        Invoke("DestroyProjectile", lifeTime);
+
+        direction = (targetPosition - startPos).normalized;
     }
+
 }

@@ -6,7 +6,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("ÌîÑÎ¶¨Ìåπ ÏÑ§Ï†ï")]
+    [Header("«¡∏Æ∆’ º≥¡§")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -16,7 +16,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
 
-    [Header("Ïä§Ìè∞ ÏÑ§Ï†ï")]
+    [Header("Ω∫∆˘ º≥¡§")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f; 
@@ -82,15 +82,15 @@ public class UnitManager : Singleton<UnitManager>
     //    float gameTime = TimeManager.Instance.GameTime;
     //    MonsterType monsterType;
 
-    //    if (gameTime <= 180f)        // 0~3Î∂Ñ
+    //    if (gameTime <= 180f)        // 0~3∫–
     //    {
     //        monsterType = MonsterType.DamageUnique;
     //    }
-    //    else if (gameTime <= 420f)   // 3~7Î∂Ñ
+    //    else if (gameTime <= 420f)   // 3~7∫–
     //    {
     //        monsterType = MonsterType.CrowdControlUnique;
     //    }
-    //    else                         // 7Î∂Ñ Ïù¥ÌõÑ
+    //    else                         // 7∫– ¿Ã»ƒ
     //    {
     //        monsterType = MonsterType.TankUnique;
     //    }
@@ -102,20 +102,20 @@ public class UnitManager : Singleton<UnitManager>
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)        // 0~3Î∂Ñ
+        if (gameTime <= 180f)        // 0~3∫–
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] Î™¨Ïä§ÌÑ∞ ÌÉÄÏûÖ Î≥ÄÍ≤Ω: EarlyNormal");
+            Debug.Log("[UnitManager] ∏ÛΩ∫≈Õ ≈∏¿‘ ∫Ø∞Ê: EarlyNormal");
         }
-        else if (gameTime <= 420f)   // 3~7Î∂Ñ
+        else if (gameTime <= 420f)   // 3~7∫–
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] Î™¨Ïä§ÌÑ∞ ÌÉÄÏûÖ Î≥ÄÍ≤Ω: MidNormal");
+            Debug.Log("[UnitManager] ∏ÛΩ∫≈Õ ≈∏¿‘ ∫Ø∞Ê: MidNormal");
         }
-        else if (gameTime > 420f)    // 7Î∂Ñ Ï¥àÍ≥º 
+        else if (gameTime > 420f)    // 7∫– √ ∞˙ 
         {
             currentNormalMonsterType = MonsterType.LateNormal;
-            Debug.Log($"[UnitManager] Î™¨Ïä§ÌÑ∞ ÌÉÄÏûÖ Î≥ÄÍ≤Ω: LateNormal");
+            Debug.Log($"[UnitManager] ∏ÛΩ∫≈Õ ≈∏¿‘ ∫Ø∞Ê: LateNormal");
         }
     }
 
@@ -127,7 +127,7 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject playerObj = Instantiate(playerPrefab, position, Quaternion.identity);
-        playerObj.AddComponent<SkillDispesner>();
+        playerObj.AddComponent<SkillDispenser>();
         currentPlayer = playerObj.GetComponent<Player>();
 
         return currentPlayer;
@@ -286,7 +286,7 @@ public class UnitManager : Singleton<UnitManager>
             }
         }
 
-        // Í±∞Î¶¨ÏàúÏúºÎ°ú Ï†ïÎ†¨
+        // ∞≈∏Æº¯¿∏∑Œ ¡§∑ƒ
         positions.Sort((a, b) =>
         {
             float distanceA = Vector2.Distance(currentPlayer.transform.position, a);

@@ -38,6 +38,7 @@ public class ShurikenProjectile : Projectile
         {
             if (pierceCount > 0)
             {
+                print($"pierececount : {pierceCount}");
                 Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position, maxDistance);
                 Collider2D closestMonster = null;
                 float closestDistance = float.MaxValue;
@@ -56,11 +57,14 @@ public class ShurikenProjectile : Projectile
                 if (closestMonster != null)
                 {
                     targetPosition = closestMonster.transform.position;
+                    direction = (targetPosition - transform.position).normalized;
+
                     pierceCount--;
                 }
             }
             else
             {
+                print($"pierececount : {pierceCount}");
                 DestroyProjectile();
             }
         }

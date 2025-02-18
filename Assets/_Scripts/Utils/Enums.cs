@@ -26,6 +26,18 @@ public class Enums
         PoisonShoes,
         GravityField,
         Mine,
+        Blood,
+        Water,
+        Shield,
+        Shoes,
+        Fist,
+        Ring,
+        Book,
+        Bracelet,
+        Clock,
+        Magnet,
+        Crown,
+        Meat,
     }
 
     public enum ExpType

@@ -2,10 +2,13 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class Aura : Skill
 {
+    private bool hasSpawned = false;
+
     public Aura(float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f) : base(Enums.SkillName.Aura, defaultCooldown, pierceDelay, shotDelay) { }
 
     protected override async UniTask StartSkill()
@@ -14,17 +17,18 @@ public class Aura : Skill
 
         while (true)
         {
-            if (!GameManager.Instance.isPaused)
+            if (!GameManager.Instance.isPaused && isSkillActive)
             {
-                if (isSkillActive)
+                if (!hasSpawned)
                 {
                     Fire();
-                    isSkillActive = false;
+                    hasSpawned = true;
                 }
+                await UniTask.Yield(PlayerLoopTiming.Update);
             }
             else
             {
-                isSkillActive = true;
+                hasSpawned = false;
                 await UniTask.Yield();
             }
         }

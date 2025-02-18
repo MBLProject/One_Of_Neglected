@@ -20,6 +20,8 @@ public class Skill
 
     protected bool isSkillActive = false;
 
+    public bool IsActive { get; protected set; }
+
     protected Skill(Enums.SkillName skillName, float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f)
     {
         this.skillName = skillName;
@@ -52,8 +54,10 @@ public class Skill
         {
             if (!GameManager.Instance.isPaused)
             {
-                Fire(); // ??ㅼ뻣 ?紐꾪뀱
+                Fire(); // ????곕물 ?嶺뚮ㅎ???
+                //break;
                 await UniTask.Delay(TimeSpan.FromSeconds(defaultCooldown));
+
             }
             else
             {
@@ -64,7 +68,7 @@ public class Skill
 
     protected virtual void Fire()
     {
-        ProjectileManager.Instance.SpawnProjectile(skillName, damage, level, shotCount, projectileCount, projectileDelay, shotDelay);
+        ProjectileManager.Instance.SpawnProjectile(skillName, damage, level, shotCount, projectileCount, projectileDelay, shotDelay, pierceCount);
     }
 
 
