@@ -259,8 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_Property:
     gold: 0
-    Bless_Point: 0
-    remnants: 0
+    bless_Point: 0
+    remnants_Point: 0
+    class_Unlocked: 010000
     MaxHp_TrainingCount: 0
     HpRegen_TrainingCount: 0
     Defense_TrainingCount: 0
@@ -308,6 +309,7 @@ MonoBehaviour:
     Invincibility: 0
     Adversary: 0
     GodKill: 0
+  classSelect_Num: 0
 --- !u!4 &444655103
 Transform:
   m_ObjectHideFlags: 0
@@ -510,10 +512,6 @@ MonoBehaviour:
   spawnRadius: 15
   minSpawnDistance: 8
   spawnInterval: 1
-  earlyGameDuration: 180
-  midGameDuration: 420
-  lateGameDuration: 600
-  minRange: 0.5
 --- !u!4 &885006689
 Transform:
   m_ObjectHideFlags: 0

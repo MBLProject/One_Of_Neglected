@@ -22,13 +22,17 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         projectiles.Add(Enums.SkillName.Javelin, Resources.Load<Projectile>("Using/Projectile/JavelinProjectile"));
         projectiles.Add(Enums.SkillName.Needle, Resources.Load<Projectile>("Using/Projectile/NeedleProjectile"));
+        projectiles.Add(Enums.SkillName.Shuriken, Resources.Load<Projectile>("Using/Projectile/ShurikenProjectile"));
+        projectiles.Add(Enums.SkillName.Aura, Resources.Load<Projectile>("Using/Projectile/AuraProjectile"));
+        projectiles.Add(Enums.SkillName.Claw, Resources.Load<Projectile>("Using/Projectile/ClawLv3"));
+
 
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
 
         playerProjectiles.Add("WarriorAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarriorAttackProjectile"));
     }
 
-    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay)
+    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay, int pireceCount)
     {
         if (!projectiles.ContainsKey(skillName))
         {
@@ -37,7 +41,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
-        float speed = 1f;
+        float speed = 3f;
 
         if (skillName == Enums.SkillName.Aura)
         {
@@ -47,7 +51,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
             }
 
             Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
-            projectile.InitProjectile(startPosition, startPosition, speed, damage, 10000f, 0, 100000f);
+            projectile.InitProjectile(startPosition, startPosition, speed, damage, 10000f, pireceCount, 100000f);
             currentAuraProjectile = projectile;
             activeProjectiles.Add(projectile);
 
@@ -57,7 +61,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
         int totalShots = shotCount * projectileCount;
 
-        // Needle ?獄??? targetPositions ?띠룇裕?遺삵돦????????亦낆?럸??띠룇裕?遺룹쾸? 嶺뚮씭???얠춺?嶺뚳퐣瑗??寃????꾩룇瑗??
+        // Needle ?????? targetPositions ??좊즵獒??븐궢?????????雅?굞??????좊즵獒??븍９苡? 癲ル슢?????좎떵?癲ル슪?ｇ몭??野????袁⑸즵???
         bool isNeedle = skillName == Enums.SkillName.Needle;
         bool isAura = skillName == Enums.SkillName.Aura;
         int currentIndex = 0;
@@ -86,7 +90,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     }
 
                     Projectile projectile = Instantiate(projectiles[skillName]);
-                    projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f);
+                    projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f, pireceCount, 5f);
                     activeProjectiles.Add(projectile);
 
                     await UniTask.Delay(TimeSpan.FromSeconds(shotDelay));
@@ -127,19 +131,20 @@ public class ProjectileManager : Singleton<ProjectileManager>
                 break;
 
             default:
-                // ?リ옇????⑤챷紐드슖??띠럾????띠럾?濚밸Ŧ???嶺뚮ㄳ?낅츩??? ???롪퍔??? ??怨몃さ嶺???類ｌ몓 ?꾩렮維싧젆?
+                // ??れ삀?????ㅼ굣筌뤿뱶????좊읈?????좊읈?嚥싲갭큔???癲ル슢???낆릇??? ???濡ろ뜑??? ???⑤챶?뺧┼???筌먲퐣紐??袁⑸젻泳?떑??
                 Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (defaultTarget.HasValue)
                     targetPositions.Add(defaultTarget.Value);
                 break;
         }
 
-        // ???롪퍔?????怨몃さ嶺??リ옇?????類ｌ몓 ?꾩렮維싧젆????깆젧
+        // ???濡ろ뜑??????⑤챶?뺧┼???れ삀?????筌먲퐣紐??袁⑸젻泳?떑?????源놁젳
         if (targetPositions.Count == 0)
         {
             Vector3 randomDirection = Random.insideUnitCircle.normalized;
             targetPositions.Add(startPosition + randomDirection * 15f);
         }
+        print($"GetTargetPositionsBySkill : {skillName} : {targetPositions.Count}");
 
         return targetPositions;
     }
@@ -183,7 +188,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     public void RemoveProjectile(Projectile projectile)
     {
-        print("RemoveProjectile!");
+        print($"RemoveProjectile! : {projectile.gameObject.name}");
         if (activeProjectiles.Contains(projectile))
         {
             activeProjectiles.Remove(projectile);

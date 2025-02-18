@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shuriken : Skill
 {
-    public Shuriken(float defaultCooldown) : base(Enums.SkillName.Shuriken, defaultCooldown) { }
+    public Shuriken(float defaultCooldown) : base(Enums.SkillName.Shuriken, defaultCooldown) { pierceCount = 10; }
 
 
 }

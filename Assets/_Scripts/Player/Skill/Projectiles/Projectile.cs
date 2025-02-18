@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
     protected int pierceCount = 0;
     protected float lifeTime = 5f;
 
+    protected Vector3 direction;
+
     protected CancellationTokenSource cts;
 
     protected virtual void Start()
@@ -40,7 +42,6 @@ public class Projectile : MonoBehaviour
 
                 if (!GameManager.Instance.isPaused)
                 {
-                    Vector3 direction = (targetPosition - transform.position).normalized;
                     transform.position += speed * Time.deltaTime * direction;
 
                     traveledDistance = (transform.position - startPosition).magnitude;
@@ -65,7 +66,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    public virtual void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         this.startPosition = startPos;
         this.targetPosition = targetPos;
@@ -79,17 +80,21 @@ public class Projectile : MonoBehaviour
 
         Invoke("DestroyProjectile", lifeTime);
 
-        Vector3 direction = (targetPos - startPos).normalized;
+        direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Monster"))
         {
             if (collision.TryGetComponent(out MonsterBase monster))
+            {
                 monster.TakeDamage(damage);
+                print($"TakeDamage : {gameObject.name}, Damage : {damage}");
+            }
 
             if (pierceCount > 0)
             {
@@ -104,10 +109,14 @@ public class Projectile : MonoBehaviour
 
     protected void DestroyProjectile()
     {
+        print($"DestroyProjectile");
+
         if (!isMoving || gameObject == null)
         {
             return;
         }
+
+        print($"DestroyProjectile : {this.gameObject.name}");
 
         isMoving = false;
 

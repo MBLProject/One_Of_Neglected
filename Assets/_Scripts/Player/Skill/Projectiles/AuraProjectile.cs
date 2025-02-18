@@ -49,7 +49,10 @@ public class AuraProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            RemoveMonsterFromSet(monster);
+            if (monstersInRange.Contains(monster))
+            {
+                RemoveMonsterFromSet(monster);
+            }
         }
     }
 
