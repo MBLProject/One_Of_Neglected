@@ -107,10 +107,26 @@ public abstract class MonsterBase : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         stats.currentHealth -= damage;
+        ShowDamageFont(transform.position, damage, transform);
         animator?.SetTrigger("Hit");
         if (stats.currentHealth <= 0)
         {
             Die();
+        }
+    }
+    public void ShowDamageFont(Vector2 pos, float damage, Transform parent)
+    {
+        GameObject go = Resources.Load<GameObject>("DamageText");
+        if (go != null)
+        {
+            Vector2 spawnPosition = (Vector2)transform.position + Vector2.up * 0.2f;
+
+            GameObject instance = Instantiate(go, spawnPosition, Quaternion.identity);
+            ShowDamage damageText = instance.GetComponent<ShowDamage>();
+            if (damageText != null)
+            {
+                damageText.SetInfo(spawnPosition, damage, parent);
+            }
         }
     }
 
