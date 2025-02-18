@@ -350,8 +350,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b, type: 3}
+      propertyPath: bossMonsterPrefab
+      value: 
+      objectReference: {fileID: 4209662324636049061, guid: 3c05d48e07e7cf34c816648cd9dff0d8, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5306653251366630232, guid: cf3bb022fb617ef4197a0c664d01e45b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3bb022fb617ef4197a0c664d01e45b, type: 3}

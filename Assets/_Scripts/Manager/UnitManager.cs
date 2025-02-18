@@ -15,13 +15,15 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject damageUniqueMonsterPrefab;
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
+    [SerializeField] private GameObject bossMonsterPrefab;
 
     [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f; 
-    private float nextSpawnTime = 0f;  
+    private float nextSpawnTime = 0f;
 
+    private BossMonster currentBoss;
     private bool isGameStarted = false;
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
@@ -116,10 +118,19 @@ public class UnitManager : Singleton<UnitManager>
             currentNormalMonsterType = MonsterType.MidNormal;
             Debug.Log("[UnitManager] 몬스터 타입 변경: MidNormal");
         }
-        else if (gameTime > 420f)    // 7분 초과 
+        else if (gameTime <= 600f)   // 7~10분
         {
             currentNormalMonsterType = MonsterType.LateNormal;
-            Debug.Log($"[UnitManager] 몬스터 타입 변경: LateNormal");
+        }
+        else if (gameTime >= 600f)   // 10분 이상
+        {
+            Debug.Log("[UnitManager] 보스 페이즈 시작!");
+            ClearAllMonsters();
+
+            Vector2 spawnPosition = GetBossSpawnPosition();
+            GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
+
+            isGameStarted = false;
         }
     }
 
@@ -177,7 +188,18 @@ public class UnitManager : Singleton<UnitManager>
     {
         isGameStarted = true;
     }
+    private Vector2 GetBossSpawnPosition()
+    {
+        if (currentPlayer == null) return Vector2.zero;
 
+        float angle = Random.Range(0f, 360f);
+        float distance = spawnRadius;  // 최대 거리에 소환
+
+        return (Vector2)currentPlayer.transform.position + new Vector2(
+            Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
+            Mathf.Sin(angle * Mathf.Deg2Rad) * distance
+        );
+    }
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
         GameObject prefab = GetMonsterPrefab(type);
