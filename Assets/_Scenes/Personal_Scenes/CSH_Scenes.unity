@@ -1362,6 +1362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f5ffe9a787bc146b74d41cd18cbeeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   levelupTest: {fileID: 1230643353}
   damageTest: {fileID: 1402822066}
   autoTest: {fileID: 1798219258}
@@ -3212,9 +3213,9 @@ RectTransform:
   - {fileID: 420078600}
   m_Father: {fileID: 175383075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1230643353
@@ -3329,7 +3330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c134e5e0025589344b2a70e6c947a57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8436117267539602611, guid: d17180a273f1a1445a6beec0340e15ea, type: 3}
   earlyNormalMonsterPrefab: {fileID: 8740860294403865247, guid: 680cdecd245c4414cb8033f97cbfd2b4, type: 3}
   rangedNormalMonsterPrefab: {fileID: 8740860294403865247, guid: 9fe10943030fd5b45a5529c35f362b37, type: 3}
   midNormalMonsterPrefab: {fileID: 8740860294403865247, guid: 3bf55964a984536479899dbc5ccad207, type: 3}
@@ -3523,9 +3523,9 @@ RectTransform:
   - {fileID: 641294805}
   m_Father: {fileID: 175383075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 276.4, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402822066
@@ -4519,9 +4519,9 @@ RectTransform:
   - {fileID: 1808764840}
   m_Father: {fileID: 175383075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 477.8, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1798219258
@@ -5081,8 +5081,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_Property:
     gold: 0
-    Bless_Point: 0
-    remnants: 0
+    bless_Point: 0
+    remnants_Point: 0
+    class_Unlocked: 010000
     MaxHp_TrainingCount: 0
     HpRegen_TrainingCount: 0
     Defense_TrainingCount: 0
@@ -5130,6 +5131,7 @@ MonoBehaviour:
     Invincibility: 0
     Adversary: 0
     GodKill: 0
+  classSelect_Num: 0
 --- !u!4 &1975909316
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -46,8 +47,13 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Start()
     {
+        
         // 임시로 처리함, 테스트용도임, 추후 제거 필요
-        SpawnPlayerByType(1);
+        if(DataManager.Instance.classSelect_Num == 0)
+        {
+            DataManager.Instance.classSelect_Num = 1;
+        }
+        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
     }
 
     private void Update()
@@ -140,12 +146,12 @@ public class UnitManager : Singleton<UnitManager>
         else if( PlayerType == 2)
         {
             // 2. 궁수
-            _player = Resources.Load<GameObject>("Using/Archer/Warrior");
+            _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
             // 3. 법사
-            _player = Resources.Load<GameObject>("Using/Magician/Warrior");
+            _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
 
 
