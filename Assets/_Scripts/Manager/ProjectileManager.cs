@@ -25,6 +25,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         projectiles.Add(Enums.SkillName.Shuriken, Resources.Load<Projectile>("Using/Projectile/ShurikenProjectile"));
         projectiles.Add(Enums.SkillName.Aura, Resources.Load<Projectile>("Using/Projectile/AuraProjectile"));
         projectiles.Add(Enums.SkillName.Claw, Resources.Load<Projectile>("Using/Projectile/ClawLv3"));
+        projectiles.Add(Enums.SkillName.PoisonShoes, Resources.Load<Projectile>("Using/Projectile/PoisonShoesProjectile"));
+
 
 
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
