@@ -53,7 +53,7 @@ public class SkillContainer : MonoBehaviour
         {
             return skillName;
         }
-        return Enums.SkillName.None;
+        return SkillName.None;
     }
 
     public bool CanAddActiveSkill()

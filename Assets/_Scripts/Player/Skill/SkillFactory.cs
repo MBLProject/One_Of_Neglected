@@ -1,10 +1,7 @@
 using UnityEngine;
 using System;
 using static Enums;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using Unity.VisualScripting;
 
 public static class SkillFactory
 {
@@ -43,23 +40,44 @@ public static class SkillFactory
                 return null;
         }
     }
-
     public static bool IsActiveSkill(SkillName skillName)
     {
         switch (skillName)
         {
-            case Enums.SkillName.Needle:
-            case Enums.SkillName.Claw:
-            case Enums.SkillName.Javelin:
-            case Enums.SkillName.Aura:
-            case Enums.SkillName.Shuriken:
-            case Enums.SkillName.Fireball:
-                return true; // 예시로 액티브 스킬을 true로 반환
-            case Enums.SkillName.PoisonShoes:
-                return false; // 패시브 스킬은 false
+            case SkillName.Needle:
+            case SkillName.Claw:
+            case SkillName.Javelin:
+            case SkillName.Aura:
+            case SkillName.Cape:
+            case SkillName.Shuriken:
+            case SkillName.Gateway:
+            case SkillName.Fireball:
+            case SkillName.Ifrit:
+            case SkillName.Flow:
+            case SkillName.PoisonShoes:
+            case SkillName.GravityField:
+            case SkillName.Mine:
+                return true;
+
+            case SkillName.Blood:
+            case SkillName.Water:
+            case SkillName.Shield:
+            case SkillName.Shoes:
+            case SkillName.Fist:
+            case SkillName.Ring:
+            case SkillName.Book:
+            case SkillName.Bracelet:
+            case SkillName.Clock:
+            case SkillName.Magnet:
+            case SkillName.Crown:
+            case SkillName.Meat:
+                return false;
+
             default:
                 Debug.LogWarning($"Unknown SkillName: {skillName}");
                 return false;
         }
     }
+
 }
+
