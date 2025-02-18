@@ -8,24 +8,24 @@ using UnityEngine;
 public class PoisonShoesProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
-    private float duration = 5f; // 지속시간
-    private float damagePerFrame = 0.5f; // 1초당 가한 프레임 데미지의 총량
+    private float duration = 5f; // 吏?띿떆媛?
+    private float damagePerFrame = 0.5f; // 1珥덈떦 媛???꾨젅???곕?吏??珥앸웾
 
     protected override void Start()
     {
         isMoving = true;
         transform.position = startPosition;
         cts = new CancellationTokenSource();
-        CalculateDamagePerFrame();  // damagePerFrame 계산
+        CalculateDamagePerFrame();  // damagePerFrame 怨꾩궛
         MoveProjectileAsync(cts.Token).Forget();
         Destroy(gameObject, duration);
     }
 
-    // damage를 기반으로 damagePerFrame을 deltaTime을 고려하여 계산하는 함수
+    // damage瑜?湲곕컲?쇰줈 damagePerFrame??deltaTime??怨좊젮?섏뿬 怨꾩궛?섎뒗 ?⑥닔
     private void CalculateDamagePerFrame()
     {
-        // damage를 1초 동안 주는 총 데미지로 설정하고 deltaTime을 고려
-        damagePerFrame = damage * Time.deltaTime;  // Time.deltaTime을 곱해주어 프레임마다 적용되는 데미지를 비례적으로 조정
+        // damage瑜?1珥??숈븞 二쇰뒗 珥??곕?吏濡??ㅼ젙?섍퀬 deltaTime??怨좊젮
+        damagePerFrame = damage * Time.deltaTime;  // Time.deltaTime??怨깊빐二쇱뼱 ?꾨젅?꾨쭏???곸슜?섎뒗 ?곕?吏瑜?鍮꾨??곸쑝濡?議곗젙
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
@@ -42,7 +42,7 @@ public class PoisonShoesProjectile : Projectile
 
         Invoke("DestroyProjectile", lifeTime);
 
-        // damagePerFrame 계산
+        // damagePerFrame 怨꾩궛
         CalculateDamagePerFrame();
 
         direction = (targetPosition - startPos).normalized;
@@ -52,21 +52,7 @@ public class PoisonShoesProjectile : Projectile
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
     {
-        while (isMoving)
-        {
-            if (!GameManager.Instance.isPaused)
-            {
-                foreach (var monster in monstersInRange.ToList())
-                {
-                    monster.TakeDamage(damagePerFrame);
-                }
-                await UniTask.Yield(PlayerLoopTiming.Update);
-            }
-            else
-            {
-                await UniTask.Yield();
-            }
-        }
+        await UniTask.CompletedTask;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
