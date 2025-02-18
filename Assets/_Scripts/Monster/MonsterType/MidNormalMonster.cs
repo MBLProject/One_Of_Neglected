@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MidGameMeleeMonster : NormalMonster
+public class MidNormalMonster : NormalMonster
 {
     protected override void InitializeStats()
     {
