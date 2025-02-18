@@ -18,7 +18,6 @@ public class PoisonShoesProjectile : Projectile
         cts = new CancellationTokenSource();
         CalculateDamagePerFrame();  // damagePerFrame 怨꾩궛
         MoveProjectileAsync(cts.Token).Forget();
-        Destroy(gameObject, duration);
     }
 
     // damage瑜?湲곕컲?쇰줈 damagePerFrame??deltaTime??怨좊젮?섏뿬 怨꾩궛?섎뒗 ?⑥닔
@@ -44,10 +43,6 @@ public class PoisonShoesProjectile : Projectile
 
         // damagePerFrame 怨꾩궛
         CalculateDamagePerFrame();
-
-        direction = (targetPosition - startPos).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
