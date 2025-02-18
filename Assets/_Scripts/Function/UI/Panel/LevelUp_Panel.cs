@@ -29,14 +29,15 @@ public struct Skill_Info
 
 public class LevelUp_Panel : Panel
 {
-    [SerializeField] private SkillSelector skillSelector;
+    public SkillSelector skillSelector;
     [SerializeField] private SkillContainer skillContainer;
     [SerializeField] private SkillDispenser skillDispenser;
-    public List<Selection> current_Selections;
-    public List<Augment_Info> augment_Infos;
-    public List<Skill_Info> skill_Infos;
-
-    public RectTransform banish_Panel;
+    [SerializeField] private List<Selection> current_Selections;
+    [SerializeField] private List<Augment_Info> augment_Infos;
+    [SerializeField] private List<Skill_Info> skill_Infos;
+    [SerializeField] private RectTransform banish_Panel;
+    [SerializeField] private TextMeshProUGUI reroll_Counter_TMP;
+    [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
     private void Awake()
     {
@@ -50,6 +51,9 @@ public class LevelUp_Panel : Panel
         buttons[1].onClick.AddListener(Banish_BTN);
         buttons[2].onClick.AddListener(Return_BTN);
         skillSelector.Initialize(skillContainer, skillDispenser);
+
+        reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
+        banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
     }
 
     private void OnEnable()
@@ -65,24 +69,7 @@ public class LevelUp_Panel : Panel
         else
         {
             //특성만 선택
-            List<Enums.SkillName> popSkill_List =
-            skillSelector.SelectSkills();
-            Skill_Info skill_Info;
-            for (int i = 0; i < popSkill_List.Count; i++)
-            {
-                Debug.Log($"뽑힌 스킬 : {popSkill_List[i]}");
-                skill_Info = skill_Info_Dic[popSkill_List[i]];
-
-                current_Selections[i].
-                displayName_TMP.text = skill_Info.display_Name;
-
-                current_Selections[i].
-                info_TMP.text = skill_Info.skill_Text;
-
-                current_Selections[i].
-                icon_IMG.sprite = skill_Info.skill_Sprite;
-
-            }
+            ChangeSelections();
         }
     }
 
@@ -104,15 +91,39 @@ public class LevelUp_Panel : Panel
         buttons[1].interactable = false;
 
         banish_Panel.gameObject.SetActive(true);
+        if (DataManager.Instance.BTS.Banish > 0)
+        {
+
+            DataManager.Instance.BTS.Banish--;
+            banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+        }
     }
 
     private void Reroll_BTN()
     {
         Debug.Log("리롤");
+        if (DataManager.Instance.BTS.Reroll > 0)
+        {
+            ChangeSelections();
+            DataManager.Instance.BTS.Reroll--;
+            reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
+        }
     }
 
-    private void FindSkillInfo()
+    private void ChangeSelections()
     {
+        List<Enums.SkillName> popSkill_List = skillSelector.SelectSkills();
+        Skill_Info skill_Info;
+        for (int i = 0; i < popSkill_List.Count; i++)
+        {
+            Debug.Log($"뽑힌 스킬 : {popSkill_List[i]}");
+            skill_Info = skill_Info_Dic[popSkill_List[i]];
+
+            current_Selections[i].m_skillName = skill_Info.skill_Name;
+            current_Selections[i].displayName_TMP.text = skill_Info.display_Name;
+            current_Selections[i].info_TMP.text = skill_Info.skill_Text;
+            current_Selections[i].icon_IMG.sprite = skill_Info.skill_Sprite;
+        }
 
     }
 
