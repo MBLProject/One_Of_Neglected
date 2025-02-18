@@ -64,9 +64,13 @@ public class AuraProjectile : Projectile
 
     private void FixedUpdate()
     {
-        foreach (var monster in monstersInRange.ToList())
+        if (!GameManager.Instance.isPaused)
         {
-            monster.TakeDamage(damage);
+            // FixedUpdate에서 데미지 처리
+            foreach (var monster in monstersInRange.ToList())
+            {
+                monster.TakeDamage(damage);
+            }
         }
     }
 }
