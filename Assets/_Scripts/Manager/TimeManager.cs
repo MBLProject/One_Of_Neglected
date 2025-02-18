@@ -16,9 +16,15 @@ public class TimeManager : Singleton<TimeManager>
     // 마지막 이벤트 발생 시간 저장
     private float lastThirtySecEvent = -30f;  // 30초 이벤트
     private float lastOneMinEvent = -60f;     // 1분 이벤트
+    private float lastOneMinThirtyEvent = -90f;  // 1분 30초 이벤트
+    private float lastOneMinFiftyEvent = -110f;  // 1분 50초 이벤트
+
 
     public event Action OnThirtySecondsPassed;  
     public event Action OnMinutePassed;
+    public event Action OnOneMinThirtySecondsPassed;  
+    public event Action OnOneMinFiftySecondsPassed;   
+
 
     private void Update()
     {
@@ -56,6 +62,19 @@ public class TimeManager : Singleton<TimeManager>
             lastOneMinEvent = Mathf.Floor(gameTime / 60f) * 60f;
             OnMinutePassed?.Invoke();
         }
+        // 1분 30초 이벤트 체크 (90초)
+        if (gameTime >= lastOneMinThirtyEvent + 90f)
+        {
+            lastOneMinThirtyEvent = Mathf.Floor(gameTime / 90f) * 90f;
+            OnOneMinThirtySecondsPassed?.Invoke();
+        }
+
+        // 1분 50초 이벤트 체크 (110초)
+        if (gameTime >= lastOneMinFiftyEvent + 110f)
+        {
+            lastOneMinFiftyEvent = Mathf.Floor(gameTime / 110f) * 110f;
+            OnOneMinFiftySecondsPassed?.Invoke();
+        }
     }
 
 
@@ -71,6 +90,8 @@ public class TimeManager : Singleton<TimeManager>
         gameTime = 0f;
         lastThirtySecEvent = -30f;
         lastOneMinEvent = -60f;
+        lastOneMinThirtyEvent = -90f;
+        lastOneMinFiftyEvent = -110f;
     }
 
     public void SetDebugTime(float time)
