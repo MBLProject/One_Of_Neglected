@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using static Enums;
 
 public class Warrior : Player
@@ -19,6 +16,7 @@ public class Warrior : Player
         stateHandler.RegisterState(new WarriorMoveState(stateHandler));
         stateHandler.RegisterState(new WarriorDashState(stateHandler));
         stateHandler.RegisterState(new WarriorAttackState(stateHandler));
+        stateHandler.RegisterState(new WarriorDieState(stateHandler));
 
         stateHandler.ChangeState(typeof(WarriorIdleState));
     }

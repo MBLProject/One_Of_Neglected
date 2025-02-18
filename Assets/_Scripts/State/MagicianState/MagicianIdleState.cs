@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ArcherIdleState : BaseState<Player>
+public class MagicianIdleState : BaseState<Player>
 {
-    public ArcherIdleState(StateHandler<Player> handler) : base(handler) { }
+    public MagicianIdleState(StateHandler<Player> handler) : base(handler) { }
 
     public override void Enter(Player player)
     {
@@ -19,12 +19,12 @@ public class ArcherIdleState : BaseState<Player>
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             player.targetPosition = new Vector2(worldPosition.x, worldPosition.y);
-            handler.ChangeState(typeof(ArcherMoveState));
+            handler.ChangeState(typeof(MagicianMoveState));
             return;
         }
         else if (horizontalInput != 0 || verticalInput != 0)
         {
-            handler.ChangeState(typeof(ArcherMoveState));
+            handler.ChangeState(typeof(MagicianMoveState));
             return;
         }
 
@@ -32,7 +32,7 @@ public class ArcherIdleState : BaseState<Player>
         {
             if (player.CanDash())
             {
-                handler.ChangeState(typeof(ArcherDashState));
+                handler.ChangeState(typeof(MagicianDashState));
                 return;
             }
         }
@@ -44,16 +44,16 @@ public class ArcherIdleState : BaseState<Player>
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                if (distance <= player.Stats.CurrentATKRange * 1.25f * 3)
+                if (distance <= player.Stats.CurrentATKRange * 1.25f * 2.5f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
-                    handler.ChangeState(typeof(ArcherAttackState));
+                    handler.ChangeState(typeof(MagicianAttackState));
                     return;
                 }
                 else
                 {
                     player.targetPosition = nearestMonster.transform.position;
-                    handler.ChangeState(typeof(ArcherMoveState));
+                    handler.ChangeState(typeof(MagicianMoveState));
                     return;
                 }
             }
@@ -65,13 +65,18 @@ public class ArcherIdleState : BaseState<Player>
             if ((nearestMonster != null))
             {
                 float dist = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                if (dist <= player.Stats.CurrentATKRange * 1.25f * 3)
+                if (dist <= player.Stats.CurrentATKRange * 1.25f * 2.5f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
-                    handler.ChangeState(typeof(ArcherAttackState));
+                    handler.ChangeState(typeof(MagicianAttackState));
                     return;
                 }
             }
+        }
+
+        if (!player.IsAtDestination())
+        {
+            handler.ChangeState(typeof(MagicianMoveState));
         }
     }
 

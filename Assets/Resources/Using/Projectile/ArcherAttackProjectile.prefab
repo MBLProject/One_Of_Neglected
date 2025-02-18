@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8828682394840660805}
   - component: {fileID: 3630005900809362384}
-  - component: {fileID: -9019052603692412860}
+  - component: {fileID: 438959201006282500}
   m_Layer: 0
-  m_Name: ArcherProjectile
+  m_Name: ArcherAttackProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6806110437467840930}
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.005, y: 0.022}
   m_EdgeRadius: 0
---- !u!114 &-9019052603692412860
+--- !u!114 &438959201006282500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,11 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3621868568683969252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938e75e4e065b5543a0ca3fd3969dac6, type: 3}
+  m_Script: {fileID: 11500000, guid: fc46c5bc6dbe69344ad70e1a1c0428c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  maxDistance: 0
+  maxDistance: 10
 --- !u!1 &5022455545510156768
 GameObject:
   m_ObjectHideFlags: 0

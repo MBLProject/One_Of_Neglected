@@ -30,6 +30,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
 
         playerProjectiles.Add("WarriorAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarriorAttackProjectile"));
+        playerProjectiles.Add("MagicianAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/MagicianAttackProjectile"));
+        playerProjectiles.Add("ArcherAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ArcherAttackProjectile"));
+
     }
 
     public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay, int pireceCount)
@@ -163,7 +166,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         activeProjectiles.Add(projectile);
     }
 
-    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, float speed, float damge)
+    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, float speed, float damge, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         if (!playerProjectiles.ContainsKey(prefabName))
         {
@@ -172,7 +175,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
-        projectile.InitProjectile(startPos, targetPos, speed, damge);
+        projectile.InitProjectile(startPos, targetPos, speed, damge, maxDist, pierceCnt, lifetime);
 
 
         activeProjectiles.Add(projectile);

@@ -1,13 +1,12 @@
 using UnityEngine;
-using Transform = UnityEngine.Transform;
 
-public class ArcherAttackState : BaseState<Player>
+public class MagicianAttackState : BaseState<Player>
 {
     private const float BASE_ATTACK_DURATION = 0.5f;
     private float attackTimer;
     private bool hasDealtDamage = false;
 
-    public ArcherAttackState(StateHandler<Player> handler) : base(handler) { }
+    public MagicianAttackState(StateHandler<Player> handler) : base(handler) { }
 
     private float GetCurrentAttackDuration(Player player)
     {
@@ -33,11 +32,11 @@ public class ArcherAttackState : BaseState<Player>
             player.Animator.SetTrigger("Attack");
         }
 
-        Archer archer = player as Archer;
-        if (archer != null && archer.AttackEffect != null)
+        Magician Magician = player as Magician;
+        if (Magician != null && Magician.AttackEffect != null)
         {
-            archer.AttackEffect.SetActive(true);
-            Animator effectAnimator = archer.AttackEffect.GetComponent<Animator>();
+            Magician.AttackEffect.SetActive(true);
+            Animator effectAnimator = Magician.AttackEffect.GetComponent<Animator>();
             if (effectAnimator != null)
             {
                 effectAnimator.speed = animSpeedMultiplier;
@@ -45,7 +44,7 @@ public class ArcherAttackState : BaseState<Player>
             }
 
             bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
-            UpdateEffectTransform(archer.AttackEffect, isLookingRight);
+            UpdateEffectTransform(Magician.AttackEffect, isLookingRight);
         }
 
         MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
@@ -77,12 +76,12 @@ public class ArcherAttackState : BaseState<Player>
             Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
 
             // 몬스터 위치 가져오기
-            Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ?? 
+            Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ??
                 (player.transform.position + (Vector3)(direction * 10f));
 
 
             ProjectileManager.Instance.SpawnPlayerProjectile(
-                "ArcherAttackProjectile",
+                "MagicianAttackProjectile",
                 player.transform.position,
                 targetPosition,
                 1f,
@@ -102,7 +101,7 @@ public class ArcherAttackState : BaseState<Player>
 
         if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
         {
-            handler.ChangeState(typeof(ArcherDashState));
+            handler.ChangeState(typeof(MagicianDashState));
             return;
         }
 
@@ -120,14 +119,14 @@ public class ArcherAttackState : BaseState<Player>
 
                     if (distance <= player.Stats.CurrentATKRange * 1.25f)
                     {
-                        handler.ChangeState(typeof(ArcherIdleState));
+                        handler.ChangeState(typeof(MagicianIdleState));
                         //Enter(player);
                         return;
                     }
                     else
                     {
                         player.targetPosition = nearestMonster.transform.position;
-                        handler.ChangeState(typeof(ArcherMoveState));
+                        handler.ChangeState(typeof(MagicianMoveState));
                         return;
                     }
                 }
@@ -135,11 +134,11 @@ public class ArcherAttackState : BaseState<Player>
 
             if (!player.IsAtDestination())
             {
-                handler.ChangeState(typeof(ArcherMoveState));
+                handler.ChangeState(typeof(MagicianMoveState));
             }
             else
             {
-                handler.ChangeState(typeof(ArcherIdleState));
+                handler.ChangeState(typeof(MagicianIdleState));
             }
         }
     }
@@ -152,10 +151,10 @@ public class ArcherAttackState : BaseState<Player>
         }
 
         // 공격 이펙트 비활성화
-        Archer archer = player as Archer;
-        if (archer != null && archer.AttackEffect != null)
+        Magician Magician = player as Magician;
+        if (Magician != null && Magician.AttackEffect != null)
         {
-            archer.AttackEffect.SetActive(false);
+            Magician.AttackEffect.SetActive(false);
         }
 
         player.Animator?.ResetTrigger("Attack");
@@ -174,7 +173,7 @@ public class ArcherAttackState : BaseState<Player>
 
             if (isLookingRight)
             {
-                effectTransform.localPosition = new Vector3(-0.15f, -0.02f, 0);
+                effectTransform.localPosition = new Vector3(0, -0.14f, 0);
                 if (effectSprite != null)
                 {
                     effectSprite.flipX = false;
@@ -183,7 +182,7 @@ public class ArcherAttackState : BaseState<Player>
             }
             else
             {
-                effectTransform.localPosition = new Vector3(0.15f, -0.02f, 0);
+                effectTransform.localPosition = new Vector3(0, -0.14f, 0);
                 if (effectSprite != null)
                 {
                     effectSprite.flipX = true;

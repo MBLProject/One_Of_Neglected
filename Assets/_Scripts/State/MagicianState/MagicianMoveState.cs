@@ -1,17 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorMoveState : BaseState<Player>
+public class MagicianMoveState : BaseState<Player>
 {
     private bool isMouseMoving = false;
 
-    public WarriorMoveState(StateHandler<Player> handler) : base(handler) { }
+    public MagicianMoveState(StateHandler<Player> handler) : base(handler) { }
 
     public override void Enter(Player player)
     {
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("IsMoving");
-        
+
         player.Animator?.SetBool("IsMoving", true);
     }
 
@@ -24,10 +26,10 @@ public class WarriorMoveState : BaseState<Player>
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
                 player.targetPosition = nearestMonster.transform.position;
-                
+
                 if (distance <= 0.3f)
                 {
-                    handler.ChangeState(typeof(WarriorAttackState));
+                    handler.ChangeState(typeof(MagicianAttackState));
                     return;
                 }
                 else
@@ -38,7 +40,7 @@ public class WarriorMoveState : BaseState<Player>
             }
             else
             {
-                handler.ChangeState(typeof(WarriorIdleState));
+                handler.ChangeState(typeof(MagicianIdleState));
                 return;
             }
         }
@@ -48,7 +50,7 @@ public class WarriorMoveState : BaseState<Player>
             {
                 if (player.CanDash())
                 {
-                    handler.ChangeState(typeof(WarriorDashState));
+                    handler.ChangeState(typeof(MagicianDashState));
                     return;
                 }
             }
@@ -62,7 +64,7 @@ public class WarriorMoveState : BaseState<Player>
                 isMouseMoving = false;
                 Vector2 moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
                 player.transform.Translate(moveDirection * player.Stats.CurrentMspd * Time.deltaTime);
-                
+
                 if (horizontalInput != 0)
                 {
                     player.FlipModel(horizontalInput < 0);
@@ -76,7 +78,7 @@ public class WarriorMoveState : BaseState<Player>
                     Vector3 mousePosition = Input.mousePosition;
                     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
                     player.targetPosition = new Vector2(worldPosition.x, worldPosition.y);
-                    
+
                     Vector2 direction = (player.targetPosition - (Vector2)player.transform.position).normalized;
                     if (direction.x != 0)
                     {
@@ -94,13 +96,13 @@ public class WarriorMoveState : BaseState<Player>
                     else
                     {
                         isMouseMoving = false;
-                        handler.ChangeState(typeof(WarriorIdleState));
+                        handler.ChangeState(typeof(MagicianIdleState));
                         return;
                     }
                 }
                 else
                 {
-                    handler.ChangeState(typeof(WarriorIdleState));
+                    handler.ChangeState(typeof(MagicianIdleState));
                     return;
                 }
             }
@@ -118,7 +120,7 @@ public class WarriorMoveState : BaseState<Player>
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("IsMoving");
-        
+
         player.Animator?.Update(0);
     }
-} 
+}

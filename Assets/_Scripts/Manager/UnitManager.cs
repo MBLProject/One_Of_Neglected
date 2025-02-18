@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UnitManager : Singleton<UnitManager>
 {
