@@ -39,7 +39,11 @@ public abstract class MonsterBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         var timeManager = TimeManager.Instance;
-        if (timeManager != null)
+        if (this is RangedNormalMonster)
+        {
+            timeManager.OnOneMinThirtySecondsPassed += UpdateMonsterStats;
+        }
+        else
         {
             timeManager.OnThirtySecondsPassed += UpdateMonsterStats;
         }
@@ -51,7 +55,14 @@ public abstract class MonsterBase : MonoBehaviour
         var timeManager = TimeManager.Instance;
         if (timeManager != null)
         {
-            timeManager.OnThirtySecondsPassed -= UpdateMonsterStats;
+            if (this is RangedNormalMonster)
+            {
+                timeManager.OnOneMinThirtySecondsPassed -= UpdateMonsterStats;
+            }
+            else
+            {
+                timeManager.OnThirtySecondsPassed -= UpdateMonsterStats;
+            }
         }
     }
 
@@ -99,13 +110,19 @@ public abstract class MonsterBase : MonoBehaviour
             int intervals = Mathf.FloorToInt((currentTime - 420f) / statUpdateInterval);
             UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
         }
+        else if (this is RangedNormalMonster)
+        {
+            // 1분 30초(90초) 간격으로 intervals 계산
+            int intervals = Mathf.FloorToInt(currentTime / 90f);
+            UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
+        }
     }
 
     // 실제 스탯 업데이트를 처리하는 헬퍼 메서드
     private void UpdateStats(int intervals, float dmgIncrease, float hpIncrease)
     {
         // Late 몬스터의 경우 공격력 20 제한
-        if (this is LateNormalMonster)
+        if (this is LateNormalMonster || this is RangedNormalMonster)
         {
             stats.attackDamage = Mathf.Min(stats.attackDamage + (intervals * dmgIncrease), 20f);
         }

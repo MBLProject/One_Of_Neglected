@@ -49,31 +49,35 @@ public class TimeManager : Singleton<TimeManager>
 
     private void CheckTimeBasedEvents()
     {
-        // 30초 이벤트 체크
-        if (gameTime >= lastThirtySecEvent + 30f)
-        {
-            lastThirtySecEvent = Mathf.Floor(gameTime / 30f) * 30f;
-            OnThirtySecondsPassed?.Invoke();
-        }
-
-        // 1분 이벤트 체크
-        if (gameTime >= lastOneMinEvent + 60f)
-        {
-            lastOneMinEvent = Mathf.Floor(gameTime / 60f) * 60f;
-            OnMinutePassed?.Invoke();
-        }
-        // 1분 30초 이벤트 체크 (90초)
-        if (gameTime >= lastOneMinThirtyEvent + 90f)
-        {
-            lastOneMinThirtyEvent = Mathf.Floor(gameTime / 90f) * 90f;
-            OnOneMinThirtySecondsPassed?.Invoke();
-        }
+        float currentTime = gameTime;
 
         // 1분 50초 이벤트 체크 (110초)
-        if (gameTime >= lastOneMinFiftyEvent + 110f)
+        if (currentTime >= lastOneMinFiftyEvent + 110f)
         {
-            lastOneMinFiftyEvent = Mathf.Floor(gameTime / 110f) * 110f;
+            lastOneMinFiftyEvent = Mathf.Floor(currentTime / 110f) * 110f;
+            Debug.Log($"[TimeManager] 1분 50초 이벤트 발생: {currentTime}초");
             OnOneMinFiftySecondsPassed?.Invoke();
+        }
+        // 1분 30초 이벤트 체크 (90초)
+        else if (currentTime >= lastOneMinThirtyEvent + 90f)
+        {
+            lastOneMinThirtyEvent = Mathf.Floor(currentTime / 90f) * 90f;
+            Debug.Log($"[TimeManager] 1분 30초 이벤트 발생: {currentTime}초");
+            OnOneMinThirtySecondsPassed?.Invoke();
+        }
+        // 1분 이벤트 체크
+        else if (currentTime >= lastOneMinEvent + 60f)
+        {
+            lastOneMinEvent = Mathf.Floor(currentTime / 60f) * 60f;
+            Debug.Log($"[TimeManager] 1분 이벤트 발생: {currentTime}초");
+            OnMinutePassed?.Invoke();
+        }
+        // 30초 이벤트 체크
+        else if (currentTime >= lastThirtySecEvent + 30f)
+        {
+            lastThirtySecEvent = Mathf.Floor(currentTime / 30f) * 30f;
+            Debug.Log($"[TimeManager] 30초 이벤트 발생: {currentTime}초");
+            OnThirtySecondsPassed?.Invoke();
         }
     }
 
