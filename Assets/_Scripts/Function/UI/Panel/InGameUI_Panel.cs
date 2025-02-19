@@ -8,7 +8,6 @@ public class InGameUI_Panel : Panel
 {
     public SkillSelector skillSelector;
     [SerializeField] private SkillContainer skillContainer;
-    [SerializeField] private SkillDispenser skillDispenser;
     private bool isOptionActive;
     private int mainSkill_Num;
     private int subSkill_Num;
@@ -16,13 +15,11 @@ public class InGameUI_Panel : Panel
     [SerializeField] private List<Image> mainSkills_List;
     [SerializeField] public List<Image> subSkills_List;
 
-    private void Awake()
+    private void Start()
     {
         if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
-        skillSelector.Initialize(skillContainer, skillDispenser);
-
+        skillSelector.Initialize(skillContainer, UnitManager.Instance.GetPlayer().GetComponent<SkillDispenser>());
     }
-
     private void Update()
     {
         //TODO : 키코드 입력받는거 몰아넣기
