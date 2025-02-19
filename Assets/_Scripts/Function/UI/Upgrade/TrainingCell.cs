@@ -34,13 +34,16 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         m_BTN.interactable = false;
         outline = GetComponent<Outline>();
         m_BTN.onClick.AddListener(Training);
-    }
-    private void Start()
-    {
-        training_Panel.cellReset += CellReset;
         RequireGoldCalc(Convert.ToDouble(requireGold_List[0]));
     }
-
+    private void OnEnable()
+    {
+        training_Panel.cellReset += CellReset;
+    }
+    private void OnDisable()
+    {
+        training_Panel.cellReset -= CellReset;
+    }
     public void CellReset()
     {
         foreach (Image image in tinyCells)
@@ -55,17 +58,32 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 method_Action?.Invoke(false, requireGold_List[i - 1], 0);
             }
         }
-        else
+
+        if (isDisplayLv)
         {
-            for (int i = trainingCount; i > 9; i--)
+            if (trainingCount > 9)
             {
-                method_Action?.Invoke(false, 10000, 0);
+                for (int i = trainingCount; i > 10; i--)
+                {
+                    method_Action?.Invoke(false, requireGold_List[10], 0);
+                    Debug.Log(requireGold_List[10]);
+                }
+                for (int j = 9; j >= 0; j--)
+                {
+                    method_Action?.Invoke(false, requireGold_List[j], 0);
+                    Debug.Log(requireGold_List[j]);
+                }
             }
-            for (int i = 9; i >= 0; i--)
+            else if (trainingCount <= 9)
             {
-                method_Action?.Invoke(false, requireGold_List[i], 0);
+                for (int i = trainingCount - 1; i >= 0; i--)
+                {
+                    method_Action?.Invoke(false, requireGold_List[i], 0);
+                    Debug.Log(requireGold_List[i]);
+                }
             }
         }
+
         trainingCount = 0;
         currentRequireGold = requireGold_List[trainingCount];
         if (isDisplayLv) lvText.text = "Lv." + trainingCount.ToString();
@@ -74,7 +92,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
 
     private void Training()
     {
-        if (DataManager.Instance.player_Property.gold - currentRequireGold < 0) return;
+        if (currentRequireGold == -1) return;
         if (maxTrainingLevel > trainingCount || isDisplayLv)
         {
             if (isDisplayLv == false && maxTrainingLevel < 10)
@@ -82,14 +100,26 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             else if (isDisplayLv == false)
             {
                 if (trainingCount < 10)
+                {
                     tinyCells[trainingCount].sprite = training_Panel.tinyCellOn_Sprite;
+                }
                 else
                 {
                     tinyCells[trainingCount - 10].color = Color.yellow;
                 }
             }
             trainingCount++;
-            method_Action?.Invoke(true, -requireGold_List[trainingCount - 1], trainingCount);
+            if (isDisplayLv == false)
+            {
+                method_Action?.Invoke(true, -requireGold_List[trainingCount - 1], trainingCount);
+            }
+            else
+            {
+                if (trainingCount <= 10)
+                    method_Action?.Invoke(true, -requireGold_List[trainingCount - 1], trainingCount);
+                if (trainingCount > 10)
+                    method_Action?.Invoke(true, -requireGold_List[10], trainingCount);
+            }
             baseCellAction?.Invoke();
             if (isDisplayLv == false)
             {
@@ -104,7 +134,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 }
                 else
                 {
-                    currentRequireGold += 10000;
+                    currentRequireGold = requireGold_List[10];
                 }
                 lvText.text = "Lv." + trainingCount.ToString();
             }
@@ -121,11 +151,6 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         {
             lvText.text = "Lv." + trainingCount.ToString();
             currentRequireGold = requireGold_List[requireGold_List.Count - 1];
-            for (int i = requireGold_List.Count; i < trainingCount; i++)
-            {
-
-                currentRequireGold += 10000;
-            }
         }
         else
         {
@@ -135,7 +160,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             }
 
             if (maxTrainingLevel != trainingCount) currentRequireGold = requireGold_List[trainingCount];
-            else currentRequireGold = DataManager.Instance.player_Property.gold + 1;
+            else currentRequireGold = -1;
         }
 
     }
@@ -189,16 +214,22 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             {
                 if (trainingCount > 9)
                 {
-                    method_Action?.Invoke(false, 10000, trainingCount);
+                    method_Action?.Invoke(false, requireGold_List[10], trainingCount);
+                    Debug.Log(requireGold_List[10]);
                 }
                 else
                 {
                     method_Action?.Invoke(false, requireGold_List[trainingCount], trainingCount);
+                    Debug.Log(requireGold_List[trainingCount]);
                 }
             }
             baseCellAction?.Invoke();
-            currentRequireGold = requireGold_List[trainingCount];
-
+            if (isDisplayLv == false) currentRequireGold = requireGold_List[trainingCount];
+            else
+            {
+                if (trainingCount > 9) currentRequireGold = requireGold_List[10];
+                else currentRequireGold = requireGold_List[trainingCount];
+            }
             if (isDisplayLv)
                 lvText.text = "Lv." + trainingCount.ToString();
 
@@ -222,13 +253,11 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             switch (i)
             {
                 case 0:
-                    Debug.Log($"시작골드 : {requireGold_List[i]}");
                     break;
                 case 1:
                     requireGold_List[i] = GetNextRequireGold(ref startGold, 225);
                     break;
                 case 2:
-                    Debug.Log($"{i} : {startGold}");
                     requireGold_List[i] = GetNextRequireGold(ref startGold, 150);
                     break;
                 case 3:
@@ -251,9 +280,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
     }
     private int GetNextRequireGold(ref double val, double percent)
     {
-
-        val = Math.Round(val * percent / 100, 3);
+        val = Math.Round(val * percent / 100, MidpointRounding.AwayFromZero);
         return Convert.ToInt32(val);
-
     }
 }

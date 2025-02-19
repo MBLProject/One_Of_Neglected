@@ -98,7 +98,7 @@ public class Option_Panel : Panel
         else
         {
             PanelClose();
-            //TODO : 게임 시작하도록
+            UnitManager.Instance.ResumeGame();
         }
     }
 

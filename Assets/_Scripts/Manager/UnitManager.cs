@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("?꾨━???ㅼ젙")]
+    [Header("?�리???�정")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -13,7 +13,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("?ㅽ룿 ?ㅼ젙")]
+    [Header("?�폰 ?�정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -40,7 +40,6 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
-
 
     private void Update()
     {
@@ -71,23 +70,23 @@ public class UnitManager : Singleton<UnitManager>
 
     private void SpawnUniqueMonster()
     {
-        int randomValue = UnityEngine.Random.Range(1, 101); 
+        int randomValue = UnityEngine.Random.Range(1, 101);
         MonsterType monsterType;
 
-        if (randomValue <= 40)  
+        if (randomValue <= 40)
         {
             monsterType = MonsterType.DamageUnique;
-            Debug.Log("[UnitManager] 데미지 유니크 몬스터 소환됨");
+            Debug.Log("[UnitManager] ������ ����ũ ���� ��ȯ��");
         }
-        else if (randomValue <= 80)  
+        else if (randomValue <= 80)
         {
             monsterType = MonsterType.CrowdControlUnique;
-            Debug.Log("[UnitManager] CC 유니크 몬스터 소환됨");
+            Debug.Log("[UnitManager] CC ����ũ ���� ��ȯ��");
         }
         else
         {
             monsterType = MonsterType.TankUnique;
-            Debug.Log("[UnitManager] 탱크 유니크 몬스터 소환됨");
+            Debug.Log("[UnitManager] ��ũ ����ũ ���� ��ȯ��");
         }
 
         SpawnMonsterAtRandomPosition(monsterType);
@@ -97,23 +96,23 @@ public class UnitManager : Singleton<UnitManager>
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)       
+        if (gameTime <= 180f)
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? EarlyNormal");
+            Debug.Log("[UnitManager] 몬스??????�?�? EarlyNormal");
         }
-        else if (gameTime <= 420f)   
+        else if (gameTime <= 420f)
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? MidNormal");
+            Debug.Log("[UnitManager] 몬스??????�?�? MidNormal");
         }
-        else if (gameTime <= 600f)   
+        else if (gameTime <= 600f)
         {
             currentNormalMonsterType = MonsterType.LateNormal;
         }
-        else if (gameTime >= 600f)   
+        else if (gameTime >= 600f)
         {
-            Debug.Log("[UnitManager] 蹂댁뒪 ?섏씠利??쒖옉!");
+            Debug.Log("[UnitManager] 보스 ?�이�??�작!");
             ClearAllMonsters();
 
             Vector2 spawnPosition = GetBossSpawnPosition();
@@ -131,23 +130,22 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //Enum泥섎━ ?대룄 ?좉굅媛숆릿 ??
+        //Enum처리 ?�도 ?�거같긴 ??
         if (PlayerType == 1)
         {
-            // 1. ?꾩궗
+            // 1. ?�사
             _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
         else if (PlayerType == 2)
         {
-            // 2. 沅곸닔
+            // 2. 궁수
             _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
-            // 3. 踰뺤궗
+            // 3. 법사
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
-
 
         GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
         playerObj.AddComponent<SkillDispenser>();
@@ -189,7 +187,7 @@ public class UnitManager : Singleton<UnitManager>
         if (currentPlayer == null) return Vector2.zero;
 
         float angle = Random.Range(0f, 360f);
-        float distance = spawnRadius; 
+        float distance = spawnRadius;
 
         return (Vector2)currentPlayer.transform.position + new Vector2(
             Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
@@ -216,9 +214,6 @@ public class UnitManager : Singleton<UnitManager>
 
         return monster;
     }
-
-  
-
 
     public void RemoveMonster(MonsterBase monster)
     {
@@ -275,8 +270,6 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     public int GetActiveMonsterCount() => activeMonsters.Count;
-
-
 
     public MonsterBase GetNearestMonster()
     {
@@ -369,5 +362,4 @@ public enum MonsterType
     CrowdControlUnique,
     TankUnique
 }
-
 

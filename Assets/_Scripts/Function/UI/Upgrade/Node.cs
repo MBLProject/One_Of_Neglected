@@ -30,11 +30,12 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public event Action<bool> methodAction;
     public event Action baseNodeAction;
     public Image m_Line;
+    private Image m_Icon;
     private void Awake()
     {
         m_BTN = GetComponent<Button>();
         if (bless_Panel == null) bless_Panel = GetComponentInParent<Bless_Panel>();
-        bless_Panel.nodeReset += NodeReset;
+
         m_BTN.onClick.AddListener(BTN_Clicked);
 
         if (prev_Nodes.Count == 0) m_BTN.interactable = true;
@@ -43,9 +44,17 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         colorBlock_Temp = colorBlock_Origin;
 
         SetNextNode(next_Nodes);
-
+        m_Icon = transform.GetChild(0).GetComponent<Image>();
+        m_Icon.color = Color.gray;
     }
-
+    private void OnEnable()
+    {
+        bless_Panel.nodeReset += NodeReset;
+    }
+    private void OnDisable()
+    {
+        bless_Panel.nodeReset -= NodeReset;
+    }
     private void SetNextNode(List<Node> next_Nodes)
     {
         if (next_Nodes.Count > 0)
@@ -89,9 +98,9 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         can_Revert = true;
         m_BTN.interactable = false;
 
-        colorBlock_Temp.disabledColor = colorBlock_Origin.pressedColor;
+        colorBlock_Temp.disabledColor = colorBlock_Origin.highlightedColor;
         m_BTN.colors = colorBlock_Temp;
-
+        m_Icon.color = Color.white;
         foreach (Node prevNode in prev_Nodes)
         {
             prevNode.can_Revert = false;
@@ -106,6 +115,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         m_BTN.interactable = true;
         colorBlock_Temp.disabledColor = colorBlock_Origin.disabledColor;
         m_BTN.colors = colorBlock_Temp;
+        m_Icon.color = Color.gray;
         foreach (Node prevNode in prev_Nodes)
         {
             prevNode.can_Revert = true;
@@ -144,6 +154,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         clicked = false;
         can_Revert = false;
         m_BTN.colors = colorBlock_Origin;
+        m_Icon.color = Color.gray;
         if (prev_Nodes.Count > 0) m_BTN.interactable = false;
         else m_BTN.interactable = true;
 

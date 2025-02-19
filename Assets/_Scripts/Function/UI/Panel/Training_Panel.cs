@@ -45,15 +45,16 @@ public class Training_Panel : Panel, IPointerExitHandler
     private void Start()
     {
         ByCellCategory();
-        foreach (TrainingCell cell in trainingCells_List)
-        {
-            cell.baseCellAction += UI_Manager.Instance.upgrade_Panel.DisplayGold;
-        }
+
     }
 
     private void OnEnable()
     {
         Cell_Initialize(ref trainingCells_List);
+        foreach (TrainingCell cell in trainingCells_List)
+        {
+            cell.baseCellAction += UI_Manager.Instance.upgrade_Panel.DisplayGold;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class TimeManager : Singleton<TimeManager>
 {
     [Header("시간 설정")]
-    private float gameTime = 0f;
+    public float gameTime = 0f;
     public float GameTime => gameTime;
 
     [Header("디버그 설정")]
@@ -19,12 +19,10 @@ public class TimeManager : Singleton<TimeManager>
     private float lastOneMinThirtyEvent = -90f;  // 1분 30초 이벤트
     private float lastOneMinFiftyEvent = -110f;  // 1분 50초 이벤트
 
-
-    public event Action OnThirtySecondsPassed;  
+    public event Action OnThirtySecondsPassed;
     public event Action OnMinutePassed;
-    public event Action OnOneMinThirtySecondsPassed;  
-    public event Action OnOneMinFiftySecondsPassed;   
-
+    public event Action OnOneMinThirtySecondsPassed;
+    public event Action OnOneMinFiftySecondsPassed;
 
     private void Update()
     {
@@ -83,7 +81,6 @@ public class TimeManager : Singleton<TimeManager>
             OnOneMinFiftySecondsPassed?.Invoke();
         }
     }
-
 
     public string GetFormattedTime()
     {
