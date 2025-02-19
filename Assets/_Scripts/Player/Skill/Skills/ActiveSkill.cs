@@ -4,7 +4,6 @@ using System;
 
 public class ActiveSkill : Skill
 {
-    protected bool isSkillActive = false;
 
     public ActiveSkill(Enums.SkillName skillName, float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f) 
         : base(skillName, defaultCooldown, pierceDelay, shotDelay)
