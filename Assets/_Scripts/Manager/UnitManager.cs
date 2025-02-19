@@ -52,6 +52,40 @@ public class UnitManager : Singleton<UnitManager>
 
             nextSpawnTime = Time.time + spawnInterval;
         }
+        // 테스트용 키 입력
+        if (Input.GetKeyDown(KeyCode.U))  // U키: 유니크 몬스터 소환 테스트
+        {
+            Debug.Log("유니크 몬스터 소환 테스트 시작");
+            SpawnUniqueMonster();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))  // T키: 탱크 유니크 몬스터 진형 테스트
+        {
+            Debug.Log("탱크 유니크 몬스터 진형 테스트 시작");
+            SpawnTankUniquesInFormation();
+        }
+
+        // 진형별 직접 테스트
+        if (Input.GetKeyDown(KeyCode.Alpha1))  // 1키: 세로 진형
+        {
+            Vector2 spawnCenter = GetRandomSpawnPosition();
+            Debug.Log("탱크 유니크 몬스터 세로 진형 테스트");
+            SpawnVerticalFormation(spawnCenter);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))  // 2키: 가로 진형
+        {
+            Vector2 spawnCenter = GetRandomSpawnPosition();
+            Debug.Log("탱크 유니크 몬스터 가로 진형 테스트");
+            SpawnHorizontalFormation(spawnCenter);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))  // 3키: 원형 진형
+        {
+            Vector2 spawnCenter = GetRandomSpawnPosition();
+            Debug.Log("탱크 유니크 몬스터 원형 진형 테스트");
+            SpawnCircularFormation(spawnCenter);
+        }
     }
 
     private void OnEnable()
@@ -76,22 +110,78 @@ public class UnitManager : Singleton<UnitManager>
         if (randomValue <= 40)
         {
             monsterType = MonsterType.DamageUnique;
+            SpawnMonsterAtRandomPosition(monsterType);
             Debug.Log("[UnitManager] ������ ����ũ ���� ��ȯ��");
         }
         else if (randomValue <= 80)
         {
             monsterType = MonsterType.CrowdControlUnique;
+            SpawnMonsterAtRandomPosition(monsterType);
             Debug.Log("[UnitManager] CC ����ũ ���� ��ȯ��");
         }
         else
         {
-            monsterType = MonsterType.TankUnique;
-            Debug.Log("[UnitManager] ��ũ ����ũ ���� ��ȯ��");
-        }
+            SpawnTankUniquesInFormation();
+        }   
+    }
+    private void SpawnTankUniquesInFormation()
+    {
+        if (currentPlayer == null) return;
 
-        SpawnMonsterAtRandomPosition(monsterType);
+        int formationRoll = UnityEngine.Random.Range(1, 101);
+        Vector2 spawnCenter = GetRandomSpawnPosition(); // 플레이어로부터 일정 거리 떨어진 위치
+
+        if (formationRoll <= 40)  // 40% 확률로 세로 진형
+        {
+            SpawnVerticalFormation(spawnCenter);
+            Debug.Log("탱크 유니크 몬스터 세로 진형 소환");
+        }
+        else if (formationRoll <= 80)  // 40% 확률로 가로 진형
+        {
+            SpawnHorizontalFormation(spawnCenter);
+            Debug.Log("탱크 유니크 몬스터 가로 진형 소환");
+        }
+        else  // 20% 확률로 원형 진형
+        {
+            SpawnCircularFormation(spawnCenter);
+            Debug.Log("탱크 유니크 몬스터 원형 진형 소환");
+        }
+    }
+    private void SpawnVerticalFormation(Vector2 center)
+    {
+        float spacing = 1f; // 몬스터 간 간격
+        for (int i = 0; i < 8; i++)
+        {
+            float offset = (i - 3.5f) * spacing; // 중앙 정렬을 위해 3.5f 사용
+            Vector2 spawnPos = center + new Vector2(0, offset);
+            SpawnMonster(MonsterType.TankUnique, spawnPos);
+        }
     }
 
+    private void SpawnHorizontalFormation(Vector2 center)
+    {
+        float spacing = 1f; // 몬스터 간 간격
+        for (int i = 0; i < 8; i++)
+        {
+            float offset = (i - 3.5f) * spacing; // 중앙 정렬을 위해 3.5f 사용
+            Vector2 spawnPos = center + new Vector2(offset, 0);
+            SpawnMonster(MonsterType.TankUnique, spawnPos);
+        }
+    }
+
+    private void SpawnCircularFormation(Vector2 center)
+    {
+        float radius = 3f; // 원형 진형의 반지름
+        for (int i = 0; i < 8; i++)
+        {
+            float angle = i * (360f / 8);
+            Vector2 spawnPos = center + new Vector2(
+                Mathf.Cos(angle * Mathf.Deg2Rad) * radius,
+                Mathf.Sin(angle * Mathf.Deg2Rad) * radius
+            );
+            SpawnMonster(MonsterType.TankUnique, spawnPos);
+        }
+    }
     private void SpawnStrongMonsters()
     {
         float gameTime = TimeManager.Instance.GameTime;
