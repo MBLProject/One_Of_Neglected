@@ -14,7 +14,7 @@ public class SkillDispenser : MonoBehaviour
         Count = skills.Count;
 
         if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.Gateway, 1f);
+            RegisterSkill(Enums.SkillName.PoisonShoes, 0.5f);
     }
 
     public void RegisterSkill(Enums.SkillName skillName, float defaultCooldown)

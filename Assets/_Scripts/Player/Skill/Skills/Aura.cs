@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class Aura : Skill
+public class Aura : ActiveSkill
 {
     private bool hasSpawned = false;
 

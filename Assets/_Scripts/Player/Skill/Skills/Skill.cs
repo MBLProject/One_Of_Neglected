@@ -30,7 +30,15 @@ public class Skill
         this.shotDelay = shotDelay;
     }
 
-    public void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public virtual void StartMainTask()
+    {
+    }
+
+    public virtual void StopMainTask()
+    {
+    }
+
+    public virtual void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
     {
         this.damage = damage;
         this.level = level;
@@ -39,47 +47,5 @@ public class Skill
         this.projectileCount = projectileCount;
         this.projectileDelay = projectileDelay;
         this.shotDelay = shotDelay;
-    }
-
-    public virtual async void StartMainTask()
-    {
-        await StartSkill();
-    }
-
-    public virtual void StopMainTask()
-    {
-        isSkillActive = false;
-    }
-
-    protected virtual async UniTask StartSkill()
-    {
-        isSkillActive = true;
-
-        while (isSkillActive)
-        {
-            if (!GameManager.Instance.isPaused)
-            {
-                Fire(); // ????怨뺣Ъ ?癲ル슢????
-                //break;
-                await UniTask.Delay(TimeSpan.FromSeconds(defaultCooldown));
-
-            }
-            else
-            {
-                await UniTask.Yield();
-            }
-        }
-    }
-
-    protected virtual void Fire()
-    {
-        ProjectileManager.Instance.SpawnProjectile(skillName, damage, level, shotCount, projectileCount, projectileDelay, shotDelay, pierceCount);
-    }
-
-
-    public static async UniTask DelayFloat(float delayInSeconds)
-    {
-        int delayInMilliseconds = (int)(delayInSeconds * 1000);
-        await UniTask.Delay(delayInMilliseconds);
     }
 }

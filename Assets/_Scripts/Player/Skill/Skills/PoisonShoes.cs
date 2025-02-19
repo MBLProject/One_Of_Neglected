@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using System;
 
-public class PoisonShoes : Skill
+public class PoisonShoes : ActiveSkill
 {
     public PoisonShoes(float defaultCooldown) : base(Enums.SkillName.PoisonShoes, defaultCooldown) { }
 

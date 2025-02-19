@@ -34,6 +34,7 @@ public static class SkillFactory
             //case SkillName.Magnet: return new Magnet(defaultCooldown);
             //case SkillName.Crown: return new Crown(defaultCooldown);
             //case SkillName.Meat: return new Meat(defaultCooldown);
+            case SkillName.Cheese: return new Cheese(defaultCooldown);
             default:
                 Debug.LogWarning($"Unknown SkillName: {skillName}");
                 return null;
@@ -70,6 +71,9 @@ public static class SkillFactory
             case SkillName.Magnet:
             case SkillName.Crown:
             case SkillName.Meat:
+                return false;
+
+            case SkillName.Cheese:
                 return false;
 
             default:
