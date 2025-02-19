@@ -21,6 +21,11 @@ public class InGameUI_Panel : Panel
     [SerializeField] private TextMeshProUGUI display_Time_TMP;
     [SerializeField] private TextMeshProUGUI display_Level_TMP;
 
+    private void Awake()
+    {
+        buttons[0].onClick.AddListener(Auto_BTN);
+    }
+
     private void Start()
     {
         if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
@@ -75,5 +80,10 @@ public class InGameUI_Panel : Panel
         min = (int)TimeManager.Instance.gameTime / 60;
         sec = (int)TimeManager.Instance.gameTime % 60;
         display_Time_TMP.text = "Time : " + min.ToString("00") + " : " + sec.ToString("00");
+    }
+
+    private void Auto_BTN()
+    {
+        UnitManager.Instance.GetPlayer().isAuto = !UnitManager.Instance.GetPlayer().isAuto;
     }
 }
