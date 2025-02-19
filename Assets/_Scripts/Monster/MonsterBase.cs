@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -251,4 +251,15 @@ public abstract class MonsterBase : MonoBehaviour
     {
         Debug.Log("경험치 드롭");
     }
-}  
+
+    public virtual void ApplyKnockback(Vector2 hitPoint, float knockbackForce)
+    {
+        if (rb != null)
+        {
+            Vector2 knockbackDirection = (transform.position - (Vector3)hitPoint).normalized;
+
+            rb.AddForce(knockbackDirection * Mathf.Clamp(knockbackForce, 1f, 5f), ForceMode2D.Impulse);
+        }
+    }
+
+}

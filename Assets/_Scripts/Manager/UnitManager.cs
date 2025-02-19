@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("?꾨━???ㅼ젙")]
+    [Header("?袁ⓥ봺????쇱젟")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -13,7 +13,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("?ㅽ룿 ?ㅼ젙")]
+    [Header("??쎈？ ??쇱젟")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -84,15 +84,15 @@ public class UnitManager : Singleton<UnitManager>
     //    float gameTime = TimeManager.Instance.GameTime;
     //    MonsterType monsterType;
 
-    //    if (gameTime <= 180f)        // 0~3遺?
+    //    if (gameTime <= 180f)        // 0~3??
     //    {
     //        monsterType = MonsterType.DamageUnique;
     //    }
-    //    else if (gameTime <= 420f)   // 3~7遺?
+    //    else if (gameTime <= 420f)   // 3~7??
     //    {
     //        monsterType = MonsterType.CrowdControlUnique;
     //    }
-    //    else                         // 7遺??댄썑
+    //    else                         // 7????꾩뜎
     //    {
     //        monsterType = MonsterType.TankUnique;
     //    }
@@ -104,23 +104,23 @@ public class UnitManager : Singleton<UnitManager>
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)        // 0~3遺?
+        if (gameTime <= 180f)        // 0~3??
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? EarlyNormal");
+            Debug.Log("[UnitManager] 筌뤣딅뮞??????癰궰野? EarlyNormal");
         }
-        else if (gameTime <= 420f)   // 3~7遺?
+        else if (gameTime <= 420f)   // 3~7??
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? MidNormal");
+            Debug.Log("[UnitManager] 筌뤣딅뮞??????癰궰野? MidNormal");
         }
-        else if (gameTime <= 600f)   // 7~10遺?
+        else if (gameTime <= 600f)   // 7~10??
         {
             currentNormalMonsterType = MonsterType.LateNormal;
         }
-        else if (gameTime >= 600f)   // 10遺??댁긽
+        else if (gameTime >= 600f)   // 10????곴맒
         {
-            Debug.Log("[UnitManager] 蹂댁뒪 ?섏씠利??쒖옉!");
+            Debug.Log("[UnitManager] 癰귣똻????륁뵠筌???뽰삂!");
             ClearAllMonsters();
 
             Vector2 spawnPosition = GetBossSpawnPosition();
@@ -138,20 +138,20 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //Enum泥섎━ ?대룄 ?좉굅媛숆릿 ??
+        //Enum筌ｌ꼶????猷??醫됯탢揶쏆늽由???
         if (PlayerType == 1)
         {
-            // 1. ?꾩궗
+            // 1. ?袁⑷텢
             _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
         else if (PlayerType == 2)
         {
-            // 2. 沅곸닔
+            // 2. 亦낃낯??
             _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
-            // 3. 踰뺤궗
+            // 3. 甕곕벡沅?
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
 
@@ -189,7 +189,7 @@ public class UnitManager : Singleton<UnitManager>
         if (currentPlayer == null) return Vector2.zero;
 
         float angle = Random.Range(0f, 360f);
-        float distance = spawnRadius;  // 理쒕? 嫄곕━???뚰솚
+        float distance = spawnRadius;  // 筌ㅼ뮆? 椰꾧퀡?????곗넎
 
         return (Vector2)currentPlayer.transform.position + new Vector2(
             Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
@@ -327,7 +327,7 @@ public class UnitManager : Singleton<UnitManager>
             }
         }
 
-        // 嫄곕━?쒖쑝濡??뺣젹
+        // 椰꾧퀡???뽰몵嚥??類ｌ졊
         positions.Sort((a, b) =>
         {
             float distanceA = Vector2.Distance(currentPlayer.transform.position, a);

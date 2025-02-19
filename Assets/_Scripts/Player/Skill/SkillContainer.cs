@@ -4,10 +4,10 @@ using static Enums;
 
 public class SkillContainer : MonoBehaviour
 {
-    // 보유한 스킬 목록
+    // 蹂댁쑀???ㅽ궗 紐⑸줉
     private List<SkillName> ownedSkills = new List<SkillName>();
 
-    // 레벨업 시 선택 가능한 스킬 목록
+    // ?덈꺼?????좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉
     private List<SkillName> selectableSkills = new List<SkillName>();
 
     private int maxActiveSkills = 3;
@@ -15,7 +15,7 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSkill(SkillName skillName)
     {
-        // 보유한 스킬 목록에 추가
+        // 蹂댁쑀???ㅽ궗 紐⑸줉??異붽?
         if (!ownedSkills.Contains(skillName))
         {
             ownedSkills.Add(skillName);
@@ -33,7 +33,7 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSelectableSkill(SkillName skillName)
     {
-        // 선택 가능한 스킬 목록에 추가
+        // ?좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉??異붽?
         if (!selectableSkills.Contains(skillName))
         {
             selectableSkills.Add(skillName);
@@ -42,13 +42,13 @@ public class SkillContainer : MonoBehaviour
 
     public List<SkillName> GetAvailableSkills()
     {
-        // 레벨업 시 선택 가능한 스킬 목록 반환
+        // ?덈꺼?????좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉 諛섑솚
         return new List<SkillName>(selectableSkills);
     }
 
     public SkillName GetSkill(SkillName skillName)
     {
-        // 보유한 스킬 목록에서 해당 SkillName을 반환
+        // 蹂댁쑀???ㅽ궗 紐⑸줉?먯꽌 ?대떦 SkillName??諛섑솚
         if (ownedSkills.Contains(skillName))
         {
             return skillName;

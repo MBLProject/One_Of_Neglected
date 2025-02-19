@@ -14,14 +14,14 @@ public class SkillDispenser : MonoBehaviour
         Count = skills.Count;
 
         if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.Aura, 1f);
+            RegisterSkill(Enums.SkillName.Gateway, 1f);
     }
 
     public void RegisterSkill(Enums.SkillName skillName, float defaultCooldown)
     {
         if (skills.ContainsKey(skillName))
         {
-            skills[skillName].InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f); // 스킬 초기화
+            skills[skillName].InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f);
             return;
         }
 
@@ -33,10 +33,15 @@ public class SkillDispenser : MonoBehaviour
         }
     }
 
-
     public void UnRegisterSkill(Enums.SkillName skillName)
     {
-
+        if (skills.ContainsKey(skillName))
+        {
+            skills[skillName].StopMainTask();
+            skills.Remove(skillName);
+        }
+        else
+            print($"{skillName} is NOT Registered Skill!!");
     }
 
     public void UpdateSkill(Enums.SkillName skillName)

@@ -46,6 +46,11 @@ public class Skill
         await StartSkill();
     }
 
+    public virtual void StopMainTask()
+    {
+        isSkillActive = false;
+    }
+
     protected virtual async UniTask StartSkill()
     {
         isSkillActive = true;
@@ -54,7 +59,7 @@ public class Skill
         {
             if (!GameManager.Instance.isPaused)
             {
-                Fire(); // ????곕물 ?嶺뚮ㅎ???
+                Fire(); // ????怨뺣Ъ ?癲ル슢????
                 //break;
                 await UniTask.Delay(TimeSpan.FromSeconds(defaultCooldown));
 
