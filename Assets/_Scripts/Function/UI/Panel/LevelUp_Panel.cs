@@ -33,7 +33,6 @@ public class LevelUp_Panel : Panel
     [SerializeField] private List<Selection> current_Selections;
     [SerializeField] private List<Augment_Info> augment_Infos;
     [SerializeField] private List<Skill_Info> skill_Infos;
-    [SerializeField] private RectTransform banish_Panel;
     [SerializeField] private TextMeshProUGUI reroll_Counter_TMP;
     [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
@@ -46,7 +45,6 @@ public class LevelUp_Panel : Panel
         }
         buttons[0].onClick.AddListener(Reroll_BTN);
         buttons[1].onClick.AddListener(Banish_BTN);
-        buttons[2].onClick.AddListener(Return_BTN);
 
         reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
         banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
@@ -69,30 +67,11 @@ public class LevelUp_Panel : Panel
         }
     }
 
-    private void Return_BTN()
-    {
-        banish_Panel.gameObject.SetActive(false);
-        buttons[0].interactable = true;
-        buttons[1].interactable = true;
-    }
-
     private void Banish_BTN()
     {
         Debug.Log("배니쉬");
-        foreach (Selection augment in current_Selections)
-        {
-            augment.m_BTN.interactable = false;
-        }
-        buttons[0].interactable = false;
-        buttons[1].interactable = false;
-
-        banish_Panel.gameObject.SetActive(true);
-        if (DataManager.Instance.BTS.Banish > 0)
-        {
-
-            DataManager.Instance.BTS.Banish--;
-            banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
-        }
+        SelectionOnOff(false);
+        UI_Manager.Instance.panel_Dic["Banish_Panel"].PanelOpen();
     }
 
     private void Reroll_BTN()
@@ -126,6 +105,16 @@ public class LevelUp_Panel : Panel
     private void FindAugmentInfo()
     {
 
+    }
+
+    public void SelectionOnOff(bool On)
+    {
+        foreach (Selection selection in current_Selections)
+        {
+            selection.m_BTN.interactable = On;
+        }
+        buttons[0].interactable = On;
+        buttons[0].interactable = On;
     }
 
 }

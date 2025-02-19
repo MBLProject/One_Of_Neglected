@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class InGameUI_Panel : Panel
 {
     public SkillSelector skillSelector;
-    [SerializeField] private SkillContainer skillContainer;
+    public SkillContainer skillContainer;
     private bool isOptionActive;
     private int mainSkill_Num;
     private int subSkill_Num;

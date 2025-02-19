@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActiveAugment : MonoBehaviour
+public class PassiveSkills : MonoBehaviour
 {
     public Button m_BTN;
-
 }
