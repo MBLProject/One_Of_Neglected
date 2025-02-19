@@ -28,7 +28,7 @@ public class Selection : MonoBehaviour
     private void Select_BTN()
     {
         Debug.Log(m_skillName);
-        levelUp_Panel.skillSelector.ChooseSkill(m_skillName);
+        inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
         inGameUI_Panel.SetSkill_Icon(m_skillName);
         levelUp_Panel.PanelClose();
     }

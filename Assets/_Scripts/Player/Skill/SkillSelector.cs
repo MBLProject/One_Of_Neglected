@@ -67,7 +67,7 @@ public class SkillSelector : MonoBehaviour
     public void ChooseSkill(Enums.SkillName chosenAbility)
     {
         Enums.SkillName skillName = skillContainer.GetSkill(chosenAbility);
-        if (skillName != default)
+        if (skillName != Enums.SkillName.None)
         {
             Skill skill = SkillFactory.CreateSkill(skillName, 2f); // SkillName으로 Skill 객체 생성
             skill.InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f); // 예시로 초기화

@@ -6,13 +6,22 @@ using UnityEngine.UI;
 
 public class InGameUI_Panel : Panel
 {
-
+    public SkillSelector skillSelector;
+    [SerializeField] private SkillContainer skillContainer;
+    [SerializeField] private SkillDispenser skillDispenser;
     private bool isOptionActive;
     private int mainSkill_Num;
     private int subSkill_Num;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
     [SerializeField] private List<Image> mainSkills_List;
     [SerializeField] public List<Image> subSkills_List;
+
+    private void Awake()
+    {
+        if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
+        skillSelector.Initialize(skillContainer, skillDispenser);
+
+    }
 
     private void Update()
     {

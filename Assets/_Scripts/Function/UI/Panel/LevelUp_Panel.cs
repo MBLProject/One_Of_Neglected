@@ -29,9 +29,7 @@ public struct Skill_Info
 
 public class LevelUp_Panel : Panel
 {
-    public SkillSelector skillSelector;
-    [SerializeField] private SkillContainer skillContainer;
-    [SerializeField] private SkillDispenser skillDispenser;
+    [SerializeField] InGameUI_Panel inGameUI_Panel;
     [SerializeField] private List<Selection> current_Selections;
     [SerializeField] private List<Augment_Info> augment_Infos;
     [SerializeField] private List<Skill_Info> skill_Infos;
@@ -41,7 +39,6 @@ public class LevelUp_Panel : Panel
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
     private void Awake()
     {
-        if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
         Debug.Log(skill_Info_Dic.Count);
         foreach (Skill_Info skill_Info in skill_Infos)
         {
@@ -50,7 +47,6 @@ public class LevelUp_Panel : Panel
         buttons[0].onClick.AddListener(Reroll_BTN);
         buttons[1].onClick.AddListener(Banish_BTN);
         buttons[2].onClick.AddListener(Return_BTN);
-        skillSelector.Initialize(skillContainer, skillDispenser);
 
         reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
         banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
@@ -112,7 +108,7 @@ public class LevelUp_Panel : Panel
 
     private void ChangeSelections()
     {
-        List<Enums.SkillName> popSkill_List = skillSelector.SelectSkills();
+        List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
         {
