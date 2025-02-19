@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -16,6 +16,7 @@ public abstract class MonsterBase : MonoBehaviour
     [Header("스탯 증가량 설정")]
     [SerializeField] protected float damageIncreasePerInterval;  // 30초마다 증가할 공격력
     [SerializeField] protected float healthIncreasePerInterval;  // 30초마다 증가할 체력
+    [SerializeField] protected float defenseIncreasePerInterval; // 증가할 방어력 (유니크 몬스터용)
     [SerializeField] protected float statUpdateInterval = 30f;   // 스탯 업데이트 간격
 
     private bool isDying = false;
@@ -39,13 +40,20 @@ public abstract class MonsterBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         var timeManager = TimeManager.Instance;
-        if (this is RangedNormalMonster)
+        if (timeManager != null)
         {
-            timeManager.OnOneMinThirtySecondsPassed += UpdateMonsterStats;
-        }
-        else
-        {
-            timeManager.OnThirtySecondsPassed += UpdateMonsterStats;
+            if (this is RangedNormalMonster)
+            {
+                timeManager.OnOneMinThirtySecondsPassed += UpdateMonsterStats;
+            }
+            else if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster || this is TankUniqueMonster)
+            {
+                timeManager.OnOneMinFiftySecondsPassed += UpdateMonsterStats;
+            }
+            else
+            {
+                timeManager.OnThirtySecondsPassed += UpdateMonsterStats;
+            }
         }
     }
 
@@ -58,6 +66,10 @@ public abstract class MonsterBase : MonoBehaviour
             if (this is RangedNormalMonster)
             {
                 timeManager.OnOneMinThirtySecondsPassed -= UpdateMonsterStats;
+            }
+            else if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster || this is TankUniqueMonster)
+            {
+                timeManager.OnOneMinFiftySecondsPassed -= UpdateMonsterStats;
             }
             else
             {
@@ -116,10 +128,16 @@ public abstract class MonsterBase : MonoBehaviour
             int intervals = Mathf.FloorToInt(currentTime / 90f);
             UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval);
         }
+        // Unique 몬스터들 (1분 50초 = 110초)
+        else if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster || this is TankUniqueMonster)
+        {
+            int intervals = Mathf.FloorToInt(currentTime / 110f);
+            UpdateStats(intervals, damageIncreasePerInterval, healthIncreasePerInterval, defenseIncreasePerInterval);
+        }
     }
 
     // 실제 스탯 업데이트를 처리하는 헬퍼 메서드
-    private void UpdateStats(int intervals, float dmgIncrease, float hpIncrease)
+    private void UpdateStats(int intervals, float dmgIncrease, float hpIncrease, float defIncrease = 0f)
     {
         // Late 몬스터의 경우 공격력 20 제한
         if (this is LateNormalMonster || this is RangedNormalMonster)
@@ -129,6 +147,11 @@ public abstract class MonsterBase : MonoBehaviour
         else
         {
             stats.attackDamage += (intervals * dmgIncrease);
+        }
+        // 유니크 몬스터인 경우에만 방어력 증가
+        if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster || this is TankUniqueMonster)
+        {
+            stats.defense += (intervals * defIncrease);
         }
 
         float newMaxHealth = stats.maxHealth + (intervals * hpIncrease);
@@ -251,4 +274,15 @@ public abstract class MonsterBase : MonoBehaviour
     {
         Debug.Log("경험치 드롭");
     }
-}  
+
+    public virtual void ApplyKnockback(Vector2 hitPoint, float knockbackForce)
+    {
+        if (rb != null)
+        {
+            Vector2 knockbackDirection = (transform.position - (Vector3)hitPoint).normalized;
+
+            rb.AddForce(knockbackDirection * Mathf.Clamp(knockbackForce, 1f, 5f), ForceMode2D.Impulse);
+        }
+    }
+
+}

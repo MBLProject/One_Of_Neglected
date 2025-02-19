@@ -5,5 +5,4 @@ using UnityEngine;
 public class Javelin : Skill
 {
     public Javelin(float defaultCooldown) : base(Enums.SkillName.Javelin, defaultCooldown) { }
-
 }

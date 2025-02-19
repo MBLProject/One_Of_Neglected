@@ -34,14 +34,14 @@ public class ShurikenProjectile : Projectile
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Monster"))
+        if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
             if (pierceCount > 0)
             {
-                print($"pierececount : {pierceCount}");
                 Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position, maxDistance);
                 Collider2D closestMonster = null;
                 float closestDistance = float.MaxValue;
+
                 foreach (var col in monsters)
                 {
                     if (col.CompareTag("Monster") && col != collision)
@@ -64,7 +64,6 @@ public class ShurikenProjectile : Projectile
             }
             else
             {
-                print($"pierececount : {pierceCount}");
                 DestroyProjectile();
             }
         }

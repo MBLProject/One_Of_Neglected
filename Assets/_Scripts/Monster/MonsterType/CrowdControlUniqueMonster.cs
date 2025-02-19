@@ -7,14 +7,14 @@ public class CrowdControlUniqueMonster : NormalMonster
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
-            health: 160f,
-            speed: 1f,
+            health: 500f,
+            speed: 1.2f,
             damage: 15f,
-            range: 3f,
-            cooldown: 1.5f,
-            defense: 5f,
-            regen: 5f,
-            regenDelay: 3f
+            range: 0.5f,
+            cooldown: 1f,
+            defense: 1f,
+            regen: 3f,
+            regenDelay: 1f
         );
     }
     protected override void Update()

@@ -186,3 +186,7 @@ MonoBehaviour:
   rb: {fileID: 4305074594005286965}
   animator: {fileID: 4724092038599362434}
   dieAnimationLength: 1
+  damageIncreasePerInterval: 5
+  healthIncreasePerInterval: 100
+  defenseIncreasePerInterval: 1
+  statUpdateInterval: 30

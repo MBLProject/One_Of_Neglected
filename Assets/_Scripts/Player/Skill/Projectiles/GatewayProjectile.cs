@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System;
+using System.Linq;
 
-public class NeedleProjectile : Projectile
+public class GatewayProjectile : Projectile
 {
+    private float knockbackForce;
 
     protected override void Start()
     {
@@ -13,14 +17,14 @@ public class NeedleProjectile : Projectile
         transform.position = targetPosition;
         cts = new CancellationTokenSource();
         DespawnNeedleAtPosition().Forget();
-        Invoke("DestroyProjectile", 0.25f);
+        knockbackForce = 2.5f;
     }
 
     private async UniTaskVoid DespawnNeedleAtPosition()
     {
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(0.25f));
+            await UniTask.Delay(TimeSpan.FromSeconds(3f));
             if (isMoving)
             {
                 DestroyProjectile();
@@ -33,10 +37,25 @@ public class NeedleProjectile : Projectile
         }
     }
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<MonsterBase>(out var monster))
+        {
+            monster.TakeDamage(damage);
+
+            monster.ApplyKnockback(transform.position, knockbackForce);
+        }
+        if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
+        {
+            monsterProjectile.Invoke("DestroyProjectile", 0f);
+        }
+    }
+
+
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
-        this.startPosition = startPos;
-        this.targetPosition = targetPos;
+        startPosition = startPos;
+        targetPosition = targetPos;
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;
@@ -44,9 +63,6 @@ public class NeedleProjectile : Projectile
         lifeTime = lifetime;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", 0.25f);
-
-        direction = (targetPosition - startPos).normalized;
+        Invoke("DestroyProjectile", lifeTime);
     }
-
 }
