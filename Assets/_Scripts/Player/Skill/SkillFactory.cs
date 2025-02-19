@@ -15,11 +15,11 @@ public static class SkillFactory
             case SkillName.Aura: return new Aura(defaultCooldown);
             //case SkillName.Cape: return new Cape(defaultCooldown);
             case SkillName.Shuriken: return new Shuriken(defaultCooldown);
-            //case SkillName.Gateway: return new Gateway(defaultCooldown);
+            case SkillName.Gateway: return new Gateway(defaultCooldown);
             case SkillName.Fireball: return new Fireball(defaultCooldown);
             //case SkillName.Ifrit: return new Ifrit(defaultCooldown);
             //case SkillName.Flow: return new Flow(defaultCooldown);
-            case SkillName.PoisonShoes:return new PoisonShoes(defaultCooldown);
+            case SkillName.PoisonShoes: return new PoisonShoes(defaultCooldown);
             //case SkillName.GravityField: return new GravityField(defaultCooldown);
             //case SkillName.Mine: return new Mine(defaultCooldown);
             //case SkillName.Blood: return new Blood(defaultCooldown);

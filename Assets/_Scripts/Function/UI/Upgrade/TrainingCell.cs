@@ -38,7 +38,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
     private void Start()
     {
         training_Panel.cellReset += CellReset;
-
+        RequireGoldCalc(Convert.ToDouble(requireGold_List[0]));
     }
 
     public void CellReset()
@@ -215,4 +215,45 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         }
     }
 
+    private void RequireGoldCalc(double startGold)
+    {
+        for (int i = 0; i < requireGold_List.Count; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    Debug.Log($"시작골드 : {requireGold_List[i]}");
+                    break;
+                case 1:
+                    requireGold_List[i] = GetNextRequireGold(ref startGold, 225);
+                    break;
+                case 2:
+                    Debug.Log($"{i} : {startGold}");
+                    requireGold_List[i] = GetNextRequireGold(ref startGold, 150);
+                    break;
+                case 3:
+                    requireGold_List[i] = GetNextRequireGold(ref startGold, 125);
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    requireGold_List[i] = GetNextRequireGold(ref startGold, 115);
+                    break;
+                default:
+                    if (isDisplayLv == false) requireGold_List[i] = GetNextRequireGold(ref startGold, 105);
+                    else requireGold_List[i] = 2000;
+                    break;
+            }
+        }
+    }
+    private int GetNextRequireGold(ref double val, double percent)
+    {
+
+        val = Math.Round(val * percent / 100, 3);
+        return Convert.ToInt32(val);
+
+    }
 }

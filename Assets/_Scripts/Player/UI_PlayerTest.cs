@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static Enums;
 
 public class UI_PlayerTest : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UI_PlayerTest : MonoBehaviour
     public Button levelupTest;
     public Button damageTest;
     public Button autoTest;
+    public Button selectAug;
+    public Button upgradeAug;
 
     public Slider expSlider;
 
@@ -21,8 +24,14 @@ public class UI_PlayerTest : MonoBehaviour
         levelupTest.onClick.AddListener(OnLevelupTest);
         damageTest.onClick.AddListener(OnDamageTest);
         autoTest.onClick.AddListener(OnAutoTest);
+        selectAug.onClick.AddListener(OnSelectAug);
     }
 
+    private void OnSelectAug()
+    {
+        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.TwoHandSword);
+        Debug.Log("특성 선택 완료!!1");
+    }
 
     private void Update()
     {
@@ -42,7 +51,7 @@ public class UI_PlayerTest : MonoBehaviour
     {
         if (player.Stats != null)
         {
-            player.Stats.currentExp += player.Stats.CurrentMaxExp;
+            player.LevelUp();
         }
     }
 

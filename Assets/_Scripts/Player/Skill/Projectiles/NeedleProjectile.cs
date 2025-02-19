@@ -6,15 +6,14 @@ using System;
 
 public class NeedleProjectile : Projectile
 {
-    private Collider2D projectileCollider;
 
     protected override void Start()
     {
         isMoving = true;
         transform.position = targetPosition;
-        projectileCollider = GetComponent<Collider2D>();
         cts = new CancellationTokenSource();
         DespawnNeedleAtPosition().Forget();
+        Invoke("DestroyProjectile", 0.25f);
     }
 
     private async UniTaskVoid DespawnNeedleAtPosition()
@@ -34,11 +33,6 @@ public class NeedleProjectile : Projectile
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         this.startPosition = startPos;
@@ -50,7 +44,7 @@ public class NeedleProjectile : Projectile
         lifeTime = lifetime;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", lifeTime);
+        Invoke("DestroyProjectile", 0.25f);
 
         direction = (targetPosition - startPos).normalized;
     }

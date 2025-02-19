@@ -10,7 +10,7 @@ using System.Linq;
 public class AuraProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
-    private float damagePerFrame = 0.5f; // 1珥덈떦 媛???꾨젅???곕?吏??珥앸웾
+    private float damagePerFrame = 0.5f; // 1?λ뜄??揶쎛???袁⑥쟿???怨?筌왖???μ빖??
 
 
     protected override void Start()
@@ -24,8 +24,8 @@ public class AuraProjectile : Projectile
 
     private void CalculateDamagePerFrame()
     {
-        // damage瑜?1珥??숈븞 二쇰뒗 珥??곕?吏濡??ㅼ젙?섍퀬 deltaTime??怨좊젮
-        damagePerFrame = damage * Time.deltaTime;  // Time.deltaTime??怨깊빐二쇱뼱 ?꾨젅?꾨쭏???곸슜?섎뒗 ?곕?吏瑜?鍮꾨??곸쑝濡?議곗젙
+        // damage??1????덈툧 雅뚯눖?????怨?筌왖嚥???쇱젟??랁?deltaTime???⑥쥓??
+        damagePerFrame = damage * Time.deltaTime;  // Time.deltaTime???④퉲鍮먧틠?깅선 ?袁⑥쟿?袁⑥춳???怨몄뒠??롫뮉 ?怨?筌왖????쑬??怨몄몵嚥?鈺곌퀣??
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
@@ -74,7 +74,7 @@ public class AuraProjectile : Projectile
     {
         if (!GameManager.Instance.isPaused)
         {
-            // FixedUpdate에서 데미지 처리
+            // FixedUpdate?먯꽌 ?곕?吏 泥섎━
             foreach (var monster in monstersInRange.ToList())
             {
                 monster.TakeDamage(damagePerFrame);

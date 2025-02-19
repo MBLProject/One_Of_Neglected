@@ -4,10 +4,8 @@ public class Enums
     {
         None,
         Warrior,
-        Log,
         Archer,
         Magician,
-        Trapper,
     }
 
     public enum SkillName
@@ -40,6 +38,23 @@ public class Enums
         Meat,
     }
 
+    public enum AugmentName
+    {
+        None,
+        TwoHandSword,
+        BigSword,
+        SwordShield,
+        Shielder,
+        LongBow,
+        CrossBow,
+        GreatBow,
+        ArcRanger,
+        Staff,
+        Wand,
+        Orb,
+        Warlock
+    }
+
     public enum ExpType
     {
         None,
@@ -47,7 +62,7 @@ public class Enums
         Green,
         Blue,
         Red,
-        Purple, // ?⑥쥙? 筌뤣딅뮞??筌ｌ꼷?????얜굣, ??깆젟??덇볼 ??꾨릭?癒?퐨 LV+1, ?λ뜃???筌ㅼ뮆? 野껋?肉뺟㎉?륁벥 n%筌띾슦寃?筌왖疫?
+        Purple, 
     }
 
     public enum StatType

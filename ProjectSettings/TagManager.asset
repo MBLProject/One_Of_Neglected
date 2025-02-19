@@ -8,6 +8,7 @@ TagManager:
   - Undefined
   - Monster
   - Exp
+  - MonsterProjectile
   layers:
   - Default
   - TransparentFX
