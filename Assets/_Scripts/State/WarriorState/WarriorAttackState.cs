@@ -69,6 +69,7 @@ public class WarriorAttackState : BaseState<Player>
             );
             
             hasDealtDamage = true;
+            player.TriggerAttack();
         }
 
         if (!player.IsAtDestination())

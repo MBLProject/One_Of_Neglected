@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("?袁ⓥ봺????쇱젟")]
+    [Header("?꾨━???ㅼ젙")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -13,7 +13,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("??쎈？ ??쇱젟")]
+    [Header("?ㅽ룿 ?ㅼ젙")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -31,12 +31,6 @@ public class UnitManager : Singleton<UnitManager>
     {
         base.Awake();
         mainCamera = Camera.main;
-
-        if (TimeManager.Instance != null)
-        {
-            //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
-            TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
-        }
 
         if (DataManager.Instance.classSelect_Num == 0)
         {
@@ -63,64 +57,63 @@ public class UnitManager : Singleton<UnitManager>
 
     private void OnEnable()
     {
-        if (TimeManager.Instance != null)
-        {
-            //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
-            TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
-        }
+
     }
 
     private void OnDisable()
     {
         if (TimeManager.Instance != null)
         {
-            //TimeManager.Instance.OnThirtySecondsPassed -= SpawnUniqueMonster;
+            TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
         }
     }
 
-    //private void SpawnUniqueMonster()
-    //{
-    //    float gameTime = TimeManager.Instance.GameTime;
-    //    MonsterType monsterType;
+    private void SpawnUniqueMonster()
+    {
+        int randomValue = UnityEngine.Random.Range(1, 101); 
+        MonsterType monsterType;
 
-    //    if (gameTime <= 180f)        // 0~3??
-    //    {
-    //        monsterType = MonsterType.DamageUnique;
-    //    }
-    //    else if (gameTime <= 420f)   // 3~7??
-    //    {
-    //        monsterType = MonsterType.CrowdControlUnique;
-    //    }
-    //    else                         // 7????꾩뜎
-    //    {
-    //        monsterType = MonsterType.TankUnique;
-    //    }
+        if (randomValue <= 40)  
+        {
+            monsterType = MonsterType.DamageUnique;
+            Debug.Log("[UnitManager] 데미지 유니크 몬스터 소환됨");
+        }
+        else if (randomValue <= 80)  
+        {
+            monsterType = MonsterType.CrowdControlUnique;
+            Debug.Log("[UnitManager] CC 유니크 몬스터 소환됨");
+        }
+        else
+        {
+            monsterType = MonsterType.TankUnique;
+            Debug.Log("[UnitManager] 탱크 유니크 몬스터 소환됨");
+        }
 
-    //    SpawnMonsterAtRandomPosition(monsterType);
-    //}
+        SpawnMonsterAtRandomPosition(monsterType);
+    }
 
     private void SpawnStrongMonsters()
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)        // 0~3??
+        if (gameTime <= 180f)       
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] 筌뤣딅뮞??????癰궰野? EarlyNormal");
+            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? EarlyNormal");
         }
-        else if (gameTime <= 420f)   // 3~7??
+        else if (gameTime <= 420f)   
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] 筌뤣딅뮞??????癰궰野? MidNormal");
+            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? MidNormal");
         }
-        else if (gameTime <= 600f)   // 7~10??
+        else if (gameTime <= 600f)   
         {
             currentNormalMonsterType = MonsterType.LateNormal;
         }
-        else if (gameTime >= 600f)   // 10????곴맒
+        else if (gameTime >= 600f)   
         {
-            Debug.Log("[UnitManager] 癰귣똻????륁뵠筌???뽰삂!");
+            Debug.Log("[UnitManager] 蹂댁뒪 ?섏씠利??쒖옉!");
             ClearAllMonsters();
 
             Vector2 spawnPosition = GetBossSpawnPosition();
@@ -138,20 +131,20 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //Enum筌ｌ꼶????猷??醫됯탢揶쏆늽由???
+        //Enum泥섎━ ?대룄 ?좉굅媛숆릿 ??
         if (PlayerType == 1)
         {
-            // 1. ?袁⑷텢
+            // 1. ?꾩궗
             _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
         else if (PlayerType == 2)
         {
-            // 2. 亦낃낯??
+            // 2. 沅곸닔
             _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
-            // 3. 甕곕벡沅?
+            // 3. 踰뺤궗
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
 
@@ -171,6 +164,7 @@ public class UnitManager : Singleton<UnitManager>
         nextSpawnTime = Time.time;
         if (TimeManager.Instance != null)
         {
+            TimeManager.Instance.OnOneMinFiftySecondsPassed += SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
         }
     }
@@ -178,6 +172,12 @@ public class UnitManager : Singleton<UnitManager>
     public void PauseGame()
     {
         isGameStarted = false;
+
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
+            TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
+        }
     }
 
     public void ResumeGame()
@@ -189,12 +189,17 @@ public class UnitManager : Singleton<UnitManager>
         if (currentPlayer == null) return Vector2.zero;
 
         float angle = Random.Range(0f, 360f);
-        float distance = spawnRadius;  // 筌ㅼ뮆? 椰꾧퀡?????곗넎
+        float distance = spawnRadius; 
 
         return (Vector2)currentPlayer.transform.position + new Vector2(
             Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
             Mathf.Sin(angle * Mathf.Deg2Rad) * distance
         );
+    }
+    public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
+    {
+        Vector2 randomPosition = GetRandomSpawnPosition();
+        return SpawnMonster(type, randomPosition);
     }
     public MonsterBase SpawnMonster(MonsterType type, Vector2 position)
     {
@@ -212,11 +217,8 @@ public class UnitManager : Singleton<UnitManager>
         return monster;
     }
 
-    public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
-    {
-        Vector2 randomPosition = GetRandomSpawnPosition();
-        return SpawnMonster(type, randomPosition);
-    }
+  
+
 
     public void RemoveMonster(MonsterBase monster)
     {
@@ -274,24 +276,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public int GetActiveMonsterCount() => activeMonsters.Count;
 
-    public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
-    {
-        var monstersInRange = activeMonsters.FindAll(monster =>
-        {
-            if (monster == null) return false;
-            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
-            return distance >= minRange && distance <= maxRange;
-        });
 
-        monstersInRange.Sort((a, b) =>
-        {
-            float distanceA = Vector2.Distance(currentPlayer.transform.position, a.transform.position);
-            float distanceB = Vector2.Distance(currentPlayer.transform.position, b.transform.position);
-            return distanceA.CompareTo(distanceB);
-        });
-
-        return monstersInRange;
-    }
 
     public MonsterBase GetNearestMonster()
     {
@@ -311,33 +296,6 @@ public class UnitManager : Singleton<UnitManager>
         }
         return nearestMonster;
     }
-
-    public List<Vector3> GetMonsterPositionsInRange(float minRange, float maxRange)
-    {
-        List<Vector3> positions = new List<Vector3>();
-
-        foreach (var monster in activeMonsters)
-        {
-            if (monster == null) continue;
-
-            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
-            if (distance >= minRange && distance <= maxRange)
-            {
-                positions.Add(monster.transform.position);
-            }
-        }
-
-        // 椰꾧퀡???뽰몵嚥??類ｌ졊
-        positions.Sort((a, b) =>
-        {
-            float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
-            float distanceB = Vector2.Distance(currentPlayer.transform.position, b);
-            return distanceA.CompareTo(distanceB);
-        });
-
-        return positions;
-    }
-
     public Vector3? GetNearestMonsterPosition()
     {
         Vector3? nearestPosition = null;
@@ -356,6 +314,48 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         return nearestPosition;
+    }
+    public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
+    {
+        var monstersInRange = activeMonsters.FindAll(monster =>
+        {
+            if (monster == null) return false;
+            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
+            return distance >= minRange && distance <= maxRange;
+        });
+
+        monstersInRange.Sort((a, b) =>
+        {
+            float distanceA = Vector2.Distance(currentPlayer.transform.position, a.transform.position);
+            float distanceB = Vector2.Distance(currentPlayer.transform.position, b.transform.position);
+            return distanceA.CompareTo(distanceB);
+        });
+
+        return monstersInRange;
+    }
+    public List<Vector3> GetMonsterPositionsInRange(float minRange, float maxRange)
+    {
+        List<Vector3> positions = new List<Vector3>();
+
+        foreach (var monster in activeMonsters)
+        {
+            if (monster == null) continue;
+
+            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
+            if (distance >= minRange && distance <= maxRange)
+            {
+                positions.Add(monster.transform.position);
+            }
+        }
+
+        positions.Sort((a, b) =>
+        {
+            float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
+            float distanceB = Vector2.Distance(currentPlayer.transform.position, b);
+            return distanceA.CompareTo(distanceB);
+        });
+
+        return positions;
     }
 }
 

@@ -99,6 +99,10 @@ public abstract class Player : MonoBehaviour
     }
     public ParticleSystem DashEffect => dashEffect;
 
+    protected AugmentSelector augmentSelector;
+    public event Action OnPlayerAttack; 
+
+
     protected virtual void Awake()
     {
         InitializeStateHandler();
@@ -106,7 +110,6 @@ public abstract class Player : MonoBehaviour
         InitializeClassType();
         InitializeStatViewer();
 
-        // 스탯 변경 이벤트 구독
         SubscribeToStatEvents();
 
         currentDashCount = stats.CurrentDashCount;
@@ -128,6 +131,9 @@ public abstract class Player : MonoBehaviour
             magnetCollider.radius = stats.CurrentMagnet;
             magnetCollider.isTrigger = true;
         }
+
+        augmentSelector = gameObject.AddComponent<AugmentSelector>();
+        augmentSelector.Initialize(this);
     }
 
     private void Update()
@@ -514,13 +520,13 @@ public abstract class Player : MonoBehaviour
         expObject.selfDestroy();
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         stats.currentExp -= stats.CurrentMaxExp;
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
 
-        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+        //UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
     }
 
     private int CalculateNextLevelExp()
@@ -547,5 +553,15 @@ public abstract class Player : MonoBehaviour
         {
             UpdateStats();
         }
+    }
+
+    protected virtual void OnAttack()
+    {
+        OnPlayerAttack?.Invoke();
+    }
+
+    public void TriggerAttack()
+    {
+        OnAttack();
     }
 }
