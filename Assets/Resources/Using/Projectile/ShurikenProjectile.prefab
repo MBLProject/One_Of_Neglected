@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxDistance: 10
+  spin: 1
+  mul: 1
 --- !u!58 &7705802303063689155
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -110,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4940722886448456361}
