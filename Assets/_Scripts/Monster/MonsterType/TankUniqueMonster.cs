@@ -8,14 +8,14 @@ public class TankUniqueMonster : NormalMonster
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
-            health: 300f,
+            health: 100f,
             speed: 1f,
-            damage: 5f,
-            range: 2f,
-            cooldown: 1.5f,
-            defense: 4f,        
+            damage: 10f,
+            range: 0.5f,
+            cooldown: 1f,
+            defense: 6f,        
             regen: 5f,          
-            regenDelay: 3f
+            regenDelay: 1f
         );
     }
     protected override void Update()
