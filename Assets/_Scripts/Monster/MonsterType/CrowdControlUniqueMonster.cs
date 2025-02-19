@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class CrowdControlUniqueMonster : NormalMonster
 {
+    [Header("스킬 설정")]
+    [SerializeField] private float skillCooldown = 8f;     // 스킬 재사용 대기시간
+    [SerializeField] private float dashSpeed = 15f;        // 돌진 이동 속도
+    [SerializeField] private float dashDuration = 0.5f;    // 돌진 지속시간
+    [SerializeField] private float dashDamage = 25f;       // 돌진 충돌 데미지
+    [SerializeField] private float skillRange = 6f;
+
+    private float skillTimer = 0f;                         // 현재 스킬 쿨타임 타이머
+    private Vector2 dashDirection;                         // 돌진 방향
+    private bool isDashing = false;                        // 현재 돌진 중인지 여부
+
     protected override void InitializeStats()
     {
         stats = new MonsterStats(
@@ -17,6 +28,21 @@ public class CrowdControlUniqueMonster : NormalMonster
             regenDelay: 1f
         );
     }
+    protected override void InitializeStateHandler()
+    {
+        base.InitializeStateHandler();
+        stateHandler.RegisterState(new CCUniqueSkillState(stateHandler));
+    }
+    protected bool CanUseSkill()
+    {
+        if (skillTimer <= 0 && playerTransform != null && !isDashing)
+        {
+            // 플레이어가 스킬 범위 안에 있는지 확인
+            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+            return distanceToPlayer <= skillRange;
+        }
+        return false;
+    }
     protected override void Update()
     {
         base.Update();
@@ -24,5 +50,57 @@ public class CrowdControlUniqueMonster : NormalMonster
         {
             stats.RegenerateHealth(Time.deltaTime);
         }
+        // 스킬 쿨타임 감소
+        if (skillTimer > 0)
+        {
+            skillTimer -= Time.deltaTime;
+        }
+        // 스킬 사용 조건 체크 및 스킬 상태로 전환
+        else if (CanUseSkill())
+        {
+            stateHandler.ChangeState(typeof(CCUniqueSkillState));
+            skillTimer = skillCooldown;
+            Debug.Log($"[{gameObject.name}] 돌진 스킬 사용!");
+        }
+    }
+    public void UseSkill()
+    {
+        if (playerTransform == null) return;
+        StartCoroutine(DashCoroutine());
+    }
+    private IEnumerator DashCoroutine()
+    {
+        isDashing = true;
+        dashDirection = (playerTransform.position - transform.position).normalized;
+
+        float elapsedTime = 0f;
+        Vector2 startPos = transform.position;
+
+        while (elapsedTime < dashDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            transform.position = Vector2.Lerp(startPos,
+                startPos + (dashDirection * dashSpeed),
+                elapsedTime / dashDuration);
+
+            // 돌진 중 플레이어와의 충돌 체크
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+            foreach (var hit in hits)
+            {
+                if (hit.CompareTag("Player"))
+                {
+                    Player player = hit.GetComponent<Player>();
+                    if (player != null)
+                    {
+                        player.TakeDamage(dashDamage);
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        isDashing = false;
     }
 }

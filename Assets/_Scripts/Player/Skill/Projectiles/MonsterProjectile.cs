@@ -51,7 +51,7 @@ public class MonsterProjectile : Projectile
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // ?겸뫖猷?筌ｌ꼶??
         if (collision.CompareTag("Player"))
