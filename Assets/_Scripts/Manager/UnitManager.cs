@@ -37,6 +37,7 @@ public class UnitManager : Singleton<UnitManager>
             //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
         }
+        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
 
     }
 
@@ -50,7 +51,6 @@ public class UnitManager : Singleton<UnitManager>
         // {
         //     DataManager.Instance.classSelect_Num = 1;
         // }
-        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
     }
 
     private void Update()
