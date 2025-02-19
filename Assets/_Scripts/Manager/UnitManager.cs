@@ -16,7 +16,7 @@ public class UnitManager : Singleton<UnitManager>
     [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
-    [SerializeField] private float spawnInterval = 0.5f; 
+    [SerializeField] private float spawnInterval = 0.5f;
     private float nextSpawnTime = 0f;
 
     private BossMonster currentBoss;
@@ -44,12 +44,12 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Start()
     {
-        
+
         // 임시로 처리함, 테스트용도임, 추후 제거 필요
-        if(DataManager.Instance.classSelect_Num == 0)
-        {
-            DataManager.Instance.classSelect_Num = 1;
-        }
+        // if (DataManager.Instance.classSelect_Num == 0)
+        // {
+        //     DataManager.Instance.classSelect_Num = 1;
+        // }
         SpawnPlayerByType(DataManager.Instance.classSelect_Num);
     }
 
@@ -144,12 +144,12 @@ public class UnitManager : Singleton<UnitManager>
 
         GameObject _player;
         //Enum처리 해도 될거같긴 함
-        if (PlayerType == 1)
+        if (PlayerType == 0)
         {
             // 1. 전사
-            _player = Resources.Load<GameObject>("Using/Player/Warrior"); 
+            _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
-        else if( PlayerType == 2)
+        else if (PlayerType == 1)
         {
             // 2. 궁수
             _player = Resources.Load<GameObject>("Using/Player/Archer");
@@ -159,7 +159,6 @@ public class UnitManager : Singleton<UnitManager>
             // 3. 법사
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
-
 
         GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
         playerObj.AddComponent<SkillDispenser>();
@@ -374,5 +373,4 @@ public enum MonsterType
     CrowdControlUnique,
     TankUnique
 }
-
 
