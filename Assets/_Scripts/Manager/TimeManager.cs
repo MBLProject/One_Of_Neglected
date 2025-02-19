@@ -51,33 +51,36 @@ public class TimeManager : Singleton<TimeManager>
     {
         float currentTime = gameTime;
 
-        // 1분 50초 이벤트 체크 (110초)
-        if (currentTime >= lastOneMinFiftyEvent + 110f)
+        // 30초 이벤트 체크 (30초 이상일 때만)
+        if (currentTime >= 30f && currentTime >= lastThirtySecEvent + 30f)
         {
-            lastOneMinFiftyEvent = Mathf.Floor(currentTime / 110f) * 110f;
-            Debug.Log($"[TimeManager] 1분 50초 이벤트 발생: {currentTime}초");
-            OnOneMinFiftySecondsPassed?.Invoke();
+            lastThirtySecEvent = Mathf.Floor(currentTime / 30f) * 30f;
+            Debug.Log($"[TimeManager] 30초 이벤트 발생: {currentTime}초");
+            OnThirtySecondsPassed?.Invoke();
         }
-        // 1분 30초 이벤트 체크 (90초)
-        else if (currentTime >= lastOneMinThirtyEvent + 90f)
-        {
-            lastOneMinThirtyEvent = Mathf.Floor(currentTime / 90f) * 90f;
-            Debug.Log($"[TimeManager] 1분 30초 이벤트 발생: {currentTime}초");
-            OnOneMinThirtySecondsPassed?.Invoke();
-        }
-        // 1분 이벤트 체크
-        else if (currentTime >= lastOneMinEvent + 60f)
+
+        // 1분 이벤트 체크 (60초 이상일 때만)
+        if (currentTime >= 60f && currentTime >= lastOneMinEvent + 60f)
         {
             lastOneMinEvent = Mathf.Floor(currentTime / 60f) * 60f;
             Debug.Log($"[TimeManager] 1분 이벤트 발생: {currentTime}초");
             OnMinutePassed?.Invoke();
         }
-        // 30초 이벤트 체크
-        else if (currentTime >= lastThirtySecEvent + 30f)
+
+        // 1분 30초 이벤트 체크 (90초 이상일 때만)
+        if (currentTime >= 90f && currentTime >= lastOneMinThirtyEvent + 90f)
         {
-            lastThirtySecEvent = Mathf.Floor(currentTime / 30f) * 30f;
-            Debug.Log($"[TimeManager] 30초 이벤트 발생: {currentTime}초");
-            OnThirtySecondsPassed?.Invoke();
+            lastOneMinThirtyEvent = Mathf.Floor(currentTime / 90f) * 90f;
+            Debug.Log($"[TimeManager] 1분 30초 이벤트 발생: {currentTime}초");
+            OnOneMinThirtySecondsPassed?.Invoke();
+        }
+
+        // 1분 50초 이벤트 체크 (110초 이상일 때만)
+        if (currentTime >= 110f && currentTime >= lastOneMinFiftyEvent + 110f)
+        {
+            lastOneMinFiftyEvent = Mathf.Floor(currentTime / 110f) * 110f;
+            Debug.Log($"[TimeManager] 1분 50초 이벤트 발생: {currentTime}초");
+            OnOneMinFiftySecondsPassed?.Invoke();
         }
     }
 

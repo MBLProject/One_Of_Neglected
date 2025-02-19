@@ -554,7 +554,6 @@ GameObject:
   - component: {fileID: 5732977405088805976}
   - component: {fileID: 5849952303211725190}
   - component: {fileID: 3157147655169645126}
-  - component: {fileID: 142621953948689825}
   m_Layer: 8
   m_Name: Magician
   m_TagString: Player
@@ -708,19 +707,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &142621953948689825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5330080314393584280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13fa5a8e4ec06074898aa63ac8535108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Count: 0
 --- !u!1 &6506751549563542879
 GameObject:
   m_ObjectHideFlags: 0
