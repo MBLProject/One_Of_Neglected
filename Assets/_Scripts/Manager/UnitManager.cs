@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("프리팹 설정")]
+    [Header("?꾨━???ㅼ젙")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -13,7 +13,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("스폰 설정")]
+    [Header("?ㅽ룿 ?ㅼ젙")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -37,21 +37,16 @@ public class UnitManager : Singleton<UnitManager>
             //TimeManager.Instance.OnThirtySecondsPassed += SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
         }
-        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
 
+        if (DataManager.Instance.classSelect_Num == 0)
+        {
+            DataManager.Instance.classSelect_Num = 1;
+        }
+        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
 
-    private void Start()
-    {
-
-        // 임시로 처리함, 테스트용도임, 추후 제거 필요
-        // if (DataManager.Instance.classSelect_Num == 0)
-        // {
-        //     DataManager.Instance.classSelect_Num = 1;
-        // }
-    }
 
     private void Update()
     {
@@ -89,15 +84,15 @@ public class UnitManager : Singleton<UnitManager>
     //    float gameTime = TimeManager.Instance.GameTime;
     //    MonsterType monsterType;
 
-    //    if (gameTime <= 180f)        // 0~3분
+    //    if (gameTime <= 180f)        // 0~3遺?
     //    {
     //        monsterType = MonsterType.DamageUnique;
     //    }
-    //    else if (gameTime <= 420f)   // 3~7분
+    //    else if (gameTime <= 420f)   // 3~7遺?
     //    {
     //        monsterType = MonsterType.CrowdControlUnique;
     //    }
-    //    else                         // 7분 이후
+    //    else                         // 7遺??댄썑
     //    {
     //        monsterType = MonsterType.TankUnique;
     //    }
@@ -109,23 +104,23 @@ public class UnitManager : Singleton<UnitManager>
     {
         float gameTime = TimeManager.Instance.GameTime;
 
-        if (gameTime <= 180f)        // 0~3분
+        if (gameTime <= 180f)        // 0~3遺?
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] 몬스터 타입 변경: EarlyNormal");
+            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? EarlyNormal");
         }
-        else if (gameTime <= 420f)   // 3~7분
+        else if (gameTime <= 420f)   // 3~7遺?
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] 몬스터 타입 변경: MidNormal");
+            Debug.Log("[UnitManager] 紐ъ뒪?????蹂寃? MidNormal");
         }
-        else if (gameTime <= 600f)   // 7~10분
+        else if (gameTime <= 600f)   // 7~10遺?
         {
             currentNormalMonsterType = MonsterType.LateNormal;
         }
-        else if (gameTime >= 600f)   // 10분 이상
+        else if (gameTime >= 600f)   // 10遺??댁긽
         {
-            Debug.Log("[UnitManager] 보스 페이즈 시작!");
+            Debug.Log("[UnitManager] 蹂댁뒪 ?섏씠利??쒖옉!");
             ClearAllMonsters();
 
             Vector2 spawnPosition = GetBossSpawnPosition();
@@ -143,22 +138,23 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //Enum처리 해도 될거같긴 함
-        if (PlayerType == 0)
+        //Enum泥섎━ ?대룄 ?좉굅媛숆릿 ??
+        if (PlayerType == 1)
         {
-            // 1. 전사
+            // 1. ?꾩궗
             _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
-        else if (PlayerType == 1)
+        else if (PlayerType == 2)
         {
-            // 2. 궁수
+            // 2. 沅곸닔
             _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
-            // 3. 법사
+            // 3. 踰뺤궗
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
+
 
         GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
         playerObj.AddComponent<SkillDispenser>();
@@ -193,7 +189,7 @@ public class UnitManager : Singleton<UnitManager>
         if (currentPlayer == null) return Vector2.zero;
 
         float angle = Random.Range(0f, 360f);
-        float distance = spawnRadius;  // 최대 거리에 소환
+        float distance = spawnRadius;  // 理쒕? 嫄곕━???뚰솚
 
         return (Vector2)currentPlayer.transform.position + new Vector2(
             Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
@@ -331,7 +327,7 @@ public class UnitManager : Singleton<UnitManager>
             }
         }
 
-        // 거리순으로 정렬
+        // 嫄곕━?쒖쑝濡??뺣젹
         positions.Sort((a, b) =>
         {
             float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
@@ -373,4 +369,5 @@ public enum MonsterType
     CrowdControlUnique,
     TankUnique
 }
+
 

@@ -7,10 +7,24 @@ public class SkillSelector : MonoBehaviour
     private SkillContainer skillContainer;
     private SkillDispenser skillDispenser;
 
+    private void Start()
+    {
+        skillContainer = GetComponent<SkillContainer>();
+        if (UnitManager.Instance.GetPlayer().TryGetComponent(out skillDispenser))
+            print("Success");
+    }
+
     public void Initialize(SkillContainer container, SkillDispenser dispenser)
     {
         skillContainer = container;
         skillDispenser = dispenser;
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.O))
+            ChooseSkill(Enums.SkillName.Shuriken);
     }
 
     public List<Enums.SkillName> SelectSkills()
@@ -67,12 +81,16 @@ public class SkillSelector : MonoBehaviour
     public void ChooseSkill(Enums.SkillName chosenAbility)
     {
         Enums.SkillName skillName = skillContainer.GetSkill(chosenAbility);
-        if (skillName != Enums.SkillName.None)
+
+        if (skillName == Enums.SkillName.None)
         {
-            Skill skill = SkillFactory.CreateSkill(skillName, 2f); // SkillName으로 Skill 객체 생성
-            skill.InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f); // 예시로 초기화
-            skillDispenser.RegisterSkill(chosenAbility, skill.cooldown);
-            skillContainer.AddSkill(skillName);
+            skillDispenser.RegisterSkill(chosenAbility, 2f);
+
+            skillContainer.AddSkill(chosenAbility);
+        }
+        else
+        {
+            skillDispenser.RegisterSkill(skillName, 2f);
         }
     }
 
