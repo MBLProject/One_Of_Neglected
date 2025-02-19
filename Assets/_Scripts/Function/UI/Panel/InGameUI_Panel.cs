@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class InGameUI_Panel : Panel
 {
-    public SkillSelector skillSelector;
-    public SkillContainer skillContainer;
+
     private bool isOptionActive;
     private int mainSkill_Num;
     private int subSkill_Num;
@@ -20,6 +19,12 @@ public class InGameUI_Panel : Panel
     [SerializeField] private List<Image> subSkills_List;
     [SerializeField] private TextMeshProUGUI display_Time_TMP;
     [SerializeField] private TextMeshProUGUI display_Level_TMP;
+    [SerializeField] private RectTransform mainSkill_Icon_Rect;
+    [SerializeField] private RectTransform subSkill_Icon_Rect;
+    public GameObject miniMainSkill_Cell_Prefab;
+    public GameObject miniSubSkill_Cell_Prefab;
+    public SkillSelector skillSelector;
+    public SkillContainer skillContainer;
 
     private void Awake()
     {
@@ -85,5 +90,11 @@ public class InGameUI_Panel : Panel
     private void Auto_BTN()
     {
         UnitManager.Instance.GetPlayer().isAuto = !UnitManager.Instance.GetPlayer().isAuto;
+    }
+
+    public void MakeNewMiniCell(bool isMainSkill)
+    {
+        if (isMainSkill) Instantiate(miniMainSkill_Cell_Prefab, mainSkill_Icon_Rect);
+        else Instantiate(miniSubSkill_Cell_Prefab, subSkill_Icon_Rect);
     }
 }

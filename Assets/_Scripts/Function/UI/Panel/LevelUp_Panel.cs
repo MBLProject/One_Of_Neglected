@@ -53,7 +53,8 @@ public class LevelUp_Panel : Panel
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().name != "Game") return;
-        Debug.Log("OnEnable");
+        UnitManager.Instance.PauseGame();
+        Time.timeScale = 0;
         Debug.Log($"LV {UnitManager.Instance.GetPlayer().Stats.CurrentLevel}");
         //TODO :플레이어 레벨 가져와서 증강 및 특성 넣어주기
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
@@ -66,7 +67,11 @@ public class LevelUp_Panel : Panel
             ChangeSelections();
         }
     }
-
+    private void OnDisable()
+    {
+        UnitManager.Instance.ResumeGame();
+        Time.timeScale = 1;
+    }
     private void Banish_BTN()
     {
         Debug.Log("배니쉬");
@@ -116,5 +121,8 @@ public class LevelUp_Panel : Panel
         buttons[0].interactable = On;
         buttons[0].interactable = On;
     }
-
+    public void UpdateBanishCnt()
+    {
+        banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+    }
 }

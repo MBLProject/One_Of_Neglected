@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Banish_Panel : Panel
@@ -8,6 +9,10 @@ public class Banish_Panel : Panel
     [SerializeField] private LevelUp_Panel levelUp_Panel;
     [SerializeField] private List<ActiveSkills> activeSkills;
     [SerializeField] private List<PassiveSkills> passiveSkills;
+
+    [SerializeField] private RectTransform banish_List;
+    public GameObject banishCell_Prefab;
+
     private void Awake()
     {
         buttons[0].onClick.AddListener(Return_BTN);
@@ -24,6 +29,7 @@ public class Banish_Panel : Panel
         Debug.Log(skillName);
         foreach (ActiveSkills activeSkill in activeSkills)
         {
+            if (activeSkill.m_SkillName == skillName) return;
             if (activeSkill.m_SkillName == Enums.SkillName.None)
             {
                 Skill_Info skill_Info =
@@ -37,4 +43,10 @@ public class Banish_Panel : Panel
             }
         }
     }
+
+    public void MakeNewCell()
+    {
+        Instantiate(banishCell_Prefab, banish_List);
+    }
+
 }
