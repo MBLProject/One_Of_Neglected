@@ -63,15 +63,20 @@ public class PlayerProjectile : Projectile
             if (collision.TryGetComponent(out MonsterBase monster))
             {
                 monster.TakeDamage(damage);
-            }
+                
+                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
+                    damage = damage,
+                    projectileName = gameObject.name,
+                });
 
-            if (pierceCount > 0)
-            {
-                pierceCount--;
-            }
-            else
-            {
-                DestroyProjectile();
+                if (pierceCount > 0)
+                {
+                    pierceCount--;
+                }
+                else
+                {
+                    DestroyProjectile();
+                }
             }
         }
     }

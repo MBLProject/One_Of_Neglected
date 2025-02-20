@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
+using System;
 
 public class WarriorAttackProjectile : PlayerProjectile
 {
@@ -99,6 +100,11 @@ public class WarriorAttackProjectile : PlayerProjectile
             if (collision.TryGetComponent(out MonsterBase monster))
             {
                 monster.TakeDamage(damage);
+                
+                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
+                    damage = damage,
+                    projectileName = gameObject.name,
+                });
             }
         }
     }

@@ -89,10 +89,16 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
             monster.TakeDamage(damage);
+            
+
+            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
+                damage = damage,
+                projectileName = gameObject.name,
+            });
+            
             print($"TakeDamage : {gameObject.name}, Damage : {damage}");
 
             if (pierceCount > 0)
@@ -108,7 +114,6 @@ public class Projectile : MonoBehaviour
 
     protected void DestroyProjectile()
     {
-
         if (!isMoving || gameObject == null)
         {
             return;

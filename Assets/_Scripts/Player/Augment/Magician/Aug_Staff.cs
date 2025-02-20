@@ -22,7 +22,7 @@ public class Aug_Staff : TimeBasedAugment
 
     protected override  void OnTrigger()
     {
-        UnitManager.Instance.TakeAllDamage(CurrentDamage * 2);
+        //UnitManager.Instance.TakeAllDamage(CurrentDamage * 2);
         
     }
 

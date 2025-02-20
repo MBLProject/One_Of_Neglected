@@ -7,11 +7,13 @@ using System.IO;
 using System;
 using DG.Tweening.Plugins;
 using DG.Tweening.Core.Easing;
+
 [Serializable]
 public class DicDataTable
 {
     public Dictionary<Node, bool> bless_Table = new Dictionary<Node, bool>();
 }
+
 [Serializable]
 public class PlayerProperty
 {
@@ -40,6 +42,7 @@ public class PlayerProperty
     [HideInInspector] public int Reroll_TrainingCount;
     [HideInInspector] public int Banish_TrainingCount;
 }
+
 [Serializable]
 public class BTS
 {
@@ -72,6 +75,67 @@ public class BTS
     public bool GodKill;
 }
 
+public class DamageInfo
+{
+    public float damage;
+    public string projectileName;
+}
+
+public static class DamageTracker
+{
+    public static Action<DamageInfo> OnDamageDealt;
+}
+
+[Serializable]
+public class ProjectileDamageCheck
+{
+    public string projectileName;
+    public float damage;
+    //시간처리 어케하지?? 첫 데미지 입힌시간으로??? 흠??
+    public float time; 
+}
+
+[Serializable]
+public class DamageStats
+{
+    public float totalDamage;
+    
+    public List<ProjectileDamageCheck> projectileDamages = new List<ProjectileDamageCheck>();
+    
+    private Dictionary<string, float> _damageByProjectile = new Dictionary<string, float>();
+    
+    public Dictionary<string, float> damageByProjectile 
+    {
+        get 
+        {
+            if (_damageByProjectile == null || _damageByProjectile.Count == 0)
+            {
+                _damageByProjectile = new Dictionary<string, float>();
+                foreach (var data in projectileDamages)
+                {
+                    _damageByProjectile[data.projectileName] = data.damage;
+                }
+            }
+            return _damageByProjectile;
+        }
+    }
+    
+ 
+    
+    public void UpdateLists()
+    {
+        projectileDamages.Clear();
+        foreach (var kvp in _damageByProjectile)
+        {
+            projectileDamages.Add(new ProjectileDamageCheck
+            { 
+                projectileName = kvp.Key, 
+                damage = kvp.Value 
+            });
+        }
+    }
+}
+
 public class DataManager : Singleton<DataManager>
 {
     public DicDataTable dicDataTable = new DicDataTable();
@@ -84,6 +148,9 @@ public class DataManager : Singleton<DataManager>
 
     public int classSelect_Num;
 
+    public DamageStats currentRunDamageStats = new DamageStats();
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -95,6 +162,7 @@ public class DataManager : Singleton<DataManager>
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
         LoadBlessData();
 
+        DamageTracker.OnDamageDealt += TrackDamage;
     }
     private void Start()
     {
@@ -149,4 +217,17 @@ public class DataManager : Singleton<DataManager>
         bless_Dic = dicDataTable.bless_Table;
     }
 
+    private void TrackDamage(DamageInfo info)
+    {
+        currentRunDamageStats.totalDamage += info.damage;
+
+        //없으면 0으로 리스트에 넣고 데미지 누적시작
+        if (!currentRunDamageStats.damageByProjectile.ContainsKey(info.projectileName))
+        {
+            currentRunDamageStats.damageByProjectile[info.projectileName] = 0;
+        }
+        currentRunDamageStats.damageByProjectile[info.projectileName] += info.damage;
+        
+        currentRunDamageStats.UpdateLists();
+    }
 }
