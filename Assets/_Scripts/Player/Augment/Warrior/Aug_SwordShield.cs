@@ -52,7 +52,7 @@ public class Aug_SwordShield : TimeBasedAugment
                 projectile.transform.position,  
                 projectile.transform.position + reflectDirection * 10f,
                 projectileSpeed,
-                owner.Stats.CurrentATK,
+                owner.Stats.CurrentATK * ((owner.Stats.CurrentDefense * 10) + 100) / 100,
                 projectileSize,
                 maxDistance,
                 penetration,

@@ -20,21 +20,32 @@ public class Aug_TwoHandSword : TimeBasedAugment
     {
         Vector3 targetPos = UnitManager.Instance.GetNearestMonster().transform.position;
         Vector3 direction = (targetPos - owner.transform.position).normalized;
+
+        int projAmount = owner.Stats.CurrentProjAmount;
+        float angleStep = 10f;
+
+        int baseProjectiles = 1;
+        int totalProjectiles = baseProjectiles + projAmount;
+
+        if (level >= 3)
+        {
+            totalProjectiles += 1;
+        }
+        else if (level >= 5)
+        {
+            totalProjectiles += 2;
+        }
+
+
+        float totalAngleSpread = (totalProjectiles - 1) * angleStep;
+        float startAngle = -totalAngleSpread / 2f;
+        Debug.Log($"{totalProjectiles}");
         
-        if(level >= 5)
+        // 각 투사체 발사
+        for (int i = 0; i < totalProjectiles; i++)
         {
-            SpawnProjectile(direction);
-            SpawnProjectile(RotateVector(direction, 15));
-            SpawnProjectile(RotateVector(direction, -15));
-        }
-        else if(level >= 3)
-        {
-            SpawnProjectile(direction);
-            SpawnProjectile(RotateVector(direction, 15));
-        }
-        else
-        {
-            SpawnProjectile(direction);
+            float currentAngle = startAngle + (i % baseProjectiles) * angleStep;
+            SpawnProjectile(RotateVector(direction, currentAngle));
         }
     }
 
@@ -47,7 +58,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
             owner.transform.position,
             targetPosition,
             projectileSpeed,
-            CurrentDamage,  // 현재 플레이어 공격력 기반 데미지
+            CurrentDamage,  
             projectileSize,
             maxDistance,
             penetration,

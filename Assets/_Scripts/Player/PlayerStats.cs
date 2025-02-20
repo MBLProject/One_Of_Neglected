@@ -384,13 +384,13 @@ public class PlayerStats
                 CurrentDefense += (int)finalValue;
                 break;
             case StatType.Mspd:
-                CurrentMspd += finalValue;
+                CurrentMspd = CurrentMspd * ((100 + finalValue) / 100f);
                 break;
             case StatType.Aspd:
-                CurrentAspd += finalValue;
+                CurrentAspd = CurrentAspd * ((100 + finalValue) / 100f);
                 break;
             case StatType.ATK:
-                CurrentATK += finalValue;
+                CurrentATK = CurrentATK * ((100 + finalValue) / 100f);
                 break;
             case StatType.CriRate:
                 CurrentCriRate += finalValue;
@@ -402,28 +402,28 @@ public class PlayerStats
                 CurrentProjAmount += (int)finalValue;
                 break;
             case StatType.ATKRange:
-                CurrentATKRange += finalValue;
+                CurrentATKRange = CurrentATKRange * ((100 + finalValue) / 100f);
                 break;
             case StatType.Duration:
-                CurrentDuration += finalValue;
+                CurrentDuration = CurrentDuration * ((100 + finalValue) / 100f);
                 break;
             case StatType.Cooldown:
-                CurrentCooldown += finalValue;
+                CurrentCooldown = CurrentCooldown * ((100 - finalValue) / 100f);
                 break;
             case StatType.Revival:
                 CurrentRevival += (int)finalValue;
                 break;
             case StatType.Magnet:
-                CurrentMagnet += finalValue;
+                CurrentMagnet = CurrentMagnet * ((100 + finalValue) / 100f);
                 break;
             case StatType.Growth:
-                CurrentGrowth += finalValue;
+                CurrentGrowth = CurrentGrowth * ((100 + finalValue) / 100f);
                 break;
             case StatType.Greed:
-                CurrentGreed += finalValue;
+                CurrentGreed = CurrentGreed * ((100 + finalValue) / 100f);
                 break;
             case StatType.Curse:
-                CurrentCurse += finalValue;
+                CurrentCurse = CurrentCurse * ((100 + finalValue) / 100f);
                 break;
             case StatType.Reroll:
                 CurrentGreed += (int)finalValue;
