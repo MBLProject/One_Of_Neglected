@@ -14616,13 +14616,13 @@ MonoBehaviour:
   - {fileID: 590157977819323962}
   - {fileID: 1973861564191647170}
   display_Time_TMP: {fileID: 3445683732088796120}
-  display_Level_TMP: {fileID: 4892920417775508196}
   main_Icon_Rect: {fileID: 6515510372193332122}
   sub_Icon_Rect: {fileID: 6927787913254864477}
   defaultIcon: {fileID: 21300000, guid: 5c13ab4da739760468fec108b77995cd, type: 3}
   expSlider: {fileID: 5634597531576816797}
   skillSelector: {fileID: 8183992532215406776}
   skillContainer: {fileID: 1474912334224757527}
+  display_Level_TMP: {fileID: 4892920417775508196}
 --- !u!114 &8183992532215406776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22989,6 +22989,7 @@ GameObject:
   - component: {fileID: 3649136227580464156}
   - component: {fileID: 7337948176393191}
   - component: {fileID: 2480330471072194193}
+  - component: {fileID: 3851694788523624488}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -23036,15 +23037,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -563750458, guid: a1a7adebdd448b341aae3bec0c4c9653, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -23053,6 +23054,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &3851694788523624488
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202402343923054034}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c14972e108eba6408e37bd27fc94cee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3248157221726001838
 GameObject:
   m_ObjectHideFlags: 0
@@ -25560,7 +25582,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
