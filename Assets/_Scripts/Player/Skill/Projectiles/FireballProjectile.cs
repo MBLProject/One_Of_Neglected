@@ -26,7 +26,7 @@ public class FireballProjectile : Projectile
 
             DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
             {
-                damage = damagePerFrame,
+                damage = damage,
                 projectileName = gameObject.name,
             });
         }
