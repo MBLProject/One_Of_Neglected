@@ -38,7 +38,6 @@ public class Archer : Player
         // 기본스텟 여기서 초기화하시오
         // 1. 가산 스탯 - 더하기
         statViewer.MaxHp = 100 + DataManager.Instance.BTS.MaxHp;
-        statViewer.ATK = 5 + DataManager.Instance.BTS.ATK;
         statViewer.Defense = DataManager.Instance.BTS.Defense;
         statViewer.DashCount = 3 + DataManager.Instance.BTS.DashCount;
         statViewer.Level = 1;
@@ -52,6 +51,7 @@ public class Archer : Player
         statViewer.Banish = DataManager.Instance.BTS.Banish;
 
         // 2. 승산 스탯 - (100 + 증가율) / 100
+        statViewer.ATK = 10 * ((DataManager.Instance.BTS.ATK + 100) / 100);
         statViewer.Mspd = 3 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
         statViewer.Aspd = 1 * ((100 + DataManager.Instance.BTS.Aspd) / 100f);
         statViewer.ATKRange = 1 * ((100 + DataManager.Instance.BTS.ATKRange) / 100f);

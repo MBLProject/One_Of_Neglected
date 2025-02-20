@@ -30,12 +30,13 @@ public class UI_PlayerTest : MonoBehaviour
 
     private void OnUpgradeAug()
     {
-        player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.SwordShield);
+        player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.Staff);
+        Debug.Log("증강 선택됨");
     }
     private void OnSelectAug()
     {
-        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.SwordShield);
-    }
+        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.Staff);
+        Debug.Log("증강 강화됨");}
 
     private void Update()
     {
@@ -55,7 +56,7 @@ public class UI_PlayerTest : MonoBehaviour
     {
         if (player.Stats != null)
         {
-            player.LevelUp();
+            player.Stats.ModifyStatValue(StatType.ATK, 10f);
         }
     }
 

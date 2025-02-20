@@ -41,6 +41,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         playerProjectiles.Add("SwordAurorProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SwordAurorProjectile"));
         playerProjectiles.Add("EarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/EarthquakeProjectile"));
         playerProjectiles.Add("SubEarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SubEarthquakeProjectile"));
+        playerProjectiles.Add("GreatBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/GreatBowProjectile"));
+        playerProjectiles.Add("CrossBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/CrossBowProjectile"));
 
     }
 
