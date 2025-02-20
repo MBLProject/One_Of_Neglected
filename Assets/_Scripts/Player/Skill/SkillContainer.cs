@@ -25,7 +25,7 @@ public class SkillContainer : MonoBehaviour
 
     private void Awake()
     {
-        foreach (SkillName skillName in System.Enum.GetValues(typeof(SkillName)))
+        foreach (SkillName skillName in Enum.GetValues(typeof(SkillName)))
         {
             if (skillName == SkillName.None) continue;
             AddSelectableSkill(skillName);

@@ -83,6 +83,8 @@ public static class SkillFactory
     }
 
 }
+
+[Serializable]
 public struct SkillStats
 {
     public float defaultCooldown;
@@ -100,24 +102,23 @@ public struct SkillStats
     public float amount;
     public float lifetime;
     public float cooldown;
+    public float Aspd;
 }
 
+[Serializable]
 public struct ProjectileStats
 {
     public float finalCooldown;
     public float finalATKRange;
     public float finalDamage;
-    public float aTK;
     public int pierceCount;
     public int shotCount;
     public int projectileCount;
     public float projectileDelay;
     public float shotDelay;
-    public float aTKRange;
     public float critical;
     public float cATK;
     public float amount;
     public float lifetime;
-    public float cooldown;
 
 }

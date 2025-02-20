@@ -27,7 +27,6 @@ public class SkillDispenser : MonoBehaviour
         Skill newSkill = SkillFactory.CreateSkill(skillName);
         if (newSkill != null)
         {
-            newSkill.InitSkill();
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
         }

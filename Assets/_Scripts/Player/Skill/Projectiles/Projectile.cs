@@ -87,6 +87,24 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 
+    public virtual void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        startPosition = startPos;
+        targetPosition = targetPos;
+
+        stats = projectileStats;
+
+        print($"InitProjectile - lifetime : {stats.lifetime}");
+
+        CancelInvoke("DestroyProjectile");
+
+        Invoke("DestroyProjectile", stats.lifetime);
+
+        direction = (targetPosition - startPos).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+    }
+
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))

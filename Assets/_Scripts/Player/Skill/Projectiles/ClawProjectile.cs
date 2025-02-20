@@ -22,4 +22,19 @@ public class ClawProjectile : Projectile
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
+
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        startPosition = startPos;
+        targetPosition = targetPos;
+        stats = projectileStats;
+
+        CancelInvoke("DestroyProjectile");
+
+        Invoke("DestroyProjectile", stats.lifetime);
+
+        direction = (targetPosition - startPos).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
+    }
 }
