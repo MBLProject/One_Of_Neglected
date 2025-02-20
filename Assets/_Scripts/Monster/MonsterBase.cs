@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine.AI;
 
 public abstract class MonsterBase : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public abstract class MonsterBase : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Animator animator;
     [SerializeField] private float dieAnimationLength = 1f;
-
+    [Header("자동으로 Awake때 가져옴")]
+    [SerializeField] private SpriteRenderer m_SpriteRenderer;
     [Header("스탯 증가량 설정")]
     [SerializeField] protected float damageIncreasePerInterval;  // 30초마다 증가할 공격력
     [SerializeField] protected float healthIncreasePerInterval;  // 30초마다 증가할 체력
@@ -31,6 +33,7 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (m_SpriteRenderer == null) m_SpriteRenderer = GetComponent<SpriteRenderer>();
         InitializeComponents();
         InitializeStats();
         InitializeStateHandler();
@@ -78,14 +81,12 @@ public abstract class MonsterBase : MonoBehaviour
         }
     }
 
-
     protected virtual void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
 
     protected abstract void InitializeStats();
 
@@ -96,7 +97,6 @@ public abstract class MonsterBase : MonoBehaviour
         stateHandler?.Update();
         CheckStateTransitions();
     }
-
 
     // 30초마다 호출되어 몬스터 스탯을 업데이트하는 메서드
     protected virtual void UpdateMonsterStats()
@@ -177,11 +177,22 @@ public abstract class MonsterBase : MonoBehaviour
         // 스프라이트 방향 설정
         if (direction.x != 0)
         {
-            transform.localScale = new Vector3(
-                Mathf.Sign(direction.x),
-                transform.localScale.y,
-                transform.localScale.z
-            );
+            // transform.localScale = new Vector3(
+            //     Mathf.Sign(direction.x),
+            //     transform.localScale.y,
+            //     transform.localScale.z
+            // );
+
+        }
+        //스프라이트 방향 설정
+        //direction.x 값에 따라 스프라이트의 flipX 값을 바꿈;
+        if (direction.x > 0)
+        {
+            m_SpriteRenderer.flipX = false;
+        }
+        if (direction.x < 0)
+        {
+            m_SpriteRenderer.flipX = true;
         }
     }
 
