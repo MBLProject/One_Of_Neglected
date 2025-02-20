@@ -55,7 +55,6 @@ public class LevelUp_Panel : Panel
         if (SceneManager.GetActiveScene().name != "Game") return;
         UnitManager.Instance.PauseGame();
         Time.timeScale = 0;
-        Debug.Log($"LV {UnitManager.Instance.GetPlayer().Stats.CurrentLevel}");
         //TODO :플레이어 레벨 가져와서 증강 및 특성 넣어주기
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {

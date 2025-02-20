@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Fireball : ActiveSkill
 {
-    public Fireball(float defaultCooldown) : base(Enums.SkillName.Fireball, defaultCooldown) { }
+    public Fireball() : base(Enums.SkillName.Fireball) { }
 
 }

@@ -24,10 +24,10 @@ public class PoisonShoesProjectile : Projectile
         damagePerFrame = damage * Time.deltaTime;
     }
 
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1.1f)
     {
-        this.startPosition = startPos;
-        this.targetPosition = targetPos;
+        startPosition = startPos;
+        targetPosition = targetPos;
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;

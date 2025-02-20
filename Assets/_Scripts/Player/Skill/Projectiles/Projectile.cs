@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
     protected int pierceCount = 0;
     protected float lifeTime = 5f;
 
+    protected SkillStats stats;
+
     protected Vector3 direction;
 
     protected CancellationTokenSource cts;

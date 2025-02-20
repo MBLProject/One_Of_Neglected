@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class Crown : Skill
 {
-    public Crown(float defaultCooldown) : base(Enums.SkillName.Crown, defaultCooldown) { }
+    public Crown() : base(Enums.SkillName.Crown) { }
 
-    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float a)
     {
-        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay);
+        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay, a);
 
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10);
+        player.Stats.ModifyStatValue(Enums.StatType.Growth, 10f);
+    }
+
+
+    public override void InitSkill()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.Growth, 10f);
     }
 }
