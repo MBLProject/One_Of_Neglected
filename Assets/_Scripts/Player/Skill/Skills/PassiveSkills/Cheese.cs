@@ -6,7 +6,7 @@ public class Cheese : Skill
     {
     }
 
-    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float atkrange)
+    public override void ModifySkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float atkrange)
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -18,5 +18,9 @@ public class Cheese : Skill
         var player = UnitManager.Instance.GetPlayer();
 
         player.Stats.ModifyStatValue(Enums.StatType.Hp, player.Stats.CurrentMaxHp * 0.3f);
+    }
+
+    public override void LevelUp()
+    {
     }
 }

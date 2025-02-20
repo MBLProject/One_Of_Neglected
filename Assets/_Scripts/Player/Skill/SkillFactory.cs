@@ -101,3 +101,23 @@ public struct SkillStats
     public float lifetime;
     public float cooldown;
 }
+
+public struct ProjectileStats
+{
+    public float finalCooldown;
+    public float finalATKRange;
+    public float finalDamage;
+    public float aTK;
+    public int pierceCount;
+    public int shotCount;
+    public int projectileCount;
+    public float projectileDelay;
+    public float shotDelay;
+    public float aTKRange;
+    public float critical;
+    public float cATK;
+    public float amount;
+    public float lifetime;
+    public float cooldown;
+
+}

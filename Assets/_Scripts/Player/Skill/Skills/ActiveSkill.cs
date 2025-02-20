@@ -1,4 +1,3 @@
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
 
@@ -11,14 +10,6 @@ public class ActiveSkill : Skill
     public float FinalCooldown => stats.defaultCooldown * (1 - stats.cooldown);       // ex) (1 per 3 seconds) * (1 - 0.3);
 
     public float FinelATKRange => stats.defaultATKRange * stats.aTKRange;
-
-    public ActiveSkill(Enums.SkillName skillName, float defaultCooldown)
-        : base(skillName, defaultCooldown)
-    {
-        InitSkill();
-
-        SubscribeToPlayerStats();
-    }
 
     public ActiveSkill(Enums.SkillName skillName) : base(skillName)
     {
@@ -64,5 +55,7 @@ public class ActiveSkill : Skill
     protected virtual void Fire()
     {
         ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
+        ProjectileManager.Instance.SpawnProjectile(skillName, new ProjectileStats() { lifetime = 5, });
     }
+
 }

@@ -1816,6 +1816,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529817112}
   m_CullTransparentMesh: 1
+--- !u!1 &547687181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547687182}
+  m_Layer: 0
+  m_Name: "\uBC88\uAC1C\uCC0C\uB9BF\uCC0C\uB9BF\uC0C1\uB2E8\uC774\uB4DD\uCF64\uBCF4\uC2DC\uB3D9\uAE306N23R"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547687182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547687181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.23652978, y: 0.68660927, z: -0.014807894}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &614478277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19426,6 +19457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0852a367dc21ed4a813da68ae6ae9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banish_Panel: {fileID: 0}
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
@@ -28367,6 +28399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0852a367dc21ed4a813da68ae6ae9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banish_Panel: {fileID: 0}
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
@@ -54296,6 +54329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0852a367dc21ed4a813da68ae6ae9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banish_Panel: {fileID: 0}
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
@@ -64121,7 +64155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088221b20c46f19468dd2493894c231c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SkillName: 0
   m_BTN: {fileID: 0}
+  m_Icon: {fileID: 0}
 --- !u!222 &7463438502098609777
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -69224,7 +69260,6 @@ MonoBehaviour:
     display_Name: "\uACE0\uAE30"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 56c014aa404d6704cb5734521b1be545, type: 3}
-  banish_Panel: {fileID: 357695092940850280}
   reroll_Counter_TMP: {fileID: 7229022845963059211}
   banish_Counter_TMP: {fileID: 2249180209044091636}
 --- !u!114 &8174909141820287590
@@ -71102,8 +71137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
-  skillSelector: {fileID: 8183992531885684295}
-  skillContainer: {fileID: 1474912334422459880}
   levelUp_Panel: {fileID: 8173576324103665201}
   mainSkills_List:
   - {fileID: 6091779135955041017}
@@ -71119,6 +71152,12 @@ MonoBehaviour:
   - {fileID: 1973861563448718141}
   display_Time_TMP: {fileID: 0}
   display_Level_TMP: {fileID: 0}
+  mainSkill_Icon_Rect: {fileID: 0}
+  subSkill_Icon_Rect: {fileID: 0}
+  miniMainSkill_Cell_Prefab: {fileID: 0}
+  miniSubSkill_Cell_Prefab: {fileID: 0}
+  skillSelector: {fileID: 8183992531885684295}
+  skillContainer: {fileID: 1474912334422459880}
 --- !u!222 &8426853490611095312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -77403,3 +77442,4 @@ SceneRoots:
   - {fileID: 82353319}
   - {fileID: 1449521750}
   - {fileID: 2135234498169954790}
+  - {fileID: 547687182}
