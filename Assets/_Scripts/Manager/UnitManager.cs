@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
@@ -464,6 +465,22 @@ public class UnitManager : Singleton<UnitManager>
 
         return positions;
     }
+    public void TakeAllDamage(float damage)
+    {
+        if (activeMonsters != null)
+        {
+            // 리스트를 복사하여 순회
+            var monstersToUpdate = activeMonsters.ToList();
+            foreach (MonsterBase monster in monstersToUpdate)
+            {
+                if (monster != null)
+                {
+                    monster.TakeDamage(damage);
+                }
+            }
+        }
+    }
+
 }
 
 public enum MonsterType
