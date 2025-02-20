@@ -6,9 +6,10 @@ using System.Threading;
 public class MonsterProjectile : Projectile
 {
     private float elapsedTime = 0f;
+    public Vector3 StartPosition { get; private set; }
     public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
     {
-        
+        this.startPosition = startPos; 
         Vector3 targetPos = startPos + direction * 100f; 
         base.InitProjectile(startPos, targetPos, speed, damage);
     }
@@ -59,6 +60,7 @@ public class MonsterProjectile : Projectile
             var player = collision.GetComponent<Player>();
             if (player != null)
             {
+                player.OnProjectileHit(this);
                 player.TakeDamage(damage);
             }
             DestroyProjectile();

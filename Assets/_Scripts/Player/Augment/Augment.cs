@@ -41,14 +41,20 @@ public abstract class Augment
     protected virtual void OnLevelUp() { }
 }
 
-// 스킬타입 증강(조건없이 계속 실행)
 public abstract class TimeBasedAugment : Augment 
 {
-    protected float interval;
+    private float baseInterval;
+    protected float interval => baseInterval * owner.Stats.CurrentCooldown;
     
     public TimeBasedAugment(Player owner, float interval) : base(owner)
     {
-        this.interval = interval;
+        this.baseInterval = interval;
+    }
+    
+    protected void ModifyBaseInterval(float amount)
+    {
+        baseInterval += amount;
+        if (baseInterval < 0.1f) baseInterval = 0.1f; 
     }
     
     protected override async void StartAugment()

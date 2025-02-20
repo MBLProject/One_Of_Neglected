@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
 using Random = UnityEngine.Random;
+using System.Linq;
 
 [Serializable]
 public class StatViewer
@@ -90,6 +90,12 @@ public abstract class Player : MonoBehaviour
     private float invincibilityTimer = 0f;
     #endregion
 
+    // 이동속도 버프 관련 변수
+    private float speedBuffDuration = 0f;
+    private float speedBuffTimer = 0f;
+    private float speedBuffAmount = 0f;
+    private bool hasSpeedBuff = false;
+
     public ClassType ClassType { get; protected set; }
     public Animator Animator => animator;
     public PlayerStats Stats
@@ -100,7 +106,6 @@ public abstract class Player : MonoBehaviour
     public ParticleSystem DashEffect => dashEffect;
 
     protected AugmentSelector augmentSelector;
-    public event Action OnPlayerAttack; 
 
 
     protected virtual void Awake()
@@ -143,6 +148,7 @@ public abstract class Player : MonoBehaviour
         UpdateBarrierRecharge();
         UpdateInvincibility();
         UpdateHpRegen();
+        UpdateSpeedBuff();
     }
 
     protected abstract void InitializeStats();
@@ -283,9 +289,7 @@ public abstract class Player : MonoBehaviour
     }
     public virtual void TakeDamage(float damage)
     {
-        // 순서 어떻게 할지에 따라 무적상태에서 피격시 베리어 깨지게 할 수 있읍니다.
-        // 무적 체크
-        if (isInvincible) return;
+        if (isInvincible) return;  // 무적 상태면 데미지를 받지 않음
 
         // 베리어 체크
         if (isBarrier && hasBarrierCharge)
@@ -308,11 +312,10 @@ public abstract class Player : MonoBehaviour
         stats.currentHp -= damage;
         ShowDamageFont(transform.position, damage, transform, isCritical);
 
-        // Invincibility가 true인 경우 데미지를 받은 후 무적 상태 적용
+        // 피격 시 무적 효과 추가
         if (stats.CurrentInvincibility)
         {
-            isInvincible = true;
-            invincibilityTimer = 0f;
+            SetInvincible(0.1f * stats.CurrentDuration);  // 기본 무적 시간에 지속시간 스탯 적용
         }
 
         if (stats.currentHp <= 0)
@@ -456,7 +459,7 @@ public abstract class Player : MonoBehaviour
         if (isInvincible)
         {
             invincibilityTimer += Time.deltaTime;
-            if (invincibilityTimer >= invincibilityDuration * stats.CurrentDuration)
+            if (invincibilityTimer >= invincibilityDuration)
             {
                 isInvincible = false;
                 invincibilityTimer = 0f;
@@ -498,9 +501,7 @@ public abstract class Player : MonoBehaviour
                 //특정 레벨 이상 처리
                 if (stats.CurrentLevel <= 10)
                 {
-                    stats.currentExp = stats.CurrentMaxExp;
-                    expObject.selfDestroy();
-                    return;
+                    expAmount = stats.CurrentMaxExp;
                 }
                 else
                 {
@@ -525,7 +526,7 @@ public abstract class Player : MonoBehaviour
         stats.currentExp -= stats.CurrentMaxExp;
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
-
+        Debug.Log("레벨업 - 플레이어 호출");
         //UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
     }
 
@@ -555,13 +556,53 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    protected virtual void OnAttack()
+    public void SetInvincible(float duration)
     {
-        OnPlayerAttack?.Invoke();
+        isInvincible = true;
+        invincibilityDuration = duration;
+        invincibilityTimer = 0f;
     }
 
-    public void TriggerAttack()
+    public void ApplySpeedBuff(float duration, float percent)
     {
-        OnAttack();
+        hasSpeedBuff = true;
+        speedBuffDuration = duration;
+        speedBuffTimer = 0f;
+        
+        float baseSpeed = stats.CurrentMspd; 
+        speedBuffAmount = baseSpeed * percent;
+        
+        stats.ModifyStatValue(StatType.Mspd, speedBuffAmount);
+    }
+
+    private void UpdateSpeedBuff()
+    {
+        if (hasSpeedBuff)
+        {
+            speedBuffTimer += Time.deltaTime;
+            if (speedBuffTimer >= speedBuffDuration)
+            {
+                // 버프 시간이 끝나면 이동속도 원래대로 복구
+                stats.ModifyStatValue(StatType.Mspd, -speedBuffAmount);
+                hasSpeedBuff = false;
+                speedBuffTimer = 0f;
+            }
+        }
+    }
+
+    public virtual void OnProjectileHit(MonsterProjectile projectile)
+    {
+        // 패링 시도
+        var swordShield = augmentSelector.activeAugments
+            .FirstOrDefault(aug => aug is Aug_SwordShield) as Aug_SwordShield;
+        
+        if (swordShield != null && swordShield.TryParryProjectile(projectile))
+        {
+            // 패링 성공
+            return;
+        }
+
+        //// 패링 실패시 일반 데미지 처리
+        //TakeDamage(projectile.damage);
     }
 }
