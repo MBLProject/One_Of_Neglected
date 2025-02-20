@@ -12,14 +12,7 @@ public class Skill
 
     protected bool isSkillActive = false;
 
-
-    protected Skill(SkillName skillName, float defaultCooldown)
-    {
-        this.skillName = skillName;
-
-    }
-
-    protected Skill(Enums.SkillName skillName)
+    protected Skill(SkillName skillName)
     {
         this.skillName = skillName;
 

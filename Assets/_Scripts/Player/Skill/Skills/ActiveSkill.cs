@@ -1,4 +1,3 @@
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
 
@@ -12,14 +11,6 @@ public class ActiveSkill : Skill
 
     public float FinelATKRange => stats.defaultATKRange * stats.aTKRange;
 
-    public ActiveSkill(Enums.SkillName skillName, float defaultCooldown)
-        : base(skillName, defaultCooldown)
-    {
-        InitSkill();
-
-        SubscribeToPlayerStats();
-    }
-
     public ActiveSkill(Enums.SkillName skillName) : base(skillName)
     {
         // init Stats
@@ -27,6 +18,8 @@ public class ActiveSkill : Skill
 
         SubscribeToPlayerStats();
     }
+
+
 
     public override void InitSkill()
     {
