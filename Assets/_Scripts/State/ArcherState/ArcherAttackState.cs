@@ -87,6 +87,7 @@ public class ArcherAttackState : BaseState<Player>
                 targetPosition,
                 1f,
                 player.Stats.CurrentATK,
+                1,
                 10f,
                 0,
                 5

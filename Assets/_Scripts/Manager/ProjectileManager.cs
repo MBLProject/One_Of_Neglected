@@ -38,6 +38,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
         playerProjectiles.Add("WarriorAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarriorAttackProjectile"));
         playerProjectiles.Add("MagicianAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/MagicianAttackProjectile"));
         playerProjectiles.Add("ArcherAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ArcherAttackProjectile"));
+        playerProjectiles.Add("SwordAurorProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SwordAurorProjectile"));
+        playerProjectiles.Add("EarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/EarthquakeProjectile"));
+        playerProjectiles.Add("SubEarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SubEarthquakeProjectile"));
 
     }
 
@@ -172,7 +175,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         activeProjectiles.Add(projectile);
     }
 
-    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, float speed, float damge, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, 
+        float speed, float damage, float size, float maxDist = 10f, int pierceCnt = 0, float lifetime = 5f)
     {
         if (!playerProjectiles.ContainsKey(prefabName))
         {
@@ -181,8 +185,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
-        projectile.InitProjectile(startPos, targetPos, speed, damge, maxDist, pierceCnt, lifetime);
-
+        projectile.transform.localScale = Vector3.one * size;
+        projectile.InitProjectile(startPos, targetPos, speed, damage, maxDist, pierceCnt, lifetime);
 
         activeProjectiles.Add(projectile);
     }

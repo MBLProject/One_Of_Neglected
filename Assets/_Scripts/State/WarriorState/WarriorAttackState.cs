@@ -65,11 +65,11 @@ public class WarriorAttackState : BaseState<Player>
                 spawnPosition,
                 targetPosition,
                 0f,
-                player.Stats.CurrentATK
+                player.Stats.CurrentATK,
+                1
             );
             
             hasDealtDamage = true;
-            player.TriggerAttack();
         }
 
         if (!player.IsAtDestination())
