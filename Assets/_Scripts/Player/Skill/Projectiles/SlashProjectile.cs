@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class SlashProjectile : Projectile
             dmg,               // 데미지
             10f,               // 최대 거리
             0,                 // 관통 횟수
-            3f                 // 생존 시간
+            5f                 // 생존 시간
         );
     }
     protected override void OnTriggerEnter2D(Collider2D collision)

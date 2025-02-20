@@ -65,26 +65,22 @@ public class UnitManager : Singleton<UnitManager>
             SpawnTankUniquesInFormation();
         }
 
-        // 진형별 직접 테스트
         if (Input.GetKeyDown(KeyCode.Alpha1))  // 1키: 세로 진형
         {
-            Vector2 spawnCenter = GetRandomSpawnPosition();
             Debug.Log("탱크 유니크 몬스터 세로 진형 테스트");
-            SpawnVerticalFormation(spawnCenter);
+            SpawnVerticalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))  // 2키: 가로 진형
         {
-            Vector2 spawnCenter = GetRandomSpawnPosition();
             Debug.Log("탱크 유니크 몬스터 가로 진형 테스트");
-            SpawnHorizontalFormation(spawnCenter);
+            SpawnHorizontalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))  // 3키: 원형 진형
         {
-            Vector2 spawnCenter = GetRandomSpawnPosition();
             Debug.Log("탱크 유니크 몬스터 원형 진형 테스트");
-            SpawnCircularFormation(spawnCenter);
+            SpawnCircularFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
         }
     }
 
@@ -128,8 +124,8 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (currentPlayer == null) return;
 
-        int formationRoll = UnityEngine.Random.Range(1, 101);
-        Vector2 spawnCenter = GetRandomSpawnPosition(); // 플레이어로부터 일정 거리 떨어진 위치
+        int formationRoll = Random.Range(1, 101);
+        Vector2 spawnCenter = currentPlayer.transform.position;
 
         if (formationRoll <= 40)  // 40% 확률로 세로 진형
         {
@@ -147,39 +143,67 @@ public class UnitManager : Singleton<UnitManager>
             Debug.Log("탱크 유니크 몬스터 원형 진형 소환");
         }
     }
-    private void SpawnVerticalFormation(Vector2 center)
+    private void SpawnVerticalFormation(Vector2 playerPos)
     {
-        float spacing = 1f; // 몬스터 간 간격
-        for (int i = 0; i < 8; i++)
+        float spacing = 0.5f; // 몬스터 간 간격
+        int monstersPerLine = 8; // 한 줄당 몬스터 수
+        float distanceFromPlayer = 4f; // 플레이어로부터의 거리
+
+        // 한쪽 방향에만 8마리 소환 (왼쪽 또는 오른쪽)
+        int side = Random.Range(0, 2) * 2 - 1; // -1 또는 1
+        float xOffset = side * distanceFromPlayer;
+
+        for (int i = 0; i < monstersPerLine; i++)
         {
-            float offset = (i - 3.5f) * spacing; // 중앙 정렬을 위해 3.5f 사용
-            Vector2 spawnPos = center + new Vector2(0, offset);
-            SpawnMonster(MonsterType.TankUnique, spawnPos);
+            float yOffset = (i - (monstersPerLine - 1) / 2f) * spacing;
+            Vector2 spawnPos = playerPos + new Vector2(xOffset, yOffset);
+            MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
+            if (monster != null)
+            {
+                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+            }
         }
     }
 
-    private void SpawnHorizontalFormation(Vector2 center)
+    private void SpawnHorizontalFormation(Vector2 playerPos)
     {
-        float spacing = 1f; // 몬스터 간 간격
-        for (int i = 0; i < 8; i++)
+        float spacing = 0.5f; // 몬스터 간 간격
+        int monstersPerLine = 8; // 한 줄당 몬스터 수
+        float distanceFromPlayer = 4f; // 플레이어로부터의 거리
+
+        // 한쪽 방향에만 8마리 소환 (위 또는 아래)
+        int side = Random.Range(0, 2) * 2 - 1; // -1 또는 1
+        float yOffset = side * distanceFromPlayer;
+
+        for (int i = 0; i < monstersPerLine; i++)
         {
-            float offset = (i - 3.5f) * spacing; // 중앙 정렬을 위해 3.5f 사용
-            Vector2 spawnPos = center + new Vector2(offset, 0);
-            SpawnMonster(MonsterType.TankUnique, spawnPos);
+            float xOffset = (i - (monstersPerLine - 1) / 2f) * spacing;
+            Vector2 spawnPos = playerPos + new Vector2(xOffset, yOffset);
+            MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
+            if (monster != null)
+            {
+                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+            }
         }
     }
 
-    private void SpawnCircularFormation(Vector2 center)
+    private void SpawnCircularFormation(Vector2 playerPos)
     {
-        float radius = 3f; // 원형 진형의 반지름
-        for (int i = 0; i < 8; i++)
+        int monsterCount = 8; // 총 16마리
+        float radius = 4f; // 원형 진형의 반지름 (플레이어로부터의 거리)
+
+        for (int i = 0; i < monsterCount; i++)
         {
-            float angle = i * (360f / 8);
-            Vector2 spawnPos = center + new Vector2(
+            float angle = i * (360f / monsterCount);
+            Vector2 spawnPos = playerPos + new Vector2(
                 Mathf.Cos(angle * Mathf.Deg2Rad) * radius,
                 Mathf.Sin(angle * Mathf.Deg2Rad) * radius
             );
-            SpawnMonster(MonsterType.TankUnique, spawnPos);
+            MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
+            if (monster != null)
+            {
+                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+            }
         }
     }
     private void SpawnStrongMonsters()
