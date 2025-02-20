@@ -1,33 +1,36 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using Unity.VisualScripting;
+using static Enums;
 
 [Serializable]
 public class Skill
 {
-    public Enums.SkillName skillName;
-    public float cooldown;
+    public SkillName skillName;
 
-    protected float defaultCooldown;
-    protected float damage = 1f;
-    protected int level = 1;
-    protected int pierceCount = 0;
-    protected int shotCount = 1;
-    protected int projectileCount = 1;
-
-    protected float projectileDelay = 0.1f;
-    protected float shotDelay = 0.5f;
+    public int level;
 
     protected bool isSkillActive = false;
 
-    public bool IsActive { get; protected set; }
 
-    protected Skill(Enums.SkillName skillName, float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f)
+    protected Skill(SkillName skillName, float defaultCooldown)
     {
         this.skillName = skillName;
-        this.defaultCooldown = defaultCooldown;
-        this.projectileDelay = pierceDelay;
-        this.shotDelay = shotDelay;
+
+    }
+
+    protected Skill(Enums.SkillName skillName)
+    {
+        this.skillName = skillName;
+
+        LevelUp();
+    }
+
+    protected virtual void SubscribeToPlayerStats()
+    {
+        //PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
+        //playerStats.OnATKChanged += (value) => { stats.aTK = value; };
     }
 
     public virtual void StartMainTask()
@@ -38,14 +41,37 @@ public class Skill
     {
     }
 
-    public virtual void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public virtual void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float ATKRange)
     {
-        this.damage = damage;
-        this.level = level;
-        this.pierceCount = pierceCount;
-        this.shotCount = shotCount;
-        this.projectileCount = projectileCount;
-        this.projectileDelay = projectileDelay;
-        this.shotDelay = shotDelay;
+    }
+
+    public virtual void InitSkill()
+    {
+
+    }
+
+    public virtual void LevelUp()
+    {
+        if (level >= 6)
+        {
+            Debug.LogError($"Skill {skillName}'s current level is {level}!! You Cannot Order this skill's LevelUp!!");
+            return;
+        }
+        level++;
+        //switch (stats.level)
+        //{
+        //    case 0:
+        //        break;
+        //    case 1:
+        //        break;
+        //    case 2:
+        //        break;
+        //    case 3:
+        //        break;
+        //    case 4:
+        //        break;
+        //    case 5:
+        //        break;
+        //}
     }
 }

@@ -9,7 +9,7 @@ public class Aura : ActiveSkill
 {
     private bool hasSpawned = false;
 
-    public Aura(float defaultCooldown, float pierceDelay = 0.1f, float shotDelay = 0.5f) : base(Enums.SkillName.Aura, defaultCooldown, pierceDelay, shotDelay) { }
+    public Aura() : base(Enums.SkillName.Aura) { }
 
     protected override async UniTask StartSkill()
     {
