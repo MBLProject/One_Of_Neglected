@@ -10,19 +10,16 @@ public class InGameUI_Panel : Panel
 {
 
     private bool isOptionActive;
-    private int mainSkill_Num;
-    private int subSkill_Num;
     private int min;
     private int sec;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
-    [SerializeField] private List<Image> mainSkills_List;
-    [SerializeField] private List<Image> subSkills_List;
+    [SerializeField] private List<Image> mainSkill_Icon_Container;
+    [SerializeField] private List<Image> subSkill_Icon_Container;
     [SerializeField] private TextMeshProUGUI display_Time_TMP;
     [SerializeField] private TextMeshProUGUI display_Level_TMP;
-    [SerializeField] private RectTransform mainSkill_Icon_Rect;
-    [SerializeField] private RectTransform subSkill_Icon_Rect;
-    public GameObject miniMainSkill_Cell_Prefab;
-    public GameObject miniSubSkill_Cell_Prefab;
+    [SerializeField] private RectTransform main_Icon_Rect;
+    [SerializeField] private RectTransform sub_Icon_Rect;
+    [SerializeField] private Sprite defaultIcon;
     public SkillSelector skillSelector;
     public SkillContainer skillContainer;
 
@@ -62,21 +59,53 @@ public class InGameUI_Panel : Panel
         }
         TimeCalc();
     }
-    public void SetSkill_Icon(Enums.SkillName skillName)
+    public void SetIconCell_Banish(Enums.SkillName skillName)
     {
-        bool isActiveSkill = SkillFactory.IsActiveSkill(skillName);
-        Debug.Log(isActiveSkill);
-        if (isActiveSkill)
+
+        if (SkillFactory.IsActiveSkill(skillName))
         {
-            mainSkills_List[mainSkill_Num].sprite = levelUp_Panel.skill_Info_Dic[skillName].skill_Sprite;
-            mainSkills_List[mainSkill_Num].color = Color.white;
-            //TODO : 강화될 경우 스프라이트 업뎃 안하게
-            mainSkill_Num++;
+            SetIcons(mainSkill_Icon_Container, skillName);
         }
         else
         {
-            // subSkills_List[subSkill_Num].sprite =    
-            subSkill_Num++;
+            SetIcons(subSkill_Icon_Container, skillName);
+        }
+
+    }
+    public void SetIcons(List<Image> skill_List, Enums.SkillName skillName)
+    {
+        foreach (Image image in skill_List)
+        {
+            if (image.sprite == null)
+            {
+                image.sprite = levelUp_Panel.skill_Info_Dic[skillName].skill_Sprite;
+                image.color = Color.white;
+                break;
+            }
+        }
+    }
+    public void Remove_MiniIcon(Enums.SkillName skillName, Sprite sprite)
+    {
+        if (SkillFactory.IsActiveSkill(skillName))
+        {
+            Icon_Replace(mainSkill_Icon_Container, sprite, main_Icon_Rect);
+        }
+        else
+        {
+            Icon_Replace(subSkill_Icon_Container, sprite, sub_Icon_Rect);
+        }
+    }
+
+    public void Icon_Replace(List<Image> icon_Container, Sprite sprite, RectTransform parent_Rect)
+    {
+        foreach (Image image in icon_Container)
+        {
+            if (image.sprite == sprite)
+            {
+                image.sprite = defaultIcon;
+                image.transform.parent.SetParent(null);
+                image.transform.parent.SetParent(parent_Rect);
+            }
         }
     }
 
@@ -90,11 +119,5 @@ public class InGameUI_Panel : Panel
     private void Auto_BTN()
     {
         UnitManager.Instance.GetPlayer().isAuto = !UnitManager.Instance.GetPlayer().isAuto;
-    }
-
-    public void MakeNewMiniCell(bool isMainSkill)
-    {
-        if (isMainSkill) Instantiate(miniMainSkill_Cell_Prefab, mainSkill_Icon_Rect);
-        else Instantiate(miniSubSkill_Cell_Prefab, subSkill_Icon_Rect);
     }
 }

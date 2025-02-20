@@ -34,7 +34,7 @@ public class UI_Manager : Singleton<UI_Manager>
             if (x.name == "Game")
             {
                 RectGroup_Activation(false, true);
-                panel_Dic["InGame_Panel"].PanelOpen();
+                panel_Dic["InGameUI_Panel"].PanelOpen();
             }
             if (x.name == "Title")
             {

@@ -22,21 +22,20 @@ public class Selection : MonoBehaviour
         m_BTN.onClick.AddListener(Select_BTN);
     }
 
-    void OnDisable()
-    {
-
-    }
-
     private void Select_BTN()
     {
         Debug.Log(m_skillName);
         if (inGameUI_Panel.skillContainer.
         GetSkill(m_skillName) == Enums.SkillName.None)
         {
-            inGameUI_Panel.SetSkill_Icon(m_skillName);
+            //TODO 골드도 예외처리
+            if (m_skillName != Enums.SkillName.Cheese)
+            {
+                inGameUI_Panel.SetIconCell_Banish(m_skillName);
+                banish_Panel.SetIconCell_Mini(m_skillName);
+            }
         }
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
-        banish_Panel.FindEmptySlot(m_skillName);
         levelUp_Panel.PanelClose();
     }
 }
