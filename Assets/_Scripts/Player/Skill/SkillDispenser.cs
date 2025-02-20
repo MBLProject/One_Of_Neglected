@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class SkillDispenser : MonoBehaviour
@@ -21,13 +22,13 @@ public class SkillDispenser : MonoBehaviour
     {
         if (skills.ContainsKey(skillName))
         {
-            skills[skillName].InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f);
+            skills[skillName].LevelUp(); // ?덈꺼??硫붿꽌???몄텧
             return;
         }
-
-        Skill newSkill = SkillFactory.CreateSkill(skillName, defaultCooldown);
+        Skill newSkill = SkillFactory.CreateSkill(skillName);
         if (newSkill != null)
         {
+            newSkill.InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f, 2f); // ATKRange 異붽?
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
         }
@@ -42,10 +43,5 @@ public class SkillDispenser : MonoBehaviour
         }
         else
             print($"{skillName} is NOT Registered Skill!!");
-    }
-
-    public void UpdateSkill(Enums.SkillName skillName)
-    {
-
     }
 }

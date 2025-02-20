@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
@@ -86,5 +87,14 @@ public class SkillContainer : MonoBehaviour
             if (!SkillFactory.IsActiveSkill(skillName)) count++;
         }
         return count;
+    }
+
+    public void RemoveSkill(SkillName deDuctSkillName)
+    {
+        if (ownedSkills.Contains(deDuctSkillName))
+        {
+            ownedSkills.Remove(deDuctSkillName);
+            selectableSkills.Remove(deDuctSkillName);
+        }
     }
 }
