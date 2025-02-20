@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class Cheese : Skill
 {
-    public Cheese(float defaultCooldown) : base(Enums.SkillName.Cheese, defaultCooldown)
+    public Cheese() : base(Enums.SkillName.Cheese)
     {
     }
 
-    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float atkrange)
     {
-        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay);
-        
         var player = UnitManager.Instance.GetPlayer();
 
         player.Stats.ModifyStatValue(Enums.StatType.Hp, player.Stats.CurrentMaxHp * 0.3f);
     }
-} 
+
+    public override void InitSkill()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.Hp, player.Stats.CurrentMaxHp * 0.3f);
+    }
+}
