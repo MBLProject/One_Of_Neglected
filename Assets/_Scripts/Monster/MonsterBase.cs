@@ -183,6 +183,9 @@ public abstract class MonsterBase : MonoBehaviour
             //     transform.localScale.z
             // );
 
+            //Sign의 값이 -1 , 1 로 고정이 돼 있기 때문에 다른 방식을 채용
+            //Sign을 사용하려면 생성됐을 기존 스케일을 저장하고 
+            //Sign값과 기존 스케일의 차를 +- 해주어야 하는 등의 방식을 사용해야할것으로 보임.
         }
         //스프라이트 방향 설정
         //direction.x 값에 따라 스프라이트의 flipX 값을 바꿈;
