@@ -10,8 +10,7 @@ using System.Linq;
 public class AuraProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
-    private float damagePerFrame = 0.5f; // 1?λ뜄??揶쎛???袁⑥쟿???怨?筌왖???μ빖??
-    private float tickInterval = 0.2f;
+    private float tickInterval = 0.5f;
 
     protected override void Start()
     {
@@ -22,13 +21,6 @@ public class AuraProjectile : Projectile
         MoveProjectileAsync(cts.Token).Forget();
         ApplyDamageLoop(cts.Token).Forget();
     }
-
-    private void CalculateDamagePerFrame()
-    {
-        // damage??1????덈툧 雅뚯눖?????怨?筌왖嚥???쇱젟??랁?deltaTime???⑥쥓??
-        damagePerFrame = damage * Time.deltaTime;  // Time.deltaTime???④퉲鍮먧틠?깅선 ?袁⑥쟿?袁⑥춳???怨몄뒠??롫뮉 ?怨?筌왖????쑬??怨몄몵嚥?鈺곌퀣??
-    }
-
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
     {
         while (isMoving)
@@ -54,11 +46,11 @@ public class AuraProjectile : Projectile
             {
                 foreach (var monster in monstersInRange.ToList())
                 {
-                    monster.TakeDamage(damagePerFrame);
+                    monster.TakeDamage(stats.finalDamage);
 
                     DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
                     {
-                        damage = damagePerFrame,
+                        damage = stats.finalDamage,
                         projectileName = gameObject.name,
                     });
                 }
@@ -120,7 +112,6 @@ public class AuraProjectile : Projectile
         pierceCount = pierceCnt;
         lifeTime = lifetime;
 
-        CalculateDamagePerFrame();
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
@@ -128,7 +119,5 @@ public class AuraProjectile : Projectile
         startPosition = startPos;
         targetPosition = targetPos;
         stats = projectileStats;
-
-        CalculateDamagePerFrame();
     }
 }
