@@ -14,9 +14,7 @@ public class PoisonShoesProjectile : Projectile
     {
         isMoving = true;
         transform.position = startPosition;
-        cts = new CancellationTokenSource();
         CalculateDamagePerFrame();
-        MoveProjectileAsync(cts.Token).Forget();
     }
 
     private void CalculateDamagePerFrame()
@@ -37,6 +35,22 @@ public class PoisonShoesProjectile : Projectile
         CancelInvoke("DestroyProjectile");
 
         Invoke("DestroyProjectile", lifeTime);
+
+        CalculateDamagePerFrame();
+    }
+
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+
+        startPosition = startPos;
+        targetPosition = targetPos;
+        stats = projectileStats;
+
+        print($"PoisonShoesProjectile - InitProjectile - lifetime : {stats.lifetime}");
+
+        CancelInvoke("DestroyProjectile");
+
+        Invoke("DestroyProjectile", stats.lifetime);
 
         CalculateDamagePerFrame();
     }

@@ -33,10 +33,6 @@ public class Skill
     {
     }
 
-    public virtual void ModifySkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float ATKRange)
-    {
-    }
-
     public virtual void ModifySkill(SkillStats stats)
     {
 

@@ -33,10 +33,10 @@ public class NeedleProjectile : Projectile
         }
     }
 
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1f)
     {
-        this.startPosition = startPos;
-        this.targetPosition = targetPos;
+        startPosition = startPos;
+        targetPosition = targetPos;
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;
@@ -44,9 +44,21 @@ public class NeedleProjectile : Projectile
         lifeTime = lifetime;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", 0.25f);
+        Invoke("DestroyProjectile", lifeTime);
 
         direction = (targetPosition - startPos).normalized;
     }
 
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        startPosition = startPos;
+        targetPosition = targetPos;
+
+        stats = projectileStats;
+
+        CancelInvoke("DestroyProjectile");
+        Invoke("DestroyProjectile", stats.lifetime);
+
+        direction = (targetPosition - startPos).normalized;
+    }
 }

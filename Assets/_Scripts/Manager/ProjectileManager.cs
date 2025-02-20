@@ -123,7 +123,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
-        float speed = 3f;
 
         if (skillName == Enums.SkillName.Aura)
         {
@@ -133,7 +132,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
             }
 
             Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
-            projectile.InitProjectile(startPosition, startPosition, speed, stats.finalDamage, 10000f, stats.pierceCount, 100000f);
+            //projectile.InitProjectile(startPosition, Vector3.zero, speed, stats.finalDamage, -1f, stats.pierceCount, -1f);
+            projectile.InitProjectile(startPosition, Vector3.zero, stats);
+
             currentAuraProjectile = projectile;
             activeProjectiles.Add(projectile);
 
@@ -141,12 +142,11 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
-        int totalShots = stats.shotCount * stats.projectileCount;
 
         // Needle ?????? targetPositions ???ル봿?????됰Þ????????????????????ル봿?????됰엪??? ?轅붽틓???????ル∥堉??轅붽틓??影?뽧걤????????ш끽維뽳쭩???
         bool isNeedle = skillName == Enums.SkillName.Needle;
-        bool isAura = skillName == Enums.SkillName.Aura;
         int currentIndex = 0;
+
 
         UniTask.Void(async () =>
         {
@@ -162,22 +162,17 @@ public class ProjectileManager : Singleton<ProjectileManager>
                         targetPosition = targetPositions[currentIndex];
                         currentIndex = (currentIndex + 1) % targetPositions.Count;
                     }
-                    else if (isAura)
-                    {
-                        targetPosition = startPosition;
-                    }
                     else
                     {
                         targetPosition = targetPositions[j % targetPositions.Count];
                     }
 
                     Projectile projectile = Instantiate(projectiles[skillName]);
-                    projectile.InitProjectile(startPosition, targetPosition, speed, stats.finalDamage, 10f, stats.pierceCount, 5f);
+                    projectile.InitProjectile(startPosition, targetPosition, stats);
                     activeProjectiles.Add(projectile);
-
                     await UniTask.Delay(TimeSpan.FromSeconds(stats.projectileDelay));
                 }
-                await UniTask.Delay(TimeSpan.FromSeconds(stats.shotDelay));
+                await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Max((stats.shotDelay - stats.projectileCount * stats.projectileDelay), 0f)));
             }
         });
     }

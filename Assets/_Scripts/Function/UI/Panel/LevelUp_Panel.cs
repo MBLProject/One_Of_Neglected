@@ -9,7 +9,7 @@ using UniRan = UnityEngine.Random;
 [Serializable]
 public struct Augment_Info
 {
-    //TODO : Enum 추가예정
+    public Enums.AugmentName aug_Name;
     public string display_Name;
     [Multiline(4)]
     public string augment_Text;
@@ -36,28 +36,54 @@ public class LevelUp_Panel : Panel
     [SerializeField] private TextMeshProUGUI reroll_Counter_TMP;
     [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
+    public Dictionary<Enums.AugmentName, Augment_Info> aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
     private void Awake()
     {
-        Debug.Log(skill_Info_Dic.Count);
+        if (augment_Infos == null){ augment_Infos = new List<Augment_Info>(); }
+        if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
+        
+        skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
+        aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
+
         foreach (Skill_Info skill_Info in skill_Infos)
         {
             skill_Info_Dic.Add(skill_Info.skill_Name, skill_Info);
         }
-        buttons[0].onClick.AddListener(Reroll_BTN);
-        buttons[1].onClick.AddListener(Banish_BTN);
 
-        reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
-        banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+        foreach (Augment_Info aug_Info in augment_Infos)
+        {
+            aug_Info_Dic.Add(aug_Info.aug_Name, aug_Info);
+        }
+        
+
+        if (buttons != null && buttons.Count >= 2)
+        {
+            buttons[0].onClick.AddListener(Reroll_BTN);
+            buttons[1].onClick.AddListener(Banish_BTN);
+        }
+
+        if (reroll_Counter_TMP != null && DataManager.Instance?.BTS != null)
+        {
+            reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
+        }
+        
+        if (banish_Counter_TMP != null && DataManager.Instance?.BTS != null)
+        {
+            banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+        }
     }
 
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().name != "Game") return;
+        
         UnitManager.Instance.PauseGame();
         Time.timeScale = 0;
         inGameUI_Panel.display_Level_TMP.text =
         "Lv." + UnitManager.Instance.GetPlayer().Stats.CurrentLevel.ToString();
-        //TODO :플레이어 레벨 가져와서 증강 및 특성 넣어주기
+        
+
+
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {
             //증강과 특성 선택하는 메서드
@@ -66,12 +92,17 @@ public class LevelUp_Panel : Panel
         {
             //특성만 선택
             ChangeSelections();
+            //AugSelections(); //히히 증강발싸! selection Select_BTN2을 addlistner 변경하고 할것
         }
+
     }
     private void OnDisable()
     {
-        UnitManager.Instance.ResumeGame();
-        Time.timeScale = 1;
+        if (UnitManager.Instance != null)
+        {
+            UnitManager.Instance.ResumeGame();
+            Time.timeScale = 1;
+        }
     }
     private void Banish_BTN()
     {
@@ -105,8 +136,25 @@ public class LevelUp_Panel : Panel
             current_Selections[i].info_TMP.text = skill_Info.skill_Text;
             current_Selections[i].icon_IMG.sprite = skill_Info.skill_Sprite;
         }
-
     }
+    private void AugSelections()
+    {
+        Player player = UnitManager.Instance.GetPlayer();
+        
+        List<Enums.AugmentName> popAgu_List = player.augment.SelectAugments();
+        
+        Augment_Info aug_Info;
+        for (int i = 0; i < popAgu_List.Count; i++)
+        {
+            aug_Info = aug_Info_Dic[popAgu_List[i]];
+
+            current_Selections[i].m_augName = aug_Info.aug_Name;
+            current_Selections[i].displayName_TMP.text = aug_Info.display_Name;
+            current_Selections[i].info_TMP.text = aug_Info.augment_Text;
+            current_Selections[i].icon_IMG.sprite = aug_Info.augment_Sprite;
+        }
+    }
+
 
     private void FindAugmentInfo()
     {

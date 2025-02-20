@@ -18,33 +18,39 @@ public class Aug_TwoHandSword : TimeBasedAugment
 
     protected override void OnTrigger()
     {
-        Vector3 targetPos = UnitManager.Instance.GetNearestMonster().transform.position;
-        Vector3 direction = (targetPos - owner.transform.position).normalized;
+        Vector3 direction;
+        MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
+        
+        if (nearestMonster != null)
+        {
+            Vector3 targetPos = nearestMonster.transform.position;
+            direction = (targetPos - owner.transform.position).normalized;
+        }
+        else
+        {
+            direction = owner.transform.right; 
+        }
 
         int projAmount = owner.Stats.CurrentProjAmount;
-        float angleStep = 10f;
+        float angleStep = 15f;
 
-        int baseProjectiles = 1;
-        int totalProjectiles = baseProjectiles + projAmount;
+        int totalProjectiles = 1 + projAmount;
 
-        if (level >= 3)
-        {
-            totalProjectiles += 1;
-        }
-        else if (level >= 5)
+        if (level >= 5)
         {
             totalProjectiles += 2;
         }
-
+        else if (level >= 3)
+        {
+            totalProjectiles += 1;
+        }
 
         float totalAngleSpread = (totalProjectiles - 1) * angleStep;
         float startAngle = -totalAngleSpread / 2f;
-        Debug.Log($"{totalProjectiles}");
         
-        // 각 투사체 발사
         for (int i = 0; i < totalProjectiles; i++)
         {
-            float currentAngle = startAngle + (i % baseProjectiles) * angleStep;
+            float currentAngle = startAngle + (i * angleStep);
             SpawnProjectile(RotateVector(direction, currentAngle));
         }
     }

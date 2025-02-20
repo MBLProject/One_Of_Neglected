@@ -84,13 +84,13 @@ public class SkillSelector : MonoBehaviour
 
         if (skillName == Enums.SkillName.None)
         {
-            skillDispenser.RegisterSkill(chosenAbility, 2f);
+            skillDispenser.RegisterSkill(chosenAbility);
 
             skillContainer.AddSkill(chosenAbility);
         }
         else
         {
-            skillDispenser.RegisterSkill(skillName, 2f);
+            skillDispenser.RegisterSkill(skillName);
         }
     }
 

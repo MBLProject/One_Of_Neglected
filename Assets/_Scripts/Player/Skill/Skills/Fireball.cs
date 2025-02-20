@@ -12,6 +12,29 @@ public class Fireball : ActiveSkill
         //playerStats.OnATKChanged += (value) => { stats.aTK = value; };
     }
 
+    public override void InitSkill()
+    {
+        // init SkillStats
+        stats = new SkillStats()
+        {
+            defaultCooldown = 1f,
+            cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
+            defaultATKRange = 1f,
+            aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
+            defaultDamage = 1f,
+            aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
+            pierceCount = 0,
+            shotCount = 1,
+            projectileCount = 1,
+            projectileDelay = 0.1f,
+            shotDelay = 0.5f,
+            critical = 0.1f,
+            cATK = 1.5f,
+            amount = 1f,
+            lifetime = 5f,
+        };
+    }
+
     public override void LevelUp()
     {
         base.LevelUp();
