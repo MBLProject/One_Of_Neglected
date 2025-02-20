@@ -73,7 +73,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
         int totalShots = shotCount * projectileCount;
 
-        // Needle ?????? targetPositions ??醫딆┻???釉먭땁???????????援??????醫딆┻???釉랃폎?? ?꿔꺂??????醫롫뼲??꿔꺂??節뉖き???????熬곣뫖利???
+        // Needle ?????? targetPositions ???ル봿?????됰Þ????????????????????ル봿?????됰엪??? ?轅붽틓???????ル∥堉??轅붽틓??影?뽧걤????????ш끽維뽳쭩???
         bool isNeedle = skillName == Enums.SkillName.Needle;
         bool isAura = skillName == Enums.SkillName.Aura;
         int currentIndex = 0;
@@ -112,6 +112,74 @@ public class ProjectileManager : Singleton<ProjectileManager>
         });
     }
 
+    public void SpawnProjectile(Enums.SkillName skillName, ProjectileStats stats)
+    {
+        if (!projectiles.ContainsKey(skillName))
+        {
+            Debug.LogError($"Projectile type {skillName} not found!");
+            return;
+        }
+
+        Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
+        float speed = 3f;
+
+        if (skillName == Enums.SkillName.Aura)
+        {
+            if (currentAuraProjectile != null)
+            {
+                RemoveProjectile(currentAuraProjectile);
+            }
+
+            Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
+            projectile.InitProjectile(startPosition, startPosition, speed, stats.finalDamage, 10000f, stats.pierceCount, 100000f);
+            currentAuraProjectile = projectile;
+            activeProjectiles.Add(projectile);
+
+            return;
+        }
+
+        List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
+        int totalShots = stats.shotCount * stats.projectileCount;
+
+        // Needle ?????? targetPositions ???ル봿?????됰Þ????????????????????ル봿?????됰엪??? ?轅붽틓???????ル∥堉??轅붽틓??影?뽧걤????????ш끽維뽳쭩???
+        bool isNeedle = skillName == Enums.SkillName.Needle;
+        bool isAura = skillName == Enums.SkillName.Aura;
+        int currentIndex = 0;
+
+        UniTask.Void(async () =>
+        {
+            for (int i = 0; i < stats.shotCount; i++)
+            {
+                for (int j = 0; j < stats.projectileCount; j++)
+                {
+                    if (targetPositions.Count == 0) continue;
+
+                    Vector3 targetPosition;
+                    if (isNeedle)
+                    {
+                        targetPosition = targetPositions[currentIndex];
+                        currentIndex = (currentIndex + 1) % targetPositions.Count;
+                    }
+                    else if (isAura)
+                    {
+                        targetPosition = startPosition;
+                    }
+                    else
+                    {
+                        targetPosition = targetPositions[j % targetPositions.Count];
+                    }
+
+                    Projectile projectile = Instantiate(projectiles[skillName]);
+                    projectile.InitProjectile(startPosition, targetPosition, speed, stats.finalDamage, 10f, stats.pierceCount, 5f);
+                    activeProjectiles.Add(projectile);
+
+                    await UniTask.Delay(TimeSpan.FromSeconds(stats.projectileDelay));
+                }
+                await UniTask.Delay(TimeSpan.FromSeconds(stats.shotDelay));
+            }
+        });
+    }
+
     private List<Vector3> GetTargetPositionsBySkill(Enums.SkillName skillName, Vector3 startPosition)
     {
         List<Vector3> targetPositions = new List<Vector3>();
@@ -143,14 +211,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
                 break;
 
             default:
-                // ???뚯???????쇨덫嶺뚮ㅏ諭????醫딆쓧?????醫딆쓧??μ떜媛?걫????꿔꺂?????녿쫯??? ???嚥▲굧???? ????ㅼ굡?類㎮뵾???嶺뚮㉡?ｏ쭗??熬곣뫖?삥납????
+                // ????????????⑤뜪癲ル슢?뤺キ?????ル봿???????ル봿???關?쒎첎?嫄????轅붽틓??????우ク??? ????β뼯援???? ?????쇨덧?筌먦렜逾???癲ル슢??節륁춻???ш끽維??λ궔????
                 Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (defaultTarget.HasValue)
                     targetPositions.Add(defaultTarget.Value);
                 break;
         }
 
-        // ???嚥▲굧????????ㅼ굡?類㎮뵾????뚯??????嶺뚮㉡?ｏ쭗??熬곣뫖?삥납???????繹먮냱??
+        // ????β뼯援?????????쇨덧?筌먦렜逾???????????癲ル슢??節륁춻???ш끽維??λ궔???????濚밸Ŧ???
         if (targetPositions.Count == 0)
         {
             Vector3 randomDirection = Random.insideUnitCircle.normalized;

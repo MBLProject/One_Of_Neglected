@@ -19,8 +19,6 @@ public class ActiveSkill : Skill
         SubscribeToPlayerStats();
     }
 
-
-
     public override void InitSkill()
     {
         // init SkillStats
@@ -57,5 +55,7 @@ public class ActiveSkill : Skill
     protected virtual void Fire()
     {
         ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
+        ProjectileManager.Instance.SpawnProjectile(skillName, new ProjectileStats() { lifetime = 5, });
     }
+
 }

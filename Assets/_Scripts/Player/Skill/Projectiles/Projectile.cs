@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     protected int pierceCount = 0;
     protected float lifeTime = 5f;
 
-    protected SkillStats stats;
+    protected ProjectileStats stats;
 
     protected Vector3 direction;
 
@@ -70,8 +70,8 @@ public class Projectile : MonoBehaviour
 
     public virtual void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
-        this.startPosition = startPos;
-        this.targetPosition = targetPos;
+        startPosition = startPos;
+        targetPosition = targetPos;
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;

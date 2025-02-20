@@ -33,8 +33,13 @@ public class Skill
     {
     }
 
-    public virtual void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float ATKRange)
+    public virtual void ModifySkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float ATKRange)
     {
+    }
+
+    public virtual void ModifySkill(SkillStats stats)
+    {
+
     }
 
     public virtual void InitSkill()
@@ -50,20 +55,5 @@ public class Skill
             return;
         }
         level++;
-        //switch (stats.level)
-        //{
-        //    case 0:
-        //        break;
-        //    case 1:
-        //        break;
-        //    case 2:
-        //        break;
-        //    case 3:
-        //        break;
-        //    case 4:
-        //        break;
-        //    case 5:
-        //        break;
-        //}
     }
 }
