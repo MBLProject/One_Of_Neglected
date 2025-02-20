@@ -43,6 +43,22 @@ public class CrowdControlUniqueMonster : NormalMonster
         }
         return false;
     }
+    public override void TakeDamage(float damage)
+    {
+        stats.currentHealth -= damage;
+        ShowDamageFont(transform.position, damage, transform);
+
+        // 돌진 중이 아닐 때만 히트 애니메이션 재생
+        if (!isDashing)
+        {
+            animator?.SetTrigger("Hit");
+        }
+
+        if (stats.currentHealth <= 0)
+        {
+            Die();
+        }
+    }
     protected override void Update()
     {
         base.Update();
