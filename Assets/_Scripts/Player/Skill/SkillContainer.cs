@@ -5,10 +5,10 @@ using static Enums;
 
 public class SkillContainer : MonoBehaviour
 {
-    // 蹂댁쑀???ㅽ궗 紐⑸줉
+    // 癰귣똻?????쎄텢 筌뤴뫖以?
     private List<SkillName> ownedSkills = new List<SkillName>();
 
-    // ?덈꺼?????좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉
+    // ??덇볼?????醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以?
     private List<SkillName> selectableSkills = new List<SkillName>();
 
     private int maxActiveSkills = 3;
@@ -16,7 +16,7 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSkill(SkillName skillName)
     {
-        // 蹂댁쑀???ㅽ궗 紐⑸줉??異붽?
+        // 癰귣똻?????쎄텢 筌뤴뫖以???곕떽?
         if (!ownedSkills.Contains(skillName))
         {
             ownedSkills.Add(skillName);
@@ -34,7 +34,7 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSelectableSkill(SkillName skillName)
     {
-        // ?좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉??異붽?
+        // ?醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以???곕떽?
         if (!selectableSkills.Contains(skillName))
         {
             selectableSkills.Add(skillName);
@@ -43,13 +43,13 @@ public class SkillContainer : MonoBehaviour
 
     public List<SkillName> GetAvailableSkills()
     {
-        // ?덈꺼?????좏깮 媛?ν븳 ?ㅽ궗 紐⑸줉 諛섑솚
+        // ??덇볼?????醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以?獄쏆꼹??
         return new List<SkillName>(selectableSkills);
     }
 
     public SkillName GetSkill(SkillName skillName)
     {
-        // 蹂댁쑀???ㅽ궗 紐⑸줉?먯꽌 ?대떦 SkillName??諛섑솚
+        // 癰귣똻?????쎄텢 筌뤴뫖以?癒?퐣 ????SkillName??獄쏆꼹??
         if (ownedSkills.Contains(skillName))
         {
             return skillName;

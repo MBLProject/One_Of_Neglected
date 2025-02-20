@@ -89,7 +89,6 @@ public struct SkillStats
     public float defaultATKRange;
     public float defaultDamage;
     public float aTK;
-    public int level;
     public int pierceCount;
     public int shotCount;
     public int projectileCount;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class SkillDispenser : MonoBehaviour
@@ -22,13 +21,13 @@ public class SkillDispenser : MonoBehaviour
     {
         if (skills.ContainsKey(skillName))
         {
-            skills[skillName].LevelUp(); // ?덈꺼??硫붿꽌???몄텧
+            skills[skillName].LevelUp(); // ??덇볼??筌롫뗄苑???紐꾪뀱
             return;
         }
         Skill newSkill = SkillFactory.CreateSkill(skillName);
         if (newSkill != null)
         {
-            newSkill.InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f, 2f); // ATKRange 異붽?
+            newSkill.InitSkill();
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
         }
