@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Claw : ActiveSkill
 {
-    public Claw(float defaultCooldown) : base(Enums.SkillName.Claw, defaultCooldown) { }
+    public Claw() : base(Enums.SkillName.Claw) { }
 
 }

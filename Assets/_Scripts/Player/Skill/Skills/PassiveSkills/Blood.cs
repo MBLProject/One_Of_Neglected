@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class Blood : Skill
 {
-    public Blood(float defaultCooldown) : base(Enums.SkillName.Blood, defaultCooldown) { }
 
-    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public Blood() : base(Enums.SkillName.Blood) { }
+
+    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float a)
     {
-        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay);
 
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10);
+        player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10f);
     }
-} 
+
+    public override void InitSkill()
+    {
+
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10f);
+    }
+}

@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoes : MonoBehaviour
+public class Shoes : Skill
 {
-    // Start is called before the first frame update
-    void Start()
+    public Shoes() : base(Enums.SkillName.Shoes) { }
+
+    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float a)
     {
-        
+        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay, a);
+
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.Mspd, 4f);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void InitSkill()
     {
-        
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.Mspd, 4f);
     }
 }

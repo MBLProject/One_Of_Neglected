@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Bracelet : Skill
 {
-    public Bracelet(float defaultCooldown) : base(Enums.SkillName.Bracelet, defaultCooldown) { }
+    public Bracelet() : base(Enums.SkillName.Bracelet) { }
 
-    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay)
+    public override void InitSkill(float damage, int level, int pierceCount, int shotCount, int projectileCount, float projectileDelay, float shotDelay, float a)
     {
-        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay);
+        base.InitSkill(damage, level, pierceCount, shotCount, projectileCount, projectileDelay, shotDelay, a);
 
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Duration, player.Stats.CurrentDuration * 0.1f);
+        player.Stats.ModifyStatValue(Enums.StatType.Duration, 10f);
+    }
+
+    public override void InitSkill()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(Enums.StatType.Duration, 10f);
     }
 }

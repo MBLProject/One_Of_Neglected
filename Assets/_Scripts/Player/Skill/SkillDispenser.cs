@@ -21,13 +21,13 @@ public class SkillDispenser : MonoBehaviour
     {
         if (skills.ContainsKey(skillName))
         {
-            skills[skillName].InitSkill(2f, 1, 0, 1, 1, 0.1f, 0.5f);
+            skills[skillName].LevelUp(); // ??덇볼??筌롫뗄苑???紐꾪뀱
             return;
         }
-
-        Skill newSkill = SkillFactory.CreateSkill(skillName, defaultCooldown);
+        Skill newSkill = SkillFactory.CreateSkill(skillName);
         if (newSkill != null)
         {
+            newSkill.InitSkill();
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
         }
@@ -42,10 +42,5 @@ public class SkillDispenser : MonoBehaviour
         }
         else
             print($"{skillName} is NOT Registered Skill!!");
-    }
-
-    public void UpdateSkill(Enums.SkillName skillName)
-    {
-
     }
 }

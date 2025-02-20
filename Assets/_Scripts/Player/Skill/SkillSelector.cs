@@ -94,6 +94,16 @@ public class SkillSelector : MonoBehaviour
         }
     }
 
+    public void DeductSkill(Enums.SkillName deDuctSkillName)
+    {
+        if (skillDispenser.skills.ContainsKey(deDuctSkillName))
+        {
+            skillDispenser.UnRegisterSkill(deDuctSkillName);
+
+            skillContainer.RemoveSkill(deDuctSkillName);
+        }
+    }
+
     private bool IsActiveSkill(Enums.SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName);

@@ -13,8 +13,6 @@ public class AugmentSelector : MonoBehaviour
     {
         this.owner = owner;
         InitializeAugments();
-        owner.OnPlayerAttack += OnPlayerAttacked;
-        Debug.Log("onplayerattack 등록됨");
     }
     
     private void InitializeAugments()
@@ -23,9 +21,9 @@ public class AugmentSelector : MonoBehaviour
         
         availableAugments[Enums.ClassType.Warrior] = new List<Augment>
         {
-            new Aug_TwoHandSword(owner),
-            new Aug_BigSword(owner),
-            new Aug_SwordShield(owner),
+            new Aug_TwoHandSword(owner, 10f),
+            new Aug_BigSword(owner, 10f),
+            new Aug_SwordShield(owner, 10f),
             new Aug_Shielder(owner),
         };
 
@@ -55,10 +53,10 @@ public class AugmentSelector : MonoBehaviour
         return new List<Augment>();
     }
     
-    public List<Augment> SelectAugments()
+    public List<AugmentName> SelectAugments()
     {
         var availableList = GetAvailableAugments();
-        return availableList.ToList();
+        return availableList.Select(aug => aug.AugmentName).ToList();
     }
 
     public void ChooseAugment(Augment chosenAugment)
@@ -85,45 +83,38 @@ public class AugmentSelector : MonoBehaviour
             {
                 selectedAugment.Activate();
                 activeAugments.Add(selectedAugment);
+                selectedAugment.LevelUp();
             }
             else
             {
                 selectedAugment.LevelUp();
             }
         }
-        else
-        {
-            Debug.LogWarning($"증강 {augName}을(를) 찾을 수 없습니다.");
-        }
     }
 
-    private void Update()
+    public int GetAugmentLevel(AugmentName augmentName)
     {
-        // Update에서는 시간 기반이나 다른 조건을 체크해야 하는 증강만 체크하도록 수정
-        // 공격 기반 증강은 OnPlayerAttacked에서 처리하므로 여기서는 제거
-    }
-    private void OnDisable()
-    {
-        if (owner != null)
-        {
-            owner.OnPlayerAttack -= OnPlayerAttacked;
-            Debug.Log("onplayerattack 해제됨");
-        }
+        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
+        return augment?.Level ?? 0;
     }
 
-    private void OnPlayerAttacked()
+    public bool IsAugmentActive(AugmentName augmentName)
     {
-        foreach (var augment in activeAugments)
+        return activeAugments.Any(aug => aug.AugmentName == augmentName);
+    }
+
+    public bool CanLevelUpAugment(AugmentName augmentName)
+    {
+        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
+        return augment != null && augment.Level < 5;
+    }
+
+    public void LevelUpAugment(AugmentName augmentName)
+    {
+        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
+        if (augment != null && augment.Level < 5)
         {
-            if (augment is ConditionalAugment conditionalAugment)
-            {
-                bool conditionMet = conditionalAugment.CheckCondition();
-                if (conditionMet)
-                {
-                    Debug.Log($"Condition met for {augment.AugmentName}");
-                    conditionalAugment.OnConditionDetect();
-                }
-            }
+            augment.LevelUp();
         }
     }
 } 

@@ -8,6 +8,6 @@ using System;
 
 public class PoisonShoes : ActiveSkill
 {
-    public PoisonShoes(float defaultCooldown) : base(Enums.SkillName.PoisonShoes, defaultCooldown) { }
+    public PoisonShoes() : base(Enums.SkillName.PoisonShoes) { }
 
 }
