@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("??¸®????Á¤")]
+    [Header("??ë¦¬????ì •")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -14,7 +14,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("??Æù ??Á¤")]
+    [Header("??í° ??ì •")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -53,35 +53,35 @@ public class UnitManager : Singleton<UnitManager>
 
             nextSpawnTime = Time.time + spawnInterval;
         }
-        // Å×½ºÆ®¿ë Å° ÀÔ·Â
-        if (Input.GetKeyDown(KeyCode.U))  // UÅ°: À¯´ÏÅ© ¸ó½ºÅÍ ¼ÒÈ¯ Å×½ºÆ®
+        // í…ŒìŠ¤íŠ¸ìš© í‚¤ ì…ë ¥
+        if (Input.GetKeyDown(KeyCode.U))  // Uí‚¤: ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì†Œí™˜ í…ŒìŠ¤íŠ¸
         {
-            Debug.Log("À¯´ÏÅ© ¸ó½ºÅÍ ¼ÒÈ¯ Å×½ºÆ® ½ÃÀÛ");
+            Debug.Log("ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì†Œí™˜ í…ŒìŠ¤íŠ¸ ì‹œì‘");
             SpawnUniqueMonster();
         }
 
-        if (Input.GetKeyDown(KeyCode.T))  // TÅ°: ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ÁøÇü Å×½ºÆ®
+        if (Input.GetKeyDown(KeyCode.T))  // Tí‚¤: íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì§„í˜• í…ŒìŠ¤íŠ¸
         {
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ÁøÇü Å×½ºÆ® ½ÃÀÛ");
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì§„í˜• í…ŒìŠ¤íŠ¸ ì‹œì‘");
             SpawnTankUniquesInFormation();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))  // 1Å°: ¼¼·Î ÁøÇü
+        if (Input.GetKeyDown(KeyCode.Alpha1))  // 1í‚¤: ì„¸ë¡œ ì§„í˜•
         {
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ¼¼·Î ÁøÇü Å×½ºÆ®");
-            SpawnVerticalFormation(currentPlayer.transform.position);  // ÇÃ·¹ÀÌ¾î À§Ä¡ »ç¿ë
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì„¸ë¡œ ì§„í˜• í…ŒìŠ¤íŠ¸");
+            SpawnVerticalFormation(currentPlayer.transform.position);  // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì‚¬ìš©
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))  // 2Å°: °¡·Î ÁøÇü
+        if (Input.GetKeyDown(KeyCode.Alpha2))  // 2í‚¤: ê°€ë¡œ ì§„í˜•
         {
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ °¡·Î ÁøÇü Å×½ºÆ®");
-            SpawnHorizontalFormation(currentPlayer.transform.position);  // ÇÃ·¹ÀÌ¾î À§Ä¡ »ç¿ë
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ê°€ë¡œ ì§„í˜• í…ŒìŠ¤íŠ¸");
+            SpawnHorizontalFormation(currentPlayer.transform.position);  // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì‚¬ìš©
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))  // 3Å°: ¿øÇü ÁøÇü
+        if (Input.GetKeyDown(KeyCode.Alpha3))  // 3í‚¤: ì›í˜• ì§„í˜•
         {
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ¿øÇü ÁøÇü Å×½ºÆ®");
-            SpawnCircularFormation(currentPlayer.transform.position);  // ÇÃ·¹ÀÌ¾î À§Ä¡ »ç¿ë
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì›í˜• ì§„í˜• í…ŒìŠ¤íŠ¸");
+            SpawnCircularFormation(currentPlayer.transform.position);  // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì‚¬ìš©
         }
     }
 
@@ -128,30 +128,30 @@ public class UnitManager : Singleton<UnitManager>
         int formationRoll = Random.Range(1, 101);
         Vector2 spawnCenter = currentPlayer.transform.position;
 
-        if (formationRoll <= 40)  // 40% È®·ü·Î ¼¼·Î ÁøÇü
+        if (formationRoll <= 40)  // 40% í™•ë¥ ë¡œ ì„¸ë¡œ ì§„í˜•
         {
             SpawnVerticalFormation(spawnCenter);
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ¼¼·Î ÁøÇü ¼ÒÈ¯");
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì„¸ë¡œ ì§„í˜• ì†Œí™˜");
         }
-        else if (formationRoll <= 80)  // 40% È®·ü·Î °¡·Î ÁøÇü
+        else if (formationRoll <= 80)  // 40% í™•ë¥ ë¡œ ê°€ë¡œ ì§„í˜•
         {
             SpawnHorizontalFormation(spawnCenter);
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ °¡·Î ÁøÇü ¼ÒÈ¯");
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ê°€ë¡œ ì§„í˜• ì†Œí™˜");
         }
-        else  // 20% È®·ü·Î ¿øÇü ÁøÇü
+        else  // 20% í™•ë¥ ë¡œ ì›í˜• ì§„í˜•
         {
             SpawnCircularFormation(spawnCenter);
-            Debug.Log("ÅÊÅ© À¯´ÏÅ© ¸ó½ºÅÍ ¿øÇü ÁøÇü ¼ÒÈ¯");
+            Debug.Log("íƒ±í¬ ìœ ë‹ˆí¬ ëª¬ìŠ¤í„° ì›í˜• ì§„í˜• ì†Œí™˜");
         }
     }
     private void SpawnVerticalFormation(Vector2 playerPos)
     {
-        float spacing = 0.5f; // ¸ó½ºÅÍ °£ °£°İ
-        int monstersPerLine = 8; // ÇÑ ÁÙ´ç ¸ó½ºÅÍ ¼ö
-        float distanceFromPlayer = 4f; // ÇÃ·¹ÀÌ¾î·ÎºÎÅÍÀÇ °Å¸®
+        float spacing = 0.5f; // ëª¬ìŠ¤í„° ê°„ ê°„ê²©
+        int monstersPerLine = 8; // í•œ ì¤„ë‹¹ ëª¬ìŠ¤í„° ìˆ˜
+        float distanceFromPlayer = 4f; // í”Œë ˆì´ì–´ë¡œë¶€í„°ì˜ ê±°ë¦¬
 
-        // ÇÑÂÊ ¹æÇâ¿¡¸¸ 8¸¶¸® ¼ÒÈ¯ (¿ŞÂÊ ¶Ç´Â ¿À¸¥ÂÊ)
-        int side = Random.Range(0, 2) * 2 - 1; // -1 ¶Ç´Â 1
+        // í•œìª½ ë°©í–¥ì—ë§Œ 8ë§ˆë¦¬ ì†Œí™˜ (ì™¼ìª½ ë˜ëŠ” ì˜¤ë¥¸ìª½)
+        int side = Random.Range(0, 2) * 2 - 1; // -1 ë˜ëŠ” 1
         float xOffset = side * distanceFromPlayer;
 
         for (int i = 0; i < monstersPerLine; i++)
@@ -161,19 +161,19 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"ÅÊÅ© ¸ó½ºÅÍ »ı¼º - À§Ä¡: {spawnPos}, ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®: {Vector2.Distance(playerPos, spawnPos)}");
+                Debug.Log($"íƒ±í¬ ëª¬ìŠ¤í„° ìƒì„± - ìœ„ì¹˜: {spawnPos}, í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
 
     private void SpawnHorizontalFormation(Vector2 playerPos)
     {
-        float spacing = 0.5f; // ¸ó½ºÅÍ °£ °£°İ
-        int monstersPerLine = 8; // ÇÑ ÁÙ´ç ¸ó½ºÅÍ ¼ö
-        float distanceFromPlayer = 4f; // ÇÃ·¹ÀÌ¾î·ÎºÎÅÍÀÇ °Å¸®
+        float spacing = 0.5f; // ëª¬ìŠ¤í„° ê°„ ê°„ê²©
+        int monstersPerLine = 8; // í•œ ì¤„ë‹¹ ëª¬ìŠ¤í„° ìˆ˜
+        float distanceFromPlayer = 4f; // í”Œë ˆì´ì–´ë¡œë¶€í„°ì˜ ê±°ë¦¬
 
-        // ÇÑÂÊ ¹æÇâ¿¡¸¸ 8¸¶¸® ¼ÒÈ¯ (À§ ¶Ç´Â ¾Æ·¡)
-        int side = Random.Range(0, 2) * 2 - 1; // -1 ¶Ç´Â 1
+        // í•œìª½ ë°©í–¥ì—ë§Œ 8ë§ˆë¦¬ ì†Œí™˜ (ìœ„ ë˜ëŠ” ì•„ë˜)
+        int side = Random.Range(0, 2) * 2 - 1; // -1 ë˜ëŠ” 1
         float yOffset = side * distanceFromPlayer;
 
         for (int i = 0; i < monstersPerLine; i++)
@@ -183,15 +183,15 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"ÅÊÅ© ¸ó½ºÅÍ »ı¼º - À§Ä¡: {spawnPos}, ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®: {Vector2.Distance(playerPos, spawnPos)}");
+                Debug.Log($"íƒ±í¬ ëª¬ìŠ¤í„° ìƒì„± - ìœ„ì¹˜: {spawnPos}, í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
 
     private void SpawnCircularFormation(Vector2 playerPos)
     {
-        int monsterCount = 8; // ÃÑ 16¸¶¸®
-        float radius = 4f; // ¿øÇü ÁøÇüÀÇ ¹İÁö¸§ (ÇÃ·¹ÀÌ¾î·ÎºÎÅÍÀÇ °Å¸®)
+        int monsterCount = 8; // ì´ 16ë§ˆë¦¬
+        float radius = 4f; // ì›í˜• ì§„í˜•ì˜ ë°˜ì§€ë¦„ (í”Œë ˆì´ì–´ë¡œë¶€í„°ì˜ ê±°ë¦¬)
 
         for (int i = 0; i < monsterCount; i++)
         {
@@ -203,7 +203,7 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"ÅÊÅ© ¸ó½ºÅÍ »ı¼º - À§Ä¡: {spawnPos}, ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®: {Vector2.Distance(playerPos, spawnPos)}");
+                Debug.Log($"íƒ±í¬ ëª¬ìŠ¤í„° ìƒì„± - ìœ„ì¹˜: {spawnPos}, í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
@@ -214,12 +214,12 @@ public class UnitManager : Singleton<UnitManager>
         if (gameTime <= 180f)
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] ¸ó½º?????????? EarlyNormal");
+            Debug.Log("[UnitManager] ëª¬ìŠ¤?????????? EarlyNormal");
         }
         else if (gameTime <= 420f)
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] ¸ó½º?????????? MidNormal");
+            Debug.Log("[UnitManager] ëª¬ìŠ¤?????????? MidNormal");
         }
         else if (gameTime <= 600f)
         {
@@ -227,7 +227,7 @@ public class UnitManager : Singleton<UnitManager>
         }
         else if (gameTime >= 600f)
         {
-            Debug.Log("[UnitManager] º¸½º ??ÀÌ????ÀÛ!");
+            Debug.Log("[UnitManager] ë³´ìŠ¤ ??ì´????ì‘!");
             ClearAllMonsters();
 
             Vector2 spawnPosition = GetBossSpawnPosition();
@@ -245,20 +245,20 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //EnumÃ³¸® ??µµ ??°Å°°±ä ??
+        //Enumì²˜ë¦¬ ??ë„ ??ê±°ê°™ê¸´ ??
         if (PlayerType == 1)
         {
-            // 1. ??»ç
+            // 1. ??ì‚¬
             _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
         else if (PlayerType == 2)
         {
-            // 2. ±Ã¼ö
+            // 2. ê¶ìˆ˜
             _player = Resources.Load<GameObject>("Using/Player/Archer");
         }
         else
         {
-            // 3. ¹ı»ç
+            // 3. ë²•ì‚¬
             _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
 
@@ -469,7 +469,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (activeMonsters != null)
         {
-            // ë¦¬ìŠ¤íŠ¸ë¥¼ ë³µì‚¬í•˜ì—¬ ìˆœíšŒ
+            // ç”±ÑŠë’ªï¿½ë“ƒç‘œï¿½ è¹‚ë“­ê¶—ï¿½ë¸¯ï¿½ë¿¬ ï¿½ë‹šï¿½ì‰¶
             var monstersToUpdate = activeMonsters.ToList();
             foreach (MonsterBase monster in monstersToUpdate)
             {
