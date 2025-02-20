@@ -11,7 +11,7 @@ public class AuraProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
     private float damagePerFrame = 0.5f; // 1?λ뜄??揶쎛???袁⑥쟿???怨?筌왖???μ빖??
-
+    private float tickInterval = 0.2f;
 
     protected override void Start()
     {
@@ -20,6 +20,7 @@ public class AuraProjectile : Projectile
         transform.localPosition = Vector3.zero;
         cts = new CancellationTokenSource();
         MoveProjectileAsync(cts.Token).Forget();
+        ApplyDamageLoop(cts.Token).Forget();
     }
 
     private void CalculateDamagePerFrame()
@@ -42,6 +43,27 @@ public class AuraProjectile : Projectile
             {
                 await UniTask.Yield();
             }
+        }
+    }
+
+    private async UniTaskVoid ApplyDamageLoop(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            if (!GameManager.Instance.isPaused)
+            {
+                foreach (var monster in monstersInRange.ToList())
+                {
+                    monster.TakeDamage(damagePerFrame);
+
+                    DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+                    {
+                        damage = damagePerFrame,
+                        projectileName = gameObject.name,
+                    });
+                }
+            }
+            await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
         }
     }
 
@@ -70,23 +92,23 @@ public class AuraProjectile : Projectile
         monster.OnDeath -= RemoveMonsterFromSet;
     }
 
-    private void FixedUpdate()
-    {
-        if (!GameManager.Instance.isPaused)
-        {
-            // FixedUpdate?먯꽌 ?곕?吏 泥섎━
-            foreach (var monster in monstersInRange.ToList())
-            {
-                monster.TakeDamage(damagePerFrame);
+    //private void FixedUpdate()
+    //{
+    //    if (!GameManager.Instance.isPaused)
+    //    {
+    //        // FixedUpdate?먯꽌 ?곕?吏 泥섎━
+    //        foreach (var monster in monstersInRange.ToList())
+    //        {
+    //            monster.TakeDamage(damagePerFrame);
 
-                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-                {
-                    damage = damagePerFrame,
-                    projectileName = gameObject.name,
-                });
-            }
-        }
-    }
+    //            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+    //            {
+    //                damage = damagePerFrame,
+    //                projectileName = gameObject.name,
+    //            });
+    //        }
+    //    }
+    //}
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
@@ -97,10 +119,6 @@ public class AuraProjectile : Projectile
         damage = dmg;
         pierceCount = pierceCnt;
         lifeTime = lifetime;
-
-        CancelInvoke("DestroyProjectile");
-
-        Invoke("DestroyProjectile", lifeTime);
 
         CalculateDamagePerFrame();
     }
