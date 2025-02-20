@@ -30,14 +30,16 @@ public class UI_PlayerTest : MonoBehaviour
 
     private void OnUpgradeAug()
     {
-        player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.Staff);
-        Debug.Log("증강 선택됨");
+        player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.BigSword);
+        Debug.Log("증강 강화됨");
+    
+    
     }
     private void OnSelectAug()
     {
-        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.Staff);
-        Debug.Log("증강 강화됨");}
-
+        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.BigSword);
+        Debug.Log("증강 선택됨");
+    }
     private void Update()
     {
         if(!player)

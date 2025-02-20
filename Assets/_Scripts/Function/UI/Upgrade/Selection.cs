@@ -12,6 +12,7 @@ public class Selection : MonoBehaviour
     [SerializeField] private InGameUI_Panel inGameUI_Panel;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
     public Enums.SkillName m_skillName;
+    public Enums.AugmentName m_augName;
     public Button m_BTN;
     public TextMeshProUGUI displayName_TMP;
     public TextMeshProUGUI info_TMP;
@@ -37,5 +38,19 @@ public class Selection : MonoBehaviour
         }
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
         levelUp_Panel.PanelClose();
+
+
+    }
+
+    private void Select_BTN2()
+
+    {
+
+        Debug.Log(m_augName);
+
+        UnitManager.Instance.GetPlayer().augment.ChooseAugment2(m_augName);
+
+        levelUp_Panel.PanelClose();
+
     }
 }
