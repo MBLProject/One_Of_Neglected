@@ -14,10 +14,10 @@ public class SkillDispenser : MonoBehaviour
         Count = skills.Count;
 
         if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.PoisonShoes, 0.5f);
+            RegisterSkill(Enums.SkillName.Aura);
     }
 
-    public void RegisterSkill(Enums.SkillName skillName, float defaultCooldown)
+    public void RegisterSkill(Enums.SkillName skillName)
     {
         if (skills.ContainsKey(skillName))
         {

@@ -123,7 +123,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
         }
 
         Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
-        float speed = 3f;
 
         if (skillName == Enums.SkillName.Aura)
         {
