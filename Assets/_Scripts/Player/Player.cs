@@ -107,6 +107,8 @@ public abstract class Player : MonoBehaviour
 
     protected AugmentSelector augmentSelector;
 
+    public AugmentSelector augment => augmentSelector;
+
     protected virtual void Awake()
     {
         InitializeStateHandler();

@@ -21,15 +21,13 @@ public class Aug_BigSword : TimeBasedAugment
 
     protected override async void OnTrigger()
     {
-        Vector3 targetPos = UnitManager.Instance.GetNearestMonster().transform.position;
-        Vector3 direction = (targetPos - owner.transform.position).normalized;
 
         if (level >= 5)
         {
             SpawnProjectile();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f / owner.Stats.CurrentAspd));
             SpawnProjectile();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f / owner.Stats.CurrentAspd));
             SpawnSubProjectile();
         }
         else
