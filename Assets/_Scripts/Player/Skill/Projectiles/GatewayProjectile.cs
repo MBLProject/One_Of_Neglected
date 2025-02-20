@@ -44,6 +44,12 @@ public class GatewayProjectile : Projectile
             monster.TakeDamage(damage);
 
             monster.ApplyKnockback(transform.position, knockbackForce);
+
+            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+            {
+                damage = damage,
+                projectileName = gameObject.name,
+            });
         }
         if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
         {

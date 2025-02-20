@@ -36,8 +36,17 @@ public class ShurikenProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
+            monster.TakeDamage(damage);
+            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+            {
+                damage = damage,
+                projectileName = gameObject.name,
+            });
+
             if (pierceCount > 0)
             {
+                pierceCount--;
+
                 Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position, maxDistance);
                 Collider2D closestMonster = null;
                 float closestDistance = float.MaxValue;
@@ -58,8 +67,6 @@ public class ShurikenProjectile : Projectile
                 {
                     targetPosition = closestMonster.transform.position;
                     direction = (targetPosition - transform.position).normalized;
-
-                    pierceCount--;
                 }
             }
             else
@@ -67,11 +74,5 @@ public class ShurikenProjectile : Projectile
                 DestroyProjectile();
             }
         }
-    }
-
-    protected override void OnBecameInvisible()
-    {
-        if (pierceCount > 0) return;
-        else DestroyProjectile();
     }
 }

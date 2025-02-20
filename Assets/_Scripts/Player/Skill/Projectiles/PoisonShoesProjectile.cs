@@ -75,6 +75,12 @@ public class PoisonShoesProjectile : Projectile
             foreach (var monster in monstersInRange.ToList())
             {
                 monster.TakeDamage(damagePerFrame);
+
+                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+                {
+                    damage = damagePerFrame,
+                    projectileName = gameObject.name,
+                });
             }
         }
     }

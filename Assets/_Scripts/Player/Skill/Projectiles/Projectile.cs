@@ -131,10 +131,4 @@ public class Projectile : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-    protected virtual void OnBecameInvisible()
-    {
-        if (pierceCount > 0) return;
-        DestroyProjectile();
-    }
 }

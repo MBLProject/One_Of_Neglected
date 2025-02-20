@@ -23,6 +23,12 @@ public class FireballProjectile : Projectile
             monster.TakeDamage(damage);
 
             monster.ApplyKnockback(transform.position, knockbackForce);
+
+            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+            {
+                damage = damagePerFrame,
+                projectileName = gameObject.name,
+            });
         }
     }
 }
