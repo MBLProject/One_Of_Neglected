@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class InGameUI_Panel : Panel
 {
-
+    private Player player;
     private bool isOptionActive;
     private int min;
     private int sec;
@@ -20,6 +20,7 @@ public class InGameUI_Panel : Panel
     [SerializeField] private RectTransform main_Icon_Rect;
     [SerializeField] private RectTransform sub_Icon_Rect;
     [SerializeField] private Sprite defaultIcon;
+    [SerializeField] private Slider expSlider;
     public SkillSelector skillSelector;
     public SkillContainer skillContainer;
 
@@ -35,8 +36,18 @@ public class InGameUI_Panel : Panel
         skillSelector.Initialize(skillContainer, UnitManager.Instance.GetPlayer().GetComponent<SkillDispenser>());
         display_Level_TMP.text = "Lv." + UnitManager.Instance.GetPlayer().statViewer.Level;
     }
+
+    private void OnEnable()
+    {
+
+        player = UnitManager.Instance.GetPlayer();
+    }
+
     private void Update()
     {
+
+        expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
+
         //TODO : 키코드 입력받는거 몰아넣기
         if (Input.GetKeyDown(KeyCode.Escape))
         {

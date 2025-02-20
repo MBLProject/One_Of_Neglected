@@ -14620,6 +14620,7 @@ MonoBehaviour:
   main_Icon_Rect: {fileID: 6515510372193332122}
   sub_Icon_Rect: {fileID: 6927787913254864477}
   defaultIcon: {fileID: 21300000, guid: 5c13ab4da739760468fec108b77995cd, type: 3}
+  expSlider: {fileID: 5634597531576816797}
   skillSelector: {fileID: 8183992532215406776}
   skillContainer: {fileID: 1474912334224757527}
 --- !u!114 &8183992532215406776

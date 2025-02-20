@@ -107,7 +107,6 @@ public abstract class Player : MonoBehaviour
 
     protected AugmentSelector augmentSelector;
 
-
     protected virtual void Awake()
     {
         InitializeStateHandler();
@@ -527,7 +526,7 @@ public abstract class Player : MonoBehaviour
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
         Debug.Log("레벨업 - 플레이어 호출");
-        //UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
     }
 
     private int CalculateNextLevelExp()
@@ -568,10 +567,10 @@ public abstract class Player : MonoBehaviour
         hasSpeedBuff = true;
         speedBuffDuration = duration;
         speedBuffTimer = 0f;
-        
-        float baseSpeed = stats.CurrentMspd; 
+
+        float baseSpeed = stats.CurrentMspd;
         speedBuffAmount = baseSpeed * percent;
-        
+
         stats.ModifyStatValue(StatType.Mspd, speedBuffAmount);
     }
 
@@ -595,7 +594,7 @@ public abstract class Player : MonoBehaviour
         // 패링 시도
         var swordShield = augmentSelector.activeAugments
             .FirstOrDefault(aug => aug is Aug_SwordShield) as Aug_SwordShield;
-        
+
         if (swordShield != null && swordShield.TryParryProjectile(projectile))
         {
             // 패링 성공
