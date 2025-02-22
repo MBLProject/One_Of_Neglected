@@ -49,28 +49,9 @@ public class InGameUI_Panel : Panel
     {
 
         expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
-
-        //TODO : 키코드 입력받는거 몰아넣기
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isOptionActive = UI_Manager.Instance.panel_Dic["Option_Panel"].gameObject.activeSelf;
-            if (isOptionActive == false)
-            {
-                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
-                UnitManager.Instance.PauseGame();
-                Time.timeScale = 0;
-                return;
-            }
-            if (isOptionActive)
-            {
-                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
-                Time.timeScale = 1;
-                UnitManager.Instance.ResumeGame();
-                return;
-            }
-        }
         if (UnitManager.Instance.GetPlayer().Stats.currentHp > 0)
             display_Time_TMP.text = TimeCalc(TimeManager.Instance.gameTime);
+
     }
     public void SetIconCell_Mini(Enums.SkillName skillName)
     {
