@@ -16,6 +16,7 @@ public class Result_Panel : Panel
     {
         buttons[0].interactable = false;
         buttons[1].onClick.AddListener(Title_BTN);
+
     }
     private void OnDisable()
     {

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UniRan = UnityEngine.Random;
+
 [Serializable]
 public struct Augment_Info
 {
@@ -14,7 +15,7 @@ public struct Augment_Info
     [Multiline(4)]
     public string augment_Text;
     public Sprite augment_Sprite;
-
+    public string selectedTime;
 }
 [Serializable]
 public struct Skill_Info
@@ -24,7 +25,7 @@ public struct Skill_Info
     [Multiline(4)]
     public string skill_Text;
     public Sprite skill_Sprite;
-
+    public string selectedTime;
 }
 
 public class LevelUp_Panel : Panel
@@ -39,9 +40,9 @@ public class LevelUp_Panel : Panel
     public Dictionary<Enums.AugmentName, Augment_Info> aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
     private void Awake()
     {
-        if (augment_Infos == null){ augment_Infos = new List<Augment_Info>(); }
+        if (augment_Infos == null) { augment_Infos = new List<Augment_Info>(); }
         if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
-        
+
         skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
         aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
 
@@ -54,7 +55,6 @@ public class LevelUp_Panel : Panel
         {
             aug_Info_Dic.Add(aug_Info.aug_Name, aug_Info);
         }
-        
 
         if (buttons != null && buttons.Count >= 2)
         {
@@ -66,7 +66,7 @@ public class LevelUp_Panel : Panel
         {
             reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
         }
-        
+
         if (banish_Counter_TMP != null && DataManager.Instance?.BTS != null)
         {
             banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
@@ -76,13 +76,11 @@ public class LevelUp_Panel : Panel
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().name != "Game") return;
-        
+
         UnitManager.Instance.PauseGame();
         Time.timeScale = 0;
         inGameUI_Panel.display_Level_TMP.text =
         "Lv." + UnitManager.Instance.GetPlayer().Stats.CurrentLevel.ToString();
-        
-
 
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {
@@ -140,9 +138,9 @@ public class LevelUp_Panel : Panel
     private void AugSelections()
     {
         Player player = UnitManager.Instance.GetPlayer();
-        
+
         List<Enums.AugmentName> popAgu_List = player.augment.SelectAugments();
-        
+
         Augment_Info aug_Info;
         for (int i = 0; i < popAgu_List.Count; i++)
         {
@@ -154,7 +152,6 @@ public class LevelUp_Panel : Panel
             current_Selections[i].icon_IMG.sprite = aug_Info.augment_Sprite;
         }
     }
-
 
     private void FindAugmentInfo()
     {
