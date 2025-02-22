@@ -74,6 +74,7 @@ public static class SkillFactory
                 return false;
 
             case SkillName.Cheese:
+            case SkillName.Gold:
                 return false;
 
             default:
