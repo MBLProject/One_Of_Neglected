@@ -74,7 +74,7 @@ public class InGameUI_Panel : Panel
         }
 
     }
-    public void SetIconCell_Banish(Enums.SkillName skillName)
+    public void SetIconCell_Mini(Enums.SkillName skillName)
     {
 
         if (SkillFactory.IsActiveSkill(skillName))
