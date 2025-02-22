@@ -406,22 +406,13 @@ public class UnitManager : Singleton<UnitManager>
     }
     public Vector3? GetNearestMonsterPosition()
     {
-        Vector3? nearestPosition = null;
-        float nearestDistance = float.MaxValue;
+        var nearestMonster = activeMonsters
+        .Where(monster => monster != null)
+        .Select(monster => new { monster.transform.position, distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position) })
+        .OrderBy(data => data.distance)
+        .FirstOrDefault();
 
-        foreach (var monster in activeMonsters)
-        {
-            if (monster == null) continue;
-
-            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
-            if (distance < nearestDistance)
-            {
-                nearestPosition = monster.transform.position;
-                nearestDistance = distance;
-            }
-        }
-
-        return nearestPosition;
+        return nearestMonster?.position;
     }
     public List<MonsterBase> GetMonstersInRange(float minRange, float maxRange)
     {
@@ -443,33 +434,20 @@ public class UnitManager : Singleton<UnitManager>
     }
     public List<Vector3> GetMonsterPositionsInRange(float minRange, float maxRange)
     {
-        List<Vector3> positions = new List<Vector3>();
+        var positionsInRange = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => data.position)
+            .ToList();
 
-        foreach (var monster in activeMonsters)
-        {
-            if (monster == null) continue;
-
-            float distance = Vector2.Distance(currentPlayer.transform.position, monster.transform.position);
-            if (distance >= minRange && distance <= maxRange)
-            {
-                positions.Add(monster.transform.position);
-            }
-        }
-
-        positions.Sort((a, b) =>
-        {
-            float distanceA = Vector2.Distance(currentPlayer.transform.position, a);
-            float distanceB = Vector2.Distance(currentPlayer.transform.position, b);
-            return distanceA.CompareTo(distanceB);
-        });
-
-        return positions;
+        return positionsInRange;
     }
     public void TakeAllDamage(float damage)
     {
         if (activeMonsters != null)
         {
-            // 由ъ뒪�듃瑜� 蹂듭궗�븯�뿬 �닚�쉶
             var monstersToUpdate = activeMonsters.ToList();
             foreach (MonsterBase monster in monstersToUpdate)
             {
