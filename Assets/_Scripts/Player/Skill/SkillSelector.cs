@@ -98,9 +98,28 @@ public class SkillSelector : MonoBehaviour
     {
         if (skillDispenser.skills.ContainsKey(deDuctSkillName))
         {
+            skillContainer.removedSkills.Add(deDuctSkillName, skillDispenser.skills[deDuctSkillName].level);
+
             skillDispenser.UnRegisterSkill(deDuctSkillName);
 
             skillContainer.RemoveSkill(deDuctSkillName);
+        }
+    }
+
+    public int SkillLevel(Enums.SkillName skillName)
+    {
+        if (skillDispenser.skills.ContainsKey(skillName))
+        {
+            return skillDispenser.skills[skillName].level;
+        }
+        else if(skillContainer.removedSkills.ContainsKey(skillName))
+        {
+            return skillContainer.removedSkills[skillName];
+        }
+        else
+        {
+            Debug.Log($"{skillName} is not Registerd / Removed Skill!!!");
+            return -1;
         }
     }
 
