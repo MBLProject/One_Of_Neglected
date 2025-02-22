@@ -36,7 +36,8 @@ public class Enums
         Magnet,
         Crown,
         Meat,
-        Cheese
+        Cheese,
+        Gold,
     }
 
     public enum AugmentName

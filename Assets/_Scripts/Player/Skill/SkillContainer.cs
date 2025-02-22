@@ -5,11 +5,11 @@ using static Enums;
 
 public class SkillContainer : MonoBehaviour
 {
-    // 癰귣똻?????쎄텢 筌뤴뫖以?
     private List<SkillName> ownedSkills = new List<SkillName>();
 
-    // ??덇볼?????醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以?
     private List<SkillName> selectableSkills = new List<SkillName>();
+
+    public Dictionary<SkillName, int> removedSkills = new Dictionary<SkillName, int>();
 
     private int maxActiveSkills = 3;
     private int maxPassiveSkills = 3;
