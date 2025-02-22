@@ -17,21 +17,21 @@ public class Javelin : ActiveSkill
         // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 4f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 20f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
-            pierceCount = 0,
+            pierceCount = 1,
             shotCount = 1,
             projectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = 1f,
             amount = 1f,
-            lifetime = 5f,
+            lifetime = 3f,
         };
     }
 
