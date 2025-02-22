@@ -323,6 +323,7 @@ public abstract class Player : MonoBehaviour
         {
             //ToDO 플레이어 사망처리
             Debug.Log("플레이어 주금");
+            UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
         }
     }
     public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)

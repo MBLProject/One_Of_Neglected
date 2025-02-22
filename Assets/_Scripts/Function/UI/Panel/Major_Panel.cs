@@ -39,7 +39,9 @@ public class Major_Panel : MonoBehaviour
     private void Start()
     {
         playerIcon.sprite = null;
-        InGameUI_Panel panel = UI_Manager.Instance.panel_Dic["InGameUI_Panel"].GetComponent<InGameUI_Panel>();
+        InGameUI_Panel panel =
+        UI_Manager.Instance.panel_Dic["InGameUI_Panel"].GetComponent<InGameUI_Panel>();
+        //스킬 아이콘
         for (int i = 0; i < mainSkill_Icons.Count; i++)
         {
             mainSkill_Icons[i].sprite = panel.mainSkill_Icon_Container[i].sprite;
@@ -48,7 +50,8 @@ public class Major_Panel : MonoBehaviour
         {
             subSkill_Icons[i].sprite = panel.subSkill_Icon_Container[i].sprite;
         }
-        base_TMP.time.text = "";
+        //기본 정보
+        base_TMP.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
         base_TMP.killCount.text = "";
         base_TMP.gold.text = "";
         base_TMP.remnents.text = "";

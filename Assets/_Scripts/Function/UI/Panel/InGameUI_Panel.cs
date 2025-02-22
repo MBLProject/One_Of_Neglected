@@ -26,7 +26,6 @@ public class InGameUI_Panel : Panel
     public TextMeshProUGUI goldDisplay;
     public TextMeshProUGUI remnentsDisplay;
 
-
     private void Awake()
     {
         buttons[0].onClick.AddListener(Auto_BTN);
@@ -70,13 +69,8 @@ public class InGameUI_Panel : Panel
                 return;
             }
         }
-        TimeCalc();
-
-        if (player.Stats.currentHp < 0)
-        {
-
-        }
-
+        if (UnitManager.Instance.GetPlayer().Stats.currentHp > 0)
+            display_Time_TMP.text = TimeCalc(TimeManager.Instance.gameTime);
     }
     public void SetIconCell_Mini(Enums.SkillName skillName)
     {
@@ -128,11 +122,12 @@ public class InGameUI_Panel : Panel
         }
     }
 
-    private void TimeCalc()
+    public string TimeCalc(float time)
     {
-        min = (int)TimeManager.Instance.gameTime / 60;
-        sec = (int)TimeManager.Instance.gameTime % 60;
-        display_Time_TMP.text = "Time : " + min.ToString("00") + " : " + sec.ToString("00");
+        min = (int)time / 60;
+        sec = (int)time % 60;
+
+        return "Time : " + min.ToString("00") + " : " + sec.ToString("00");
     }
 
     private void Auto_BTN()
