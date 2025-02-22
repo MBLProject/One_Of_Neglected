@@ -46,11 +46,13 @@ public class AuraProjectile : Projectile
             {
                 foreach (var monster in monstersInRange.ToList())
                 {
-                    monster.TakeDamage(stats.finalDamage);
+                    float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+
+                    monster.TakeDamage(finalFinalDamage);
 
                     DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
                     {
-                        damage = stats.finalDamage,
+                        damage = finalFinalDamage,
                         projectileName = gameObject.name,
                     });
                 }
