@@ -42,7 +42,6 @@ public class Selection : MonoBehaviour
     }
 
     private void Select_BTN2()
-
     {
 
         Debug.Log(m_augName);
