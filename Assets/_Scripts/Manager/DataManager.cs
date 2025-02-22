@@ -91,8 +91,6 @@ public class ProjectileDamageCheck
 {
     public string projectileName;
     public float damage;
-    //시간처리 어케하지?? 첫 데미지 입힌시간으로??? 흠??
-    public float time;
 }
 
 [Serializable]
@@ -169,10 +167,6 @@ public class DataManager : Singleton<DataManager>
 
         DamageTracker.OnDamageDealt += TrackDamage;
     }
-    private void Start()
-    {
-    }
-
     public void SaveData()
     {
         Debug.Log("저장");
@@ -184,11 +178,6 @@ public class DataManager : Singleton<DataManager>
         Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property, true);
         Save_JsonUtility<BTS>("BTS", BTS, true);
 
-        // Data = JsonUtility.ToJson(playerProperty);
-        // File.WriteAllText(path + "PlayerProperty", Data);
-
-        // Data = JsonUtility.ToJson(BTS);
-        // File.WriteAllText(path + "BTS", Data);
     }
     public void Save_JsonUtility<T>(string fileName, T data, bool pretty = false)
     {

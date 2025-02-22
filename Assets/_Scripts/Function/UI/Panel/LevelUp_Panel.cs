@@ -108,7 +108,6 @@ public class LevelUp_Panel : Panel
         SelectionOnOff(false);
         UI_Manager.Instance.panel_Dic["Banish_Panel"].PanelOpen();
     }
-
     private void Reroll_BTN()
     {
         Debug.Log("리롤");
@@ -119,7 +118,6 @@ public class LevelUp_Panel : Panel
             reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
         }
     }
-
     private void ChangeSelections()
     {
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
@@ -152,12 +150,6 @@ public class LevelUp_Panel : Panel
             current_Selections[i].icon_IMG.sprite = aug_Info.augment_Sprite;
         }
     }
-
-    private void FindAugmentInfo()
-    {
-
-    }
-
     public void SelectionOnOff(bool On)
     {
         foreach (Selection selection in current_Selections)

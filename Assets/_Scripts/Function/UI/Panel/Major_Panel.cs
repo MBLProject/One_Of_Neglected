@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,25 +26,32 @@ public class Major_Panel : MonoBehaviour
         public TextMeshProUGUI augDamage;
         public TextMeshProUGUI augTime;
     }
-    [Serializable]
-    public struct Skill_TMP
-    {
-        public TextMeshProUGUI skillName;
-        public TextMeshProUGUI level;
-        public TextMeshProUGUI damage;
-        public TextMeshProUGUI time;
-    }
-    #endregion
 
+    #endregion
+    [Header("Left_Display")]
+    public Base_TMP base_TMP;
     [SerializeField] private List<Image> mainSkill_Icons;
     [SerializeField] private List<Image> subSkill_Icons;
-    [SerializeField] private List<Skill_TMP> skillList = new List<Skill_TMP>();
-
-    public Base_TMP base_TMP;
+    public Image playerIcon;
+    [Header("Right_Display")]
     public Augment_TMP augment_TMP;
-
+    public List<SkillMember> skillMembers;
     private void Start()
     {
+        playerIcon.sprite = null;
+        InGameUI_Panel panel = UI_Manager.Instance.panel_Dic["InGameUI_Panel"].GetComponent<InGameUI_Panel>();
+        for (int i = 0; i < mainSkill_Icons.Count; i++)
+        {
+            mainSkill_Icons[i].sprite = panel.mainSkill_Icon_Container[i].sprite;
+        }
+        for (int i = 0; i < subSkill_Icons.Count; i++)
+        {
+            subSkill_Icons[i].sprite = panel.subSkill_Icon_Container[i].sprite;
+        }
+        base_TMP.time.text = "";
+        base_TMP.killCount.text = "";
+        base_TMP.gold.text = "";
+        base_TMP.remnents.text = "";
 
     }
 }

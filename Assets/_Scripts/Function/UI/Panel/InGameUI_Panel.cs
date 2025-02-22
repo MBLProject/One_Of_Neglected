@@ -13,16 +13,20 @@ public class InGameUI_Panel : Panel
     private int min;
     private int sec;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
-    [SerializeField] private List<Image> mainSkill_Icon_Container;
-    [SerializeField] private List<Image> subSkill_Icon_Container;
     [SerializeField] private TextMeshProUGUI display_Time_TMP;
     [SerializeField] private RectTransform main_Icon_Rect;
     [SerializeField] private RectTransform sub_Icon_Rect;
     [SerializeField] private Sprite defaultIcon;
     [SerializeField] private Slider expSlider;
+    public List<Image> mainSkill_Icon_Container;
+    public List<Image> subSkill_Icon_Container;
     public SkillSelector skillSelector;
     public SkillContainer skillContainer;
     public TextMeshProUGUI display_Level_TMP;
+    public TextMeshProUGUI goldDisplay;
+    public TextMeshProUGUI remnentsDisplay;
+
+
     private void Awake()
     {
         buttons[0].onClick.AddListener(Auto_BTN);
