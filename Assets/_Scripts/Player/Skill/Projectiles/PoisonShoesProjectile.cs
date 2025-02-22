@@ -16,7 +16,7 @@ public class PoisonShoesProjectile : Projectile
         isMoving = true;
         transform.position = startPosition;
         cts = new CancellationTokenSource();
-        ApplyDamageLoop(cts.Token).Forget();
+        MoveProjectileAsync(cts.Token).Forget();
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1.1f)
@@ -47,11 +47,6 @@ public class PoisonShoesProjectile : Projectile
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
-    {
-        await UniTask.CompletedTask;
-    }
-
-    private async UniTaskVoid ApplyDamageLoop(CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
