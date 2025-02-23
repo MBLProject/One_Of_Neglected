@@ -5,13 +5,17 @@ using UnityEngine;
 public class BossBasicAttackState : MonsterStateBase
 {
     private float attackTimer = 0f;
-    private float attackDuration = 1f;  
+    private float attackDuration = 1f;
+    private bool hasDealtDamage = false;
 
     public BossBasicAttackState(StateHandler<MonsterBase> handler) : base(handler) { }
 
     public override void Enter(MonsterBase entity)
     {
         attackTimer = 0f;
+        hasDealtDamage = false;
+
+        // 애니메이션 설정
         entity.Animator?.SetBool("IsMoving", false);
         entity.Animator?.SetTrigger("Attack");
         Debug.Log("[Boss] 기본 공격 시작");
@@ -20,16 +24,18 @@ public class BossBasicAttackState : MonsterStateBase
     public override void Update(MonsterBase entity)
     {
         attackTimer += Time.deltaTime;
- 
-        if (!entity.IsPlayerInAttackRange() || attackTimer >= attackDuration)
-        {
-            handler.ChangeState(typeof(BossMoveState));
-            return;
-        }
 
-        if (attackTimer >= attackDuration * 0.5f) 
+        if (!hasDealtDamage && attackTimer >= attackDuration * 0.5f)
         {
             PerformAttack(entity);
+            hasDealtDamage = true;
+            Debug.Log("[Boss] 공격 데미지 적용 완료");
+        }
+
+        // 공격 종료 조건
+        if (attackTimer >= attackDuration)
+        {
+            handler.ChangeState(typeof(BossMoveState));
         }
     }
 
