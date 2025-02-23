@@ -8,8 +8,13 @@ public class Fireball : ActiveSkill
 
     protected override void SubscribeToPlayerStats()
     {
-        //PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
-        //playerStats.OnATKChanged += (value) => { stats.aTK = value; };
+        PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
+
+        playerStats.OnATKChanged += (value) => stats.aTK = value;
+        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
+        playerStats.OnCriRateChanged += (value) => stats.critical = value;
+        playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount = value;
     }
 
     public override void InitSkill()
