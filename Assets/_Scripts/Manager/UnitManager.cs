@@ -27,7 +27,7 @@ public class UnitManager : Singleton<UnitManager>
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -444,21 +444,6 @@ public class UnitManager : Singleton<UnitManager>
 
         return positionsInRange;
     }
-    public void TakeAllDamage(float damage)
-    {
-        if (activeMonsters != null)
-        {
-            var monstersToUpdate = activeMonsters.ToList();
-            foreach (MonsterBase monster in monstersToUpdate)
-            {
-                if (monster != null)
-                {
-                    monster.TakeDamage(damage);
-                }
-            }
-        }
-    }
-
 }
 
 public enum MonsterType

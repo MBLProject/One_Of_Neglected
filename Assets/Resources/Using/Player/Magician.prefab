@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5800725476194176290}
   - component: {fileID: 5477793666727508113}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9132271419625228405}
   - component: {fileID: 1700369521554889381}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7135524329496331692}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 1528019547610381914}
   - component: {fileID: 6504002008130795932}
   - component: {fileID: 5834433096701934614}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 8793669658544026912}
   - component: {fileID: 8750874290592922292}
   - component: {fileID: 3261850836129075248}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: FirstDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 6119498292600853766}
   - component: {fileID: 5196045642239152918}
   - component: {fileID: 7252216514566998152}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 5732977405088805976}
   - component: {fileID: 5849952303211725190}
   - component: {fileID: 3157147655169645126}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Magician
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 9086671015526543964}
   - component: {fileID: 6966768501689575395}
   - component: {fileID: 4835096108559610534}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 5843798629239444647}
   - component: {fileID: 5050909466007896218}
   - component: {fileID: 1851772508153094325}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: FirstDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 4370957935556735482}
   - component: {fileID: 5790620327450352675}
   - component: {fileID: 333082237595074191}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SecondDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 957688530554064552}
   - component: {fileID: 8500317940785591331}
   - component: {fileID: 3771362884770761699}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ThirdDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 1576112266175223976}
   - component: {fileID: 6012972942221202523}
   - component: {fileID: 566954168425297476}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MagicianEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 2454440727748801014}
   - component: {fileID: 2856750205061050920}
   - component: {fileID: 6738519414568678835}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1221,7 +1221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497094247619770540}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1258,7 +1258,7 @@ GameObject:
   - component: {fileID: 6566333998649158870}
   - component: {fileID: 3702054638141232086}
   - component: {fileID: 7235048294713685328}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ThirdDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 3260157177860852814}
   - component: {fileID: 4632639617775426733}
   - component: {fileID: 6609816030373776365}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6164,7 +6164,7 @@ GameObject:
   - component: {fileID: 679197435540123368}
   - component: {fileID: 4406403151152435208}
   - component: {fileID: 1147271654846352518}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SecondDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6240,7 +6240,7 @@ GameObject:
   - component: {fileID: 4898412098667444138}
   - component: {fileID: 7943839005049751968}
   - component: {fileID: 3904821031091746369}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6346,7 +6346,7 @@ GameObject:
   - component: {fileID: 2482956833034791378}
   - component: {fileID: 8418366402443377299}
   - component: {fileID: 8441545349814609866}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

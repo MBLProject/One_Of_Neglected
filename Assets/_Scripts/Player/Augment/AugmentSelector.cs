@@ -38,8 +38,8 @@ public class AugmentSelector : MonoBehaviour
         availableAugments[Enums.ClassType.Magician] = new List<Augment>
         {
             new Aug_Staff(owner, 20f),
-            new Aug_Wand(owner, 1f),
-            new Aug_Orb(owner, 1f),
+            new Aug_Wand(owner,15f),
+            new Aug_Orb(owner, 15f),
             new Aug_Warlock(owner),
         };
     }

@@ -8,11 +8,12 @@ public class Aug_Staff : TimeBasedAugment
 {
     private float damageMultiplier = 1f;
     private float projectileSpeed = 2f;
-    private float projectileSize = 1f;
-    private int penetration = 100;
-    private float duration = 5f;
+    private float projectileSize = 2f;
+    private int penetration = 0;
+    private float duration = .8f;
     private float maxDistance = 10f;
 
+    private PlayerProjectile currentPathProjectile;
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
 
     public Aug_Staff(Player owner, float interval) : base(owner, interval)
@@ -20,10 +21,44 @@ public class Aug_Staff : TimeBasedAugment
         aguName = Enums.AugmentName.Staff;
     }
 
-    protected override  void OnTrigger()
+    protected override void OnTrigger()
     {
-        //UnitManager.Instance.TakeAllDamage(CurrentDamage * 2);
-        
+        var activeMonsters = UnitManager.Instance.GetMonstersInRange(0f, float.MaxValue);
+        if (activeMonsters != null)
+        {
+            foreach (MonsterBase monster in activeMonsters)
+            {
+                if (monster != null)
+                {
+                    monster.TakeDamage(CurrentDamage * 2);
+                }
+            }
+        }
+
+        if (currentPathProjectile != null)
+        {
+            ProjectileManager.Instance.RemoveProjectile(currentPathProjectile);
+        }
+
+        Vector2 position = owner.transform.position;
+        currentPathProjectile = ProjectileManager.Instance.SpawnPlayerProjectile(
+            "PowerEffect",
+            position,
+            position,
+            0f,
+            CurrentDamage,
+            2f,
+            maxDistance,
+            penetration,
+            duration
+        );
+
+        if (currentPathProjectile != null)
+        {
+            currentPathProjectile.transform.SetParent(owner.transform);
+            currentPathProjectile.transform.rotation = Quaternion.identity;
+            currentPathProjectile.transform.localPosition = Vector3.zero;
+        }
     }
 
     protected override void OnLevelUp()

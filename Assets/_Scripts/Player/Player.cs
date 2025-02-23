@@ -42,6 +42,20 @@ public class StatViewer
 
 public abstract class Player : MonoBehaviour
 {
+    #region Field
+    public ClassType ClassType { get; protected set; }
+    public Animator Animator => animator;
+    public PlayerStats Stats
+    {
+        get { return stats; }
+        protected set { stats = value; }
+    }
+    public ParticleSystem DashEffect => dashEffect;
+
+    protected AugmentSelector augmentSelector;
+
+    public AugmentSelector augment => augmentSelector;
+
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem dashEffect;
     [SerializeField] public StatViewer statViewer;
@@ -52,7 +66,7 @@ public abstract class Player : MonoBehaviour
     // 자동사냥 모드!
     public bool isAuto = false;
 
-    protected StateHandler<Player> stateHandler;
+    public StateHandler<Player> stateHandler { get; protected set; }
     protected bool isSkillInProgress = false;
     protected bool isDashing = false;
     protected bool isBarrier = false;
@@ -64,13 +78,14 @@ public abstract class Player : MonoBehaviour
 
     protected float moveThreshold = 0.1f;
 
+    #endregion
+
     #region DashSettings
-    protected float dashRechargeTime = 5f;
+    public float dashRechargeTime { get; set; } = 5f;
     protected float dashRechargeTimer = 0f;
     protected int currentDashCount;
 
     public float DashRechargeTimer => dashRechargeTimer;
-    public float DashRechargeTime => dashRechargeTime;
     public int CurrentDashCount => currentDashCount;
     public int MaxDashCount => stats.CurrentDashCount;
     #endregion
@@ -90,24 +105,55 @@ public abstract class Player : MonoBehaviour
     private float invincibilityTimer = 0f;
     #endregion
 
-    // 이동속도 버프 관련 변수
+    #region MoveBuff
     private float speedBuffDuration = 0f;
     private float speedBuffTimer = 0f;
     private float speedBuffAmount = 0f;
     private bool hasSpeedBuff = false;
+    #endregion
 
-    public ClassType ClassType { get; protected set; }
-    public Animator Animator => animator;
-    public PlayerStats Stats
+    #region DamgeReducton
+    public float DamageReduction { get; set; } = 0f;
+    #endregion
+
+    #region DashDetected
+    protected event Action DashDetect;
+    public event Action dashDetect
     {
-        get { return stats; }
-        protected set { stats = value; }
+        add => DashDetect += value;
+        remove => DashDetect -= value;
     }
-    public ParticleSystem DashEffect => dashEffect;
+    public void InvokeDashDetect()
+    {
+        DashDetect?.Invoke();
+    }
+    #endregion
 
-    protected AugmentSelector augmentSelector;
+    #region AttackDetected
+    protected event Action<Vector3> AttackDetect;
+    public event Action<Vector3> attackDetect
+    {
+        add => AttackDetect += value;
+        remove => AttackDetect -= value;
+    }
+    public void InvokeAttackDetect(Vector3 targetPosition)
+    {
+        AttackDetect?.Invoke(targetPosition);
+    }
+    #endregion
 
-    public AugmentSelector augment => augmentSelector;
+    #region DashCompleted
+    protected event Action DashCompleted;
+    public event Action dashCompleted
+    {
+        add => DashCompleted += value;
+        remove => DashCompleted -= value;
+    }
+    public void InvokeDashCompleted()
+    {
+        DashCompleted?.Invoke();
+    }
+    #endregion
 
     protected virtual void Awake()
     {
@@ -303,29 +349,62 @@ public abstract class Player : MonoBehaviour
             return;
         }
 
-        bool isCritical = false;
-        if (Random.Range(0f, 100f) <= stats.CurrentCriRate)
-        {
-            damage = Mathf.RoundToInt(damage * stats.CurrentCriDamage);
-            isCritical = true;
-        }
+        stats.currentHp -= damage * (100 - DamageReduction) / 100;
+        ShowDamageFont(transform.position, damage, transform);
 
-        stats.currentHp -= damage;
-        ShowDamageFont(transform.position, damage, transform, isCritical);
-
-        // 피격 시 무적 효과 추가
         if (stats.CurrentInvincibility)
         {
-            SetInvincible(0.1f * stats.CurrentDuration);  // 기본 무적 시간에 지속시간 스탯 적용
+            SetInvincible(invincibilityDuration);
         }
 
         if (stats.currentHp <= 0)
         {
-            //ToDO 플레이어 사망처리
-            Debug.Log("플레이어 주금");
+            stats.currentHp = 0;
+            ChangePlayerDie();
             UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
         }
     }
+
+    //죽을때 쓰시오
+    public void ChangePlayerDie()
+    {
+        //죽을떼 timescle 0 please
+            
+        if (ClassType == ClassType.Warrior)
+        {
+            stateHandler.ChangeState(typeof(WarriorDieState));
+        }
+        else if (ClassType == ClassType.Archer)
+        {
+            stateHandler.ChangeState(typeof(ArcherDieState));
+        }
+        else if (ClassType == ClassType.Magician)
+        {
+            stateHandler.ChangeState(typeof(MagicianDieState));
+        }
+    }
+    
+    //되살릴때 쓰시오
+    public void ChangePlayerRevive()
+    {
+        if (ClassType == ClassType.Warrior)
+        {
+            stateHandler.ChangeState(typeof(WarriorIdleState));
+            stats.currentHp = stats.CurrentMaxHp;
+        }
+        else if (ClassType == ClassType.Archer)
+        {
+            stateHandler.ChangeState(typeof(ArcherIdleState));
+            stats.currentHp = stats.CurrentMaxHp;
+        }
+        else if (ClassType == ClassType.Magician)
+        {
+            stateHandler.ChangeState(typeof(MagicianIdleState));
+            stats.currentHp = stats.CurrentMaxHp;
+        }
+    }
+
+
     public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)
     {
         GameObject go = Resources.Load<GameObject>("DamageText");
@@ -340,6 +419,147 @@ public abstract class Player : MonoBehaviour
                 damageText.SetInfo(spawnPosition, damage, parent, isCritical);
             }
         }
+    }
+    private void UpdateBarrierRecharge()
+    {
+        if (!isBarrier) return;
+
+        if (!hasBarrierCharge)
+        {
+            barrierRechargeTimer += Time.deltaTime;
+            if (barrierRechargeTimer >= stats.CurrentBarrierCooldown * stats.CurrentCooldown)
+            {
+                barrierRechargeTimer = 0f;
+                hasBarrierCharge = true;
+                if (barrierEffect != null)
+                {
+                    barrierEffect.SetActive(true);
+                }
+            }
+        }
+    }
+    private void UpdateInvincibility()
+    {
+        if (isInvincible)
+        {
+            invincibilityTimer += Time.deltaTime;
+            if (invincibilityTimer >= invincibilityDuration)
+            {
+                isInvincible = false;
+                invincibilityTimer = 0f;
+            }
+        }
+    }
+    private float regenTimer = 0f;
+    private void UpdateHpRegen()
+    {
+        regenTimer += Time.deltaTime;
+        if (regenTimer >= 1)
+        {
+            regenTimer = 0f;
+            stats.currentHp += stats.CurrentHpRegen;
+
+            // 여기에 HP회복 이펙트 등 추가 가능
+        }
+    }
+    private void CollectExp(ExpObject expObject)
+    {
+        float expAmount = 0;
+        switch (expObject.expType)
+        {
+            case ExpType.White:
+                expAmount = 10;
+                break;
+            case ExpType.Green:
+                expAmount = 20;
+                break;
+            case ExpType.Blue:
+                expAmount = 30;
+                break;
+            case ExpType.Red:
+                expAmount = 40;
+                break;
+            case ExpType.Purple:
+                //특정 레벨 이상 처리
+                if (stats.CurrentLevel <= 10)
+                {
+                    expAmount = stats.CurrentMaxExp;
+                }
+                else
+                {
+                    expAmount = stats.currentExp * 0.3f;
+                }
+                break;
+        }
+
+        expAmount *= stats.CurrentGreed;
+        stats.currentExp += expAmount;
+
+        while (stats.currentExp >= stats.CurrentMaxExp)
+        {
+            LevelUp();
+        }
+
+        expObject.selfDestroy();
+    }
+    public void LevelUp()
+    {
+        stats.currentExp -= stats.CurrentMaxExp;
+        stats.CurrentLevel += 1;
+        stats.CurrentMaxExp = CalculateNextLevelExp();
+        Debug.Log("레벨업 - 플레이어 호출");
+        //UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+    }
+    private int CalculateNextLevelExp()
+    {
+        return (int)(100 * (1 + (stats.CurrentLevel - 1) * 0.2f));
+    }
+    public void SetInvincible(float duration)
+    {
+        isInvincible = true;
+        invincibilityDuration = duration;
+        invincibilityTimer = 0f;
+    }
+    public void ApplySpeedBuff(float duration, float percent)
+    {
+        hasSpeedBuff = true;
+        speedBuffDuration = duration;
+        speedBuffTimer = 0f;
+
+        float baseSpeed = stats.CurrentMspd;
+        speedBuffAmount = baseSpeed * percent;
+
+        stats.ModifyStatValue(StatType.Mspd, speedBuffAmount);
+    }
+    private void UpdateSpeedBuff()
+    {
+        if (hasSpeedBuff)
+        {
+            speedBuffTimer += Time.deltaTime;
+            if (speedBuffTimer >= speedBuffDuration)
+            {
+                stats.ModifyStatValue(StatType.Mspd, -speedBuffAmount);
+                hasSpeedBuff = false;
+                speedBuffTimer = 0f;
+            }
+        }
+    }
+
+
+    public virtual void OnProjectileHit(MonsterProjectile projectile)
+    {
+        // 패링 시도
+        var swordShield = augmentSelector.activeAugments
+            .FirstOrDefault(aug => aug is Aug_SwordShield) as Aug_SwordShield;
+
+        if (swordShield != null && swordShield.TryParryProjectile(projectile))
+        {
+            // 패링 성공
+            return;
+        }
+
+        //// 패링 실패시 일반 데미지 처리
+        //TakeDamage(projectile.damage);
     }
     #endregion
 
@@ -437,106 +657,6 @@ public abstract class Player : MonoBehaviour
     }
     #endregion
 
-    private void UpdateBarrierRecharge()
-    {
-        if (!isBarrier) return;
-
-        if (!hasBarrierCharge)
-        {
-            barrierRechargeTimer += Time.deltaTime;
-            if (barrierRechargeTimer >= stats.CurrentBarrierCooldown * stats.CurrentCooldown)
-            {
-                barrierRechargeTimer = 0f;
-                hasBarrierCharge = true;
-                if (barrierEffect != null)
-                {
-                    barrierEffect.SetActive(true);
-                }
-            }
-        }
-    }
-
-    private void UpdateInvincibility()
-    {
-        if (isInvincible)
-        {
-            invincibilityTimer += Time.deltaTime;
-            if (invincibilityTimer >= invincibilityDuration)
-            {
-                isInvincible = false;
-                invincibilityTimer = 0f;
-            }
-        }
-    }
-
-    private float regenTimer = 0f;
-    private void UpdateHpRegen()
-    {
-        regenTimer += Time.deltaTime;
-        if (regenTimer >= 1)
-        {
-            regenTimer = 0f;
-            stats.currentHp += stats.CurrentHpRegen;
-
-            // 여기에 HP회복 이펙트 등 추가 가능
-        }
-    }
-
-    private void CollectExp(ExpObject expObject)
-    {
-        float expAmount = 0;
-        switch (expObject.expType)
-        {
-            case ExpType.White:
-                expAmount = 10;
-                break;
-            case ExpType.Green:
-                expAmount = 20;
-                break;
-            case ExpType.Blue:
-                expAmount = 30;
-                break;
-            case ExpType.Red:
-                expAmount = 40;
-                break;
-            case ExpType.Purple:
-                //특정 레벨 이상 처리
-                if (stats.CurrentLevel <= 10)
-                {
-                    expAmount = stats.CurrentMaxExp;
-                }
-                else
-                {
-                    expAmount = stats.currentExp * 0.3f;
-                }
-                break;
-        }
-
-        expAmount *= stats.CurrentGreed;
-        stats.currentExp += expAmount;
-
-        while (stats.currentExp >= stats.CurrentMaxExp)
-        {
-            LevelUp();
-        }
-
-        expObject.selfDestroy();
-    }
-
-    public void LevelUp()
-    {
-        stats.currentExp -= stats.CurrentMaxExp;
-        stats.CurrentLevel += 1;
-        stats.CurrentMaxExp = CalculateNextLevelExp();
-        Debug.Log("레벨업 - 플레이어 호출");
-        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
-    }
-
-    private int CalculateNextLevelExp()
-    {
-        return (int)(100 * (1 + (stats.CurrentLevel - 1) * 0.2f));
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Exp"))
@@ -549,62 +669,11 @@ public abstract class Player : MonoBehaviour
             return;
         }
     }
-
     private void OnValidate()
     {
         if (stats != null)
         {
             UpdateStats();
         }
-    }
-
-    public void SetInvincible(float duration)
-    {
-        isInvincible = true;
-        invincibilityDuration = duration;
-        invincibilityTimer = 0f;
-    }
-
-    public void ApplySpeedBuff(float duration, float percent)
-    {
-        hasSpeedBuff = true;
-        speedBuffDuration = duration;
-        speedBuffTimer = 0f;
-
-        float baseSpeed = stats.CurrentMspd;
-        speedBuffAmount = baseSpeed * percent;
-
-        stats.ModifyStatValue(StatType.Mspd, speedBuffAmount);
-    }
-
-    private void UpdateSpeedBuff()
-    {
-        if (hasSpeedBuff)
-        {
-            speedBuffTimer += Time.deltaTime;
-            if (speedBuffTimer >= speedBuffDuration)
-            {
-                // 버프 시간이 끝나면 이동속도 원래대로 복구
-                stats.ModifyStatValue(StatType.Mspd, -speedBuffAmount);
-                hasSpeedBuff = false;
-                speedBuffTimer = 0f;
-            }
-        }
-    }
-
-    public virtual void OnProjectileHit(MonsterProjectile projectile)
-    {
-        // 패링 시도
-        var swordShield = augmentSelector.activeAugments
-            .FirstOrDefault(aug => aug is Aug_SwordShield) as Aug_SwordShield;
-
-        if (swordShield != null && swordShield.TryParryProjectile(projectile))
-        {
-            // 패링 성공
-            return;
-        }
-
-        //// 패링 실패시 일반 데미지 처리
-        //TakeDamage(projectile.damage);
     }
 }

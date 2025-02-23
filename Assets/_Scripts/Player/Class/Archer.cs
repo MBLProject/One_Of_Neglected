@@ -19,6 +19,7 @@ public class Archer : Player
         stateHandler.RegisterState(new ArcherMoveState(stateHandler));
         stateHandler.RegisterState(new ArcherDashState(stateHandler));
         stateHandler.RegisterState(new ArcherAttackState(stateHandler));
+        stateHandler.RegisterState(new ArcherDieState(stateHandler));
 
         stateHandler.ChangeState(typeof(ArcherIdleState));
     }
