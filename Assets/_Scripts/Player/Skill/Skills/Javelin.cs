@@ -32,6 +32,8 @@ public class Javelin : ActiveSkill
             cATK = 1f,
             amount = 1f,
             lifetime = 3f,
+            projectileSpeed = 1f,
+
         };
     }
 

@@ -39,6 +39,8 @@ public class PoisonShoes : ActiveSkill
             cATK = 1.5f,
             amount = 1f,
             lifetime = 1.1f,
+            projectileSpeed = 1f,
+
         };
         Debug.Log($"InitSkill!! {skillName} : stats.lifetime : {stats.lifetime}");
 

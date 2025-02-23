@@ -69,6 +69,7 @@ public class ActiveSkill : Skill
                 cATK = stats.cATK,
                 amount = stats.amount,
                 lifetime = stats.lifetime,
+                projectileSpeed = stats.projectileSpeed,
             }
             );
     }

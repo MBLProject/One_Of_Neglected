@@ -32,6 +32,7 @@ public class Claw : ActiveSkill
             cATK = 1f,
             amount = 1f,
             lifetime = 5f,
+            projectileSpeed = 1f,
         };
     }
 

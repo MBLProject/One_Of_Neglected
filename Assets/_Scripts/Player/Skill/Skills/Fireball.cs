@@ -32,6 +32,8 @@ public class Fireball : ActiveSkill
             cATK = 1.5f,
             amount = 1f,
             lifetime = 5f,
+            projectileSpeed = 1f,
+
         };
     }
 

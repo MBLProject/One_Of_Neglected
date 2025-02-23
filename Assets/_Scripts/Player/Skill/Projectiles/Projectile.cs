@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
 
                 if (!GameManager.Instance.isPaused)
                 {
-                    transform.position += speed * Time.deltaTime * direction;
+                    transform.position += stats.projectileSpeed * Time.deltaTime * direction;
 
                     traveledDistance = (transform.position - startPosition).magnitude;
 
