@@ -11,6 +11,7 @@ public class ClassSelect_Panel : Panel
     public TextMeshProUGUI remnents_TMP;
     public List<ClassInfo> classInfos;
     public Button return_BTN;
+
     private void Awake()
     {
         return_BTN.onClick.AddListener(Return_BTN);

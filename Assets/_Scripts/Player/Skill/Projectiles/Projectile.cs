@@ -20,7 +20,6 @@ public class Projectile : MonoBehaviour
     protected Vector3 direction;
 
     protected CancellationTokenSource cts;
-
     protected virtual void Start()
     {
         isMoving = true;
@@ -113,11 +112,12 @@ public class Projectile : MonoBehaviour
 
             monster.TakeDamage(finalFinalDamage);
 
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            {
-                damage = finalFinalDamage,
-                projectileName = gameObject.name,
-            });
+            //TODO : 데미지 누적방식 변경 Enums skillName으로 데이터 매니저에 값 저장
+            // DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+            // {
+            //     damage = finalFinalDamage,
+            //     projectileName = gameObject.name,
+            // });
 
             if (stats.pierceCount > 0) stats.pierceCount--;
             else DestroyProjectile();

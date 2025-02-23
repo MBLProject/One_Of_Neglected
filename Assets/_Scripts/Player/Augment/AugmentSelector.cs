@@ -5,20 +5,20 @@ using static Enums;
 
 public class AugmentSelector : MonoBehaviour
 {
-    [SerializeField]private Player owner;
+    [SerializeField] private Player owner;
     [SerializeField] private Dictionary<Enums.ClassType, List<Augment>> availableAugments;
-    [SerializeField] public  List<Augment> activeAugments = new List<Augment>();
-    
+    [SerializeField] public List<Augment> activeAugments = new List<Augment>();
+
     public void Initialize(Player owner)
     {
         this.owner = owner;
         InitializeAugments();
     }
-    
+
     private void InitializeAugments()
     {
         availableAugments = new Dictionary<Enums.ClassType, List<Augment>>();
-        
+
         availableAugments[Enums.ClassType.Warrior] = new List<Augment>
         {
             new Aug_TwoHandSword(owner, 10f),
@@ -46,7 +46,7 @@ public class AugmentSelector : MonoBehaviour
 
     private List<Augment> GetAvailableAugments()
     {
-        
+
         if (availableAugments.TryGetValue(owner.ClassType, out var augments))
         {
             var available = augments.FindAll(a => !activeAugments.Contains(a));
@@ -54,7 +54,7 @@ public class AugmentSelector : MonoBehaviour
         }
         return new List<Augment>();
     }
-    
+
     public List<Augment> SelectAugmentsWithInfo()
     {
         var availableList = GetAvailableAugments();
@@ -78,7 +78,7 @@ public class AugmentSelector : MonoBehaviour
             }
             return selectedAugments;
         }
-        
+
         return availableList;
     }
 
@@ -99,7 +99,7 @@ public class AugmentSelector : MonoBehaviour
     {
         var availableList = GetAvailableAugments();
         var selectedAugment = availableList.FirstOrDefault(aug => aug.AugmentName == augName);
-        
+
         if (selectedAugment != null)
         {
             if (!activeAugments.Contains(selectedAugment))
@@ -144,7 +144,7 @@ public class AugmentSelector : MonoBehaviour
     public List<AugmentName> SelectAugments()
     {
         var availableList = GetAvailableAugments();
-        
+
         var selectedAugments = new List<Augment>();
         if (availableList.Count > 3)
         {
@@ -167,9 +167,9 @@ public class AugmentSelector : MonoBehaviour
         {
             selectedAugments = availableList;
         }
-        
+
         var result = selectedAugments.Select(aug => aug.AugmentName).ToList();
-        
+
         return result;
     }
-} 
+}

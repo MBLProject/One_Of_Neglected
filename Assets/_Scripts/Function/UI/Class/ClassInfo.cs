@@ -94,6 +94,7 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
                 break;
             }
         }
+        DataManager.Instance.inGameValue.playerIcon = m_Portrait;
         UI_Manager.Instance.panel_Dic["ClassSelect_Panel"].PanelClose();
         GameSceneManager.SceneLoad("Game");
     }

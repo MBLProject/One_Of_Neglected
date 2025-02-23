@@ -21,8 +21,23 @@ public class Selection : MonoBehaviour
     private void Awake()
     {
         m_BTN.onClick.AddListener(Select_BTN);
+
     }
 
+    private void OnEnable()
+    {
+        if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 &&
+            UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
+        {
+            m_BTN.onClick.RemoveAllListeners();
+            m_BTN.onClick.AddListener(Select_BTN2);
+        }
+        else
+        {
+            m_BTN.onClick.RemoveAllListeners();
+            m_BTN.onClick.AddListener(Select_BTN);
+        }
+    }
     private void Select_BTN()
     {
         Debug.Log(m_skillName);

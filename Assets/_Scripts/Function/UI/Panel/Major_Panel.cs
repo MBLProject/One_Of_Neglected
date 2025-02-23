@@ -11,12 +11,13 @@ public class Major_Panel : MonoBehaviour
 {
     #region 구조체 영역
     [Serializable]
-    public struct Base_TMP
+    public struct Base_Info
     {
         public TextMeshProUGUI time;
         public TextMeshProUGUI killCount;
         public TextMeshProUGUI gold;
         public TextMeshProUGUI remnents;
+        public Image player_Portrait;
     }
     [Serializable]
     public struct Augment_TMP
@@ -26,19 +27,17 @@ public class Major_Panel : MonoBehaviour
         public TextMeshProUGUI augDamage;
         public TextMeshProUGUI augTime;
     }
-
     #endregion
+
     [Header("Left_Display")]
-    public Base_TMP base_TMP;
+    public Base_Info base_Info;
     [SerializeField] private List<Image> mainSkill_Icons;
     [SerializeField] private List<Image> subSkill_Icons;
-    public Image playerIcon;
     [Header("Right_Display")]
     public Augment_TMP augment_TMP;
     public List<SkillMember> skillMembers;
     private void Start()
     {
-        playerIcon.sprite = null;
         InGameUI_Panel panel =
         UI_Manager.Instance.panel_Dic["InGameUI_Panel"].GetComponent<InGameUI_Panel>();
         //스킬 아이콘
@@ -51,10 +50,11 @@ public class Major_Panel : MonoBehaviour
             subSkill_Icons[i].sprite = panel.subSkill_Icon_Container[i].sprite;
         }
         //기본 정보
-        base_TMP.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
-        base_TMP.killCount.text = "";
-        base_TMP.gold.text = "";
-        base_TMP.remnents.text = "";
+        base_Info.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
+        base_Info.killCount.text = DataManager.Instance.inGameValue.killCount.ToString();
+        base_Info.gold.text = DataManager.Instance.inGameValue.gold.ToString();
+        base_Info.remnents.text = DataManager.Instance.inGameValue.remnents.ToString();
+        base_Info.player_Portrait.sprite = DataManager.Instance.inGameValue.playerIcon;
 
     }
 }

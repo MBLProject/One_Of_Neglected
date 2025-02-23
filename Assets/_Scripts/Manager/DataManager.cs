@@ -79,7 +79,7 @@ public class BTS
 public class DamageStats
 {
     public float totalDamage;
-    
+
     // 스킬별 데미지
     public Dictionary<Enums.SkillName, float> skillDamages = new Dictionary<Enums.SkillName, float>();
     // 증강별 데미지
@@ -126,6 +126,7 @@ public struct InGameValue
     public int killCount;
     public int gold;
     public int remnents;
+    public Sprite playerIcon;
 }
 public class DataManager : Singleton<DataManager>
 {
@@ -133,7 +134,6 @@ public class DataManager : Singleton<DataManager>
     public DicDataTable dicDataTable = new DicDataTable();
     public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
     public PlayerProperty player_Property = new PlayerProperty();
-
     public BTS BTS = new BTS();
 
     string path = "Assets/Resources/SaveFile/";
@@ -201,7 +201,7 @@ public class DataManager : Singleton<DataManager>
     public void AddDamageData(float damage, Enums.SkillName skillName)
     {
         currentDamageStats.totalDamage += damage;
-        
+
         // 스킬 데미지 추적
         if (!currentDamageStats.skillDamages.ContainsKey(skillName))
         {
@@ -215,7 +215,7 @@ public class DataManager : Singleton<DataManager>
     public void AddDamageData(float damage, Enums.AugmentName augmentName)
     {
         currentDamageStats.totalDamage += damage;
-        
+
         // 증강 데미지 추적
         if (!currentDamageStats.augmentDamages.ContainsKey(augmentName))
         {

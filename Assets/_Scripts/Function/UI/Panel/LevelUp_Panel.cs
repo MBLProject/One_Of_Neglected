@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks.Triggers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,7 @@ public struct Augment_Info
     [Multiline(4)]
     public string augment_Text;
     public Sprite augment_Sprite;
-    public string selectedTime;
+    public float selectedTime;
 }
 [Serializable]
 public struct Skill_Info
@@ -25,7 +26,7 @@ public struct Skill_Info
     [Multiline(4)]
     public string skill_Text;
     public Sprite skill_Sprite;
-    public string selectedTime;
+    public float selectedTime;
 }
 
 public class LevelUp_Panel : Panel
@@ -40,6 +41,7 @@ public class LevelUp_Panel : Panel
     public Dictionary<Enums.AugmentName, Augment_Info> aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
     private void Awake()
     {
+
         if (augment_Infos == null) { augment_Infos = new List<Augment_Info>(); }
         if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
 
@@ -85,12 +87,12 @@ public class LevelUp_Panel : Panel
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {
             //증강과 특성 선택하는 메서드
+            AugSelections();
         }
         else
         {
             //특성만 선택
             ChangeSelections();
-            //AugSelections(); //히히 증강발싸! selection Select_BTN2을 addlistner 변경하고 할것
         }
 
     }
@@ -120,6 +122,7 @@ public class LevelUp_Panel : Panel
     }
     private void ChangeSelections()
     {
+        current_Selections[3].gameObject.SetActive(false);
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
@@ -135,6 +138,7 @@ public class LevelUp_Panel : Panel
     }
     private void AugSelections()
     {
+        current_Selections[3].gameObject.SetActive(true);
         Player player = UnitManager.Instance.GetPlayer();
 
         List<Enums.AugmentName> popAgu_List = player.augment.SelectAugments();

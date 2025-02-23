@@ -371,7 +371,7 @@ public abstract class Player : MonoBehaviour
     public void ChangePlayerDie()
     {
         //죽을떼 timescle 0 please
-            
+
         if (ClassType == ClassType.Warrior)
         {
             stateHandler.ChangeState(typeof(WarriorDieState));
@@ -385,7 +385,7 @@ public abstract class Player : MonoBehaviour
             stateHandler.ChangeState(typeof(MagicianDieState));
         }
     }
-    
+
     //되살릴때 쓰시오
     public void ChangePlayerRevive()
     {
@@ -405,7 +405,6 @@ public abstract class Player : MonoBehaviour
             stats.currentHp = stats.CurrentMaxHp;
         }
     }
-
 
     public void ShowDamageFont(Vector2 pos, float damage, Transform parent, bool isCritical = false)
     {
@@ -510,7 +509,7 @@ public abstract class Player : MonoBehaviour
         stats.CurrentLevel += 1;
         stats.CurrentMaxExp = CalculateNextLevelExp();
         Debug.Log("레벨업 - 플레이어 호출");
-        //UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+        // UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
     }
     private int CalculateNextLevelExp()
     {
@@ -546,7 +545,6 @@ public abstract class Player : MonoBehaviour
             }
         }
     }
-
 
     public virtual void OnProjectileHit(MonsterProjectile projectile)
     {
