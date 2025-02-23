@@ -79,11 +79,7 @@ public class JewelProjectile : PlayerProjectile
         float finalDamage = CalculateFinalDamage();
         monster.TakeDamage(finalDamage);
 
-        DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-        {
-            damage = finalDamage,
-            projectileName = gameObject.name,
-        });
+        DataManager.Instance.AddDamageData(finalDamage, Enums.AugmentName.Orb);
     }
 
     private float CalculateFinalDamage()

@@ -349,7 +349,9 @@ public abstract class Player : MonoBehaviour
             return;
         }
 
-        stats.currentHp -= damage * (100 - DamageReduction) / 100;
+        // (데미지 - 방어력) * 뎀감
+        float finalDamage = Mathf.Max(0, damage - stats.CurrentDefense) * (100 - DamageReduction) / 100;
+        stats.currentHp -= finalDamage;
         ShowDamageFont(transform.position, damage, transform);
 
         if (stats.CurrentInvincibility)

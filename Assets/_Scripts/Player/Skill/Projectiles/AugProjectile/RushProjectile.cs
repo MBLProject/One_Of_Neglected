@@ -1,14 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CrossBowProjectile : PlayerProjectile
+public class RushProjectile : PlayerProjectile
 {
-    protected override void Start()
-    {
-        pType = projType.Normal;
-        base.Start();
-    }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
@@ -17,8 +10,7 @@ public class CrossBowProjectile : PlayerProjectile
             {
                 float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
-                DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.CrossBow);
-                
+                DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.Shielder);
                 if (pierceCount > 0)
                 {
                     pierceCount--;

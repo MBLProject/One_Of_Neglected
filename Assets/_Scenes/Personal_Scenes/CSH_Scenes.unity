@@ -1435,7 +1435,8 @@ MonoBehaviour:
   classSelect_Num: 0
   currentRunDamageStats:
     totalDamage: 0
-    projectileDamages: []
+    skillDamageList: []
+    augmentDamageList: []
   inGameValue:
     killCount: 0
     gold: 0
