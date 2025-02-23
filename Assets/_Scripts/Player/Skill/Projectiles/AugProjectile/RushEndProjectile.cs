@@ -1,19 +1,30 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class GreatBowProjectile : PlayerProjectile
+public class RushEndProjectile : PlayerProjectile
 {
     protected override void Start()
     {
-        pType = projType.Normal;
-        base.Start();
+        pType = projType.Melee;
+        isMoving = true;
+        transform.position = startPosition;
+
+        transform.rotation = Quaternion.identity;
+        speed = 0f;
     }
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    protected override async UniTaskVoid MoveProjectileAsync(System.Threading.CancellationToken token)
     {
-        base.InitProjectile(startPos, targetPos, spd, dmg, maxDist, pierceCnt, lifetime);
-        // 투사체가 목표를 향해 회전하도록 설정
-        Vector3 direction = (startPos - targetPos).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.position = startPosition;
+
+        while (isMoving && !token.IsCancellationRequested)
+        {
+            if (gameObject == null || !isMoving)
+            {
+                break;
+            }
+
+            await UniTask.Yield(token);
+        }
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,7 +34,7 @@ public class GreatBowProjectile : PlayerProjectile
             {
                 float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
-                DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.GreatBow);
+                DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.Shielder);
                 
                 if (pierceCount > 0)
                 {

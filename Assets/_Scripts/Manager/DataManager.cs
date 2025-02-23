@@ -75,57 +75,46 @@ public class BTS
     public bool GodKill;
 }
 
-public class DamageInfo
-{
-    public float damage;
-    public string projectileName;
-}
-
-public static class DamageTracker
-{
-    public static Action<DamageInfo> OnDamageDealt;
-}
-
-[Serializable]
-public class ProjectileDamageCheck
-{
-    public string projectileName;
-    public float damage;
-}
-
 [Serializable]
 public class DamageStats
 {
     public float totalDamage;
+    
+    // 스킬별 데미지
+    public Dictionary<Enums.SkillName, float> skillDamages = new Dictionary<Enums.SkillName, float>();
+    // 증강별 데미지
+    public Dictionary<Enums.AugmentName, float> augmentDamages = new Dictionary<Enums.AugmentName, float>();
 
-    public List<ProjectileDamageCheck> projectileDamages = new List<ProjectileDamageCheck>();
-
-    private Dictionary<string, float> _damageByProjectile = new Dictionary<string, float>();
-
-    public Dictionary<string, float> damageByProjectile
+    [Serializable]
+    public class DamageRecord
     {
-        get
-        {
-            if (_damageByProjectile == null || _damageByProjectile.Count == 0)
-            {
-                _damageByProjectile = new Dictionary<string, float>();
-                foreach (var data in projectileDamages)
-                {
-                    _damageByProjectile[data.projectileName] = data.damage;
-                }
-            }
-            return _damageByProjectile;
-        }
+        public string name;
+        public float damage;
     }
+
+    public List<DamageRecord> skillDamageList = new List<DamageRecord>();
+    public List<DamageRecord> augmentDamageList = new List<DamageRecord>();
 
     public void UpdateLists()
     {
-        projectileDamages.Clear();
-        foreach (var kvp in _damageByProjectile)
+        // 스킬 데미지 리스트 업데이트
+        skillDamageList.Clear();
+        foreach (var kvp in skillDamages)
         {
-            projectileDamages.Add(new ProjectileDamageCheck
+            skillDamageList.Add(new DamageRecord
             {
-                projectileName = kvp.Key,
+                name = kvp.Key.ToString(),
+                damage = kvp.Value
+            });
+        }
+
+        // 증강 데미지 리스트 업데이트
+        augmentDamageList.Clear();
+        foreach (var kvp in augmentDamages)
+        {
+            augmentDamageList.Add(new DamageRecord
+            {
+                name = kvp.Key.ToString(),
                 damage = kvp.Value
             });
         }
@@ -151,7 +140,7 @@ public class DataManager : Singleton<DataManager>
 
     public int classSelect_Num;
 
-    public DamageStats currentRunDamageStats = new DamageStats();
+    public DamageStats currentDamageStats = new DamageStats();
     public InGameValue inGameValue;
 
     protected override void Awake()
@@ -165,7 +154,6 @@ public class DataManager : Singleton<DataManager>
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
         LoadBlessData();
 
-        DamageTracker.OnDamageDealt += TrackDamage;
     }
     public void SaveData()
     {
@@ -210,17 +198,31 @@ public class DataManager : Singleton<DataManager>
         bless_Dic = dicDataTable.bless_Table;
     }
 
-    private void TrackDamage(DamageInfo info)
+    public void AddDamageData(float damage, Enums.SkillName skillName)
     {
-        currentRunDamageStats.totalDamage += info.damage;
-
-        //없으면 0으로 리스트에 넣고 데미지 누적시작
-        if (!currentRunDamageStats.damageByProjectile.ContainsKey(info.projectileName))
+        currentDamageStats.totalDamage += damage;
+        
+        // 스킬 데미지 추적
+        if (!currentDamageStats.skillDamages.ContainsKey(skillName))
         {
-            currentRunDamageStats.damageByProjectile[info.projectileName] = 0;
+            currentDamageStats.skillDamages[skillName] = 0;
         }
-        currentRunDamageStats.damageByProjectile[info.projectileName] += info.damage;
+        currentDamageStats.skillDamages[skillName] += damage;
 
-        currentRunDamageStats.UpdateLists();
+        currentDamageStats.UpdateLists();
+    }
+
+    public void AddDamageData(float damage, Enums.AugmentName augmentName)
+    {
+        currentDamageStats.totalDamage += damage;
+        
+        // 증강 데미지 추적
+        if (!currentDamageStats.augmentDamages.ContainsKey(augmentName))
+        {
+            currentDamageStats.augmentDamages[augmentName] = 0;
+        }
+        currentDamageStats.augmentDamages[augmentName] += damage;
+
+        currentDamageStats.UpdateLists();
     }
 }

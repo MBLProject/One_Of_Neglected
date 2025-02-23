@@ -5,8 +5,8 @@ using System;
 
 public class PlayerProjectile : Projectile
 {
-
     protected projType pType;
+    protected float projectileSize = 1f;
 
     protected enum projType
     {
@@ -14,6 +14,22 @@ public class PlayerProjectile : Projectile
         Normal,
         None,
     }
+
+    public virtual void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float size, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
+    {
+        projectileSize = size;
+        transform.localScale = Vector3.one * size;
+        base.InitProjectile(startPos, targetPos, spd, dmg, maxDist, pierceCnt, lifetime);
+    }
+
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        // 기존 크기 유지
+        Vector3 currentScale = transform.localScale;
+        base.InitProjectile(startPos, targetPos, projectileStats);
+        transform.localScale = currentScale;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -63,12 +79,6 @@ public class PlayerProjectile : Projectile
             if (collision.TryGetComponent(out MonsterBase monster))
             {
                 monster.TakeDamage(damage);
-                
-                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
-                    damage = damage,
-                    projectileName = gameObject.name,
-                });
-
                 if (pierceCount > 0)
                 {
                     pierceCount--;

@@ -113,12 +113,6 @@ public class Projectile : MonoBehaviour
 
             monster.TakeDamage(finalFinalDamage);
 
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            {
-                damage = finalFinalDamage,
-                projectileName = gameObject.name,
-            });
-
             if (pierceCount > 0)
             {
                 pierceCount--;

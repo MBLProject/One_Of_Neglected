@@ -30,21 +30,24 @@ public class ProjectileManager : Singleton<ProjectileManager>
         projectiles.Add(Enums.SkillName.Gateway, Resources.Load<Projectile>("Using/Projectile/GatewayProjectile"));
 
 
-
-
-
         monsterProjectiles.Add("RangedNormal", Resources.Load<MonsterProjectile>("Using/Projectile/MonsterProjectile"));
 
         playerProjectiles.Add("WarriorAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarriorAttackProjectile"));
         playerProjectiles.Add("MagicianAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/MagicianAttackProjectile"));
         playerProjectiles.Add("ArcherAttackProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ArcherAttackProjectile"));
+
         playerProjectiles.Add("SwordAurorProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SwordAurorProjectile"));
         playerProjectiles.Add("EarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/EarthquakeProjectile"));
         playerProjectiles.Add("SubEarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SubEarthquakeProjectile"));
+        playerProjectiles.Add("SwordShieldProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SwordShieldProjectile"));
+        playerProjectiles.Add("RushEndProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/RushEndProjectile"));
+        playerProjectiles.Add("RushProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/RushProjectile"));
+
         playerProjectiles.Add("GreatBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/GreatBowProjectile"));
         playerProjectiles.Add("CrossBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/CrossBowProjectile"));
-        playerProjectiles.Add("RushProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/RushProjectile"));
         playerProjectiles.Add("ArcRangerProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ArcRangerProjectile"));
+        playerProjectiles.Add("LongBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/LongBowProjectile"));
+
         playerProjectiles.Add("PowerEffect", Resources.Load<PlayerProjectile>("Using/Projectile/PowerEffect"));
         playerProjectiles.Add("JewelProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/JewelProjectile"));
 

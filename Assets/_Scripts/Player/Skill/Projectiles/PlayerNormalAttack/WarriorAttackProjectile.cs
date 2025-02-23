@@ -100,11 +100,6 @@ public class WarriorAttackProjectile : PlayerProjectile
             if (collision.TryGetComponent(out MonsterBase monster))
             {
                 monster.TakeDamage(damage);
-                
-                DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
-                    damage = damage,
-                    projectileName = gameObject.name,
-                });
             }
         }
     }

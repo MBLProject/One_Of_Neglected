@@ -1,7 +1,8 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Aug_Staff : TimeBasedAugment
@@ -24,13 +25,15 @@ public class Aug_Staff : TimeBasedAugment
     protected override void OnTrigger()
     {
         var activeMonsters = UnitManager.Instance.GetMonstersInRange(0f, float.MaxValue);
+        float finalFinalDamage = UnityEngine.Random.value < owner.Stats.CurrentCriRate ? CurrentDamage * owner.Stats.CurrentCriDamage : CurrentDamage;
         if (activeMonsters != null)
         {
             foreach (MonsterBase monster in activeMonsters)
             {
                 if (monster != null)
                 {
-                    monster.TakeDamage(CurrentDamage * 2);
+                    monster.TakeDamage(finalFinalDamage * 2);
+                    DataManager.Instance.AddDamageData(finalFinalDamage * 2, Enums.AugmentName.Staff);
                 }
             }
         }
