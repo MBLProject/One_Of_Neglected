@@ -36,7 +36,6 @@ public class PoisonShoesProjectile : Projectile
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
     {
-
         startPosition = startPos;
         targetPosition = targetPos;
         stats = projectileStats;

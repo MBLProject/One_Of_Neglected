@@ -16,13 +16,12 @@ public class Skill
     {
         this.skillName = skillName;
 
+        SubscribeToPlayerStats();
         LevelUp();
     }
 
     protected virtual void SubscribeToPlayerStats()
     {
-        //PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
-        //playerStats.OnATKChanged += (value) => { stats.aTK = value; };
     }
 
     public virtual void StartMainTask()

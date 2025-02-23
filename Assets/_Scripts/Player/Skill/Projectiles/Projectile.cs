@@ -119,14 +119,8 @@ public class Projectile : MonoBehaviour
                 projectileName = gameObject.name,
             });
 
-            if (pierceCount > 0)
-            {
-                pierceCount--;
-            }
-            else
-            {
-                DestroyProjectile();
-            }
+            if (stats.pierceCount > 0) stats.pierceCount--;
+            else DestroyProjectile();
         }
     }
 
