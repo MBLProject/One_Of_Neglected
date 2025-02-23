@@ -36,10 +36,12 @@ public class Aura : ActiveSkill
     protected override void SubscribeToPlayerStats()
     {
         PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
-        playerStats.OnATKChanged += (value) => value = stats.aTK;
-        playerStats.OnATKRangeChanged += (value) => value = stats.aTKRange;
-        playerStats.OnCriRateChanged += (value) => value = stats.critical;
-        playerStats.OnCriDamageChanged += (value) => value = stats.cATK;
+
+        playerStats.OnATKChanged += (value) => stats.aTK = value;
+        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
+        playerStats.OnCriRateChanged += (value) => stats.critical = value;
+        playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
+        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
     }
 
     public override void InitSkill()
@@ -62,6 +64,8 @@ public class Aura : ActiveSkill
             cATK = 1f,
             amount = 1f,
             lifetime = 5f,
+            projectileSpeed = 1f,
+
         };
     }
 

@@ -396,7 +396,7 @@ public class PlayerStats
                 CurrentCriRate += finalValue;
                 break;
             case StatType.CriDamage:
-                CurrentCriDamage += finalValue;
+                CurrentCriDamage = (CurrentCriDamage * 100 + finalValue) / 100f;
                 break;
             case StatType.ProjAmount:
                 CurrentProjAmount += (int)finalValue;

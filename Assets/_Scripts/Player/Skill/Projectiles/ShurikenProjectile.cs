@@ -40,11 +40,7 @@ public class ShurikenProjectile : Projectile
 
             monster.TakeDamage(finalFinalDamage);
 
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            {
-                damage = finalFinalDamage,
-                projectileName = gameObject.name,
-            });
+            DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.Shuriken);
 
             if (pierceCount > 0)
             {

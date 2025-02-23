@@ -9,6 +9,7 @@ public class FireballProjectile : Projectile
 
     protected override void Start()
     {
+        base.Start();
         isMoving = true;
         transform.position = startPosition;
         cts = new CancellationTokenSource();
@@ -20,16 +21,11 @@ public class FireballProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            float finalFinalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+            float finalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
-            monster.TakeDamage(finalFinalDamage);
-
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            {
-                damage = finalFinalDamage,
-                projectileName = gameObject.name,
-            });
-
+            monster.TakeDamage(finalDamage);
+            
+            DataManager.Instance.AddDamageData(finalDamage, Enums.SkillName.Fireball);
             monster.ApplyKnockback(transform.position, knockbackForce);
         }
     }

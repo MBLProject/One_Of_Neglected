@@ -43,8 +43,9 @@ public class MagicianIdleState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                float optimalRange = player.Stats.CurrentATKRange * 1.25f * 1.5f; // 마법사는 중간 거리
 
-                if (distance <= player.Stats.CurrentATKRange * 1.25f * 2.5f)
+                if (distance <= optimalRange * 1.2f && distance >= optimalRange * 0.8f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(MagicianAttackState));
@@ -52,7 +53,10 @@ public class MagicianIdleState : BaseState<Player>
                 }
                 else
                 {
-                    player.targetPosition = nearestMonster.transform.position;
+                    // 몬스터와의 최적 거리 유지
+                    Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                    Vector2 optimalPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
+                    player.targetPosition = optimalPosition;
                     handler.ChangeState(typeof(MagicianMoveState));
                     return;
                 }

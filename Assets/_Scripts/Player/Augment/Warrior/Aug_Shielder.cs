@@ -1,25 +1,142 @@
+using System.Collections;
+using UnityEngine;
 
 public class Aug_Shielder : ConditionalAugment
 {
-    private float healthThreshold = 0.3f;
-    private bool isTriggered = false;
-    
-    public Aug_Shielder(Player owner) : base(owner) 
+    private float damageMultiplier = 1f;  
+    private float projectileSpeed = 2f;
+    private float projectileSize = 1f;
+    private int penetration = 100;
+    private float duration = 5f;
+    private float maxDistance = 10f;
+
+    private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+
+    private PlayerProjectile currentPathProjectile;
+
+    public Aug_Shielder(Player owner) : base(owner)
     {
         aguName = Enums.AugmentName.Shielder;
     }
 
+    public override void Activate()
+    {
+        base.Activate();
+
+        owner.dashDetect += OnDashDetect;
+        owner.dashCompleted += OnDashCompleted;
+        owner.DamageReduction += 10f;
+    }
+
+    private void OnDashDetect()
+    {
+        if (CheckCondition())
+        {
+            OnConditionDetect();
+            SpawnRushProjectile();
+        }
+    }
+
     public override bool CheckCondition()
     {
-        float healthPercent = owner.Stats.currentHp / owner.Stats.CurrentMaxHp;
-        return healthPercent <= healthThreshold && !isTriggered;
+        return true;
     }
 
     public override void OnConditionDetect()
     {
-        float shieldAmount = 50f * Level;
-        owner.ModifyStat(Enums.StatType.Defense, shieldAmount);
-        isTriggered = true;
-        // 쿨다운 후 리셋하는 로직 추가
+    }
+
+    private void SpawnRushProjectile()
+    {
+        if (currentPathProjectile != null)
+        {
+            ProjectileManager.Instance.RemoveProjectile(currentPathProjectile);
+        }
+
+        Vector2 dashStart = owner.transform.position;
+        currentPathProjectile = ProjectileManager.Instance.SpawnPlayerProjectile(
+            "RushProjectile",
+            dashStart,
+            dashStart,
+            0f,
+            CurrentDamage,
+            1.5f,
+            maxDistance,
+            penetration,
+            duration
+            );
+
+        if (currentPathProjectile != null)
+        {
+            currentPathProjectile.transform.SetParent(owner.transform);
+            currentPathProjectile.transform.rotation = Quaternion.identity;
+            currentPathProjectile.transform.localPosition = Vector3.zero;
+        }
+    }
+
+    private void SpawnshockwaveProjectile()
+    {
+        Vector2 dashEnd = owner.targetPosition;
+        ProjectileManager.Instance.SpawnPlayerProjectile(
+            "RushEndProjectile",
+            dashEnd,
+            dashEnd,
+            0f,
+            CurrentDamage / 2,
+            2,
+            0.1f,
+            penetration,
+            0.5f); 
+    }
+
+    private void OnDashCompleted()
+    {
+        if (currentPathProjectile != null)
+        {
+            ProjectileManager.Instance.RemoveProjectile(currentPathProjectile);
+            currentPathProjectile = null;
+        }
+
+        if (level >= 5)
+        {
+            SpawnshockwaveProjectile();
+        }
+    }
+
+    protected override void OnLevelUp()
+    {
+        base.OnLevelUp();
+        switch (level)
+        {
+            case 1:
+                break;
+            case 2:
+                owner.dashRechargeTime *= 0.9f;
+                break;
+            case 3:
+                owner.DamageReduction += 10f;
+                owner.Stats.CurrentDashCount++;
+                break;
+            case 4:
+                owner.dashRechargeTime *= 0.8f;
+                break;
+            case 5:
+                break;
+        }
+    }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+
+        owner.dashDetect -= OnDashDetect;
+        owner.dashCompleted -= OnDashCompleted;
+        owner.DamageReduction = 0f; 
+
+        if (currentPathProjectile != null)
+        {
+            ProjectileManager.Instance.RemoveProjectile(currentPathProjectile);
+            currentPathProjectile = null;
+        }
     }
 }

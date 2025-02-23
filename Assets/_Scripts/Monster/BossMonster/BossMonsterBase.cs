@@ -6,23 +6,25 @@ public abstract class BossMonsterBase : MonsterBase
 {
     [Header("보스 설정")]
     [SerializeField] protected BossType[] possibleStats;       
-    [SerializeField] protected GameObject attackEffectPrefab;  
-    [SerializeField] protected GameObject skillEffectPrefab;   
+    [SerializeField] protected GameObject attackEffectPrefab;
+    [SerializeField] protected GameObject phantomPrefab;
 
-    protected bool isInvulnerable;                              // 무적 상태
-    protected List<AttackPattern> attackPatterns;               // 공격 패턴
-    protected int currentPatternIndex;                          // 현재 패턴
 
-    public AttackPattern CurrentPattern => attackPatterns[currentPatternIndex];
+    protected Transform skillContainer;    // 스킬 이펙트 컨테이너
+    protected bool isInvulnerable;        // 무적 상태
+
+    public GameObject AttackEffectPrefab => attackEffectPrefab;
+    public GameObject PhantomPrefab => phantomPrefab;
+    public Transform SkillContainer => skillContainer;
 
     protected override void Awake()
     {
         base.Awake();
         SetupBoss();
-    }
-    protected override void InitializeComponents()
-    {
-        base.InitializeComponents(); 
+
+        skillContainer = new GameObject("SkillContainer").transform;
+        skillContainer.SetParent(transform);
+        skillContainer.localPosition = Vector3.zero;
     }
 
     // 보스 초기 설정
@@ -62,12 +64,29 @@ public abstract class BossMonsterBase : MonsterBase
             selectedStats.healthRegen
         );
     }
+    public override bool IsPlayerInAttackRange()
+    {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return false;
+
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+        float attackRange = 2f;  // 기본 공격 범위 설정
+
+        return distance <= attackRange;
+    }
 
     public override void TakeDamage(float damage)
     {
-        if (isInvulnerable) return;
+        // 무적 상태면 데미지 무시
+        if (isInvulnerable)
+        {
+            Debug.Log("[Boss] 무적 상태 - 데미지 무시됨");
+            return;
+        }
+
         base.TakeDamage(damage);
     }
+
 }
 
 [Serializable]
@@ -80,23 +99,4 @@ public struct BossType
     public float moveSpeed;      // 이동속도
     public float attackSpeed;    // 공격속도
     public float healthRegen;    // 초당 체력 회복량
-}
-
-[Serializable]
-public struct AttackPattern
-{
-    public string name;          // 패턴 이름
-    public float damage;         // 공격력
-    public float range;          // 범위
-    public float duration;       // 지속시간
-    public GameObject effectPrefab;  // 이펙트 프리팹
-
-    public AttackPattern(string name, float damage, float range, float duration, GameObject effectPrefab)
-    {
-        this.name = name;
-        this.damage = damage;
-        this.range = range;
-        this.duration = duration;
-        this.effectPrefab = effectPrefab;
-    }
 }

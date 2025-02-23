@@ -59,7 +59,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
     {
         Vector3 targetPosition = owner.transform.position + direction * 10f;
         
-        ProjectileManager.Instance.SpawnPlayerProjectile(
+        PlayerProjectile proj = ProjectileManager.Instance.SpawnPlayerProjectile(
             "SwordAurorProjectile",
             owner.transform.position,
             targetPosition,

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 9178934997538123117}
   - component: {fileID: 7801336938225155328}
   - component: {fileID: 6810168755021224094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BossMonster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.2511524, y: -0.2950774, z: 0.19626664}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,7 +147,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.3}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!114 &7801336938225155328
@@ -165,6 +165,11 @@ MonoBehaviour:
   rb: {fileID: 2076573227761020560}
   animator: {fileID: 6810168755021224094}
   dieAnimationLength: 1
+  m_SpriteRenderer: {fileID: 2147997381527248474}
+  damageIncreasePerInterval: 0
+  healthIncreasePerInterval: 0
+  defenseIncreasePerInterval: 0
+  statUpdateInterval: 30
   possibleStats:
   - typeName: God Incarnate
     health: 99999
@@ -194,8 +199,13 @@ MonoBehaviour:
     moveSpeed: 1
     attackSpeed: 1
     healthRegen: 10
-  attackEffectPrefab: {fileID: 0}
-  skillEffectPrefab: {fileID: 0}
+  attackEffectPrefab: {fileID: 6257089690972394849, guid: cc2de2bc444cd5247bcfee60dadbbc9d, type: 3}
+  phantomPrefab: {fileID: 2357890237291911134, guid: a54f9c05048f75b40a18e328a082b3bb, type: 3}
+  skillCooldown: 5
+  isSkillReady: 1
+  skill1Probability: 0.4
+  skill2Probability: 0.3
+  skill3Probability: 0.3
 --- !u!95 &6810168755021224094
 Animator:
   serializedVersion: 5
@@ -206,7 +216,7 @@ Animator:
   m_GameObject: {fileID: 4209662324636049061}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e02dda90fdf574e4896491d4b8cc2e6e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

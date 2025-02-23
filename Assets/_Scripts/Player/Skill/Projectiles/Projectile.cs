@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
 
                 if (!GameManager.Instance.isPaused)
                 {
-                    transform.position += speed * Time.deltaTime * direction;
+                    transform.position += stats.projectileSpeed * Time.deltaTime * direction;
 
                     traveledDistance = (transform.position - startPosition).magnitude;
 
@@ -119,14 +119,8 @@ public class Projectile : MonoBehaviour
                 projectileName = gameObject.name,
             });
 
-            if (pierceCount > 0)
-            {
-                pierceCount--;
-            }
-            else
-            {
-                DestroyProjectile();
-            }
+            if (stats.pierceCount > 0) stats.pierceCount--;
+            else DestroyProjectile();
         }
     }
 

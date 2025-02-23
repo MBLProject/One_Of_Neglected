@@ -8,8 +8,14 @@ public class Javelin : ActiveSkill
 
     protected override void SubscribeToPlayerStats()
     {
-        //PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
-        //playerStats.OnATKChanged += (value) => { stats.aTK = value; };
+        PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
+
+        playerStats.OnATKChanged += (value) => stats.aTK = value;
+        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
+        playerStats.OnCriRateChanged += (value) => stats.critical = value;
+        playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount = value;
+        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
     public override void InitSkill()
@@ -32,6 +38,8 @@ public class Javelin : ActiveSkill
             cATK = 1f,
             amount = 1f,
             lifetime = 3f,
+            projectileSpeed = 1f,
+
         };
     }
 

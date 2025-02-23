@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8582979008568150934}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 780154465802564606}
   - component: {fileID: 3439715098303014853}
   - component: {fileID: 5003735280031505066}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 3904486172122516797}
   - component: {fileID: 2253901953622973030}
   - component: {fileID: 5913200433718114158}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SecondDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7440000007319648906}
   - component: {fileID: 4075774950670373717}
   - component: {fileID: 4721693976704882103}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2105183745378422590}
   - component: {fileID: 8905768557215414232}
   - component: {fileID: 5607978888002347373}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5133,7 +5133,7 @@ GameObject:
   - component: {fileID: 3154997593810096856}
   - component: {fileID: 5884726578318990125}
   - component: {fileID: 1786077581799864395}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5239,7 +5239,7 @@ GameObject:
   - component: {fileID: 9065775630456920687}
   - component: {fileID: 2166498850012520412}
   - component: {fileID: 4914532411999355835}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: FirstDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5381,7 +5381,7 @@ GameObject:
   - component: {fileID: 796159826468965797}
   - component: {fileID: 1670376150079994037}
   - component: {fileID: 4978711176998887885}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SecondDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5457,7 +5457,7 @@ GameObject:
   - component: {fileID: 1463563976748569870}
   - component: {fileID: 6099674685478273171}
   - component: {fileID: 8194966919347352994}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ThirdDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5534,7 +5534,7 @@ GameObject:
   - component: {fileID: 256773328001492779}
   - component: {fileID: 5130263088647571357}
   - component: {fileID: 675149512881817944}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5636,7 +5636,7 @@ GameObject:
   - component: {fileID: 2682735490057940770}
   - component: {fileID: 2381161532902128065}
   - component: {fileID: 3157348880825636851}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5733,7 +5733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737340866691983463}
   - component: {fileID: 3887980233794022488}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5822,7 +5822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735702275660355431}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5859,7 +5859,7 @@ GameObject:
   - component: {fileID: 8524791619507608555}
   - component: {fileID: 3422711942742335105}
   - component: {fileID: 3227954374562335767}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5934,7 +5934,7 @@ GameObject:
   - component: {fileID: 5780983358920718780}
   - component: {fileID: 5471207348953942915}
   - component: {fileID: 2287408802225302653}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ThirdDash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6010,7 +6010,7 @@ GameObject:
   - component: {fileID: 1796504225594999379}
   - component: {fileID: 2592611772006712729}
   - component: {fileID: 8451409028877385179}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Archer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -6174,7 +6174,7 @@ GameObject:
   - component: {fileID: 979994337050980709}
   - component: {fileID: 2230266241732637674}
   - component: {fileID: 6179086028063940485}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: FirstDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6249,7 +6249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2192913481799471661}
   - component: {fileID: 3465156361558010685}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DashCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6315,7 +6315,7 @@ GameObject:
   - component: {fileID: 6411892974946111364}
   - component: {fileID: 4796193706499272908}
   - component: {fileID: 4706394487341391640}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArcherEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

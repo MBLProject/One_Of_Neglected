@@ -14,7 +14,7 @@ public class SkillDispenser : MonoBehaviour
         Count = skills.Count;
 
         if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.Aura);
+            RegisterSkill(Enums.SkillName.Javelin);
     }
 
     public void RegisterSkill(Enums.SkillName skillName)

@@ -7,7 +7,7 @@ public class Aug_GreatBow : TimeBasedAugment
     private float damageMultiplier = 1f; 
     private float projectileSpeed = 2f;
     private float projectileSize = 1f;
-    private int penetration = 100;
+    private int penetration = 1000;
     private float duration = 5f;
     private float maxDistance = 10f;
 

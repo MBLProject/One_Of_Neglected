@@ -104,6 +104,7 @@ public struct SkillStats
     public float lifetime;
     public float cooldown;
     public float Aspd;
+    public float projectileSpeed;
 }
 
 [Serializable]
@@ -121,5 +122,5 @@ public struct ProjectileStats
     public float cATK;
     public float amount;
     public float lifetime;
-
+    public float projectileSpeed;
 }

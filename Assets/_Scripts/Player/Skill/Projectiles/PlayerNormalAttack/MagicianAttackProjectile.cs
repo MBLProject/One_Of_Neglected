@@ -16,4 +16,25 @@ public class MagicianAttackProjectile : PlayerProjectile
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if (collision.TryGetComponent(out MonsterBase monster))
+            {
+                float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+                monster.TakeDamage(finalFinalDamage);
+
+                if (pierceCount > 0)
+                {
+                    pierceCount--;
+                }
+                else
+                {
+                    DestroyProjectile();
+                }
+            }
+        }
+    }
 }

@@ -1,18 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class ArcherDieState : MonoBehaviour
+public class ArcherDieState : BaseState<Player>
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool isDieAnimationPlayed = false;
+
+    public ArcherDieState(StateHandler<Player> handler) : base(handler) { }
+
+    public override void Enter(Player player)
     {
-        
+        if (player.Animator != null)
+        {
+            player.Animator.ResetTrigger("Idle");
+            player.Animator.ResetTrigger("Attack");
+            player.Animator.ResetTrigger("Dash");
+            player.Animator.ResetTrigger("IsMoving");
+
+            player.Animator.SetTrigger("Die");
+            isDieAnimationPlayed = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update(Player player)
     {
-        
+    }
+
+    public override void Exit(Player player)
+    {
+        if (player.Animator != null)
+        {
+            player.Animator.SetTrigger("Idle");
+            player.Animator.ResetTrigger("Die");
+        }
+        isDieAnimationPlayed = false;
     }
 }

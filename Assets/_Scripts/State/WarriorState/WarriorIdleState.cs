@@ -43,8 +43,9 @@ public class WarriorIdleState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                float optimalRange = player.Stats.CurrentATKRange * 0.8f;
 
-                if (distance <= player.Stats.CurrentATKRange * 0.8)
+                if (distance <= optimalRange)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(WarriorAttackState));
@@ -52,7 +53,9 @@ public class WarriorIdleState : BaseState<Player>
                 }
                 else
                 {
-                    player.targetPosition = nearestMonster.transform.position;
+                    Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                    Vector2 optimalPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange * 0.8f);
+                    player.targetPosition = optimalPosition;
                     handler.ChangeState(typeof(WarriorMoveState));
                     return;
                 }
