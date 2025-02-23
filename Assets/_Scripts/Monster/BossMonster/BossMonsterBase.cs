@@ -64,6 +64,16 @@ public abstract class BossMonsterBase : MonsterBase
             selectedStats.healthRegen
         );
     }
+    public override bool IsPlayerInAttackRange()
+    {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return false;
+
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+        float attackRange = 2f;  // 기본 공격 범위 설정
+
+        return distance <= attackRange;
+    }
 
     public override void TakeDamage(float damage)
     {
@@ -76,6 +86,7 @@ public abstract class BossMonsterBase : MonsterBase
 
         base.TakeDamage(damage);
     }
+
 }
 
 [Serializable]

@@ -65,9 +65,16 @@ public class BossSkill1State : MonsterStateBase
             ProjectileMovement projectile = effect.GetComponent<ProjectileMovement>();
             if (projectile != null)
             {
-                float projectileSpeed = 15f;  // 검기 속도 증가
-                projectile.Initialize(direction, projectileSpeed, boss.Stats.attackDamage);
-                Debug.Log($"[Boss] 검기 발사 - 각도: {angle}, 방향: {direction}");
+                float projectileSpeed = 10f;  // 검기 속도 증가
+                float projectileDamage = 100f;
+                projectile.Initialize(direction, projectileSpeed, projectileDamage);
+                var collider = effect.GetComponent<Collider2D>();
+                if (collider != null)
+                {
+                    collider.isTrigger = true;
+                }
+
+                Debug.Log($"[Boss] 검기 발사 - 각도: {angle}, 데미지: {projectileDamage}");
             }
         }
     }
