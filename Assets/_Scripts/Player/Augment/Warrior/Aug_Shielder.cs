@@ -78,7 +78,7 @@ public class Aug_Shielder : ConditionalAugment
     {
         Vector2 dashEnd = owner.targetPosition;
         ProjectileManager.Instance.SpawnPlayerProjectile(
-            "EarthquakeProjectile",
+            "RushEndProjectile",
             dashEnd,
             dashEnd,
             0f,

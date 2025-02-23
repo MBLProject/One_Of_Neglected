@@ -31,7 +31,7 @@ public class Aug_LongBow : ConditionalAugment
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayedProjectileDelay));
             ProjectileManager.Instance.SpawnPlayerProjectile(
-                "ArcherAttackProjectile",
+                "LongBowProjectile",
                 owner.transform.position,
                 targetPosition,
                 projectileSpeed,

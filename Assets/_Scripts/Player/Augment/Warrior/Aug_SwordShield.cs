@@ -15,9 +15,31 @@ public class Aug_SwordShield : TimeBasedAugment
     private float duration = 5f;
     private float maxDistance = 10f;
 
+    private GameObject shieldEffect; 
+
     public Aug_SwordShield(Player owner, float interval) : base(owner, interval)
     {
         aguName = Enums.AugmentName.SwordShield;
+        CreateShieldEffect();
+    }
+
+    private void CreateShieldEffect()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Using/Effect/SwordShieldEffect");
+        if (prefab != null)
+        {
+            shieldEffect = GameObject.Instantiate(prefab, owner.transform);
+            shieldEffect.transform.localPosition = Vector3.zero;
+            UpdateShieldVisibility();
+        }
+    }
+
+    private void UpdateShieldVisibility()
+    {
+        if (shieldEffect != null)
+        {
+            shieldEffect.SetActive(currentParryCount > 0);
+        }
     }
 
     protected override void OnTrigger()
@@ -25,6 +47,7 @@ public class Aug_SwordShield : TimeBasedAugment
         if (currentParryCount < maxParryCount)
         {
             currentParryCount++;
+            UpdateShieldVisibility();  
         }
     }
 
@@ -33,6 +56,7 @@ public class Aug_SwordShield : TimeBasedAugment
         if (currentParryCount > 0)
         {
             currentParryCount--;
+            UpdateShieldVisibility();  
             
             if (level >= 5)
             {
@@ -44,11 +68,11 @@ public class Aug_SwordShield : TimeBasedAugment
                 owner.SetInvincible(invincibilityDuration);
             }
 
-            Vector3 currentDirection = (projectile.transform.position - projectile.StartPosition).normalized;
+            Vector3 currentDirection = (projectile.StartPosition- projectile.transform.position).normalized;
             Vector3 reflectDirection = -currentDirection;  
 
             ProjectileManager.Instance.SpawnPlayerProjectile(
-                "SwordAurorProjectile", 
+                "SwordShieldProjectile", 
                 projectile.transform.position,  
                 projectile.transform.position + reflectDirection * 10f,
                 projectileSpeed,
@@ -87,6 +111,14 @@ public class Aug_SwordShield : TimeBasedAugment
                 speedBuffDuration = 0.15f;
                 speedBuffPercent = 0.3f;  
                 break;
+        }
+    }
+
+    public void OnDestroy()
+    {
+        if (shieldEffect != null)
+        {
+            GameObject.Destroy(shieldEffect);
         }
     }
 }

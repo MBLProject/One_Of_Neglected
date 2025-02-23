@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
 
                 if (!GameManager.Instance.isPaused)
                 {
-                    transform.position += speed * Time.deltaTime * direction;
+                    transform.position += stats.projectileSpeed * Time.deltaTime * direction;
 
                     traveledDistance = (transform.position - startPosition).magnitude;
 
@@ -112,12 +112,6 @@ public class Projectile : MonoBehaviour
             float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
             monster.TakeDamage(finalFinalDamage);
-
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            {
-                damage = finalFinalDamage,
-                projectileName = gameObject.name,
-            });
 
             if (pierceCount > 0)
             {

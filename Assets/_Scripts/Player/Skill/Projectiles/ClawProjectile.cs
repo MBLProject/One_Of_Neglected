@@ -37,4 +37,22 @@ public class ClawProjectile : Projectile
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<MonsterBase>(out var monster))
+        {
+            float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+
+            monster.TakeDamage(finalFinalDamage);
+            DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.Claw);
+            if (pierceCount > 0)
+            {
+                pierceCount--;
+            }
+            else
+            {
+                DestroyProjectile();
+            }
+        }
+    }
 }
