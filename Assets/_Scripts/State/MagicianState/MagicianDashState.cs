@@ -26,6 +26,14 @@ public class MagicianDashState : BaseState<Player>
         player.SetDashing(true);
         player.SetSkillInProgress(true, false);
 
+        player.InvokeDashDetect();
+
+        var warlock = player.augment.activeAugments.Find(aug => aug is Aug_Warlock) as Aug_Warlock;
+        if (warlock != null && warlock.WasTeleported())
+        {
+            return;  
+        }
+
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");

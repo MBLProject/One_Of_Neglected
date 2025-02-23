@@ -6,6 +6,8 @@ public class GameManager : Singleton<GameManager>
 {
     public bool isPaused = false;
     public bool isGameStarted = false;
+    public float gold;
+    public int remnents;
 
     private void Update()
     {
@@ -27,11 +29,15 @@ public class GameManager : Singleton<GameManager>
             if (isPaused)
             {
                 Debug.Log("Game Resumed by ESC key!");
+                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
+                Time.timeScale = 0;
                 ResumeGame();
             }
             else
             {
                 Debug.Log("Game Paused by ESC key!");
+                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
+                Time.timeScale = 1;
                 PauseGame();
             }
         }

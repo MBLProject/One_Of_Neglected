@@ -20,15 +20,17 @@ public class FireballProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            monster.TakeDamage(damage);
+            float finalFinalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
-            monster.ApplyKnockback(transform.position, knockbackForce);
+            monster.TakeDamage(finalFinalDamage);
 
             DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
             {
-                damage = damage,
+                damage = finalFinalDamage,
                 projectileName = gameObject.name,
             });
+
+            monster.ApplyKnockback(transform.position, knockbackForce);
         }
     }
 }

@@ -32,18 +32,16 @@ public class Selection : MonoBehaviour
             //TODO 골드도 예외처리
             if (m_skillName != Enums.SkillName.Cheese)
             {
-                inGameUI_Panel.SetIconCell_Banish(m_skillName);
-                banish_Panel.SetIconCell_Mini(m_skillName);
+                inGameUI_Panel.SetIconCell_Mini(m_skillName);
+                banish_Panel.SetIconCell_Banish(m_skillName);
             }
         }
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
         levelUp_Panel.PanelClose();
 
-
     }
 
     private void Select_BTN2()
-
     {
 
         Debug.Log(m_augName);

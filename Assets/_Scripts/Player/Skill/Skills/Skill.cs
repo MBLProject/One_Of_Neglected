@@ -33,9 +33,9 @@ public class Skill
     {
     }
 
-    public virtual void ModifySkill(SkillStats stats)
+    public virtual void ModifySkill()
     {
-
+        
     }
 
     public virtual void InitSkill()

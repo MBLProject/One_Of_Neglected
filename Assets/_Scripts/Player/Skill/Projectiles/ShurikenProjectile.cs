@@ -36,10 +36,13 @@ public class ShurikenProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            monster.TakeDamage(damage);
+            float finalFinalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+
+            monster.TakeDamage(finalFinalDamage);
+
             DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
             {
-                damage = damage,
+                damage = finalFinalDamage,
                 projectileName = gameObject.name,
             });
 

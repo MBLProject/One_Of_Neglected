@@ -26,6 +26,8 @@ public class ArcherDashState : BaseState<Player>
         player.SetDashing(true);
         player.SetSkillInProgress(true, false);
 
+        player.InvokeDashDetect();
+
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");
@@ -89,6 +91,7 @@ public class ArcherDashState : BaseState<Player>
         player.SetSkillInProgress(false, false);
 
         player.SetCurrentPositionAsTarget();
+        player.InvokeDashCompleted();
 
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("Idle");

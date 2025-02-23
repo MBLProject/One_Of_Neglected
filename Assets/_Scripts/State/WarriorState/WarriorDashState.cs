@@ -23,19 +23,21 @@ public class WarriorDashState : BaseState<Player>
         }
 
         player.ConsumeDash();
-        player.SetDashing(true);  
+        player.SetDashing(true);
         player.SetSkillInProgress(true, false);
+
+        player.InvokeDashDetect();
 
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("IsMoving");
-        
+
         player.Animator?.Update(0);
         player.Animator?.SetTrigger("Dash");
-        
+
         startPosition = player.transform.position;
-        
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         bool hasKeyboardInput = horizontalInput != 0 || verticalInput != 0;
@@ -49,9 +51,9 @@ public class WarriorDashState : BaseState<Player>
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             dashDirection = (mousePosition - (Vector2)player.transform.position).normalized;
         }
-        
+
         player.FlipModel(dashDirection.x < 0);
-        
+
         if (player.DashEffect != null)
         {
             currentDashEffect = GameObject.Instantiate(player.DashEffect, player.transform.position, Quaternion.identity);
@@ -60,7 +62,7 @@ public class WarriorDashState : BaseState<Player>
             currentDashEffect.transform.rotation = Quaternion.Euler(0, dashDirection.x < 0 ? 180 : 0, 0);
             currentDashEffect.Play();
         }
-        
+
         targetPosition = startPosition + (dashDirection * dashDistance);
         lerpProgress = 0f;
     }
@@ -87,13 +89,15 @@ public class WarriorDashState : BaseState<Player>
     {
         player.SetDashing(false);
         player.SetSkillInProgress(false, false);
-        
+
+
         player.SetCurrentPositionAsTarget();
-        
+        player.InvokeDashCompleted();
+
         player.Animator?.ResetTrigger("Dash");
         player.Animator?.ResetTrigger("Idle");
         player.Animator?.ResetTrigger("IsMoving");
-        
+
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.SetTrigger("Idle");
 

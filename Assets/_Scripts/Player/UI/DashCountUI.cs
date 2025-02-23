@@ -34,7 +34,7 @@ public class DashCountUI : MonoBehaviour
                 }
                 else if (i == player.CurrentDashCount)
                 {
-                    dashRechargeImages[i].fillAmount = player.DashRechargeTimer / (player.DashRechargeTime * player.Stats.CurrentCooldown);
+                    dashRechargeImages[i].fillAmount = player.DashRechargeTimer / (player.dashRechargeTime * player.Stats.CurrentCooldown);
                 }
                 else
                 {

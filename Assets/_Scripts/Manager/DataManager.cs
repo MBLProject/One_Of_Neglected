@@ -91,22 +91,20 @@ public class ProjectileDamageCheck
 {
     public string projectileName;
     public float damage;
-    //시간처리 어케하지?? 첫 데미지 입힌시간으로??? 흠??
-    public float time; 
 }
 
 [Serializable]
 public class DamageStats
 {
     public float totalDamage;
-    
+
     public List<ProjectileDamageCheck> projectileDamages = new List<ProjectileDamageCheck>();
-    
+
     private Dictionary<string, float> _damageByProjectile = new Dictionary<string, float>();
-    
-    public Dictionary<string, float> damageByProjectile 
+
+    public Dictionary<string, float> damageByProjectile
     {
-        get 
+        get
         {
             if (_damageByProjectile == null || _damageByProjectile.Count == 0)
             {
@@ -119,25 +117,30 @@ public class DamageStats
             return _damageByProjectile;
         }
     }
-    
- 
-    
+
     public void UpdateLists()
     {
         projectileDamages.Clear();
         foreach (var kvp in _damageByProjectile)
         {
             projectileDamages.Add(new ProjectileDamageCheck
-            { 
-                projectileName = kvp.Key, 
-                damage = kvp.Value 
+            {
+                projectileName = kvp.Key,
+                damage = kvp.Value
             });
         }
     }
 }
-
+[Serializable]
+public struct InGameValue
+{
+    public int killCount;
+    public int gold;
+    public int remnents;
+}
 public class DataManager : Singleton<DataManager>
 {
+
     public DicDataTable dicDataTable = new DicDataTable();
     public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
     public PlayerProperty player_Property = new PlayerProperty();
@@ -149,7 +152,7 @@ public class DataManager : Singleton<DataManager>
     public int classSelect_Num;
 
     public DamageStats currentRunDamageStats = new DamageStats();
-
+    public InGameValue inGameValue;
 
     protected override void Awake()
     {
@@ -164,11 +167,6 @@ public class DataManager : Singleton<DataManager>
 
         DamageTracker.OnDamageDealt += TrackDamage;
     }
-    private void Start()
-    {
-
-    }
-
     public void SaveData()
     {
         Debug.Log("저장");
@@ -180,11 +178,6 @@ public class DataManager : Singleton<DataManager>
         Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property, true);
         Save_JsonUtility<BTS>("BTS", BTS, true);
 
-        // Data = JsonUtility.ToJson(playerProperty);
-        // File.WriteAllText(path + "PlayerProperty", Data);
-
-        // Data = JsonUtility.ToJson(BTS);
-        // File.WriteAllText(path + "BTS", Data);
     }
     public void Save_JsonUtility<T>(string fileName, T data, bool pretty = false)
     {
@@ -227,7 +220,7 @@ public class DataManager : Singleton<DataManager>
             currentRunDamageStats.damageByProjectile[info.projectileName] = 0;
         }
         currentRunDamageStats.damageByProjectile[info.projectileName] += info.damage;
-        
+
         currentRunDamageStats.UpdateLists();
     }
 }

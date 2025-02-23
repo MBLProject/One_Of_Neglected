@@ -43,6 +43,10 @@ public class ProjectileManager : Singleton<ProjectileManager>
         playerProjectiles.Add("SubEarthquakeProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/SubEarthquakeProjectile"));
         playerProjectiles.Add("GreatBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/GreatBowProjectile"));
         playerProjectiles.Add("CrossBowProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/CrossBowProjectile"));
+        playerProjectiles.Add("RushProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/RushProjectile"));
+        playerProjectiles.Add("ArcRangerProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ArcRangerProjectile"));
+        playerProjectiles.Add("PowerEffect", Resources.Load<PlayerProjectile>("Using/Projectile/PowerEffect"));
+        playerProjectiles.Add("JewelProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/JewelProjectile"));
 
     }
 
@@ -240,13 +244,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
         activeProjectiles.Add(projectile);
     }
 
-    public void SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, 
+    public PlayerProjectile SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, 
         float speed, float damage, float size, float maxDist = 10f, int pierceCnt = 0, float lifetime = 5f)
     {
         if (!playerProjectiles.ContainsKey(prefabName))
         {
             Debug.LogError($"Projectile type {prefabName} not found!");
-            return;
+            return null;
         }
 
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
@@ -254,6 +258,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         projectile.InitProjectile(startPos, targetPos, speed, damage, maxDist, pierceCnt, lifetime);
 
         activeProjectiles.Add(projectile);
+        return projectile;
     }
 
     public void RemoveProjectile(MonsterProjectile projectile)

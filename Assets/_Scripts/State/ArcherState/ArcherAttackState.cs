@@ -1,5 +1,6 @@
 using UnityEngine;
 using Transform = UnityEngine.Transform;
+using System.Linq;
 
 public class ArcherAttackState : BaseState<Player>
 {
@@ -80,7 +81,7 @@ public class ArcherAttackState : BaseState<Player>
             Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ?? 
                 (player.transform.position + (Vector3)(direction * 10f));
 
-
+            // 기본 투사체 발사
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "ArcherAttackProjectile",
                 player.transform.position,
@@ -92,6 +93,9 @@ public class ArcherAttackState : BaseState<Player>
                 0,
                 5
             );
+
+            // 공격 이벤트 발생
+            player.InvokeAttackDetect(targetPosition);
 
             hasDealtDamage = true;
         }

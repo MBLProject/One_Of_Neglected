@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 public class ArcherIdleState : BaseState<Player>
 {
@@ -43,8 +44,15 @@ public class ArcherIdleState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                float optimalRange = player.Stats.CurrentATKRange * 1.25f * 2f;
+                bool hasLongBow = player.augment.activeAugments.Any(aug => aug is Aug_LongBow);
+                
+                if (hasLongBow)
+                {
+                    optimalRange *= 1.5f;
+                }
 
-                if (distance <= player.Stats.CurrentATKRange * 1.25f * 3)
+                if (distance <= optimalRange * 1.2f && distance >= optimalRange * 0.8f)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(ArcherAttackState));
@@ -52,7 +60,9 @@ public class ArcherIdleState : BaseState<Player>
                 }
                 else
                 {
-                    player.targetPosition = nearestMonster.transform.position;
+                    Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                    Vector2 optimalPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
+                    player.targetPosition = optimalPosition;
                     handler.ChangeState(typeof(ArcherMoveState));
                     return;
                 }
@@ -62,10 +72,12 @@ public class ArcherIdleState : BaseState<Player>
         {
             MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
 
-            if ((nearestMonster != null))
+            if (nearestMonster != null)
             {
                 float dist = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                if (dist <= player.Stats.CurrentATKRange * 1.25f * 3)
+                bool hasLongBow = player.augment.activeAugments.Any(aug => aug is Aug_LongBow);
+
+                if (hasLongBow || dist <= player.Stats.CurrentATKRange * 1.25f * 3)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(ArcherAttackState));

@@ -109,15 +109,15 @@ public class Projectile : MonoBehaviour
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            monster.TakeDamage(damage);
-            
+            float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
-            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo {
-                damage = damage,
+            monster.TakeDamage(finalFinalDamage);
+
+            DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
+            {
+                damage = finalFinalDamage,
                 projectileName = gameObject.name,
             });
-            
-            print($"TakeDamage : {gameObject.name}, Damage : {damage}");
 
             if (pierceCount > 0)
             {

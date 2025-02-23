@@ -13,16 +13,19 @@ public class InGameUI_Panel : Panel
     private int min;
     private int sec;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
-    [SerializeField] private List<Image> mainSkill_Icon_Container;
-    [SerializeField] private List<Image> subSkill_Icon_Container;
     [SerializeField] private TextMeshProUGUI display_Time_TMP;
     [SerializeField] private RectTransform main_Icon_Rect;
     [SerializeField] private RectTransform sub_Icon_Rect;
     [SerializeField] private Sprite defaultIcon;
     [SerializeField] private Slider expSlider;
+    public List<Image> mainSkill_Icon_Container;
+    public List<Image> subSkill_Icon_Container;
     public SkillSelector skillSelector;
     public SkillContainer skillContainer;
     public TextMeshProUGUI display_Level_TMP;
+    public TextMeshProUGUI goldDisplay;
+    public TextMeshProUGUI remnentsDisplay;
+
     private void Awake()
     {
         buttons[0].onClick.AddListener(Auto_BTN);
@@ -46,35 +49,11 @@ public class InGameUI_Panel : Panel
     {
 
         expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
-
-        //TODO : 키코드 입력받는거 몰아넣기
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isOptionActive = UI_Manager.Instance.panel_Dic["Option_Panel"].gameObject.activeSelf;
-            if (isOptionActive == false)
-            {
-                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
-                UnitManager.Instance.PauseGame();
-                Time.timeScale = 0;
-                return;
-            }
-            if (isOptionActive)
-            {
-                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
-                Time.timeScale = 1;
-                UnitManager.Instance.ResumeGame();
-                return;
-            }
-        }
-        TimeCalc();
-
-        if (player.Stats.currentHp < 0)
-        {
-
-        }
+        if (UnitManager.Instance.GetPlayer().Stats.currentHp > 0)
+            display_Time_TMP.text = TimeCalc(TimeManager.Instance.gameTime);
 
     }
-    public void SetIconCell_Banish(Enums.SkillName skillName)
+    public void SetIconCell_Mini(Enums.SkillName skillName)
     {
 
         if (SkillFactory.IsActiveSkill(skillName))
@@ -124,11 +103,12 @@ public class InGameUI_Panel : Panel
         }
     }
 
-    private void TimeCalc()
+    public string TimeCalc(float time)
     {
-        min = (int)TimeManager.Instance.gameTime / 60;
-        sec = (int)TimeManager.Instance.gameTime % 60;
-        display_Time_TMP.text = "Time : " + min.ToString("00") + " : " + sec.ToString("00");
+        min = (int)time / 60;
+        sec = (int)time % 60;
+
+        return "Time : " + min.ToString("00") + " : " + sec.ToString("00");
     }
 
     private void Auto_BTN()
