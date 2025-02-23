@@ -30,7 +30,7 @@ public class Selection : MonoBehaviour
         GetSkill(m_skillName) == Enums.SkillName.None)
         {
             //TODO 골드도 예외처리
-            if (m_skillName != Enums.SkillName.Cheese)
+            if (m_skillName != Enums.SkillName.Cheese && m_skillName != Enums.SkillName.Gold)
             {
                 inGameUI_Panel.SetIconCell_Mini(m_skillName);
                 banish_Panel.SetIconCell_Banish(m_skillName);
