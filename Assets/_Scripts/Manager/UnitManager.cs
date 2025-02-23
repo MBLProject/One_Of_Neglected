@@ -44,13 +44,12 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Update()
     {
-        if (!isGameStarted || GameManager.Instance.isPaused) return;
+        if (!isGameStarted || GameManager.Instance.isPaused || currentBoss != null) return;
 
         if (Time.time >= nextSpawnTime)
         {
             SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
             SpawnMonsterAtRandomPosition(currentNormalMonsterType);
-
             nextSpawnTime = Time.time + spawnInterval;
         }
         // 테스트용 키 입력
@@ -190,7 +189,7 @@ public class UnitManager : Singleton<UnitManager>
 
     private void SpawnCircularFormation(Vector2 playerPos)
     {
-        int monsterCount = 8; // 총 16마리
+        int monsterCount = 8;
         float radius = 4f; // 원형 진형의 반지름 (플레이어로부터의 거리)
 
         for (int i = 0; i < monsterCount; i++)
@@ -227,13 +226,27 @@ public class UnitManager : Singleton<UnitManager>
         }
         else if (gameTime >= 600f)
         {
-            Debug.Log("[UnitManager] 보스 ??이????작!");
+            Debug.Log("[UnitManager] 보스전 시작!");
+
+            // 게임 진행 중단 (몬스터 스폰 중지)
+            isGameStarted = false;
+
+            // 기존 몬스터 제거
             ClearAllMonsters();
 
+            // 보스 몬스터 생성
             Vector2 spawnPosition = GetBossSpawnPosition();
             GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
+            currentBoss = bossObj.GetComponent<BossMonster>();
 
-            isGameStarted = false;
+            // TimeManager 이벤트 구독 해제 (더 이상 몬스터 스폰 이벤트가 필요 없음)
+            if (TimeManager.Instance != null)
+            {
+                TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
+                TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
+            }
+
+            Debug.Log("[UnitManager] 보스 생성 완료, 일반 몬스터 스폰 중지");
         }
     }
 
