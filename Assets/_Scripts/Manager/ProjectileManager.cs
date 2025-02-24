@@ -129,6 +129,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     targetPositions.AddRange(gatewayTargets);
                 break;
 
+            case Enums.SkillName.Mine:
+                for (int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+                {
+                    Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                    targetPositions.Add(startPosition + randomDirection * 2f);
+                }
+                break;
+
             case Enums.SkillName.Needle:
                 List<Vector3> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
                 if (needleTargets.Count > 0)
@@ -144,7 +152,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         if (targetPositions.Count == 0)
         {
-            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway)
+            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway || skillName == Enums.SkillName.Mine)
             {
                 for(int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
                 {
@@ -224,8 +232,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     private void OnDestroy()
     {
-        print("OnDestroy : ProjectileManager!");
-
         activeProjectiles.Clear();
     }
 

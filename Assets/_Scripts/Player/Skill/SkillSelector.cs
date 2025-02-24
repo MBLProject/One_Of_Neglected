@@ -22,7 +22,6 @@ public class SkillSelector : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.O))
             ChooseSkill(Enums.SkillName.Mine);
     }
@@ -85,13 +84,10 @@ public class SkillSelector : MonoBehaviour
         if (skillName == Enums.SkillName.None)
         {
             skillDispenser.RegisterSkill(chosenAbility);
-            print("ChooseSkill!!!!!!!!!!1");
             skillContainer.AddSkill(chosenAbility);
         }
         else
         {
-            print("ChooseSkill!!!!!!!!!!2");
-
             skillDispenser.RegisterSkill(skillName);
         }
     }
