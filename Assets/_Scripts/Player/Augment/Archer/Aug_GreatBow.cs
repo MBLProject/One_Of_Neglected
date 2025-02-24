@@ -6,16 +6,18 @@ public class Aug_GreatBow : TimeBasedAugment
 {
     private float damageMultiplier = 1f; 
     private float projectileSpeed = 2f;
-    private float projectileSize = 1f;
+    private float baseProjectileSize = 1f;
     private int penetration = 1000;
     private float duration = 5f;
     private float maxDistance = 10f;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     public Aug_GreatBow(Player owner, float interval) : base(owner, interval)
     {
         aguName = Enums.AugmentName.GreatBow;
+        damageMultiplier = 5f;
     }
 
     protected override async void OnTrigger()
@@ -23,7 +25,7 @@ public class Aug_GreatBow : TimeBasedAugment
         Vector3 targetPos = UnitManager.Instance.GetNearestMonster().transform.position;
         Vector3 direction = (targetPos - owner.transform.position).normalized;
 
-        int projAmount = owner.Stats.CurrentProjAmount;
+        int projAmount = owner.Stats.CurrentProjAmount - 1;
 
         for (int i = 0; i < projAmount + 1; i++)
         {
@@ -41,8 +43,8 @@ public class Aug_GreatBow : TimeBasedAugment
             owner.transform.position,
             targetPosition,
             projectileSpeed,
-            CurrentDamage,  // 현재 플레이어 공격력 기반 데미지
-            projectileSize,
+            CurrentDamage,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration);
@@ -55,19 +57,19 @@ public class Aug_GreatBow : TimeBasedAugment
         switch (level)
         {
             case 1:
-                damageMultiplier = 1f;
+                //damageMultiplier = 1f;
                 break;
             case 2:
-                projectileSize += 0.3f;
+                //baseProjectileSize += 0.3f;
                 break;
             case 3:
-                damageMultiplier *= 1.2f;
+                //damageMultiplier *= 1.2f;
                 break;
             case 4:
-                ModifyBaseInterval(-2f);
+                //ModifyBaseInterval(-2f);
                 break;
             case 5:
-                damageMultiplier *= 1.3f;
+                //damageMultiplier *= 1.3f;
                 break;
         }
     }

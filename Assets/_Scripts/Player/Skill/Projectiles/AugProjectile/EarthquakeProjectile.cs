@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,7 +5,6 @@ public class EarthquakeProjectile : PlayerProjectile
 {
     protected override void Start()
     {
-        pType = projType.Melee;
         isMoving = true;
         transform.position = startPosition;
 
@@ -34,18 +31,10 @@ public class EarthquakeProjectile : PlayerProjectile
         {
             if (collision.TryGetComponent(out MonsterBase monster))
             {
-                float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+                bool isCritical = UnityEngine.Random.value < stats.critical;
+                float finalFinalDamage = isCritical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
                 DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.BigSword);
-                
-                if (pierceCount > 0)
-                {
-                    pierceCount--;
-                }
-                else
-                {
-                    DestroyProjectile();
-                }
             }
         }
     }

@@ -4,7 +4,6 @@ public class ArcherAttackProjectile : PlayerProjectile
 {
     protected override void Start()
     {
-        pType = projType.Normal;
         base.Start();
     }
 
@@ -14,13 +13,14 @@ public class ArcherAttackProjectile : PlayerProjectile
         {
             if (collision.TryGetComponent(out MonsterBase monster))
             {
-                float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+                bool isCritical = UnityEngine.Random.value < stats.critical;
+                float finalFinalDamage = isCritical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
               
 
-                if (pierceCount > 0)
+               if (stats.pierceCount > 0)
                 {
-                    pierceCount--;
+                    stats.pierceCount--;
                 }
                 else
                 {

@@ -186,9 +186,24 @@ public class ProjectileManager : Singleton<ProjectileManager>
             return null;
         }
 
+        Player player = UnitManager.Instance.GetPlayer();
+        float criticalChance = player.Stats.CurrentCriRate;
+        float criticalDamage = player.Stats.CurrentCriDamage;
+
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
-        projectile.transform.localScale = Vector3.one * size;
-        projectile.InitProjectile(startPos, targetPos, speed, damage, maxDist, pierceCnt, lifetime);
+        
+        var stats = new ProjectileStats
+        {
+            projectileSpeed = speed,
+            finalDamage = damage,
+            finalATKRange = size,
+            pierceCount = pierceCnt,
+            lifetime = lifetime,
+            critical = criticalChance,    
+            cATK = criticalDamage,
+        };
+
+        projectile.InitProjectile(startPos, targetPos, stats);
 
         activeProjectiles.Add(projectile);
         return projectile;

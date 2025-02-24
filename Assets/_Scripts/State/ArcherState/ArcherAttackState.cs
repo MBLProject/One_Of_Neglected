@@ -76,12 +76,10 @@ public class ArcherAttackState : BaseState<Player>
             bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
             Vector2 direction = isLookingRight ? Vector2.right : Vector2.left;
             Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
-
-            // 몬스터 위치 가져오기
+           
             Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ?? 
                 (player.transform.position + (Vector3)(direction * 10f));
 
-            // 기본 투사체 발사
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "ArcherAttackProjectile",
                 player.transform.position,

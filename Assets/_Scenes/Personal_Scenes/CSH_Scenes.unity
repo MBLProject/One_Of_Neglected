@@ -470,10 +470,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5325874689194968764, guid: af43ab69a35482a43aec1c53c3205fa7, type: 3}
-      propertyPath: statViewer.ProjDestroy
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7893251490094114155, guid: af43ab69a35482a43aec1c53c3205fa7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1442,6 +1438,7 @@ MonoBehaviour:
     gold: 0
     remnents: 0
     playerIcon: {fileID: 0}
+  textByAugs: []
 --- !u!4 &444655103
 Transform:
   m_ObjectHideFlags: 0
@@ -2982,6 +2979,9 @@ MonoBehaviour:
   spawnRadius: 15
   minSpawnDistance: 8
   spawnInterval: 1
+  ExpBlue: {fileID: 0}
+  ExpPurple: {fileID: 0}
+  ExpBlack: {fileID: 0}
 --- !u!4 &885006689
 Transform:
   m_ObjectHideFlags: 0
@@ -3360,7 +3360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &999881122
 Transform:
   m_ObjectHideFlags: 0
@@ -20213,9 +20213,9 @@ MonoBehaviour:
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
-  m_augName: 0
+  m_augType: 0
   m_BTN: {fileID: 6688638996084028632}
-  displayName_TMP: {fileID: 1439098445393079440}
+  display_Name: {fileID: 0}
   info_TMP: {fileID: 1906387261490014973}
   icon_IMG: {fileID: 5035263661935438229}
 --- !u!114 &1840443828406895852
@@ -29156,9 +29156,9 @@ MonoBehaviour:
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
-  m_augName: 0
+  m_augType: 0
   m_BTN: {fileID: 8981830654161044599}
-  displayName_TMP: {fileID: 423009476467413328}
+  display_Name: {fileID: 0}
   info_TMP: {fileID: 550634893310047490}
   icon_IMG: {fileID: 4995675668139645351}
 --- !u!1 &2968937006809423630
@@ -30681,6 +30681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea1118ec15bb9c45989781926ed41ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons: []
 --- !u!114 &3158259345277129444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55087,9 +55088,9 @@ MonoBehaviour:
   inGameUI_Panel: {fileID: 8425367944451082253}
   levelUp_Panel: {fileID: 8173576324103665201}
   m_skillName: 0
-  m_augName: 0
+  m_augType: 0
   m_BTN: {fileID: 3846593401864064303}
-  displayName_TMP: {fileID: 5829941043368445704}
+  display_Name: {fileID: 0}
   info_TMP: {fileID: 1551202043860577569}
   icon_IMG: {fileID: 8639943595660964583}
 --- !u!222 &6154045516196224639
@@ -69886,52 +69887,13 @@ MonoBehaviour:
   - {fileID: 1839563162371110875}
   - {fileID: 2965407205871969671}
   - {fileID: 6151785953626384690}
-  augment_Infos:
-  - aug_Name: 0
-    display_Name: "\uC591\uC190\uAC80"
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
+  aug_Infos:
+    aug_Type: 
+    aug_Name: []
+    aug_Text: []
+    aug_Icon: []
     selectedTime: 0
-  - aug_Name: 0
-    display_Name: "\uB300\uAC80"
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: "\uAC80\uBC29"
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: "\uBC29\uD328\uBCD1"
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: 
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: 
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: 
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: 
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
-  - aug_Name: 0
-    display_Name: 
-    augment_Text: 
-    augment_Sprite: {fileID: 0}
-    selectedTime: 0
+    tempSprite: {fileID: 0}
   skill_Infos:
   - skill_Name: 1
     display_Name: "\uB2C8\uB4E4"
@@ -70060,6 +70022,7 @@ MonoBehaviour:
     selectedTime: 0
   reroll_Counter_TMP: {fileID: 7229022845963059211}
   banish_Counter_TMP: {fileID: 2249180209044091636}
+  isAugSelected: 0
 --- !u!114 &8174909141820287590
 MonoBehaviour:
   m_ObjectHideFlags: 0

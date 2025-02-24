@@ -44,7 +44,6 @@ public class Warrior : Player
         statViewer.Exp = 0;
         statViewer.Hp = 100 + DataManager.Instance.BTS.MaxHp;
         statViewer.HpRegen = DataManager.Instance.BTS.HpRegen;
-        statViewer.CriDamage = 50 + DataManager.Instance.BTS.CriDamage;
         statViewer.Revival = DataManager.Instance.BTS.Revival;
         statViewer.Reroll = DataManager.Instance.BTS.Reroll;
         statViewer.Banish = DataManager.Instance.BTS.Banish;
@@ -61,6 +60,7 @@ public class Warrior : Player
         statViewer.Growth = (100 + DataManager.Instance.BTS.Growth) / 100f;
         statViewer.Greed = 1 * ((100 + DataManager.Instance.BTS.Greed) / 100f);
         statViewer.Curse = 1 * ((100 + DataManager.Instance.BTS.Curse) / 100f);
+        statViewer.CriDamage = 1 * ((50 + DataManager.Instance.BTS.CriDamage + 100) / 100f);
 
         // 3. 감산 스탯 - (100 - 감소율) / 100
         statViewer.Cooldown = 1f * ((100 - DataManager.Instance.BTS.Cooldown) / 100f);
