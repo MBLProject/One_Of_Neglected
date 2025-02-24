@@ -35,7 +35,7 @@ public class Claw : ActiveSkill
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1f,
+            cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 0.25f,
             projectileSpeed = 5f,
