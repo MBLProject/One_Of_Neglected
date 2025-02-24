@@ -87,27 +87,27 @@ public class Aura : ActiveSkill
             case 2:
                 Debug.Log("Level 2!!!!");
                 stats.defaultDamage += 5f;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 3:
                 Debug.Log("Level 3!!!!");
                 stats.defaultDamage += 5f;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 4:
                 Debug.Log("Level 4!!!!");
                 stats.defaultDamage += 5f;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 5:
                 Debug.Log("Level 5!!!!");
                 stats.defaultDamage += 5f;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 6:
                 Debug.Log("Level 6!!!!");
                 stats.defaultDamage += 10f;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultATKRange += 0.1f;
                 break;
         }
         Fire();

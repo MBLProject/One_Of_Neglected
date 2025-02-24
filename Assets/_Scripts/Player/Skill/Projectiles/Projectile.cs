@@ -102,6 +102,8 @@ public class Projectile : MonoBehaviour
         direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

@@ -13,8 +13,8 @@ public class SkillDispenser : MonoBehaviour
         // for Debug
         Count = skills.Count;
 
-        if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.Aura);
+        //if (Input.GetKeyUp(KeyCode.P))
+        //    RegisterSkill(Enums.SkillName.Aura);
     }
 
     public void RegisterSkill(Enums.SkillName skillName)

@@ -24,7 +24,7 @@ public class SkillSelector : MonoBehaviour
     {
 
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Aura);
+            ChooseSkill(Enums.SkillName.Gateway);
     }
 
     public List<Enums.SkillName> SelectSkills()

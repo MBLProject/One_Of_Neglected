@@ -10,48 +10,35 @@ using System.Linq;
 public class GatewayProjectile : Projectile
 {
     private float knockbackForce;
+    private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
+    private float tickInterval;
 
     protected override void Start()
     {
         isMoving = true;
         transform.position = targetPosition;
         cts = new CancellationTokenSource();
-        DespawnNeedleAtPosition().Forget();
-        knockbackForce = 2.5f;
+        MoveProjectileAsync(cts.Token).Forget();
     }
 
-    private async UniTaskVoid DespawnNeedleAtPosition()
+    protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)
     {
-        try
+        while (!token.IsCancellationRequested)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(3f));
-            if (isMoving)
+            if (!GameManager.Instance.isPaused)
             {
-                DestroyProjectile();
-                isMoving = false;
+                foreach (var monster in monstersInRange.ToList())
+                {
+                    float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+
+                    monster.TakeDamage(finalFinalDamage);
+
+                    DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
+
+                    monster.ApplyKnockback(transform.position, knockbackForce);
+                }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            Debug.Log("Needle despawn was canceled.");
-        }
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<MonsterBase>(out var monster))
-        {
-            float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
-
-            monster.TakeDamage(finalFinalDamage);
-
-            DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
-
-            monster.ApplyKnockback(transform.position, knockbackForce);
-        }
-        if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
-        {
-            monsterProjectile.Invoke("DestroyProjectile", 0f);
+            await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
         }
     }
 
@@ -68,6 +55,8 @@ public class GatewayProjectile : Projectile
 
         CancelInvoke("DestroyProjectile");
         Invoke("DestroyProjectile", lifeTime);
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
@@ -79,5 +68,32 @@ public class GatewayProjectile : Projectile
 
         CancelInvoke("DestroyProjectile");
         Invoke("DestroyProjectile", stats.lifetime);
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<MonsterBase>(out var monster) && monstersInRange.Add(monster))
+        {
+            monster.OnDeath += RemoveMonsterFromSet;
+        }
+        if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
+        {
+            monsterProjectile.Invoke("DestroyProjectile", 0f);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<MonsterBase>(out var monster))
+        {
+            RemoveMonsterFromSet(monster);
+        }
+    }
+
+    private void RemoveMonsterFromSet(MonsterBase monster)
+    {
+        monstersInRange.Remove(monster);
+        monster.OnDeath -= RemoveMonsterFromSet;
     }
 }

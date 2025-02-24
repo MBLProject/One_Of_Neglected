@@ -462,39 +462,31 @@ public class UnitManager : Singleton<UnitManager>
 
         return positionsInRange;
     }
-    private GameObject GetExpPrefab(ExpType type)
+    public List<Vector3> GetMonsterRamdomPositionsInRange(float minRange, float maxRange, int targetCount)
     {
-        if (type == ExpType.Blue)
-            return ExpBlue;
-        else if (type == ExpType.Purple)
-            return ExpPurple;
-        else if (type == ExpType.Black)
-            return ExpBlack;
-        else
-            return null;
+        var randomPositionsInRange = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => data.position)
+            .OrderBy(_ => Random.value)
+            .Take(targetCount)
+            .ToList();
+
+        return randomPositionsInRange;
     }
 
-    public ExpObject SpawnExp(ExpType expType, Vector2 position)
-    {
-        GameObject prefab = GetExpPrefab(expType);
+}
 
-        if (prefab == null) return null;
-
-        GameObject expObject = Instantiate(prefab, position, Quaternion.identity);
-        ExpObject exp = expObject.GetComponent<ExpObject>();
-
-        if (exp != null)
-        {
-            activeExpObjects.Add(exp);
-        }
-        return exp;
-    }
-    public void RemoveExp(ExpObject exp)
-    {
-        if (exp != null)
-        {
-            activeExpObjects.Remove(exp);
-        }
-    }
+public enum MonsterType
+{
+    EarlyNormal,
+    RangedNormal,
+    MidNormal,
+    LateNormal,
+    DamageUnique,
+    CrowdControlUnique,
+    TankUnique
 }
 
