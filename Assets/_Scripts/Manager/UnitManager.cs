@@ -476,7 +476,40 @@ public class UnitManager : Singleton<UnitManager>
 
         return randomPositionsInRange;
     }
+    private GameObject GetExpPrefab(ExpType type)
+    {
+        if (type == ExpType.Blue)
+            return ExpBlue;
+        else if (type == ExpType.Purple)
+            return ExpPurple;
+        else if (type == ExpType.Black)
+            return ExpBlack;
+        else
+            return null;
+    }
 
+    public ExpObject SpawnExp(ExpType expType, Vector2 position)
+    {
+        GameObject prefab = GetExpPrefab(expType);
+
+        if (prefab == null) return null;
+
+        GameObject expObject = Instantiate(prefab, position, Quaternion.identity);
+        ExpObject exp = expObject.GetComponent<ExpObject>();
+
+        if (exp != null)
+        {
+            activeExpObjects.Add(exp);
+        }
+        return exp;
+    }
+    public void RemoveExp(ExpObject exp)
+    {
+        if (exp != null)
+        {
+            activeExpObjects.Remove(exp);
+        }
+    }
 }
 
 public enum MonsterType
