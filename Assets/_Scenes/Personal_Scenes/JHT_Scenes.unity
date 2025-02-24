@@ -203,7 +203,7 @@ MonoBehaviour:
     Invincibility: 0
     Adversary: 0
     GodKill: 0
-  classSelect_Num: 0
+  classSelect_Type: 0
   currentDamageStats:
     totalDamage: 0
     skillDamageList: []
@@ -213,6 +213,7 @@ MonoBehaviour:
     gold: 0
     remnents: 0
     playerIcon: {fileID: 0}
+  textByAugs: []
 --- !u!4 &444655103
 Transform:
   m_ObjectHideFlags: 0
@@ -630,6 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeProjectiles: []
   count: 0
+  currentAuraProjectile: {fileID: 0}
 --- !u!4 &1542164106
 Transform:
   m_ObjectHideFlags: 0

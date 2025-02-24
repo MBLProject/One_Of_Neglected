@@ -29,7 +29,7 @@ public class Claw : ActiveSkill
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
             defaultDamage = 5f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
-            pierceCount = 0,
+            pierceCount = 10000,
             shotCount = 1,
             projectileCount = 1,
             projectileDelay = 0.1f,
@@ -37,8 +37,8 @@ public class Claw : ActiveSkill
             critical = 0.1f,
             cATK = 1f,
             amount = 1f,
-            lifetime = 5f,
-            projectileSpeed = 1f,
+            lifetime = 0.25f,
+            projectileSpeed = 5f,
         };
     }
 
@@ -48,19 +48,25 @@ public class Claw : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 3:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 4:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 5:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 6:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
                 break;
         }
     }

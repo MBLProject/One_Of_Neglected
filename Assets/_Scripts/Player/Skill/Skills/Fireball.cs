@@ -14,7 +14,7 @@ public class Fireball : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount = value;
+        playerStats.OnProjAmountChanged += (value) => stats.shotCount = value;
     }
 
     public override void InitSkill()
@@ -22,23 +22,23 @@ public class Fireball : ActiveSkill
         // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 6f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 30f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
+            //shotCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
             shotCount = 1,
             projectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = 1f,
             amount = 1f,
             lifetime = 5f,
             projectileSpeed = 1f,
-
         };
     }
 
@@ -48,19 +48,23 @@ public class Fireball : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.defaultATKRange += 0.1f;
+                stats.defaultDamage += 10f;
                 break;
             case 3:
+                stats.defaultCooldown -= 0.5f;
                 break;
             case 4:
+                stats.defaultATKRange += 0.1f;
+                stats.defaultDamage += 10f;
                 break;
             case 5:
+                stats.defaultCooldown -= 0.5f;
                 break;
             case 6:
+                stats.defaultATKRange += 0.2f;
+                stats.defaultDamage += 20f;
                 break;
         }
     }
