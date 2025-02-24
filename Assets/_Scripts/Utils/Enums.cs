@@ -2,10 +2,10 @@ public class Enums
 {
     public enum ClassType
     {
-        None,
         Warrior,
         Archer,
         Magician,
+        None
     }
 
     public enum SkillName
@@ -60,8 +60,8 @@ public class Enums
     public enum WorldObjectType
     {
         ExpBlue,
-        ExpPurple, 
-        ExpBlack, 
+        ExpPurple,
+        ExpBlack,
         Gold_1,
         Gold_2,
         Chicken,

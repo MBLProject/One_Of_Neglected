@@ -38,7 +38,6 @@ public class LevelUp_Panel : Panel
         if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
 
         skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
-        // aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
 
         foreach (Skill_Info skill_Info in skill_Infos)
         {
@@ -178,7 +177,7 @@ public class LevelUp_Panel : Panel
             Debug.Log($"augInfo : {aug_Infos.aug_Type[0]}");
             current_Selections[0].display_Name.text = aug_Infos.aug_Name[augUpCount];
             current_Selections[0].info_TMP.text = aug_Infos.aug_Text[augUpCount];
-            current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[augUpCount];
+            current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[0];
             augUpCount++;
         }
 
