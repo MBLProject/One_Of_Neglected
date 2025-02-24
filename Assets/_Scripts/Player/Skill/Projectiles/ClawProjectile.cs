@@ -57,7 +57,6 @@ public class ClawProjectile : Projectile
             case 4:
             case 5:
                 myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv2Sprite");
-
                 break;
             case 6:
                 myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv3Sprite");
@@ -73,14 +72,7 @@ public class ClawProjectile : Projectile
 
             monster.TakeDamage(finalFinalDamage);
             DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
-            if (pierceCount > 0)
-            {
-                pierceCount--;
-            }
-            else
-            {
-                DestroyProjectile();
-            }
+            Instantiate(Resources.Load<GameObject>("Using/Projectile/ClawEffect"),monster.gameObject.transform);
         }
     }
 }

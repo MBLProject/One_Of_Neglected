@@ -51,8 +51,9 @@ public class ActiveSkill : Skill
         }
     }
 
-    protected virtual void Fire()
+    public override void Fire()
     {
+        base.Fire();
         //ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
         ProjectileManager.Instance.SpawnProjectile(skillName,
             new ProjectileStats()

@@ -23,7 +23,7 @@ public class SkillDispenser : MonoBehaviour
         {
             print($"RegisterSkill!!!!2 : {skills[skillName].level}");
 
-            skills[skillName].LevelUp(); // ??덇볼??筌롫뗄苑???紐꾪뀱
+            skills[skillName].LevelUp(); // ???뉖낵??嶺뚮∥?꾥땻???筌뤾쑵??
             print($"RegisterSkill!!!!3 : {skills[skillName].level}");
 
             return;
@@ -46,5 +46,13 @@ public class SkillDispenser : MonoBehaviour
         }
         else
             print($"{skillName} is NOT Registered Skill!!");
+    }
+
+    public void FireAllSkills()
+    {
+        foreach (var skill in skills)
+        {
+            skill.Value.Fire();
+        }
     }
 }
