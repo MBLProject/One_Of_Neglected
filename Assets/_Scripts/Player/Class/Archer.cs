@@ -41,7 +41,7 @@ public class Archer : Player
         statViewer.MaxHp = 100 + DataManager.Instance.BTS.MaxHp;
 
         statViewer.Defense = DataManager.Instance.BTS.Defense;
-        statViewer.DashCount = 3 + DataManager.Instance.BTS.DashCount;
+        statViewer.DashCount = DataManager.Instance.BTS.DashCount;
         statViewer.Level = 1;
         statViewer.MaxExp = 100;
         statViewer.Exp = 0;
@@ -55,7 +55,7 @@ public class Archer : Player
 
         // 2. 승산 스탯 - (100 + 증가율) / 100
         statViewer.ATK = 10 * ((DataManager.Instance.BTS.ATK + 100) / 100);
-        statViewer.Mspd = 3 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
+        statViewer.Mspd = 1 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
         statViewer.Aspd = 1 * ((100 + DataManager.Instance.BTS.Aspd) / 100f);
         statViewer.ATKRange = 1 * ((100 + DataManager.Instance.BTS.ATKRange) / 100f);
         statViewer.Duration = 1 * ((100 + DataManager.Instance.BTS.Duration) / 100f);
@@ -70,7 +70,7 @@ public class Archer : Player
 
         // 4. 기타 스탯
         statViewer.GodKill = DataManager.Instance.BTS.GodKill;
-        statViewer.Barrier = !DataManager.Instance.BTS.Barrier;
+        statViewer.Barrier = DataManager.Instance.BTS.Barrier;
         statViewer.BarrierCooldown = 5 + DataManager.Instance.BTS.BarrierCooldown;
         statViewer.Invincibility = DataManager.Instance.BTS.Invincibility;
         statViewer.ProjDestroy = DataManager.Instance.BTS.ProjDestroy;
