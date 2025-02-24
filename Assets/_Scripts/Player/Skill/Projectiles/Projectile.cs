@@ -112,19 +112,14 @@ public class Projectile : MonoBehaviour
 
             monster.TakeDamage(finalFinalDamage);
 
-            //TODO : 데미지 누적방식 변경 Enums skillName으로 데이터 매니저에 값 저장
-            // DamageTracker.OnDamageDealt?.Invoke(new DamageInfo
-            // {
-            //     damage = finalFinalDamage,
-            //     projectileName = gameObject.name,
-            // });
+            DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
 
             if (stats.pierceCount > 0) stats.pierceCount--;
             else DestroyProjectile();
         }
     }
 
-    protected void DestroyProjectile()
+    public void DestroyProjectile()
     {
         if (!isMoving || gameObject == null)
         {

@@ -33,7 +33,7 @@ public class Aug_Staff : TimeBasedAugment
                 if (monster != null)
                 {
                     monster.TakeDamage(finalFinalDamage * 2);
-                    DataManager.Instance.AddDamageData(finalFinalDamage * 2, Enums.AugmentName.Staff);
+                    //DataManager.Instance.AddDamageData(finalFinalDamage * 2, Enums.AugmentName.Staff);
                 }
             }
         }

@@ -21,11 +21,12 @@ public class FireballProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            float finalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+            float finalFinalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
-            monster.TakeDamage(finalDamage);
-            
-            DataManager.Instance.AddDamageData(finalDamage, Enums.SkillName.Fireball);
+            monster.TakeDamage(finalFinalDamage);
+
+            DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
+
             monster.ApplyKnockback(transform.position, knockbackForce);
         }
     }

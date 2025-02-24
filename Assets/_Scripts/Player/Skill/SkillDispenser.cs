@@ -14,16 +14,21 @@ public class SkillDispenser : MonoBehaviour
         Count = skills.Count;
 
         if (Input.GetKeyUp(KeyCode.P))
-            RegisterSkill(Enums.SkillName.Javelin);
+            RegisterSkill(Enums.SkillName.Aura);
     }
 
     public void RegisterSkill(Enums.SkillName skillName)
     {
         if (skills.ContainsKey(skillName))
         {
+            print($"RegisterSkill!!!!2 : {skills[skillName].level}");
+
             skills[skillName].LevelUp(); // ??덇볼??筌롫뗄苑???紐꾪뀱
+            print($"RegisterSkill!!!!3 : {skills[skillName].level}");
+
             return;
         }
+        print("RegisterSkill!!!!1");
         Skill newSkill = SkillFactory.CreateSkill(skillName);
         if (newSkill != null)
         {

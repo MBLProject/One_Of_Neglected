@@ -44,11 +44,9 @@ public class Skill
 
     public virtual void LevelUp()
     {
-        if (level >= 6)
-        {
-            Debug.LogError($"Skill {skillName}'s current level is {level}!! You Cannot Order this skill's LevelUp!!");
-            return;
-        }
+        Debug.Log($"LevelUp!!!!1 : {level}");
         level++;
+        Debug.Log($"LevelUp!!!!2 : {level}");
+
     }
 }

@@ -24,7 +24,7 @@ public class SkillSelector : MonoBehaviour
     {
 
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Shuriken);
+            ChooseSkill(Enums.SkillName.Aura);
     }
 
     public List<Enums.SkillName> SelectSkills()
@@ -85,11 +85,13 @@ public class SkillSelector : MonoBehaviour
         if (skillName == Enums.SkillName.None)
         {
             skillDispenser.RegisterSkill(chosenAbility);
-
+            print("ChooseSkill!!!!!!!!!!1");
             skillContainer.AddSkill(chosenAbility);
         }
         else
         {
+            print("ChooseSkill!!!!!!!!!!2");
+
             skillDispenser.RegisterSkill(skillName);
         }
     }

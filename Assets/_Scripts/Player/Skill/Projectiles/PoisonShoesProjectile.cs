@@ -57,7 +57,7 @@ public class PoisonShoesProjectile : Projectile
 
                     monster.TakeDamage(finalFinalDamage);
 
-                    DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.PoisonShoes);
+                    DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
                 }
             }
             await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
