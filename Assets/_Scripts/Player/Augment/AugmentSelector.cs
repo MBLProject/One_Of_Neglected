@@ -56,21 +56,22 @@ public class AugmentSelector : MonoBehaviour
 
     public void ChooseAugment(AugmentName augName)
     {
+        var existingAugment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augName);
+        
+        if (existingAugment != null)
+        {
+            existingAugment.LevelUp();
+            return;
+        }
+
         var availableList = GetAvailableAugments();
         var selectedAugment = availableList.FirstOrDefault(aug => aug.AugmentName == augName);
 
         if (selectedAugment != null)
         {
-            if (!activeAugments.Contains(selectedAugment))
-            {
-                selectedAugment.Activate();
-                activeAugments.Add(selectedAugment);
-                selectedAugment.LevelUp();
-            }
-            else
-            {
-                selectedAugment.LevelUp();
-            }
+            selectedAugment.Activate();
+            activeAugments.Add(selectedAugment);
+            selectedAugment.LevelUp();
         }
     }
 
@@ -103,7 +104,7 @@ public class AugmentSelector : MonoBehaviour
         }
         else
         {
-            return GetSelectedAugments().Select(aug => aug.AugmentName).ToList();
+            return new List<AugmentName> { activeAugments[0].AugmentName };
         }
         return new List<AugmentName>();
     }

@@ -34,7 +34,6 @@ public class InGameUI_Panel : Panel
     private void Start()
     {
         if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
-        Debug.Log(UnitManager.Instance.GetPlayer().GetComponent<SkillDispenser>());
         skillSelector.Initialize(skillContainer, UnitManager.Instance.GetPlayer().GetComponent<SkillDispenser>());
         display_Level_TMP.text = "Lv." + UnitManager.Instance.GetPlayer().statViewer.Level;
     }

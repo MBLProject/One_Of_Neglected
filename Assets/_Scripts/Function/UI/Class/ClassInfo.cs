@@ -35,7 +35,6 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
         if (m_BTN == null) m_BTN = GetComponent<Button>();
         if (m_Outline == null) m_Outline = GetComponent<Outline>();
         m_BTN.onClick.AddListener(ClassSelect);
-        Debug.Log("하이");
         //TODO : 저장된 m_level변수로 레벨 불러오기
     }
     private void Start()

@@ -34,7 +34,7 @@ public class UnitManager : Singleton<UnitManager>
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
-    
+
     protected override void Awake()
     {
         base.Awake();
@@ -49,7 +49,7 @@ public class UnitManager : Singleton<UnitManager>
         //{
         //    DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
         //}
-        SpawnPlayerByType(Enums.ClassType.Warrior);
+        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
@@ -270,7 +270,7 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        
+
         if (classType == Enums.ClassType.Archer)
         {
             _player = Resources.Load<GameObject>("Using/Player/Archer");
