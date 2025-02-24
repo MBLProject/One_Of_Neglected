@@ -513,7 +513,65 @@ public abstract class Player : MonoBehaviour
     }
     private int CalculateNextLevelExp()
     {
-        return (int)(100 * (1 + (stats.CurrentLevel - 1) * 0.2f));
+        float baseExp = 100;
+        float totalMultiplier = 1f;
+        
+        if (stats.CurrentLevel <= 10)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, stats.CurrentLevel - 1);
+        }
+        else if (stats.CurrentLevel <= 15)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9);
+        }
+        else if (stats.CurrentLevel <= 30)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, stats.CurrentLevel - 15);
+        }
+        else if (stats.CurrentLevel <= 35)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15);
+        }
+        else if (stats.CurrentLevel <= 60)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, stats.CurrentLevel - 35);
+        }
+        else if (stats.CurrentLevel <= 65)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25);
+        }
+        else if (stats.CurrentLevel <= 80)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, stats.CurrentLevel - 65);
+        }
+        else if (stats.CurrentLevel <= 85)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15);
+        }
+        else if (stats.CurrentLevel <= 100)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) * 
+                             Mathf.Pow(1.015f, stats.CurrentLevel - 85);
+        }
+        else if (stats.CurrentLevel <= 105)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) * 
+                             Mathf.Pow(1.015f, 15);
+        }
+        else
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) * 
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) * 
+                             Mathf.Pow(1.015f, 15) * Mathf.Pow(1.01f, stats.CurrentLevel - 105);
+        }
+
+        return Mathf.RoundToInt(baseExp * totalMultiplier);
     }
     public void SetInvincible(float duration)
     {

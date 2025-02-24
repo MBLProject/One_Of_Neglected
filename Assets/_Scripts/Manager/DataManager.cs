@@ -8,6 +8,7 @@ using System;
 using DG.Tweening.Plugins;
 using DG.Tweening.Core.Easing;
 using JetBrains.Annotations;
+using static Enums;
 
 [Serializable]
 public class DicDataTable
@@ -194,7 +195,7 @@ public class DataManager : Singleton<DataManager>
 
     string path = "Assets/Resources/SaveFile/";
 
-    public int classSelect_Num;
+    public ClassType classSelect_Type = Enums.ClassType.None;
 
     public DamageStats currentDamageStats = new DamageStats();
     public InGameValue inGameValue;
