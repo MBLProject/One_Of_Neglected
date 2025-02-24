@@ -11,26 +11,6 @@ public class NeedleProjectile : Projectile
     {
         isMoving = true;
         transform.position = targetPosition;
-        cts = new CancellationTokenSource();
-        DespawnNeedleAtPosition().Forget();
-        Invoke("DestroyProjectile", 0.25f);
-    }
-
-    private async UniTaskVoid DespawnNeedleAtPosition()
-    {
-        try
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(0.25f));
-            if (isMoving)
-            {
-                DestroyProjectile();
-                isMoving = false;
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            Debug.Log("Needle despawn was canceled.");
-        }
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1f)
@@ -72,15 +52,6 @@ public class NeedleProjectile : Projectile
 
             monster.TakeDamage(finalFinalDamage);
             DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
-
-            if (pierceCount > 0)
-            {
-                pierceCount--;
-            }
-            else
-            {
-                DestroyProjectile();
-            }
         }
     }
 }

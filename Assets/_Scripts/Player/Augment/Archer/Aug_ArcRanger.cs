@@ -4,12 +4,13 @@ public class Aug_ArcRanger : ConditionalAugment
 {
     private float damageMultiplier = 1f;
     private float projectileSpeed = 3f;
-    private float projectileSize = 1f;
+    private float baseProjectileSize = 1f;
     private int penetration = 0;
     private float duration = 5f;
     private float maxDistance = 10f;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     private PlayerProjectile currentPathProjectile;
 
@@ -73,7 +74,7 @@ public class Aug_ArcRanger : ConditionalAugment
         int baseProjectiles = 6;
         float angleStep = 5f;
         
-        int totalProjectiles = baseProjectiles + owner.Stats.CurrentProjAmount;
+        int totalProjectiles = baseProjectiles + owner.Stats.CurrentProjAmount -1;
         float totalAngleSpread = (totalProjectiles - 1) * angleStep;
         float startAngle = -totalAngleSpread / 2f;
 
@@ -89,7 +90,7 @@ public class Aug_ArcRanger : ConditionalAugment
                 targetPosition,
                 projectileSpeed,
                 CurrentDamage,
-                projectileSize,
+                CurrentProjectileSize,
                 maxDistance,
                 penetration,
                 duration
@@ -102,7 +103,7 @@ public class Aug_ArcRanger : ConditionalAugment
             dashStart,
             0f,
             CurrentDamage,
-            1.5f,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration
@@ -151,10 +152,10 @@ public class Aug_ArcRanger : ConditionalAugment
             currentPathProjectile = null;
         }
 
-        if (level >= 5)
-        {
-            SpawnshockwaveProjectile();
-        }
+        //if (level >= 5)
+        //{
+        //    SpawnshockwaveProjectile();
+        //}
     }
 
     protected override void OnLevelUp()
@@ -165,14 +166,14 @@ public class Aug_ArcRanger : ConditionalAugment
             case 1:
                 break;
             case 2:
-                owner.dashRechargeTime *= 0.9f;
+                //owner.dashRechargeTime *= 0.9f;
                 break;
             case 3:
-                owner.DamageReduction += 10f;
-                owner.Stats.CurrentDashCount++;
+                //owner.DamageReduction += 10f;
+                //owner.Stats.CurrentDashCount++;
                 break;
             case 4:
-                owner.dashRechargeTime *= 0.8f;
+                //owner.dashRechargeTime *= 0.8f;
                 break;
             case 5:
                 break;

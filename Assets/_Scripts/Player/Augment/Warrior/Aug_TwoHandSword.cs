@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class Aug_TwoHandSword : TimeBasedAugment
 {
-    private float damageMultiplier = 1f;  // 기본 데미지 배율
+    private float damageMultiplier = 1f;  
     private float projectileSpeed = 2f;
-    private float projectileSize = 1f;
-    private int penetration = 100;
+    private float baseProjectileSize = 1f; 
+    private int penetration = 0;
     private float duration = 5f;
     private float maxDistance = 10f;
     
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;  
 
     public Aug_TwoHandSword(Player owner, float interval) : base(owner, interval)
     {
         aguName = Enums.AugmentName.TwoHandSword;
+        damageMultiplier = 1.5f;
     }
 
     protected override void OnTrigger()
@@ -34,7 +36,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
         int projAmount = owner.Stats.CurrentProjAmount;
         float angleStep = 15f;
 
-        int totalProjectiles = 1 + projAmount;
+        int totalProjectiles = projAmount;
 
         if (level >= 5)
         {
@@ -58,14 +60,15 @@ public class Aug_TwoHandSword : TimeBasedAugment
     private void SpawnProjectile(Vector3 direction)
     {
         Vector3 targetPosition = owner.transform.position + direction * 10f;
+        float currentDamage = owner.Stats.CurrentATK * damageMultiplier;  
         
         PlayerProjectile proj = ProjectileManager.Instance.SpawnPlayerProjectile(
             "SwordAurorProjectile",
             owner.transform.position,
             targetPosition,
             projectileSpeed,
-            CurrentDamage,  
-            projectileSize,
+            currentDamage,  
+            CurrentProjectileSize,  
             maxDistance,
             penetration,
             duration);
@@ -89,19 +92,16 @@ public class Aug_TwoHandSword : TimeBasedAugment
         switch (level)
         {
             case 1:
-                damageMultiplier = 1f;
                 break;
             case 2:
-                projectileSize += 0.3f; 
+                baseProjectileSize += 0.3f;  
                 break;
             case 3:
-                damageMultiplier *= 1.2f;  
                 break;
             case 4:
                 ModifyBaseInterval(-2f);
                 break;
             case 5:
-                damageMultiplier *= 1.3f;  
                 break;
         }
     }

@@ -19,7 +19,7 @@ public class Aug_Wand : TimeBasedAugment
         }
 
         var skillDispenser = owner.GetComponent<SkillDispenser>();
-        //skillDispenser.FireAllSkills();
+        skillDispenser.FireAllSkills();
     }
 
     public override void Deactivate()

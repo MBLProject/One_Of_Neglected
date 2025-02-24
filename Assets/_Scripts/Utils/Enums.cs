@@ -67,7 +67,7 @@ public class Enums
         Chicken,
         Time_Stop,
         Boom,
-        Nonem
+        None,
     }
 
     public enum StatType

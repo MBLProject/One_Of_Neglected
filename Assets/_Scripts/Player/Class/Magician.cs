@@ -41,13 +41,12 @@ public class Magician : Player
         statViewer.MaxHp = 100 + DataManager.Instance.BTS.MaxHp;
 
         statViewer.Defense = DataManager.Instance.BTS.Defense;
-        statViewer.DashCount = 3 + DataManager.Instance.BTS.DashCount;
+        statViewer.DashCount = DataManager.Instance.BTS.DashCount;
         statViewer.Level = 1;
         statViewer.MaxExp = 100;
         statViewer.Exp = 0;
         statViewer.Hp = 100 + DataManager.Instance.BTS.MaxHp;
-        statViewer.HpRegen = DataManager.Instance.BTS.HpRegen;
-        statViewer.CriDamage = 50 + DataManager.Instance.BTS.CriDamage;
+        statViewer.HpRegen = DataManager.Instance.BTS.HpRegen;     
         statViewer.Revival = DataManager.Instance.BTS.Revival;
         statViewer.Reroll = DataManager.Instance.BTS.Reroll;
         statViewer.Banish = DataManager.Instance.BTS.Banish;
@@ -56,7 +55,7 @@ public class Magician : Player
 
         // 2. 승산 스탯 - (100 + 증가율) / 100
         statViewer.ATK = 10 * ((DataManager.Instance.BTS.ATK + 100) / 100);
-        statViewer.Mspd = 3 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
+        statViewer.Mspd = 1 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
         statViewer.Aspd = 1 * ((100 + DataManager.Instance.BTS.Aspd) / 100f);
         statViewer.ATKRange = 1 * ((100 + DataManager.Instance.BTS.ATKRange) / 100f);
         statViewer.Duration = 1 * ((100 + DataManager.Instance.BTS.Duration) / 100f);
@@ -64,13 +63,14 @@ public class Magician : Player
         statViewer.Growth = (100 + DataManager.Instance.BTS.Growth) / 100f;
         statViewer.Greed = 1 * ((100 + DataManager.Instance.BTS.Greed) / 100f);
         statViewer.Curse = 1 * ((100 + DataManager.Instance.BTS.Curse) / 100f);
+        statViewer.CriDamage = 1 * ((50 + DataManager.Instance.BTS.CriDamage + 100) / 100f);
 
         // 3. 감산 스탯 - (100 - 감소율) / 100
         statViewer.Cooldown = 1f * ((100 - DataManager.Instance.BTS.Cooldown) / 100f);
 
         // 4. 기타 스탯
         statViewer.GodKill = DataManager.Instance.BTS.GodKill;
-        statViewer.Barrier = !DataManager.Instance.BTS.Barrier;
+        statViewer.Barrier = DataManager.Instance.BTS.Barrier;
         statViewer.BarrierCooldown = 5 + DataManager.Instance.BTS.BarrierCooldown;
         statViewer.Invincibility = DataManager.Instance.BTS.Invincibility;
         statViewer.ProjDestroy = DataManager.Instance.BTS.ProjDestroy;

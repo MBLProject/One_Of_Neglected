@@ -8,12 +8,13 @@ public class RushProjectile : PlayerProjectile
         {
             if (collision.TryGetComponent(out MonsterBase monster))
             {
-                float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+                bool isCritical = UnityEngine.Random.value < stats.critical;
+                float finalFinalDamage = isCritical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
                 DataManager.Instance.AddDamageData(finalFinalDamage, Enums.AugmentName.Shielder);
-                if (pierceCount > 0)
+                if (stats.pierceCount > 0)
                 {
-                    pierceCount--;
+                    stats.pierceCount--;
                 }
                 else
                 {

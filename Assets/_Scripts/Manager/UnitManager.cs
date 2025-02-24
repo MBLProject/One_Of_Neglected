@@ -14,6 +14,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject crowdControlUniqueMonsterPrefab;
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
+    private GameObject boxMonsterPrefab;
 
     [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
@@ -21,10 +22,15 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private float spawnInterval = 0.5f;
     private float nextSpawnTime = 0f;
 
-    [Header("경험치 프리팹")]
-    [SerializeField] private GameObject ExpBlue;
-    [SerializeField] private GameObject ExpPurple;
-    [SerializeField] private GameObject ExpBlack;
+    // 드랍 오브젝트 프리팹
+    private GameObject expBlue;
+    private GameObject expPurple;
+    private GameObject expBlack;
+    private GameObject bomb;
+    private GameObject smallGold;
+    private GameObject largeGold;
+    private GameObject chicken;
+    private GameObject timeStop;
 
     private BossMonster currentBoss;
     private bool isGameStarted = false;
@@ -35,13 +41,22 @@ public class UnitManager : Singleton<UnitManager>
 
     public Player GetPlayer() => currentPlayer;
 
+
+    private float boxSpawnInterval = 15f;
+    private float nextBoxSpawnTime = 0f;
     protected override void Awake()
     {
         base.Awake();
 
-        ExpBlue = Resources.Load<GameObject>("Using/Exp/ExpObject_Blue");
-        ExpPurple = Resources.Load<GameObject>("Using/Exp/ExpObject_Purple");
-        ExpBlack = Resources.Load<GameObject>("Using/Exp/ExpObject_Black");
+        expBlue = Resources.Load<GameObject>("Using/Env/Env_BlueExp");
+        expPurple = Resources.Load<GameObject>("Using/Env/Env_PurpleExp");
+        expBlack = Resources.Load<GameObject>("Using/Env/Env_BlackExp");
+        bomb = Resources.Load<GameObject>("Using/Env/Env_Bomb");
+        smallGold = Resources.Load<GameObject>("Using/Env/Env_SmallGold");
+        largeGold = Resources.Load<GameObject>("Using/Env/Env_LargeGold");
+        chicken = Resources.Load<GameObject>("Using/Env/Env_Chicken");
+        timeStop = Resources.Load<GameObject>("Using/Env/Env_TimeStop");
+        boxMonsterPrefab = Resources.Load<GameObject>("Using/Env/Item_Box");
 
         mainCamera = Camera.main;
 
@@ -64,6 +79,14 @@ public class UnitManager : Singleton<UnitManager>
             SpawnMonsterAtRandomPosition(currentNormalMonsterType);
             nextSpawnTime = Time.time + spawnInterval;
         }
+
+        if (Time.time >= nextBoxSpawnTime)
+        {
+            SpawnBoxMonster();
+            Debug.Log("상자 생성됨");
+            nextBoxSpawnTime = Time.time + boxSpawnInterval;
+        }
+
         // 테스트용 키 입력
         if (Input.GetKeyDown(KeyCode.U))  // U키: 유니크 몬스터 소환 테스트
         {
@@ -250,6 +273,7 @@ public class UnitManager : Singleton<UnitManager>
             Vector2 spawnPosition = GetBossSpawnPosition();
             GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
             currentBoss = bossObj.GetComponent<BossMonster>();
+            activeMonsters.Add(currentBoss);
 
             // TimeManager 이벤트 구독 해제 (더 이상 몬스터 스폰 이벤트가 필요 없음)
             if (TimeManager.Instance != null)
@@ -297,6 +321,8 @@ public class UnitManager : Singleton<UnitManager>
         ClearAllMonsters();
         currentNormalMonsterType = MonsterType.EarlyNormal;
         nextSpawnTime = Time.time;
+        nextBoxSpawnTime = Time.time + boxSpawnInterval;
+        
         if (TimeManager.Instance != null)
         {
             TimeManager.Instance.OnOneMinFiftySecondsPassed += SpawnUniqueMonster;
@@ -480,39 +506,43 @@ public class UnitManager : Singleton<UnitManager>
 
         return randomPositionsInRange;
     }
-    private GameObject GetExpPrefab(WorldObjectType type)
+    private GameObject GetEnvPrefab(WorldObjectType type)
     {
-        if (type == WorldObjectType.ExpBlue)
-            return ExpBlue;
-        else if (type == WorldObjectType.ExpPurple)
-            return ExpPurple;
-        else if (type == WorldObjectType.ExpBlack)
-            return ExpBlack;
-        else
-            return null;
+        if (type == WorldObjectType.ExpBlue) return expBlue;
+        else if (type == WorldObjectType.ExpPurple) return expPurple;
+        else if (type == WorldObjectType.ExpBlack) return expBlack;
+        else if (type == WorldObjectType.Boom) return bomb;
+        else if (type == WorldObjectType.Gold_1) return smallGold;
+        else if (type == WorldObjectType.Gold_2) return largeGold;
+        else if (type == WorldObjectType.Time_Stop) return timeStop;
+        else if (type == WorldObjectType.Chicken) return chicken;
+        else return null;
     }
 
-    public WorldObjectType SpawnWorldObject(WorldObjectType objectType, Vector2 position)
+    public void SpawnWorldObject(WorldObjectType objectType, Vector2 position)
     {
-        GameObject prefab = GetExpPrefab(objectType);
-
-        //if (prefab == null) return null;
-
-        GameObject Object = Instantiate(prefab, position, Quaternion.identity);
-        WorldObjectType worldObject = Object.GetComponent<WorldObjectType>();
-
-        //if (exp != null)
-        //{
-        //    activeExpObjects.Add(exp);
-        //}
-
-        return worldObject;
+        GameObject Object = Instantiate(GetEnvPrefab(objectType), position, Quaternion.identity);
     }
+
     public void RemoveWorldObject(WorldObjectType worldObject)
     {
         if (worldObject != null)
         {
             activeExpObjects.Remove(worldObject);
+        }
+    }
+
+    private void SpawnBoxMonster()
+    {
+        if (boxMonsterPrefab == null) return;
+
+        Vector2 randomPosition = GetRandomSpawnPosition();
+        GameObject boxObj = Instantiate(boxMonsterPrefab, randomPosition, Quaternion.identity);
+        
+        BoxMonster boxMonster = boxObj.GetComponent<BoxMonster>();
+        if (boxMonster != null)
+        {
+            activeMonsters.Add(boxMonster);
         }
     }
 }

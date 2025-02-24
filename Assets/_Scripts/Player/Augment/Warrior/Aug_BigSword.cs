@@ -4,6 +4,7 @@ using System;
 
 public class Aug_BigSword : TimeBasedAugment
 {
+    private float baseProjectileSize = 3f;
     private float damageMultiplier = 1f;
     private float projectileSpeed = 1f;
     private float projectileSize = 3f;
@@ -12,6 +13,7 @@ public class Aug_BigSword : TimeBasedAugment
     private float maxDistance = 0f;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
     private float SubDamage => CurrentDamage * 0.3f; 
 
     public Aug_BigSword(Player owner, float interval) : base(owner, interval)
@@ -44,7 +46,7 @@ public class Aug_BigSword : TimeBasedAugment
             owner.transform.position,
             projectileSpeed,
             CurrentDamage,
-            projectileSize,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration);

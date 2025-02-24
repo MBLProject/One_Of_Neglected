@@ -24,11 +24,11 @@ public class Needle : ActiveSkill
         // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 1.2f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 10f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
@@ -36,9 +36,9 @@ public class Needle : ActiveSkill
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
-            lifetime = 5f,
+            lifetime = 0.25f,
             projectileSpeed = 1f,
 
         };
@@ -47,6 +47,12 @@ public class Needle : ActiveSkill
     public override void LevelUp()
     {
         base.LevelUp();
+
+        if (level >= 7)
+        {
+            level = 6;
+            return;
+        }
 
         switch (level)
         {

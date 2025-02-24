@@ -21,7 +21,7 @@ public static class SkillFactory
             //case SkillName.Flow: return new Flow();
             case SkillName.PoisonShoes: return new PoisonShoes();
             //case SkillName.GravityField: return new GravityField();
-            //case SkillName.Mine: return new Mine();
+            case SkillName.Mine: return new Mine();
             case SkillName.Blood: return new Blood();
             case SkillName.Water: return new Water();
             case SkillName.Shield: return new Shield();

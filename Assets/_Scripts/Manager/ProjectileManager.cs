@@ -129,6 +129,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     targetPositions.AddRange(gatewayTargets);
                 break;
 
+            case Enums.SkillName.Mine:
+                for (int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+                {
+                    Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                    targetPositions.Add(startPosition + randomDirection * 2f);
+                }
+                break;
+
             case Enums.SkillName.Needle:
                 List<Vector3> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
                 if (needleTargets.Count > 0)
@@ -144,7 +152,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         if (targetPositions.Count == 0)
         {
-            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway)
+            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway || skillName == Enums.SkillName.Mine)
             {
                 for(int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
                 {
@@ -186,9 +194,24 @@ public class ProjectileManager : Singleton<ProjectileManager>
             return null;
         }
 
+        Player player = UnitManager.Instance.GetPlayer();
+        float criticalChance = player.Stats.CurrentCriRate;
+        float criticalDamage = player.Stats.CurrentCriDamage;
+
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
-        projectile.transform.localScale = Vector3.one * size;
-        projectile.InitProjectile(startPos, targetPos, speed, damage, maxDist, pierceCnt, lifetime);
+        
+        var stats = new ProjectileStats
+        {
+            projectileSpeed = speed,
+            finalDamage = damage,
+            finalATKRange = size,
+            pierceCount = pierceCnt,
+            lifetime = lifetime,
+            critical = criticalChance,    
+            cATK = criticalDamage,
+        };
+
+        projectile.InitProjectile(startPos, targetPos, stats);
 
         activeProjectiles.Add(projectile);
         return projectile;
@@ -209,8 +232,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     private void OnDestroy()
     {
-        print("OnDestroy : ProjectileManager!");
-
         activeProjectiles.Clear();
     }
 

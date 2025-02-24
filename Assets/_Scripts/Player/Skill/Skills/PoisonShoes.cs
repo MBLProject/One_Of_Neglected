@@ -41,7 +41,7 @@ public class PoisonShoes : ActiveSkill
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1f,
+            cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 1.1f,
             projectileSpeed = 1f,
@@ -54,6 +54,12 @@ public class PoisonShoes : ActiveSkill
     public override void LevelUp()
     {
         base.LevelUp();
+
+        if (level >= 7)
+        {
+            level = 6;
+            return;
+        }
 
         switch (level)
         {

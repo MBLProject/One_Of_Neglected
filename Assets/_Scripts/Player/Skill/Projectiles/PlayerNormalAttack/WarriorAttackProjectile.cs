@@ -20,7 +20,6 @@ public class WarriorAttackProjectile : PlayerProjectile
 
     protected override void Start()
     {
-        pType = projType.Melee;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isMoving = true;
@@ -99,8 +98,18 @@ public class WarriorAttackProjectile : PlayerProjectile
         {
             if (collision.TryGetComponent(out MonsterBase monster))
             {
-                monster.TakeDamage(damage);
+                float finalDamage = UnityEngine.Random.value < stats.critical ? damage * stats.cATK : damage;
+                monster.TakeDamage(finalDamage);
+                DataManager.Instance.AddDamageData(finalDamage, Enums.SkillName.None);
             }
         }
+    }
+
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        base.InitProjectile(startPos, targetPos, projectileStats);
+        stats = projectileStats;
+        startPosition = startPos;
+        targetPosition = targetPos;
     }
 } 
