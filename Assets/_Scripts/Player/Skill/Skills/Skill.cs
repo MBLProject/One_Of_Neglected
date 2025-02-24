@@ -42,6 +42,11 @@ public class Skill
 
     }
 
+    public virtual void Fire()
+    {
+
+    }
+
     public virtual void LevelUp()
     {
         Debug.Log($"LevelUp!!!!1 : {level}");
