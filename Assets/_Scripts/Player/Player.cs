@@ -651,10 +651,6 @@ public abstract class Player : MonoBehaviour
     }
     #endregion
 
-    // 가장 가까운 몬스터를 탐지해서 공격함
-    // 가만히 있어도 공격할 수 있는 이유가 이거임.
-    
-
     #region stat
     /// <summary>
     /// 기존 스탯에 value만큼 더함
@@ -751,7 +747,7 @@ public abstract class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Exp"))
+        if (collision.CompareTag("Env"))
         {
             WorldObject Object = collision.gameObject.GetComponent<WorldObject>();
             if (Object != null)
