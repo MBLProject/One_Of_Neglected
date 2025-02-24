@@ -5,7 +5,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Selection : MonoBehaviour
 {
     [SerializeField] private Banish_Panel banish_Panel;
