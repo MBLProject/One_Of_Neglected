@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using static Enums;
 
@@ -31,7 +30,7 @@ public class UnitManager : Singleton<UnitManager>
     private bool isGameStarted = false;
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
-    private List<ExpObject> activeExpObjects = new List<ExpObject>();
+    private List<WorldObjectType> activeExpObjects = new List<WorldObjectType>();
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
@@ -481,38 +480,39 @@ public class UnitManager : Singleton<UnitManager>
 
         return randomPositionsInRange;
     }
-    private GameObject GetExpPrefab(ExpType type)
+    private GameObject GetExpPrefab(WorldObjectType type)
     {
-        if (type == ExpType.Blue)
+        if (type == WorldObjectType.ExpBlue)
             return ExpBlue;
-        else if (type == ExpType.Purple)
+        else if (type == WorldObjectType.ExpPurple)
             return ExpPurple;
-        else if (type == ExpType.Black)
+        else if (type == WorldObjectType.ExpBlack)
             return ExpBlack;
         else
             return null;
     }
 
-    public ExpObject SpawnExp(ExpType expType, Vector2 position)
+    public WorldObjectType SpawnWorldObject(WorldObjectType objectType, Vector2 position)
     {
-        GameObject prefab = GetExpPrefab(expType);
+        GameObject prefab = GetExpPrefab(objectType);
 
-        if (prefab == null) return null;
+        //if (prefab == null) return null;
 
-        GameObject expObject = Instantiate(prefab, position, Quaternion.identity);
-        ExpObject exp = expObject.GetComponent<ExpObject>();
+        GameObject Object = Instantiate(prefab, position, Quaternion.identity);
+        WorldObjectType worldObject = Object.GetComponent<WorldObjectType>();
 
-        if (exp != null)
-        {
-            activeExpObjects.Add(exp);
-        }
-        return exp;
+        //if (exp != null)
+        //{
+        //    activeExpObjects.Add(exp);
+        //}
+
+        return worldObject;
     }
-    public void RemoveExp(ExpObject exp)
+    public void RemoveWorldObject(WorldObjectType worldObject)
     {
-        if (exp != null)
+        if (worldObject != null)
         {
-            activeExpObjects.Remove(exp);
+            activeExpObjects.Remove(worldObject);
         }
     }
 }
