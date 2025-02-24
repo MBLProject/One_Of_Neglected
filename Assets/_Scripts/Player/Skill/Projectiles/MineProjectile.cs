@@ -77,8 +77,7 @@ public class MineProjectile : Projectile
                     float newX = startPosition.x + vx * elapsedTime;
                     float newY = startPosition.y + vy * elapsedTime - 0.5f * gravity * elapsedTime * elapsedTime;
 
-                    Vector3 newPosition = new Vector3(newX, newY, startPosition.z);
-                    transform.position = newPosition;
+                    transform.position = new Vector3(newX, newY, startPosition.z);
 
                     if (elapsedTime >= exitTime)
                     {

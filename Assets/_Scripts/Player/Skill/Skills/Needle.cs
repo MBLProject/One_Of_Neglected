@@ -24,11 +24,11 @@ public class Needle : ActiveSkill
         // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 1.2f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 10f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
@@ -38,7 +38,7 @@ public class Needle : ActiveSkill
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
-            lifetime = 5f,
+            lifetime = 0.25f,
             projectileSpeed = 1f,
 
         };
