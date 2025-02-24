@@ -455,6 +455,21 @@ public class UnitManager : Singleton<UnitManager>
 
         return positionsInRange;
     }
+    public List<Vector3> GetMonsterRamdomPositionsInRange(float minRange, float maxRange, int targetCount)
+    {
+        var randomPositionsInRange = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => data.position)
+            .OrderBy(_ => Random.value)
+            .Take(targetCount)
+            .ToList();
+
+        return randomPositionsInRange;
+    }
+
 }
 
 public enum MonsterType
