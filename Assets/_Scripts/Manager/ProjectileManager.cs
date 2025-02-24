@@ -144,8 +144,19 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         if (targetPositions.Count == 0)
         {
-            Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            targetPositions.Add(startPosition + randomDirection * 15f);
+            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway)
+            {
+                for(int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+                {
+                    Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                    targetPositions.Add(startPosition + randomDirection * 1f);
+                }
+            }
+            else
+            {
+                Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                targetPositions.Add(startPosition + randomDirection * 15f);
+            }
         }
         print($"GetTargetPositionsBySkill : {skillName} : {targetPositions.Count}");
 
