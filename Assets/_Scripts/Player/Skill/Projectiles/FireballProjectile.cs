@@ -14,7 +14,27 @@ public class FireballProjectile : Projectile
         transform.position = startPosition;
         cts = new CancellationTokenSource();
         MoveProjectileAsync(cts.Token).Forget();
-        knockbackForce = 5f;
+        knockbackForce = 1f;
+    }
+
+    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
+    {
+        startPosition = startPos;
+        targetPosition = targetPos;
+
+        stats = projectileStats;
+
+        print($"InitProjectile - lifetime : {stats.lifetime}");
+
+        CancelInvoke("DestroyProjectile");
+
+        Invoke("DestroyProjectile", stats.lifetime);
+
+        direction = (targetPosition - startPos).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -28,6 +48,9 @@ public class FireballProjectile : Projectile
             DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
 
             monster.ApplyKnockback(transform.position, knockbackForce);
+
+            if (stats.pierceCount > 0) stats.pierceCount--;
+            else DestroyProjectile();
         }
     }
 }

@@ -68,6 +68,8 @@ public class GatewayProjectile : Projectile
 
         CancelInvoke("DestroyProjectile");
         Invoke("DestroyProjectile", lifeTime);
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)

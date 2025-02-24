@@ -60,6 +60,8 @@ public class NeedleProjectile : Projectile
         Invoke("DestroyProjectile", stats.lifetime);
 
         direction = (targetPosition - startPos).normalized;
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

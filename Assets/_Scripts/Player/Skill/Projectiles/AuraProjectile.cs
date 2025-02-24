@@ -118,6 +118,6 @@ public class AuraProjectile : Projectile
         targetPosition = targetPos;
         stats = projectileStats;
 
-        gameObject.transform.localScale = new Vector3(stats.finalATKRange, stats.finalATKRange, stats.finalATKRange);
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
     }
 }
