@@ -80,7 +80,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.016096994, y: 0.05121763}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -91,7 +91,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.27, y: 0.4409965}
   m_EdgeRadius: 0
 --- !u!1001 &5899395098260401038
 PrefabInstance:
@@ -103,7 +103,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1535570111027240043, guid: 49d3497b755cc704e8f226bb6112d319, type: 3}
       propertyPath: m_Name
-      value: ClawProjectile
+      value: Claw
       objectReference: {fileID: 0}
     - target: {fileID: 3471680893403971632, guid: 49d3497b755cc704e8f226bb6112d319, type: 3}
       propertyPath: m_LocalScale.x
