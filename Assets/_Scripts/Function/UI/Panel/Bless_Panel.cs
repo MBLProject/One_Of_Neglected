@@ -52,6 +52,7 @@ public enum UTI_Bless
 
 public class Bless_Panel : Panel
 {
+    [SerializeField] private Upgrade_Panel upgrade_Panel;
     public Bless bless;
     //공통된걸 등록해줄 리스트
     public List<Node> ATK_Node_List;
@@ -85,7 +86,7 @@ public class Bless_Panel : Panel
                 node.m_BTN.onClick?.Invoke();
             }
 
-            node.baseNodeAction += UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
             ByNodeDefine(node);
 
             if (node.next_Nodes.Count != 0)
@@ -205,7 +206,7 @@ public class Bless_Panel : Panel
     {
         foreach (Node node in ATK_Node_List)
         {
-            node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            node.baseNodeAction -= upgrade_Panel.DisplayBlessPoint;
             switch (node.ATK_Bless)
             {
                 case ATK_Bless.ATK_INCREASE:
@@ -236,7 +237,7 @@ public class Bless_Panel : Panel
         }
         foreach (Node node in DEF_Node_List)
         {
-            node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            node.baseNodeAction -= upgrade_Panel.DisplayBlessPoint;
             switch (node.DEF_Bless)
             {
                 case DEF_Bless.MAX_HP_INCREASE:
@@ -264,7 +265,7 @@ public class Bless_Panel : Panel
         }
         foreach (Node node in UTI_Node_List)
         {
-            node.baseNodeAction -= UI_Manager.Instance.upgrade_Panel.DisplayBlessPoint;
+            node.baseNodeAction -= upgrade_Panel.DisplayBlessPoint;
             switch (node.UTI_Bless)
             {
                 case UTI_Bless.ATK_RANGE:

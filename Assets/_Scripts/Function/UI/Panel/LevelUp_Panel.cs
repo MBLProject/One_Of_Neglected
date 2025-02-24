@@ -83,8 +83,6 @@ public class LevelUp_Panel : Panel
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().name != "Game") return;
-
-        UnitManager.Instance.PauseGame();
         Time.timeScale = 0;
         inGameUI_Panel.display_Level_TMP.text =
         "Lv." + UnitManager.Instance.GetPlayer().Stats.CurrentLevel.ToString();

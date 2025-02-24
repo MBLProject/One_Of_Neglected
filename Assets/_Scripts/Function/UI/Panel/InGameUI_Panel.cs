@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class InGameUI_Panel : Panel
 {
     private Player player;
-    private bool isOptionActive;
     private int min;
     private int sec;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
@@ -25,6 +24,7 @@ public class InGameUI_Panel : Panel
     public TextMeshProUGUI display_Level_TMP;
     public TextMeshProUGUI goldDisplay;
     public TextMeshProUGUI remnentsDisplay;
+    public TextMeshProUGUI killCountDisplay;
 
     private void Awake()
     {
@@ -50,7 +50,9 @@ public class InGameUI_Panel : Panel
         expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
         if (UnitManager.Instance.GetPlayer().Stats.currentHp > 0)
             display_Time_TMP.text = TimeCalc(TimeManager.Instance.gameTime);
-
+        goldDisplay.text = "골드 : " + DataManager.Instance.inGameValue.gold.ToString();
+        remnentsDisplay.text = "사후잔념 : " + DataManager.Instance.inGameValue.remnents.ToString();
+        killCountDisplay.text = "킬 : " + DataManager.Instance.inGameValue.killCount.ToString();
     }
     public void SetIconCell_Mini(Enums.SkillName skillName)
     {
