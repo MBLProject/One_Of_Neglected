@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Enums;
 [Serializable]
 public class ClassInfo : MonoBehaviour, IPointerClickHandler
 {
@@ -90,7 +91,7 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
         {
             if (classSelect_Panel.classInfos[i] == this)
             {
-                DataManager.Instance.classSelect_Num = i;
+                DataManager.Instance.classSelect_Type = (ClassType)i;
                 break;
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
@@ -33,11 +34,11 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
         mainCamera = Camera.main;
 
-        if (DataManager.Instance.classSelect_Num == 0)
+        if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
         {
-            DataManager.Instance.classSelect_Num = 1;
+            DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
         }
-        SpawnPlayerByType(DataManager.Instance.classSelect_Num);
+        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
@@ -250,7 +251,7 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
 
-    public Player SpawnPlayerByType(int PlayerType)
+    public Player SpawnPlayerByType(Enums.ClassType classType)
     {
         if (currentPlayer != null)
         {
@@ -258,21 +259,18 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         GameObject _player;
-        //Enum처리 ??도 ??거같긴 ??
-        if (PlayerType == 1)
+        
+        if (classType == Enums.ClassType.Archer)
         {
-            // 1. ??사
-            _player = Resources.Load<GameObject>("Using/Player/Warrior");
-        }
-        else if (PlayerType == 2)
-        {
-            // 2. 궁수
             _player = Resources.Load<GameObject>("Using/Player/Archer");
+        }
+        else if (classType == Enums.ClassType.Magician)
+        {
+            _player = Resources.Load<GameObject>("Using/Player/Magician");
         }
         else
         {
-            // 3. 법사
-            _player = Resources.Load<GameObject>("Using/Player/Magician");
+            _player = Resources.Load<GameObject>("Using/Player/Warrior");
         }
 
         GameObject playerObj = Instantiate(_player, Vector2.zero, Quaternion.identity);
