@@ -54,7 +54,7 @@ public class AugmentSelector : MonoBehaviour
         return new List<Augment>();
     }
 
-    public void ChooseAugment2(AugmentName augName)
+    public void ChooseAugment(AugmentName augName)
     {
         var availableList = GetAvailableAugments();
         var selectedAugment = availableList.FirstOrDefault(aug => aug.AugmentName == augName);
@@ -83,11 +83,27 @@ public class AugmentSelector : MonoBehaviour
         }
     }
 
-    public List<AugmentName> SelectAugments()
+    private List<Augment> GetSelectedAugments()
     {
         if (availableAugments.TryGetValue(owner.ClassType, out var augments))
         {
-            return augments.Select(aug => aug.AugmentName).ToList();
+            return augments.FindAll(a => activeAugments.Contains(a));
+        }
+        return new List<Augment>();
+    }
+
+    public List<AugmentName> SelectAugments()
+    {
+        if (activeAugments.Count == 0)
+        {
+            if (availableAugments.TryGetValue(owner.ClassType, out var augments))
+            {
+                return augments.Select(aug => aug.AugmentName).ToList();
+            }
+        }
+        else
+        {
+            return GetSelectedAugments().Select(aug => aug.AugmentName).ToList();
         }
         return new List<AugmentName>();
     }
