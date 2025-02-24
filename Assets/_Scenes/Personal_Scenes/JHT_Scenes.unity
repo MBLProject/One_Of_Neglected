@@ -353,6 +353,9 @@ MonoBehaviour:
   spawnRadius: 15
   minSpawnDistance: 8
   spawnInterval: 1
+  ExpBlue: {fileID: 0}
+  ExpPurple: {fileID: 0}
+  ExpBlack: {fileID: 0}
 --- !u!4 &885006689
 Transform:
   m_ObjectHideFlags: 0
