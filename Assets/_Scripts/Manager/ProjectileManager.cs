@@ -135,7 +135,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             if (currentAuraProjectile != null)
             {
-                RemoveProjectile(currentAuraProjectile);
+                currentAuraProjectile.InitProjectile(startPosition, Vector3.zero, stats);
+                return;
             }
 
             Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
