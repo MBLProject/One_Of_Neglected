@@ -8,6 +8,7 @@ public class SlashProjectile : Projectile
     {
         Vector3 startPos = transform.position;
         Vector3 targetPos = startPos + (Vector3)(dir * 10f); // 10f는 충분히 먼 거리
+        stats.projectileSpeed = spd;
 
         // 기본 프로젝타일 초기화
         InitProjectile(
