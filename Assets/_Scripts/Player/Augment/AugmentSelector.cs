@@ -46,53 +46,12 @@ public class AugmentSelector : MonoBehaviour
 
     private List<Augment> GetAvailableAugments()
     {
-
         if (availableAugments.TryGetValue(owner.ClassType, out var augments))
         {
             var available = augments.FindAll(a => !activeAugments.Contains(a));
             return available;
         }
         return new List<Augment>();
-    }
-
-    public List<Augment> SelectAugmentsWithInfo()
-    {
-        var availableList = GetAvailableAugments();
-        // 랜덤하게 3개 선택 -> 원래 4갠데 칸이 모자람 ㅎㅎㅈㅅ
-        if (availableList.Count > 3)
-        {
-            var randomIndices = new List<int>();
-            while (randomIndices.Count < 3)
-            {
-                var index = UnityEngine.Random.Range(0, availableList.Count);
-                if (!randomIndices.Contains(index))
-                {
-                    randomIndices.Add(index);
-                }
-            }
-
-            var selectedAugments = new List<Augment>();
-            foreach (var index in randomIndices)
-            {
-                selectedAugments.Add(availableList[index]);
-            }
-            return selectedAugments;
-        }
-
-        return availableList;
-    }
-
-    public void ChooseAugment(Augment chosenAugment)
-    {
-        if (!activeAugments.Contains(chosenAugment))
-        {
-            chosenAugment.Activate();
-            activeAugments.Add(chosenAugment);
-        }
-        else
-        {
-            chosenAugment.LevelUp();
-        }
     }
 
     public void ChooseAugment2(AugmentName augName)
@@ -115,23 +74,6 @@ public class AugmentSelector : MonoBehaviour
         }
     }
 
-    public int GetAugmentLevel(AugmentName augmentName)
-    {
-        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
-        return augment?.Level ?? 0;
-    }
-
-    public bool IsAugmentActive(AugmentName augmentName)
-    {
-        return activeAugments.Any(aug => aug.AugmentName == augmentName);
-    }
-
-    public bool CanLevelUpAugment(AugmentName augmentName)
-    {
-        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
-        return augment != null && augment.Level < 5;
-    }
-
     public void LevelUpAugment(AugmentName augmentName)
     {
         var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
@@ -143,7 +85,10 @@ public class AugmentSelector : MonoBehaviour
 
     public List<AugmentName> SelectAugments()
     {
-        var result = GetAvailableAugments().Select(aug => aug.AugmentName).ToList();
-        return result;
+        if (availableAugments.TryGetValue(owner.ClassType, out var augments))
+        {
+            return augments.Select(aug => aug.AugmentName).ToList();
+        }
+        return new List<AugmentName>();
     }
 }

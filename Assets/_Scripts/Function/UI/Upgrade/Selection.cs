@@ -57,7 +57,7 @@ public class Selection : MonoBehaviour
     private void Select_BTN2()
     {
 
-        UnitManager.Instance.GetPlayer().augment.ChooseAugment2(m_augName);
+        UnitManager.Instance.GetPlayer().augment.ChooseAugment(m_augName);
         Debug.Log(levelUp_Panel.m_AugText);
         levelUp_Panel.SetAugTextInit(m_augName);
         levelUp_Panel.PanelClose();
