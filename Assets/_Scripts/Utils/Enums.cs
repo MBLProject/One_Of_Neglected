@@ -60,11 +60,9 @@ public class Enums
     public enum ExpType
     {
         None,
-        White,
-        Green,
         Blue,
-        Red,
         Purple, 
+        Black, 
     }
 
     public enum StatType
@@ -101,6 +99,15 @@ public class Enums
         ProjDestroy,
         ProjParry
     }
-
+    public enum MonsterType
+    {
+        EarlyNormal,
+        RangedNormal,
+        MidNormal,
+        LateNormal,
+        DamageUnique,
+        CrowdControlUnique,
+        TankUnique
+    }
 }
 

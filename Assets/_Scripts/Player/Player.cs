@@ -468,28 +468,16 @@ public abstract class Player : MonoBehaviour
         float expAmount = 0;
         switch (expObject.expType)
         {
-            case ExpType.White:
+            case ExpType.Blue:
                 expAmount = 10;
                 break;
-            case ExpType.Green:
+            case ExpType.Purple:
                 expAmount = 20;
                 break;
-            case ExpType.Blue:
-                expAmount = 30;
+            case ExpType.Black:
+                expAmount = stats.CurrentMaxExp;
                 break;
-            case ExpType.Red:
-                expAmount = 40;
-                break;
-            case ExpType.Purple:
-                //특정 레벨 이상 처리
-                if (stats.CurrentLevel <= 10)
-                {
-                    expAmount = stats.CurrentMaxExp;
-                }
-                else
-                {
-                    expAmount = stats.currentExp * 0.3f;
-                }
+            default:
                 break;
         }
 

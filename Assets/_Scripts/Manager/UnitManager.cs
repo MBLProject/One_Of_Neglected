@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using static Enums;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("??리????정")]
+    [Header("몬스터 프리팹")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -15,16 +16,22 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("??폰 ??정")]
+    [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
     private float nextSpawnTime = 0f;
 
+    [Header("경험치 프리팹")]
+    [SerializeField] private GameObject ExpBlue;
+    [SerializeField] private GameObject ExpPurple;
+    [SerializeField] private GameObject ExpBlack;
+
     private BossMonster currentBoss;
     private bool isGameStarted = false;
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
+    private List<ExpObject> activeExpObjects = new List<ExpObject>();
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
@@ -34,11 +41,11 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
         mainCamera = Camera.main;
 
-        if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
-        {
-            DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
-        }
-        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
+        //if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
+        //{
+        //    DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
+        //}
+        SpawnPlayerByType(Enums.ClassType.Warrior);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
@@ -455,16 +462,39 @@ public class UnitManager : Singleton<UnitManager>
 
         return positionsInRange;
     }
-}
+    private GameObject GetExpPrefab(ExpType type)
+    {
+        if (type == ExpType.Blue)
+            return ExpBlue;
+        else if (type == ExpType.Purple)
+            return ExpPurple;
+        else if (type == ExpType.Black)
+            return ExpBlack;
+        else
+            return null;
+    }
 
-public enum MonsterType
-{
-    EarlyNormal,
-    RangedNormal,
-    MidNormal,
-    LateNormal,
-    DamageUnique,
-    CrowdControlUnique,
-    TankUnique
+    public ExpObject SpawnExp(ExpType expType, Vector2 position)
+    {
+        GameObject prefab = GetExpPrefab(expType);
+
+        if (prefab == null) return null;
+
+        GameObject expObject = Instantiate(prefab, position, Quaternion.identity);
+        ExpObject exp = expObject.GetComponent<ExpObject>();
+
+        if (exp != null)
+        {
+            activeExpObjects.Add(exp);
+        }
+        return exp;
+    }
+    public void RemoveExp(ExpObject exp)
+    {
+        if (exp != null)
+        {
+            activeExpObjects.Remove(exp);
+        }
+    }
 }
 
