@@ -39,6 +39,11 @@ public class UnitManager : Singleton<UnitManager>
     protected override void Awake()
     {
         base.Awake();
+
+        ExpBlue = Resources.Load<GameObject>("Using/Exp/ExpObject_Blue");
+        ExpPurple = Resources.Load<GameObject>("Using/Exp/ExpObject_Purple");
+        ExpBlack = Resources.Load<GameObject>("Using/Exp/ExpObject_Black");
+
         mainCamera = Camera.main;
 
         //if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
