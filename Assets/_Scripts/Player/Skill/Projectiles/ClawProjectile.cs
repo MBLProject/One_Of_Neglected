@@ -46,12 +46,17 @@ public class ClawProjectile : Projectile
 
     private void DecideImage()
     {
-        myrenderer = GetComponent<SpriteRenderer>();
+        myrenderer = GetComponentInChildren<SpriteRenderer>();
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+
         switch (stats.level)
         {
             case 1:
             case 2:
                 myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv1Sprite");
+                Vector2 newOffset = box.offset;
+                newOffset.x = 0.09f;
+                box.offset = newOffset;
                 break;
             case 3:
             case 4:
@@ -60,6 +65,9 @@ public class ClawProjectile : Projectile
                 break;
             case 6:
                 myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv3Sprite");
+                Vector2 Lv3Offset = box.offset;
+                newOffset.x = 0.27f;
+                box.offset = Lv3Offset;
                 break;
         }
     }
