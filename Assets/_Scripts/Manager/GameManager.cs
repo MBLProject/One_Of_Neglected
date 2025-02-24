@@ -13,7 +13,6 @@ public class GameManager : Singleton<GameManager>
     {
         HandleInputs();
     }
-
     private void HandleInputs()
     {
         // 스페이스바로 게임 시작

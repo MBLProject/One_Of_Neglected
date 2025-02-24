@@ -104,9 +104,7 @@ public class Option_Panel : Panel
 
     private void ReturnTitle_BTN()
     {
-        UI_Manager.Instance.RectGroup_Activation(true, false);
         GameSceneManager.SceneLoad("Title");
-        PanelClose();
     }
 
 }

@@ -31,6 +31,7 @@ public enum Training_Category
 
 public class Training_Panel : Panel, IPointerExitHandler
 {
+    [SerializeField] private Upgrade_Panel upgrade_Panel;
     public Image info_IMG;
     public TextMeshProUGUI info_Text;
     public RectTransform trainingInfo;
@@ -53,7 +54,7 @@ public class Training_Panel : Panel, IPointerExitHandler
         Cell_Initialize(ref trainingCells_List);
         foreach (TrainingCell cell in trainingCells_List)
         {
-            cell.baseCellAction += UI_Manager.Instance.upgrade_Panel.DisplayGold;
+            cell.baseCellAction += upgrade_Panel.DisplayGold;
         }
     }
 
@@ -137,7 +138,7 @@ public class Training_Panel : Panel, IPointerExitHandler
     {
         foreach (TrainingCell cell in trainingCells_List)
         {
-            cell.baseCellAction -= UI_Manager.Instance.upgrade_Panel.DisplayGold;
+            cell.baseCellAction -= upgrade_Panel.DisplayGold;
             switch (cell.training_Category)
             {
                 case Training_Category.MaxHp:

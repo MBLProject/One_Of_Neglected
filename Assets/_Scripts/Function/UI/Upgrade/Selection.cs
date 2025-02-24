@@ -41,7 +41,6 @@ public class Selection : MonoBehaviour
         if (inGameUI_Panel.skillContainer.
         GetSkill(m_skillName) == Enums.SkillName.None)
         {
-            //TODO 골드도 예외처리
             if (m_skillName != Enums.SkillName.Cheese && m_skillName != Enums.SkillName.Gold)
             {
                 inGameUI_Panel.SetIconCell_Mini(m_skillName);
@@ -49,6 +48,7 @@ public class Selection : MonoBehaviour
             }
         }
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
+        Debug.Log($"스킬 선택 : {m_skillName}");
         levelUp_Panel.PanelClose();
 
     }
@@ -58,7 +58,6 @@ public class Selection : MonoBehaviour
 
         UnitManager.Instance.GetPlayer().augment.ChooseAugment(m_augType);
         levelUp_Panel.SetAugTextInit(m_augType);
-        Debug.Log(m_augType);
         levelUp_Panel.PanelClose();
 
     }
