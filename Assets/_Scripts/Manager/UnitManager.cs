@@ -1,10 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static Enums;
+using Random = UnityEngine.Random;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    [Serializable]
+    public class MonsterSpawnData
+    {
+        public float gameTime;  // 게임 시간 (분:초)
+        public int spawnCount;  // 해당 시간대의 목표 스폰 수
+    }
+
     [Header("몬스터 프리팹")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
@@ -17,10 +27,27 @@ public class UnitManager : Singleton<UnitManager>
     private GameObject boxMonsterPrefab;
 
     [Header("스폰 설정")]
-    [SerializeField] private float spawnRadius = 15f;
-    [SerializeField] private float minSpawnDistance = 8f;
-    [SerializeField] private float spawnInterval = 0.5f;
-    private float nextSpawnTime = 0f;
+    [SerializeField] private float spawnRadius = 15f;        // 스폰 반경
+    [SerializeField] private float minSpawnDistance = 8f;    // 최소 스폰 거리
+    [SerializeField] private int maxRangedMonsterCount = 20;
+    [SerializeField] private int maxTotalMonsterCount = 100;
+    [SerializeField] private float spawnInterval = 1f;
+    private float nextSpawnTime = 0f;                        // 다음 스폰 시간
+    private int currentSpawnIndex = 0;
+    [SerializeField]
+    private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
+    {
+        new MonsterSpawnData { gameTime = 0.00f, spawnCount = 5 },   // 게임 시작
+        new MonsterSpawnData { gameTime = 0.10f, spawnCount = 10 },  // 10초
+        new MonsterSpawnData { gameTime = 0.20f, spawnCount = 15 },  // 20초
+        new MonsterSpawnData { gameTime = 0.30f, spawnCount = 20 },  // 30초
+        new MonsterSpawnData { gameTime = 0.40f, spawnCount = 25 },  // 40초
+        new MonsterSpawnData { gameTime = 0.50f, spawnCount = 30 },  // 50초
+        new MonsterSpawnData { gameTime = 1.00f, spawnCount = 35 },  // 1분
+        new MonsterSpawnData { gameTime = 1.10f, spawnCount = 40 },  // 1분 10초
+        new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분 (게임 종료)
+    };
+
 
     // 드랍 오브젝트 프리팹
     private GameObject expBlue;
@@ -73,11 +100,37 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (!isGameStarted || GameManager.Instance.isPaused || currentBoss != null) return;
 
-        if (Time.time >= nextSpawnTime)
+        float currentGameTime = TimeManager.Instance.GameTime / 60f;
+
+        if (currentGameTime >= 10.0f)
         {
-            SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
+            Debug.Log("[UnitManager] 10분 경과 - 보스전 시작");
+            SpawnBossMonster();
+            return;
+        }
+
+        if (Time.time < nextSpawnTime) return;  // 스폰 인터벌 체크
+        nextSpawnTime = Time.time + spawnInterval;  // 다음 스폰 시간 설정 (if문 밖으로 이동)
+
+        // 현재 시간에 해당하는 스폰 수 찾기
+        while (currentSpawnIndex < monsterSpawnTable.Length &&
+               currentGameTime >= monsterSpawnTable[currentSpawnIndex].gameTime)
+        {
+            currentSpawnIndex++;
+        }
+
+        // 현재 몬스터 수가 목표치보다 적으면 스폰
+        int targetSpawnCount = currentSpawnIndex > 0 ?
+            monsterSpawnTable[currentSpawnIndex - 1].spawnCount :
+            monsterSpawnTable[0].spawnCount;
+
+        if (GetActiveMonsterCount() < Mathf.Min(targetSpawnCount, maxTotalMonsterCount))
+        {
+            if (GetRangedMonsterCount() < maxRangedMonsterCount)
+            {
+                SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
+            }
             SpawnMonsterAtRandomPosition(currentNormalMonsterType);
-            nextSpawnTime = Time.time + spawnInterval;
         }
 
         if (Time.time >= nextBoxSpawnTime)
@@ -130,6 +183,32 @@ public class UnitManager : Singleton<UnitManager>
         {
             TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
+        }
+    }
+    private int GetRangedMonsterCount()
+    {
+        return activeMonsters.Count(monster =>
+            monster != null &&
+            monster.GetType() == typeof(RangedNormalMonster));
+    }
+    private void SpawnBossMonster()
+    {
+        // 기존 몬스터들 제거
+        ClearAllMonsters();
+
+        // 보스 몬스터 생성
+        Vector2 spawnPosition = GetRandomSpawnPosition();
+        GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
+        currentBoss = bossObj.GetComponent<BossMonster>();
+
+        if (currentBoss != null)
+        {
+            activeMonsters.Add(currentBoss);
+            Debug.Log("[UnitManager] 보스 몬스터 생성 완료");
+        }
+        else
+        {
+            Debug.LogError("[UnitManager] 보스 몬스터 컴포넌트를 찾을 수 없음");
         }
     }
 
@@ -320,7 +399,6 @@ public class UnitManager : Singleton<UnitManager>
         isGameStarted = true;
         ClearAllMonsters();
         currentNormalMonsterType = MonsterType.EarlyNormal;
-        nextSpawnTime = Time.time;
         nextBoxSpawnTime = Time.time + boxSpawnInterval;
         
         if (TimeManager.Instance != null)
