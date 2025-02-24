@@ -27,19 +27,18 @@ public class Shuriken : ActiveSkill
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 5f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
-            pierceCount = 0,
+            pierceCount = 1,
             shotCount = 1,
             projectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = 1f,
             amount = 1f,
-            lifetime = 5f,
-            projectileSpeed = 1f,
-
+            lifetime = 3f,
+            projectileSpeed = 3f,
         };
     }
 
@@ -49,19 +48,30 @@ public class Shuriken : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
+                stats.pierceCount++;
                 break;
             case 3:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
+                stats.pierceCount++;
                 break;
             case 4:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
+                stats.pierceCount++;
                 break;
             case 5:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
+                stats.pierceCount++;
                 break;
             case 6:
+                stats.projectileCount++;
+                stats.defaultDamage += 5f;
+                stats.pierceCount++;
                 break;
         }
     }
