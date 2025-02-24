@@ -58,6 +58,7 @@ public class ActiveSkill : Skill
             new ProjectileStats()
             {
                 skillName = skillName,
+                level = level,
                 finalCooldown = FinalCooldown,
                 finalATKRange = FinelATKRange,
                 finalDamage = FinalDamage,

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClawProjectile : Projectile
 {
+    private SpriteRenderer myrenderer;
+
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         startPosition = startPos;
@@ -36,7 +38,31 @@ public class ClawProjectile : Projectile
         direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
     }
+
+    private void DecideImage()
+    {
+        myrenderer = GetComponent<SpriteRenderer>();
+        switch (stats.level)
+        {
+            case 1:
+            case 2:
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv1");
+                break;
+            case 3:
+            case 4:
+            case 5:
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv2");
+
+                break;
+            case 6:
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv3");
+
+                break;
+        }
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))

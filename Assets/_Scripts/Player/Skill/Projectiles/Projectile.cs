@@ -119,7 +119,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    protected void DestroyProjectile()
+    public void DestroyProjectile()
     {
         if (!isMoving || gameObject == null)
         {

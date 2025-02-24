@@ -111,6 +111,7 @@ public struct SkillStats
 public struct ProjectileStats
 {
     public SkillName skillName;
+    public int level;
     public float finalCooldown;
     public float finalATKRange;
     public float finalDamage;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8699608110212231964}
   - component: {fileID: 2538578388137301787}
   m_Layer: 0
-  m_Name: ClawLv3
+  m_Name: ClawProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
