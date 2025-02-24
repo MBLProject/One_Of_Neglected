@@ -41,7 +41,7 @@ public class PoisonShoes : ActiveSkill
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = 1f,
             amount = 1f,
             lifetime = 1.1f,
             projectileSpeed = 1f,
@@ -57,19 +57,23 @@ public class PoisonShoes : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.defaultDamage += 10f;
                 break;
             case 3:
+                stats.lifetime += 1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 4:
+                stats.defaultDamage += 10f;
                 break;
             case 5:
+                stats.lifetime += 1f;
+                stats.defaultATKRange += 0.1f;
                 break;
             case 6:
+                stats.defaultDamage += 10f;
+                stats.defaultATKRange += 0.1f;
                 break;
         }
     }

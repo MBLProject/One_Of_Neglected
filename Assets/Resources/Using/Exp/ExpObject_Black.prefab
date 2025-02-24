@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5862645627844993782}
   - component: {fileID: 3879407264781421084}
   m_Layer: 8
-  m_Name: ExpObject_Red
+  m_Name: ExpObject_Black
   m_TagString: Exp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3415533ef71bd442b00e8edb1be38ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expType: 4
+  expType: 3
 --- !u!58 &3879407264781421084
 CircleCollider2D:
   m_ObjectHideFlags: 0

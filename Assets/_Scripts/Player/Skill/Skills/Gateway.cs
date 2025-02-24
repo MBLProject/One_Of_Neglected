@@ -23,11 +23,11 @@ public class Gateway : ActiveSkill
         // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 10f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 1f,
+            defaultDamage = 10f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
@@ -35,11 +35,10 @@ public class Gateway : ActiveSkill
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
-            cATK = 1.5f,
+            cATK = 1f,
             amount = 1f,
             lifetime = 5f,
             projectileSpeed = 1f,
-
         };
     }
 
@@ -49,19 +48,26 @@ public class Gateway : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.defaultATKRange += 0.1f;
+                stats.lifetime += 1f;
                 break;
             case 3:
+                stats.defaultDamage += 10f;
+                stats.projectileCount += 1;
                 break;
             case 4:
+                stats.defaultATKRange += 0.1f;
+                stats.lifetime += 1f;
                 break;
             case 5:
+                stats.defaultDamage += 10f;
+                stats.projectileCount += 1;
                 break;
             case 6:
+                stats.defaultDamage += 10f;
+                stats.defaultATKRange += 0.1f;
+                stats.lifetime += 2f;
                 break;
         }
     }

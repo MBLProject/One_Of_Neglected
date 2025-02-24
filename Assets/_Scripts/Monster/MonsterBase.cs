@@ -269,7 +269,6 @@ public abstract class MonsterBase : MonoBehaviour
         try
         {
             await UniTask.Delay((int)(dieAnimationLength * 1000));
-
             OnMonsterDestroy();
 
         }
@@ -286,7 +285,7 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected virtual void OnMonsterDestroy()
     {
-        Debug.Log("경험치 드롭");
+        UnitManager.Instance.SpawnExp(Enums.ExpType.Blue, transform.position);
     }
 
     public virtual void ApplyKnockback(Vector2 hitPoint, float knockbackForce)

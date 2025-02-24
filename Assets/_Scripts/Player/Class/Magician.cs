@@ -50,6 +50,7 @@ public class Magician : Player
         statViewer.Revival = DataManager.Instance.BTS.Revival;
         statViewer.Reroll = DataManager.Instance.BTS.Reroll;
         statViewer.Banish = DataManager.Instance.BTS.Banish;
+        statViewer.ProjAmount = 1 + DataManager.Instance.BTS.ProjAmount;
 
         // 2. 승산 스탯 - (100 + 증가율) / 100
         statViewer.ATK = 10 * ((DataManager.Instance.BTS.ATK + 100) / 100);

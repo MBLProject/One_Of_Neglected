@@ -43,6 +43,8 @@ public class PoisonShoesProjectile : Projectile
         CancelInvoke("DestroyProjectile");
 
         Invoke("DestroyProjectile", stats.lifetime);
+        gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)

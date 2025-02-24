@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using static Enums;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Header("??리????정")]
+    [Header("몬스터 프리팹")]
     [SerializeField] private GameObject earlyNormalMonsterPrefab;
     [SerializeField] private GameObject rangedNormalMonsterPrefab;
     [SerializeField] private GameObject midNormalMonsterPrefab;
@@ -15,16 +16,22 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
 
-    [Header("??폰 ??정")]
+    [Header("스폰 설정")]
     [SerializeField] private float spawnRadius = 15f;
     [SerializeField] private float minSpawnDistance = 8f;
     [SerializeField] private float spawnInterval = 0.5f;
     private float nextSpawnTime = 0f;
 
+    [Header("경험치 프리팹")]
+    [SerializeField] private GameObject ExpBlue;
+    [SerializeField] private GameObject ExpPurple;
+    [SerializeField] private GameObject ExpBlack;
+
     private BossMonster currentBoss;
     private bool isGameStarted = false;
     private Player currentPlayer;
     private List<MonsterBase> activeMonsters = new List<MonsterBase>();
+    private List<ExpObject> activeExpObjects = new List<ExpObject>();
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
@@ -32,13 +39,18 @@ public class UnitManager : Singleton<UnitManager>
     protected override void Awake()
     {
         base.Awake();
+
+        ExpBlue = Resources.Load<GameObject>("Using/Exp/ExpObject_Blue");
+        ExpPurple = Resources.Load<GameObject>("Using/Exp/ExpObject_Purple");
+        ExpBlack = Resources.Load<GameObject>("Using/Exp/ExpObject_Black");
+
         mainCamera = Camera.main;
 
-        if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
-        {
-            DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
-        }
-        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
+        //if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
+        //{
+        //    DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
+        //}
+        SpawnPlayerByType(Enums.ClassType.Warrior);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
@@ -454,6 +466,54 @@ public class UnitManager : Singleton<UnitManager>
             .ToList();
 
         return positionsInRange;
+    }
+    public List<Vector3> GetMonsterRamdomPositionsInRange(float minRange, float maxRange, int targetCount)
+    {
+        var randomPositionsInRange = activeMonsters
+            .Where(monster => monster != null)
+            .Select(monster => new { monster.transform.position, distance = Vector3.Distance(currentPlayer.transform.position, monster.transform.position) })
+            .Where(data => data.distance >= minRange && data.distance <= maxRange)
+            .OrderBy(data => data.distance)
+            .Select(data => data.position)
+            .OrderBy(_ => Random.value)
+            .Take(targetCount)
+            .ToList();
+
+        return randomPositionsInRange;
+    }
+    private GameObject GetExpPrefab(ExpType type)
+    {
+        if (type == ExpType.Blue)
+            return ExpBlue;
+        else if (type == ExpType.Purple)
+            return ExpPurple;
+        else if (type == ExpType.Black)
+            return ExpBlack;
+        else
+            return null;
+    }
+
+    public ExpObject SpawnExp(ExpType expType, Vector2 position)
+    {
+        GameObject prefab = GetExpPrefab(expType);
+
+        if (prefab == null) return null;
+
+        GameObject expObject = Instantiate(prefab, position, Quaternion.identity);
+        ExpObject exp = expObject.GetComponent<ExpObject>();
+
+        if (exp != null)
+        {
+            activeExpObjects.Add(exp);
+        }
+        return exp;
+    }
+    public void RemoveExp(ExpObject exp)
+    {
+        if (exp != null)
+        {
+            activeExpObjects.Remove(exp);
+        }
     }
 }
 

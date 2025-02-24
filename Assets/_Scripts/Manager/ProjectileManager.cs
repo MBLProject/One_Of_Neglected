@@ -53,74 +53,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     }
 
-    public void SpawnProjectile(Enums.SkillName skillName, float damage, int level, int shotCount, int projectileCount, float pierceDelay, float shotDelay, int pireceCount)
-    {
-        if (!projectiles.ContainsKey(skillName))
-        {
-            Debug.LogError($"Projectile type {skillName} not found!");
-            return;
-        }
-
-        Vector3 startPosition = UnitManager.Instance.GetPlayer().transform.position;
-        float speed = 3f;
-
-        if (skillName == Enums.SkillName.Aura)
-        {
-            if (currentAuraProjectile != null)
-            {
-                RemoveProjectile(currentAuraProjectile);
-            }
-
-            Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
-            projectile.InitProjectile(startPosition, startPosition, speed, damage, 10000f, pireceCount, 100000f);
-            currentAuraProjectile = projectile;
-            activeProjectiles.Add(projectile);
-
-            return;
-        }
-
-        List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
-        int totalShots = shotCount * projectileCount;
-
-        // Needle ?????? targetPositions ????ル늉??????걘?????????????????????ル늉??????곗뿪??? ?饔낅떽?????????モ닪???饔낅떽???壤굿?戮㏐광??????????썹땟戮녹????
-        bool isNeedle = skillName == Enums.SkillName.Needle;
-        bool isAura = skillName == Enums.SkillName.Aura;
-        int currentIndex = 0;
-
-        UniTask.Void(async () =>
-        {
-            for (int i = 0; i < shotCount; i++)
-            {
-                for (int j = 0; j < projectileCount; j++)
-                {
-                    if (targetPositions.Count == 0) continue;
-
-                    Vector3 targetPosition;
-                    if (isNeedle)
-                    {
-                        targetPosition = targetPositions[currentIndex];
-                        currentIndex = (currentIndex + 1) % targetPositions.Count;
-                    }
-                    else if (isAura)
-                    {
-                        targetPosition = startPosition;
-                    }
-                    else
-                    {
-                        targetPosition = targetPositions[j % targetPositions.Count];
-                    }
-
-                    Projectile projectile = Instantiate(projectiles[skillName]);
-                    projectile.InitProjectile(startPosition, targetPosition, speed, damage, 10f, pireceCount, 5f);
-                    activeProjectiles.Add(projectile);
-
-                    await UniTask.Delay(TimeSpan.FromSeconds(shotDelay));
-                }
-                await UniTask.Delay(TimeSpan.FromSeconds(pierceDelay));
-            }
-        });
-    }
-
     public void SpawnProjectile(Enums.SkillName skillName, ProjectileStats stats)
     {
         if (!projectiles.ContainsKey(skillName))
@@ -149,10 +81,10 @@ public class ProjectileManager : Singleton<ProjectileManager>
             return;
         }
 
-        List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition);
+        List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition, stats);
 
-        // Needle ?????? targetPositions ????ル늉??????걘?????????????????????ル늉??????곗뿪??? ?饔낅떽?????????モ닪???饔낅떽???壤굿?戮㏐광??????????썹땟戮녹????
-        bool isNeedle = skillName == Enums.SkillName.Needle;
+        // Needle ?????? targetPositions ?????ル뒌??????嫄??????????????????????ル뒌??????怨쀫역??? ?耀붾굝????????????떔???耀붾굝????鶯ㅺ동??筌믡룓愿???????????밸븶筌믩끃????
+        bool isMultipleTarget = skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway;
         int currentIndex = 0;
 
 
@@ -165,7 +97,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     if (targetPositions.Count == 0) continue;
 
                     Vector3 targetPosition;
-                    if (isNeedle)
+                    if (isMultipleTarget)
                     {
                         targetPosition = targetPositions[currentIndex];
                         currentIndex = (currentIndex + 1) % targetPositions.Count;
@@ -185,16 +117,16 @@ public class ProjectileManager : Singleton<ProjectileManager>
         });
     }
 
-    private List<Vector3> GetTargetPositionsBySkill(Enums.SkillName skillName, Vector3 startPosition)
+    private List<Vector3> GetTargetPositionsBySkill(Enums.SkillName skillName, Vector3 startPosition, ProjectileStats stats)
     {
         List<Vector3> targetPositions = new List<Vector3>();
 
         switch (skillName)
         {
-            case Enums.SkillName.Javelin:
-                Vector3? javelinTarget = UnitManager.Instance.GetNearestMonsterPosition();
-                if (javelinTarget.HasValue)
-                    targetPositions.Add(javelinTarget.Value);
+            case Enums.SkillName.Gateway:
+                List<Vector3> gatewayTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, 3f, stats.projectileCount);
+                if (gatewayTargets.Count > 0)
+                    targetPositions.AddRange(gatewayTargets);
                 break;
 
             case Enums.SkillName.Needle:
@@ -203,31 +135,28 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     targetPositions.AddRange(needleTargets);
                 break;
 
-            case Enums.SkillName.Shuriken:
-                Vector3? shurikenTarget = UnitManager.Instance.GetNearestMonsterPosition();
-                if (shurikenTarget.HasValue)
-                    targetPositions.Add(shurikenTarget.Value);
-                break;
-
-            case Enums.SkillName.Fireball:
-                Vector3? fireballTarget = UnitManager.Instance.GetNearestMonsterPosition();
-                if (fireballTarget.HasValue)
-                    targetPositions.Add(fireballTarget.Value);
-                break;
-
             default:
-                // ?????????????ㅻ쑋?꿔꺂??琉뷩궘??????ル늉????????ル늉??????롮쾸?椰????饔낅떽????????겹궚??? ????棺堉?뤃???? ??????⑤뜤?嶺뚮Ĳ?쒒????꿔꺂???影瑜곸떻?????썹땟??貫沅????
                 Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
                 if (defaultTarget.HasValue)
                     targetPositions.Add(defaultTarget.Value);
                 break;
         }
 
-        // ????棺堉?뤃??????????⑤뜤?嶺뚮Ĳ?쒒????????????꿔꺂???影瑜곸떻?????썹땟??貫沅???????嚥싲갭큔???
         if (targetPositions.Count == 0)
         {
-            Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            targetPositions.Add(startPosition + randomDirection * 15f);
+            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway)
+            {
+                for(int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+                {
+                    Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                    targetPositions.Add(startPosition + randomDirection * 1f);
+                }
+            }
+            else
+            {
+                Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                targetPositions.Add(startPosition + randomDirection * 15f);
+            }
         }
         print($"GetTargetPositionsBySkill : {skillName} : {targetPositions.Count}");
 

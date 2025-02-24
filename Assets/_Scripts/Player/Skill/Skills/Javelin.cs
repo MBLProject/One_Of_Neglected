@@ -49,19 +49,25 @@ public class Javelin : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.defaultDamage += 10f;
+                stats.pierceCount += 1;
                 break;
             case 3:
+                stats.projectileCount += 1;
+                stats.defaultATKRange *= 1.1f;
                 break;
             case 4:
+                stats.defaultDamage += 20f;
+                stats.pierceCount += 1;
                 break;
             case 5:
+                stats.projectileCount += 1;
+                stats.defaultATKRange *= 1.1f;
                 break;
             case 6:
+                stats.defaultDamage += 30f;
+                stats.pierceCount += 2;
                 break;
         }
     }

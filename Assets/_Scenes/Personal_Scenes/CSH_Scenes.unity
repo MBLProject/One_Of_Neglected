@@ -1432,8 +1432,8 @@ MonoBehaviour:
     Invincibility: 0
     Adversary: 0
     GodKill: 0
-  classSelect_Num: 0
-  currentRunDamageStats:
+  classSelect_Type: 0
+  currentDamageStats:
     totalDamage: 0
     skillDamageList: []
     augmentDamageList: []
@@ -1441,6 +1441,7 @@ MonoBehaviour:
     killCount: 0
     gold: 0
     remnents: 0
+    playerIcon: {fileID: 0}
 --- !u!4 &444655103
 Transform:
   m_ObjectHideFlags: 0
@@ -2977,7 +2978,7 @@ MonoBehaviour:
   damageUniqueMonsterPrefab: {fileID: 8740860294403865247, guid: 2c1e9ae0e93cc5a44a164f2420ccf1db, type: 3}
   crowdControlUniqueMonsterPrefab: {fileID: 8740860294403865247, guid: dd698d09896e7a64a9b6f69e4a4f6e67, type: 3}
   tankUniqueMonsterPrefab: {fileID: 8740860294403865247, guid: 49cad2d99f3cc0644ad9088920cbf113, type: 3}
-  bossMonsterPrefab: {fileID: 0}
+  bossMonsterPrefab: {fileID: 4209662324636049061, guid: 3c05d48e07e7cf34c816648cd9dff0d8, type: 3}
   spawnRadius: 15
   minSpawnDistance: 8
   spawnInterval: 1
@@ -4866,6 +4867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeProjectiles: []
   count: 0
+  currentAuraProjectile: {fileID: 0}
 --- !u!4 &1542164106
 Transform:
   m_ObjectHideFlags: 0
@@ -30679,7 +30681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea1118ec15bb9c45989781926ed41ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: []
 --- !u!114 &3158259345277129444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69890,173 +69891,173 @@ MonoBehaviour:
     display_Name: "\uC591\uC190\uAC80"
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: "\uB300\uAC80"
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: "\uAC80\uBC29"
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: "\uBC29\uD328\uBCD1"
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: 
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: 
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: 
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: 
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   - aug_Name: 0
     display_Name: 
     augment_Text: 
     augment_Sprite: {fileID: 0}
-    selectedTime: 
+    selectedTime: 0
   skill_Infos:
   - skill_Name: 1
     display_Name: "\uB2C8\uB4E4"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 1bec48fd5213a414db64aa5cf5c57f8e, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 2
     display_Name: "\uD074\uB85C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 19da537632c2b8141a83ab913532f341, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 3
     display_Name: "\uD22C\uCC3D"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: a6aa8aaf5acca4141b0b0bf3382df769, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 4
     display_Name: "\uC624\uB77C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: d6c4a2c2eedd5144387b4757f277ab8a, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 5
     display_Name: "\uCF00\uC774\uD504"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: bbdfd65c633371c498281ebf0b4677af, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 6
     display_Name: "\uC218\uB9AC\uAC80"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 5ae937422d4b6be44933b072de9234b8, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 7
     display_Name: "\uAD00\uBB38"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: c8eea44ae087fb04d9de8191d9003409, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 8
     display_Name: "\uC7A5\uD48D"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: c296d0703ac39b34594f02dbd171b06b, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 9
     display_Name: "\uC774\uD504\uB9AC\uD2B8"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 2a57aac4c8551d841ab81cae7e0b57e3, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 10
     display_Name: "\uD50C\uB85C\uC6B0"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: ac0754deb62839e42b3e95384e6fa4dc, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 11
     display_Name: "\uB3C5\uC2E0"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 0bb5dfa27f404204ab4f99566547237f, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 12
     display_Name: "\uC911\uB825\uC7A5"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 2434c2d7b7bce5342b7fc4fd6f58c30d, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 13
     display_Name: "\uC9C0\uB8B0"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 3dc1adfcfe9a9094681d644f7c67acf4, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 14
     display_Name: "\uD53C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: b25e716ab96cd6546a7dd3208f232ff6, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 15
     display_Name: "\uBB3C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 4ffda14c89906354a83a4dbfa5508154, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 16
     display_Name: "\uBC29\uD328"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 623f3373e436a4f429408f1af6002581, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 17
     display_Name: "\uC2E0\uBC1C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: ee350f1a4b6cb1c44b68ab2a5ba60966, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 18
     display_Name: "\uC8FC\uBA39"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 9d8d8bbafaef3ff49af816ec9432337b, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 19
     display_Name: "\uBC18\uC9C0"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 0cc3bf55378de8044b9110d0e9b2f552, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 20
     display_Name: "\uCC45"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: c1a90a569a97427429fa6b91d5759f38, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 21
     display_Name: "\uD314\uCC0C"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: fad847e1d069735459fe20c0ccee0398, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 22
     display_Name: "\uC2DC\uACC4"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: d08f0e8255f4015498c6cb2f9eea2d52, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 23
     display_Name: "\uC790\uC11D"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: dfd7db9c9962bcd49a3e408352c98eed, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 24
     display_Name: "\uC655\uAD00"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: e92cf188a1068564c84a2ebe7892e3a6, type: 3}
-    selectedTime: 
+    selectedTime: 0
   - skill_Name: 25
     display_Name: "\uACE0\uAE30"
     skill_Text: 
     skill_Sprite: {fileID: 21300000, guid: 56c014aa404d6704cb5734521b1be545, type: 3}
-    selectedTime: 
+    selectedTime: 0
   reroll_Counter_TMP: {fileID: 7229022845963059211}
   banish_Counter_TMP: {fileID: 2249180209044091636}
 --- !u!114 &8174909141820287590
