@@ -51,7 +51,7 @@ public class BossSkill1State : MonsterStateBase
             float rad = angle * Mathf.Deg2Rad;
 
             // 방향 벡터 계산
-            Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            Vector3 direction = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f);
 
             // 보스 위치에서 바로 생성
             GameObject effect = GameObject.Instantiate(

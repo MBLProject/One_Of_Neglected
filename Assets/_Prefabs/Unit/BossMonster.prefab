@@ -178,6 +178,7 @@ MonoBehaviour:
     moveSpeed: 3
     attackSpeed: 1
     healthRegen: 100
+    attackRange: 1.5
   - typeName: God Incarnate_1
     health: 99999
     damage: 100
@@ -185,6 +186,7 @@ MonoBehaviour:
     moveSpeed: 1
     attackSpeed: 1
     healthRegen: 100
+    attackRange: 1.5
   - typeName: God Incarnate_2
     health: 50000
     damage: 500
@@ -192,6 +194,7 @@ MonoBehaviour:
     moveSpeed: 1
     attackSpeed: 1
     healthRegen: 50
+    attackRange: 1.5
   - typeName: God Incarnate_3
     health: 10000
     damage: 30
@@ -199,6 +202,7 @@ MonoBehaviour:
     moveSpeed: 1
     attackSpeed: 1
     healthRegen: 10
+    attackRange: 1.5
   attackEffectPrefab: {fileID: 6257089690972394849, guid: cc2de2bc444cd5247bcfee60dadbbc9d, type: 3}
   phantomPrefab: {fileID: 2357890237291911134, guid: a54f9c05048f75b40a18e328a082b3bb, type: 3}
   skillCooldown: 5
