@@ -46,6 +46,12 @@ public class Gateway : ActiveSkill
     {
         base.LevelUp();
 
+        if (level >= 7)
+        {
+            level = 6;
+            return;
+        }
+
         switch (level)
         {
             case 2:

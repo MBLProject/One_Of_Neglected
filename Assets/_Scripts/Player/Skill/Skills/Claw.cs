@@ -46,6 +46,13 @@ public class Claw : ActiveSkill
     {
         base.LevelUp();
 
+        if (level >= 7)
+        {
+            level = 6;
+            Debug.Log($"LevelUp!!!!3 : {level}");
+            return;
+        }
+
         switch (level)
         {
             case 2:
