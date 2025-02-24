@@ -1,4 +1,4 @@
-    using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -9,13 +9,14 @@ public class Aug_Staff : TimeBasedAugment
 {
     private float damageMultiplier = 1f;
     private float projectileSpeed = 2f;
-    private float projectileSize = 2f;
+    private float baseProjectileSize = 2f;
     private int penetration = 0;
     private float duration = .8f;
     private float maxDistance = 10f;
 
     private PlayerProjectile currentPathProjectile;
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     public Aug_Staff(Player owner, float interval) : base(owner, interval)
     {
@@ -50,7 +51,7 @@ public class Aug_Staff : TimeBasedAugment
             position,
             0f,
             CurrentDamage,
-            2f,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration
@@ -73,7 +74,7 @@ public class Aug_Staff : TimeBasedAugment
                 damageMultiplier = 1f;
                 break;
             case 2:
-                projectileSize += 0.3f;
+                baseProjectileSize += 0.3f;
                 break;
             case 3:
                 damageMultiplier *= 1.2f;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Aug_CrossBow : TimeBasedAugment
 {
-    private float damageMultiplier = 1f;  
+    private float baseProjectileSize = 0.5f;
+    private float damageMultiplier = 1f;
     private float projectileSpeed = 2f;
     private float projectileSize = 0.5f;
     private int penetration = 0;
@@ -12,6 +13,7 @@ public class Aug_CrossBow : TimeBasedAugment
     private float maxDistance = 10f;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     public Aug_CrossBow(Player owner, float interval) : base(owner, interval)
     {
@@ -41,8 +43,8 @@ public class Aug_CrossBow : TimeBasedAugment
             owner.transform.position,
             targetPosition,
             projectileSpeed,
-            CurrentDamage,  // 현재 플레이어 공격력 기반 데미지
-            projectileSize,
+            CurrentDamage,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration);

@@ -51,14 +51,16 @@ public class UI_PlayerTest : MonoBehaviour
 
     private void OnUpgradeAug()
     {
-        player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.SwordShield);
+        //player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.TwoHandSword);
+        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Orb);
         Debug.Log("증강 강화됨");
     
     
     }
     private void OnSelectAug()
     {
-        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.SwordShield);
+        //player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.TwoHandSword);
+        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Orb);
         Debug.Log("증강 선택됨");
     }
     private void Update()

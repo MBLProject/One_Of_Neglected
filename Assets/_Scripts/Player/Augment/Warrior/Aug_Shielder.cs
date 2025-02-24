@@ -5,12 +5,13 @@ public class Aug_Shielder : ConditionalAugment
 {
     private float damageMultiplier = 1f;  
     private float projectileSpeed = 2f;
-    private float projectileSize = 1f;
+    private float baseProjectileSize = 1f;
     private int penetration = 100;
     private float duration = 5f;
     private float maxDistance = 10f;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     private PlayerProjectile currentPathProjectile;
 
@@ -60,7 +61,7 @@ public class Aug_Shielder : ConditionalAugment
             dashStart,
             0f,
             CurrentDamage,
-            1.5f,
+            CurrentProjectileSize,
             maxDistance,
             penetration,
             duration
@@ -83,8 +84,8 @@ public class Aug_Shielder : ConditionalAugment
             dashEnd,
             0f,
             CurrentDamage / 2,
-            2,
-            0.1f,
+            CurrentProjectileSize *2,
+            maxDistance,
             penetration,
             0.5f); 
     }

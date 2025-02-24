@@ -19,35 +19,36 @@ public class JewelProjectile : PlayerProjectile
         ApplyDamageLoop(cts.Token).Forget();
     }
 
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1.1f)
-    {
-        startPosition = startPos;
-        targetPosition = targetPos;
-        speed = spd;
-        maxDistance = maxDist;
-        pierceCount = pierceCnt;
-        lifeTime = lifetime;
+    //public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1.1f)
+    //{
+    //    startPosition = startPos;
+    //    targetPosition = targetPos;
+    //    speed = spd;
+    //    maxDistance = maxDist;
+    //    pierceCount = pierceCnt;
+    //    lifeTime = lifetime;
 
-        stats = new ProjectileStats
-        {
-            finalDamage = dmg,
-            critical = 0.1f,
-            cATK = 1.5f
-        };
+    //    stats = new ProjectileStats
+    //    {
+    //        finalDamage = dmg,
+    //        critical = 0.1f,
+    //        cATK = 1.5f
+    //    };
 
-        CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", lifeTime);
-    }
+    //    CancelInvoke("DestroyProjectile");
+    //    Invoke("DestroyProjectile", lifeTime);
+    //}
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
     {
-
         startPosition = startPos;
         targetPosition = targetPos;
         stats = projectileStats;
 
-        CancelInvoke("DestroyProjectile");
+        // 크기 설정
+        transform.localScale = Vector3.one * stats.finalATKRange;
 
+        CancelInvoke("DestroyProjectile");
         Invoke("DestroyProjectile", stats.lifetime);
     }
 
