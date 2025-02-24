@@ -273,6 +273,7 @@ public class UnitManager : Singleton<UnitManager>
             Vector2 spawnPosition = GetBossSpawnPosition();
             GameObject bossObj = Instantiate(bossMonsterPrefab, spawnPosition, Quaternion.identity);
             currentBoss = bossObj.GetComponent<BossMonster>();
+            activeMonsters.Add(currentBoss);
 
             // TimeManager 이벤트 구독 해제 (더 이상 몬스터 스폰 이벤트가 필요 없음)
             if (TimeManager.Instance != null)
