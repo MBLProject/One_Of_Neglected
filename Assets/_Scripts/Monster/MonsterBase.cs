@@ -285,7 +285,7 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected virtual void OnMonsterDestroy()
     {
-        UnitManager.Instance.SpawnExp(Enums.ExpType.Blue, transform.position);
+        UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlue, transform.position);
     }
 
     public virtual void ApplyKnockback(Vector2 hitPoint, float knockbackForce)

@@ -57,12 +57,17 @@ public class Enums
         Warlock
     }
 
-    public enum ExpType
+    public enum WorldObjectType
     {
-        None,
-        Blue,
-        Purple, 
-        Black, 
+        ExpBlue,
+        ExpPurple, 
+        ExpBlack, 
+        Gold_1,
+        Gold_2,
+        Chicken,
+        Time_Stop,
+        Boom,
+        Nonem
     }
 
     public enum StatType

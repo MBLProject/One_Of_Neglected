@@ -463,33 +463,75 @@ public abstract class Player : MonoBehaviour
             // 여기에 HP회복 이펙트 등 추가 가능
         }
     }
-    private void CollectExp(ExpObject expObject)
+    private void CollectObj(WorldObject worldObject)
     {
         float expAmount = 0;
-        switch (expObject.expType)
+        if (worldObject.objectType == WorldObjectType.ExpBlue)
         {
-            case ExpType.Blue:
-                expAmount = 10;
-                break;
-            case ExpType.Purple:
-                expAmount = 20;
-                break;
-            case ExpType.Black:
-                expAmount = stats.CurrentMaxExp;
-                break;
-            default:
-                break;
+            expAmount = 10;
+            expAmount *= stats.CurrentGrowth;
+            stats.currentExp += expAmount;
+
+            if (stats.currentExp >= stats.CurrentMaxExp)
+            {
+                LevelUp();
+            }
         }
-
-        expAmount *= stats.CurrentGreed;
-        stats.currentExp += expAmount;
-
-        while (stats.currentExp >= stats.CurrentMaxExp)
+        else if (worldObject.objectType == WorldObjectType.ExpPurple)
         {
-            LevelUp();
-        }
+            expAmount = 10;
+            expAmount *= stats.CurrentGrowth;
+            stats.currentExp += expAmount;
 
-        expObject.selfDestroy();
+            if (stats.currentExp >= stats.CurrentMaxExp)
+            {
+                LevelUp();
+            }
+        }
+        else if (worldObject.objectType == WorldObjectType.ExpBlack)
+        {
+            expAmount = stats.CurrentMaxExp;
+            expAmount = 10;
+            expAmount *= stats.CurrentGrowth;
+            stats.currentExp += expAmount;
+
+            if (stats.currentExp >= stats.CurrentMaxExp)
+            {
+                LevelUp();
+            }
+            DataManager.Instance.inGameValue.remnents += 1;
+        }
+        else if (worldObject.objectType == WorldObjectType.Gold_1)
+        {
+            DataManager.Instance.inGameValue.gold += (int)Math.Round(10 * stats.CurrentGreed);
+        }
+        else if (worldObject.objectType == WorldObjectType.Gold_2)
+        {
+            DataManager.Instance.inGameValue.gold += (int)Math.Round(50 * stats.CurrentGreed);
+        }
+        else if (worldObject.objectType == WorldObjectType.Chicken)
+        {
+            stats.currentHp += 20;
+        }
+        else if (worldObject.objectType == WorldObjectType.Time_Stop)
+        {
+            //TODO : 타임 스토푸 구현하기....
+        }
+        else if (worldObject.objectType == WorldObjectType.Boom)
+        {
+            var activeMonsters = UnitManager.Instance.GetMonstersInRange(0f, float.MaxValue);
+            if (activeMonsters != null)
+            {
+                foreach (MonsterBase monster in activeMonsters)
+                {
+                    if (monster != null)
+                    {
+                        monster.TakeDamage(100);
+                    }
+                }
+            }
+        }
+        worldObject.selfDestroy();
     }
     public void LevelUp()
     {
@@ -609,6 +651,10 @@ public abstract class Player : MonoBehaviour
     }
     #endregion
 
+    // 가장 가까운 몬스터를 탐지해서 공격함
+    // 가만히 있어도 공격할 수 있는 이유가 이거임.
+    
+
     #region stat
     /// <summary>
     /// 기존 스탯에 value만큼 더함
@@ -707,10 +753,10 @@ public abstract class Player : MonoBehaviour
     {
         if (collision.CompareTag("Exp"))
         {
-            ExpObject expObject = collision.gameObject.GetComponent<ExpObject>();
-            if (expObject != null)
+            WorldObject Object = collision.gameObject.GetComponent<WorldObject>();
+            if (Object != null)
             {
-                CollectExp(expObject);
+                CollectObj(Object);
             }
             return;
         }
