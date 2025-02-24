@@ -46,7 +46,7 @@ public class ClawProjectile : Projectile
 
     private void DecideImage()
     {
-        myrenderer = GetComponent<SpriteRenderer>();
+        myrenderer = GetComponentInChildren<SpriteRenderer>();
         switch (stats.level)
         {
             case 1:
