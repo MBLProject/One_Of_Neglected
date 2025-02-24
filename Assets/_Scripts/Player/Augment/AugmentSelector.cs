@@ -143,33 +143,7 @@ public class AugmentSelector : MonoBehaviour
 
     public List<AugmentName> SelectAugments()
     {
-        var availableList = GetAvailableAugments();
-
-        var selectedAugments = new List<Augment>();
-        if (availableList.Count > 3)
-        {
-            var randomIndices = new List<int>();
-            while (randomIndices.Count < 3)
-            {
-                var index = UnityEngine.Random.Range(0, availableList.Count);
-                if (!randomIndices.Contains(index))
-                {
-                    randomIndices.Add(index);
-                }
-            }
-
-            foreach (var index in randomIndices)
-            {
-                selectedAugments.Add(availableList[index]);
-            }
-        }
-        else
-        {
-            selectedAugments = availableList;
-        }
-
-        var result = selectedAugments.Select(aug => aug.AugmentName).ToList();
-
+        var result = GetAvailableAugments().Select(aug => aug.AugmentName).ToList();
         return result;
     }
 }
