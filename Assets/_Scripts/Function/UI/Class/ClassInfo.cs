@@ -92,6 +92,7 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
             if (classSelect_Panel.classInfos[i] == this)
             {
                 DataManager.Instance.classSelect_Type = (ClassType)i;
+                Debug.Log($"DataManager : {DataManager.Instance.classSelect_Type}");
                 break;
             }
         }

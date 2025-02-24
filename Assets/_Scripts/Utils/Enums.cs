@@ -2,10 +2,11 @@ public class Enums
 {
     public enum ClassType
     {
-        None,
+
         Warrior,
         Archer,
         Magician,
+        None
     }
 
     public enum SkillName
@@ -61,8 +62,8 @@ public class Enums
     {
         None,
         Blue,
-        Purple, 
-        Black, 
+        Purple,
+        Black,
     }
 
     public enum StatType
