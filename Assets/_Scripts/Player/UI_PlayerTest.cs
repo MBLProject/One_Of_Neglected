@@ -58,7 +58,7 @@ public class UI_PlayerTest : MonoBehaviour
     }
     private void OnSelectAug()
     {
-        player.GetComponent<AugmentSelector>().ChooseAugment2(AugmentName.SwordShield);
+        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.SwordShield);
         Debug.Log("증강 선택됨");
     }
     private void Update()

@@ -130,61 +130,7 @@ public struct InGameValue
     public int remnents;
     public Sprite playerIcon;
 }
-namespace Aug
-{
-    public class AugText
-    {
-        public void Two_Hand_Sword(List<string> textByAugs)
-        {
 
-        }
-        public void Big_Sword(List<string> textByAugs)
-        {
-
-        }
-
-        public void Sword_Shield(List<string> textByAugs)
-        {
-
-        }
-        public void Shielder(List<string> textByAugs)
-        {
-
-        }
-        public void Long_bow(List<string> textByAugs)
-        {
-
-        }
-        public void Cross_bow(List<string> textByAugs)
-        {
-
-        }
-        public void Great_bow(List<string> textByAugs)
-        {
-
-        }
-        public void Arc_Ranger(List<string> textByAugs)
-        {
-
-        }
-        public void Staff(List<string> textByAugs)
-        {
-
-        }
-        public void Wand(List<string> textByAugs)
-        {
-
-        }
-        public void Orb(List<string> textByAugs)
-        {
-
-        }
-        public void Warlock(List<string> textByAugs)
-        {
-
-        }
-    }
-}
 public class DataManager : Singleton<DataManager>
 {
 
@@ -200,7 +146,7 @@ public class DataManager : Singleton<DataManager>
     public DamageStats currentDamageStats = new DamageStats();
     public InGameValue inGameValue;
 
-    public Dictionary<Enums.AugmentName, List<string>> augs_Dic = new Dictionary<Enums.AugmentName, List<string>>();
+    public Dictionary<AugmentName, List<string>> augs_Dic = new Dictionary<Enums.AugmentName, List<string>>();
     public List<string> textByAugs = new List<string>();
 
     protected override void Awake()
