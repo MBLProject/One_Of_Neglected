@@ -23,6 +23,7 @@ public class ClawProjectile : Projectile
         direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        DecideImage();
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
@@ -40,6 +41,7 @@ public class ClawProjectile : Projectile
         transform.rotation *= Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+        DecideImage();
     }
 
     private void DecideImage()
@@ -49,17 +51,16 @@ public class ClawProjectile : Projectile
         {
             case 1:
             case 2:
-                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv1");
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv1Sprite");
                 break;
             case 3:
             case 4:
             case 5:
-                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv2");
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv2Sprite");
 
                 break;
             case 6:
-                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv3");
-
+                myrenderer.sprite = Resources.Load<Sprite>("Using/Projectile/ClawLv3Sprite");
                 break;
         }
     }
