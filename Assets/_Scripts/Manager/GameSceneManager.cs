@@ -21,7 +21,6 @@ public class GameSceneManager : MonoBehaviour
     public static void SceneLoad(string sceneName)
     {
         nextScene = sceneName;
-        Debug.Log($"다음 씬 : {nextScene}");
         SceneManager.LoadScene("LoadingScene");
 
     }
@@ -34,11 +33,9 @@ public class GameSceneManager : MonoBehaviour
         while (!op.isDone)
         {
             bgIMG.color = new Color(bgIMG.color.r, bgIMG.color.g, bgIMG.color.b, bgIMG.color.a + (op.progress * -255));
-            Debug.Log("씬로드중");
 
             if (op.progress >= 0.9f)
             {
-                Debug.Log("90퍼 이상 로드완료");
                 yield return new WaitForSeconds(3f);
                 op.allowSceneActivation = true;
                 yield break;
