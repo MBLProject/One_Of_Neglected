@@ -16,7 +16,6 @@ public class Selection : MonoBehaviour
     public TextMeshProUGUI displayName_TMP;
     public TextMeshProUGUI info_TMP;
     public Image icon_IMG;
-
     private void Awake()
     {
         m_BTN.onClick.AddListener(Select_BTN);
@@ -58,10 +57,9 @@ public class Selection : MonoBehaviour
     private void Select_BTN2()
     {
 
-        Debug.Log(m_augName);
-
         UnitManager.Instance.GetPlayer().augment.ChooseAugment2(m_augName);
-
+        Debug.Log(levelUp_Panel.m_AugText);
+        levelUp_Panel.SetAugTextInit(m_augName);
         levelUp_Panel.PanelClose();
 
     }

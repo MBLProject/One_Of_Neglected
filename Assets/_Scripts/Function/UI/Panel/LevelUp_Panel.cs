@@ -7,10 +7,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UniRan = UnityEngine.Random;
-
+using Text_Table;
 [Serializable]
 public struct Augment_Info
 {
+
     public Enums.AugmentName aug_Name;
     public string display_Name;
     [Multiline(4)]
@@ -39,6 +40,9 @@ public class LevelUp_Panel : Panel
     [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
     public Dictionary<Enums.AugmentName, Augment_Info> aug_Info_Dic = new Dictionary<Enums.AugmentName, Augment_Info>();
+    public AugText_Table augText_Table = new();
+    public List<string> m_AugText = new List<string>();
+    private int augmentUpCount = 0;
     private void Awake()
     {
 
@@ -88,6 +92,7 @@ public class LevelUp_Panel : Panel
         {
             //증강과 특성 선택하는 메서드
             AugSelections();
+            Debug.Log("증강");
         }
         else
         {
@@ -150,9 +155,12 @@ public class LevelUp_Panel : Panel
 
             current_Selections[i].m_augName = aug_Info.aug_Name;
             current_Selections[i].displayName_TMP.text = aug_Info.display_Name;
+
+            if (augmentUpCount > 0) aug_Info.augment_Text = m_AugText[augmentUpCount];
             current_Selections[i].info_TMP.text = aug_Info.augment_Text;
             current_Selections[i].icon_IMG.sprite = aug_Info.augment_Sprite;
         }
+        augmentUpCount++;
     }
     public void SelectionOnOff(bool On)
     {
@@ -166,5 +174,54 @@ public class LevelUp_Panel : Panel
     public void UpdateBanishCnt()
     {
         banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+    }
+
+    public void SetAugTextInit(Enums.AugmentName augmentName)
+    {
+        if (augmentUpCount > 1) return;
+        switch (augmentName)
+        {
+            case Enums.AugmentName.TwoHandSword:
+                augText_Table.Two_Hand_Sword(ref m_AugText);
+                break;
+            case Enums.AugmentName.BigSword:
+                augText_Table.Big_Sword(ref m_AugText);
+                break;
+            case Enums.AugmentName.SwordShield:
+                augText_Table.Sword_Shield(ref m_AugText);
+                break;
+            case Enums.AugmentName.Shielder:
+                augText_Table.Shielder(ref m_AugText);
+                break;
+            case Enums.AugmentName.LongBow:
+                augText_Table.Long_Bow(ref m_AugText);
+                break;
+            case Enums.AugmentName.CrossBow:
+                augText_Table.Cross_Bow(ref m_AugText);
+                break;
+            case Enums.AugmentName.GreatBow:
+                augText_Table.Great_Bow(ref m_AugText);
+                break;
+            case Enums.AugmentName.ArcRanger:
+                augText_Table.Arc_Ranger(ref m_AugText);
+                break;
+            case Enums.AugmentName.Staff:
+                augText_Table.Staff(ref m_AugText);
+                break;
+            case Enums.AugmentName.Wand:
+                augText_Table.Wand(ref m_AugText);
+                break;
+            case Enums.AugmentName.Orb:
+                augText_Table.Orb(ref m_AugText);
+                break;
+            case Enums.AugmentName.Warlock:
+                augText_Table.Warlock(ref m_AugText);
+                break;
+
+        }
+        foreach (string a in m_AugText)
+        {
+            Debug.Log(a);
+        }
     }
 }
