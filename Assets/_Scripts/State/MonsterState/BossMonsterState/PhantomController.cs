@@ -55,9 +55,20 @@ public class PhantomController : MonoBehaviour
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
-                //TODO 대적자 가호 여부에 따른 데미지 계산 필요
-                player.TakeDamage(damage);
-                Debug.Log($"[PhantomController] 플레이어에게 {damage} 데미지!");
+                float finalDamage;
+                bool isAdversary = DataManager.Instance.BTS.Adversary;
+
+                if (isAdversary)
+                {
+                    finalDamage = 30f;  // 대적자 가호가 있을 때
+                    DataManager.Instance.BTS.Adversary = true;  // 대적자 가호 활성화
+                }
+                else
+                {
+                    finalDamage = 50f;  // 기본 환영 데미지
+                }
+
+                player.TakeDamage(finalDamage);
             }
         }
     }

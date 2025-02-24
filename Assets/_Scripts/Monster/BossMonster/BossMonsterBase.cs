@@ -55,13 +55,15 @@ public abstract class BossMonsterBase : MonsterBase
             isInvulnerable = false;
         }
         BossType selectedStats = possibleStats[statIndex];
+        float attackCooldown = selectedStats.attackSpeed;
         stats = new MonsterStats(
             selectedStats.health,
             selectedStats.moveSpeed,
             selectedStats.damage,
-            selectedStats.attackSpeed,
+            attackCooldown,
             selectedStats.defense,
-            selectedStats.healthRegen
+            selectedStats.healthRegen,
+            selectedStats.attackRange
         );
     }
     public override bool IsPlayerInAttackRange()
@@ -70,8 +72,9 @@ public abstract class BossMonsterBase : MonsterBase
         if (player == null) return false;
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
-        float attackRange = 2f;  // 기본 공격 범위 설정
+        float attackRange = Stats.attackRange;  // 공격 범위가 너무 작을 수 있음
 
+        
         return distance <= attackRange;
     }
 
@@ -99,4 +102,5 @@ public struct BossType
     public float moveSpeed;      // 이동속도
     public float attackSpeed;    // 공격속도
     public float healthRegen;    // 초당 체력 회복량
+    public float attackRange;
 }
