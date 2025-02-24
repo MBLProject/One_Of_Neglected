@@ -41,10 +41,10 @@ public class ClawProjectile : Projectile
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
         {
-            float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+            float finalFinalDamage = Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
             monster.TakeDamage(finalFinalDamage);
-            DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.Claw);
+            DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
             if (pierceCount > 0)
             {
                 pierceCount--;

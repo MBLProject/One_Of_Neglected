@@ -50,7 +50,7 @@ public class AuraProjectile : Projectile
 
                     monster.TakeDamage(finalFinalDamage);
 
-                    DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.Aura);
+                    DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
                 }
             }
             await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
@@ -86,7 +86,7 @@ public class AuraProjectile : Projectile
     //{
     //    if (!GameManager.Instance.isPaused)
     //    {
-    //        // FixedUpdate?먯꽌 ?곕?吏 泥섎━
+    //        // FixedUpdate?癒?퐣 ?怨?筌왖 筌ｌ꼶??
     //        foreach (var monster in monstersInRange.ToList())
     //        {
     //            monster.TakeDamage(damagePerFrame);

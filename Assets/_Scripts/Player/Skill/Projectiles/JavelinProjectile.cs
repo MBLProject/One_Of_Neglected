@@ -11,7 +11,7 @@ public class JavelinProjectile : Projectile
             float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
 
             monster.TakeDamage(finalFinalDamage);
-            DataManager.Instance.AddDamageData(finalFinalDamage, Enums.SkillName.Javelin);
+            DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
 
             if (pierceCount > 0)
             {

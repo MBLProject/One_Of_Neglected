@@ -57,6 +57,7 @@ public class ActiveSkill : Skill
         ProjectileManager.Instance.SpawnProjectile(skillName,
             new ProjectileStats()
             {
+                skillName = skillName,
                 finalCooldown = FinalCooldown,
                 finalATKRange = FinelATKRange,
                 finalDamage = FinalDamage,
