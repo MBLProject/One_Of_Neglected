@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BlessNode
+  - Undefined
+  - Monster
+  - MonsterProjectile
+  - Env
   layers:
   - Default
   - TransparentFX
@@ -11,6 +16,10 @@ TagManager:
   - 
   - Water
   - UI
+  - Monster
+  - Player
+  - EnvObject
+  - EnvRange
   - 
   - 
   - 
