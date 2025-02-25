@@ -15,7 +15,7 @@ public class Mine : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount += value;
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount += 1;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 

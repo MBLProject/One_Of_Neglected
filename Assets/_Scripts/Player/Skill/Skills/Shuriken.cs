@@ -16,7 +16,7 @@ public class Shuriken : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => { stats.projectileCount += 1; Debug.Log($"OnProjAmountChanged - stats.projectileCount : {stats.projectileCount}"); };
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount += 1;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
