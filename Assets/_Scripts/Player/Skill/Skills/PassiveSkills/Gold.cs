@@ -15,8 +15,6 @@ public class Gold : Skill
 
     public override void LevelUp()
     {
-        base.LevelUp();
-
         InitSkill();
     }
 

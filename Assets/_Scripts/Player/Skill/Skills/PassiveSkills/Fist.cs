@@ -20,6 +20,7 @@ public class Fist : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

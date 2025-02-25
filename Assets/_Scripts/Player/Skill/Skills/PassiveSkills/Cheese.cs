@@ -15,5 +15,6 @@ public class Cheese : Skill
 
     public override void LevelUp()
     {
+        InitSkill();
     }
 }

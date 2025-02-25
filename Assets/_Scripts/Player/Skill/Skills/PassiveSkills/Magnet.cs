@@ -20,6 +20,7 @@ public class Magnet : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

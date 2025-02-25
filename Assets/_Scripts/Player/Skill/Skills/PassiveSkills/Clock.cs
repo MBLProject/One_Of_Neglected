@@ -20,6 +20,7 @@ public class Clock : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

@@ -20,6 +20,7 @@ public class Crown : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

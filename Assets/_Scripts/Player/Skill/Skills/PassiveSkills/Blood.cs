@@ -19,9 +19,7 @@ public class Blood : Skill
         switch (level)
         {
             default:
-                var player = UnitManager.Instance.GetPlayer();
-
-                player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10f);
+                InitSkill();
                 break;
         }
     }

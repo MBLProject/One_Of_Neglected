@@ -20,6 +20,7 @@ public class Meat : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

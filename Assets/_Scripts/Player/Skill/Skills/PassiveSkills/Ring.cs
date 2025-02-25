@@ -19,6 +19,10 @@ public class Ring : Skill
 
         switch (level)
         {
+            case 1:
+            case 2:
+                InitSkill();
+                break;
             default:
                 break;
         }

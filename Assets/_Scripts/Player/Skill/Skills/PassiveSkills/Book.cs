@@ -20,6 +20,7 @@ public class Book : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }

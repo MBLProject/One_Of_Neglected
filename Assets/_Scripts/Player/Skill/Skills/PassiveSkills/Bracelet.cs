@@ -20,6 +20,7 @@ public class Bracelet : Skill
         switch (level)
         {
             default:
+                InitSkill();
                 break;
         }
     }
