@@ -11,6 +11,7 @@ public class Aug_CrossBow : TimeBasedAugment
     private int penetration = 0;
     private float duration = 5f;
     private float maxDistance = 10f;
+    private int baseProjectiles = 6;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
@@ -25,9 +26,9 @@ public class Aug_CrossBow : TimeBasedAugment
         Vector3 targetPos = UnitManager.Instance.GetNearestMonster().transform.position;
         Vector3 direction = (targetPos - owner.transform.position).normalized;
 
-        int projAmount = owner.Stats.CurrentProjAmount;
+        int projAmount = owner.Stats.CurrentProjAmount - 1 + baseProjectiles;
 
-        for (int i = 0; i < projAmount + 6; i++)
+        for (int i = 0; i < projAmount; i++)
         {
             SpawnProjectile(direction);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
@@ -56,18 +57,19 @@ public class Aug_CrossBow : TimeBasedAugment
         switch (level)
         {
             case 1:
-                damageMultiplier = 0.5f;
                 break;
             case 2:
-                projectileSize += 0.3f;
+                ModifyBaseInterval(-2f);
                 break;
             case 3:
+                baseProjectiles += 2;
                 damageMultiplier *= 1.2f;
                 break;
             case 4:
                 ModifyBaseInterval(-2f);
                 break;
             case 5:
+                baseProjectiles += 4;
                 damageMultiplier *= 1.3f;
                 break;
         }

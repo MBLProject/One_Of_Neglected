@@ -100,12 +100,41 @@ public class MineProjectile : Projectile
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
     {
-        print("Mine : InitProjectile");
         startPosition = startPos;
         targetPosition = targetPos;
 
         stats = projectileStats;
 
+        CancelInvoke("DestroyProjectile");
+        Invoke("DestroyProjectile", stats.lifetime);
+
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+    }
+
+    public override void DestroyProjectile()
+    {
+        GameObject explosion = Instantiate(Resources.Load<GameObject>("Using/Projectile/MineExplosion"), transform.position, Quaternion.identity);
+        explosion.transform.localScale = Vector3.one * stats.finalATKRange;
+        Destroy(explosion, 1.0f);
+
+        float explosionRadius = 0.5f * stats.finalATKRange;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.TryGetComponent<MonsterBase>(out var hitMonster))
+            {
+                float finalFinalDamage = UnityEngine.Random.value < stats.critical ? stats.finalDamage * stats.cATK : stats.finalDamage;
+
+                hitMonster.TakeDamage(finalFinalDamage);
+                GameObject dmgEffect = Instantiate(Resources.Load<GameObject>("Using/Projectile/MineDamageEffect"), hitMonster.gameObject.transform.position, Quaternion.identity);
+                dmgEffect.transform.localScale = Vector3.one * stats.finalATKRange;
+                Destroy(dmgEffect, 0.917f);
+
+                DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
+            }
+        }
+        base.DestroyProjectile();
     }
 }

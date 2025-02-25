@@ -19,8 +19,6 @@ public class Mine : ActiveSkill
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
-    
-
     public override void ModifySkill()
     {
         // init SkillStats
@@ -40,7 +38,7 @@ public class Mine : ActiveSkill
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1,
-            lifetime = 5f,
+            lifetime = 3f,
             projectileSpeed = 1f,
 
         };

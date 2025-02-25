@@ -8,7 +8,7 @@ public class Aug_ArcRanger : ConditionalAugment
     private int penetration = 0;
     private float duration = 5f;
     private float maxDistance = 10f;
-
+    int baseProjectiles = 6;
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
@@ -71,7 +71,6 @@ public class Aug_ArcRanger : ConditionalAugment
             direction = (mousePosition - dashStart).normalized;
         }
 
-        int baseProjectiles = 6;
         float angleStep = 5f;
         
         int totalProjectiles = baseProjectiles + owner.Stats.CurrentProjAmount -1;
@@ -129,21 +128,6 @@ public class Aug_ArcRanger : ConditionalAugment
         return new Vector2(x, y);
     }
 
-    private void SpawnshockwaveProjectile()
-    {
-        Vector2 dashEnd = owner.targetPosition;
-        ProjectileManager.Instance.SpawnPlayerProjectile(
-            "EarthquakeProjectile",
-            dashEnd,
-            dashEnd,
-            0f,
-            CurrentDamage / 2,
-            2,
-            0.1f,
-            penetration,
-            0.5f);
-    }
-
     private void OnDashCompleted()
     {
         if (currentPathProjectile != null)
@@ -151,11 +135,6 @@ public class Aug_ArcRanger : ConditionalAugment
             ProjectileManager.Instance.RemoveProjectile(currentPathProjectile);
             currentPathProjectile = null;
         }
-
-        //if (level >= 5)
-        //{
-        //    SpawnshockwaveProjectile();
-        //}
     }
 
     protected override void OnLevelUp()
@@ -166,16 +145,17 @@ public class Aug_ArcRanger : ConditionalAugment
             case 1:
                 break;
             case 2:
-                //owner.dashRechargeTime *= 0.9f;
+                owner.dashRechargeTime *= 0.8f;
                 break;
             case 3:
-                //owner.DamageReduction += 10f;
-                //owner.Stats.CurrentDashCount++;
+                baseProjectiles += 2;
+                owner.Stats.CurrentDashCount++;
                 break;
             case 4:
-                //owner.dashRechargeTime *= 0.8f;
+                owner.dashRechargeTime *= 0.8f;
                 break;
             case 5:
+                //TODO : 폭발화살로 변경
                 break;
         }
     }
