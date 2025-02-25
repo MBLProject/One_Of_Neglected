@@ -8,9 +8,7 @@ public class Gold : Skill
 
     public override void ModifySkill()
     {
-        var player = UnitManager.Instance.GetPlayer();
-
-        //player.Stats.ModifyStatValue(Enums.StatType., 10f);
+        DataManager.Instance.inGameValue.gold += 30;
     }
 
     public override void LevelUp()
