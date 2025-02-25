@@ -20,14 +20,7 @@ public class MagicianAttackProjectile : PlayerProjectile
                 float finalFinalDamage = isCritical ? stats.finalDamage * stats.cATK : stats.finalDamage;
                 monster.TakeDamage(finalFinalDamage);
 
-                if (pierceCount > 0)
-                {
-                    pierceCount--;
-                }
-                else
-                {
-                    DestroyProjectile();
-                }
+                DestroyProjectile();
             }
         }
     }

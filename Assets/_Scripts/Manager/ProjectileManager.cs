@@ -18,6 +18,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     public Projectile currentAuraProjectile;
 
+    private float maxSerachRange = 5f;
+
     private void Start()
     {
         projectiles.Add(Enums.SkillName.Javelin, Resources.Load<Projectile>("Using/Projectile/JavelinProjectile"));
@@ -131,7 +133,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             List<Vector3> defaultTargets = new List<Vector3>();
             if (stats.projectileCount > 1)
-                defaultTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, 3f, stats.projectileCount);
+                defaultTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, maxSerachRange, stats.projectileCount);
             else
                 defaultTargets.Add((Vector3)UnitManager.Instance.GetNearestMonsterPosition());
 
@@ -155,7 +157,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
                 targetPositions.Add(startPosition + randomDirection * 15f);
             }
         }
-        print($"GetTargetPositionsBySkill : {skillName} : {targetPositions.Count}");
 
         return targetPositions;
     }
