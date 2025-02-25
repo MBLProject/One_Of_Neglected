@@ -23,7 +23,6 @@ public class Major_Panel : MonoBehaviour
     public struct Augment_TMP
     {
         public TextMeshProUGUI augName;
-        public TextMeshProUGUI augLevel;
         public TextMeshProUGUI augDamage;
         public TextMeshProUGUI augTime;
     }
@@ -34,27 +33,107 @@ public class Major_Panel : MonoBehaviour
     [SerializeField] private List<Image> mainSkill_Icons;
     [SerializeField] private List<Image> subSkill_Icons;
     [Header("Right_Display")]
+    [SerializeField] private RectTransform skillMemberParent;
+    [SerializeField] private GameObject skillMemeber_Prefab;
     public Augment_TMP augment_TMP;
     public List<SkillMember> skillMembers;
+    private InGameUI_Panel inGameUI_Panel;
+    private LevelUp_Panel levelUp_Panel;
+
     private void Start()
     {
-        InGameUI_Panel panel =
-        UI_Manager.Instance.panel_Dic["InGameUI_Panel"].GetComponent<InGameUI_Panel>();
-        //스킬 아이콘
+        inGameUI_Panel =
+        UI_Manager.Instance.panel_Dic["InGameUI_Panel"].
+        GetComponent<InGameUI_Panel>();
+
+        levelUp_Panel =
+        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].
+        GetComponent<LevelUp_Panel>();
+
+        SkillIconSetting();
+        BaseInfoSetting();
+        AugInfoSetting();
+        SkillInfoSetting(ref levelUp_Panel.m_MainSkills);
+        SkillInfoSetting(ref levelUp_Panel.m_SubSkills, levelUp_Panel.m_MainSkills.Count);
+    }
+
+    //스킬 정보
+    private void SkillInfoSetting(ref List<Enums.SkillName> skillNames, int startIdx = 0)
+    {
+        if (skillNames.Count == 0) return;
+
+        for (int i = 0; i < skillNames.Count; i++)
+        {
+            GameObject member = Instantiate(skillMemeber_Prefab, skillMemberParent, false);
+
+            skillMembers.Add(member.GetComponent<SkillMember>());
+            Debug.Log($"i : {i}");
+            Debug.Log($"startIdx : {startIdx}");
+            skillMembers[startIdx].icon.sprite =
+            levelUp_Panel.FindSkillIcon(skillNames[i]);
+
+            skillMembers[startIdx].skillName.text =
+            levelUp_Panel.FindSkillName(skillNames[i]);
+
+            skillMembers[startIdx].level.text =
+            "Lv." + inGameUI_Panel.skillSelector.
+            SkillLevel(skillNames[i]).ToString();
+            //TODO : 피해량 / 보유 시간 반영해서 적용
+            startIdx++;
+        }
+
+    }
+
+    //증강 정보
+    private void AugInfoSetting()
+    {
+        if (levelUp_Panel.aug_Property.selectedTime == 0) return;
+        augment_TMP.augName.text =
+        levelUp_Panel.aug_Property.
+        aug_Name[levelUp_Panel.augUpCount_Property];
+
+        float time = TimeManager.Instance.gameTime -
+                     levelUp_Panel.aug_Property.selectedTime;
+
+        augment_TMP.augTime.text = inGameUI_Panel.TimeCalc(time);
+        //TODO : 뎀지 누적 / 획득 시간 설정 후 반영
+    }
+
+    //스킬 아이콘
+    private void SkillIconSetting()
+    {
+
         for (int i = 0; i < mainSkill_Icons.Count; i++)
         {
-            mainSkill_Icons[i].sprite = panel.mainSkill_Icon_Container[i].sprite;
+            mainSkill_Icons[i].sprite = inGameUI_Panel.mainSkill_Icon_Container[i].sprite;
+            if (mainSkill_Icons[i].sprite == null)
+                mainSkill_Icons[i].sprite = Resources.Load<Sprite>("Using/UI/Icon/Custom/Icon_Border_BG");
         }
         for (int i = 0; i < subSkill_Icons.Count; i++)
         {
-            subSkill_Icons[i].sprite = panel.subSkill_Icon_Container[i].sprite;
+            subSkill_Icons[i].sprite = inGameUI_Panel.subSkill_Icon_Container[i].sprite;
+            if (subSkill_Icons[i].sprite == null)
+                subSkill_Icons[i].sprite = Resources.Load<Sprite>("Using/UI/Icon/Custom/Icon_Border_BG");
         }
-        //기본 정보
-        base_Info.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
-        base_Info.killCount.text = DataManager.Instance.inGameValue.killCount.ToString();
-        base_Info.gold.text = DataManager.Instance.inGameValue.gold.ToString();
-        base_Info.remnents.text = DataManager.Instance.inGameValue.remnents.ToString();
-        base_Info.player_Portrait.sprite = DataManager.Instance.inGameValue.playerIcon;
+    }
 
+    //기본 정보
+    private void BaseInfoSetting()
+    {
+
+        base_Info.time.text =
+        inGameUI_Panel.TimeCalc(TimeManager.Instance.gameTime);
+
+        base_Info.killCount.text =
+        DataManager.Instance.inGameValue.killCount.ToString();
+
+        base_Info.gold.text =
+        DataManager.Instance.inGameValue.gold.ToString();
+
+        base_Info.remnents.text =
+        DataManager.Instance.inGameValue.remnents.ToString();
+
+        base_Info.player_Portrait.sprite =
+        DataManager.Instance.inGameValue.playerIcon;
     }
 }

@@ -29,12 +29,26 @@ public class LevelUp_Panel : Panel
     [SerializeField] private TextMeshProUGUI reroll_Counter_TMP;
     [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
+
+    public List<Enums.SkillName> m_MainSkills;
+    public List<Enums.SkillName> m_SubSkills;
     private int augUpCount = 0;
     public bool isAugSelected = false;
 
+    public int augUpCount_Property
+    {
+        get { return augUpCount; }
+        private set { augUpCount_Property = augUpCount; }
+    }
+
+    public Augment_Info aug_Property
+    {
+        get { return aug_Infos; }
+        private set { aug_Property = aug_Infos; }
+    }
     private void Awake()
     {
-
+        augUpCount = 0;
         if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
 
         skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
@@ -205,53 +219,51 @@ public class LevelUp_Panel : Panel
         {
             case Enums.AugmentName.TwoHandSword:
                 aug_Infos.Two_Hand_Sword();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.BigSword:
                 aug_Infos.Big_Sword();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.SwordShield:
                 aug_Infos.Sword_Shield();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.Shielder:
                 aug_Infos.Shielder();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.LongBow:
                 aug_Infos.Long_Bow();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.CrossBow:
                 aug_Infos.Cross_Bow();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.GreatBow:
                 aug_Infos.Great_Bow();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.ArcRanger:
                 aug_Infos.Arc_Ranger();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.Staff:
                 aug_Infos.Staff();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.Wand:
                 aug_Infos.Wand();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.Orb:
                 aug_Infos.Orb();
-                isAugSelected = true;
                 break;
             case Enums.AugmentName.Warlock:
                 aug_Infos.Warlock();
-                isAugSelected = true;
                 break;
         }
+        isAugSelected = true;
+        aug_Infos.selectedTime = TimeManager.Instance.gameTime;
+    }
 
+    public string FindSkillName(Enums.SkillName skillName)
+    {
+        return skill_Info_Dic[skillName].display_Name;
+    }
+    public Sprite FindSkillIcon(Enums.SkillName skillName)
+    {
+        return skill_Info_Dic[skillName].skill_Sprite;
     }
 }

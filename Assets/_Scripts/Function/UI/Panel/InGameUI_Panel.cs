@@ -44,7 +44,7 @@ public class InGameUI_Panel : Panel
 
         expSlider.value = (float)player.Stats.currentExp / player.Stats.CurrentMaxExp;
         if (UnitManager.Instance.GetPlayer().Stats.currentHp > 0)
-            display_Time_TMP.text = TimeCalc(TimeManager.Instance.gameTime);
+            display_Time_TMP.text = "Time : " + TimeCalc(TimeManager.Instance.gameTime);
         goldDisplay.text = "골드 : " + DataManager.Instance.inGameValue.gold.ToString();
         remnentsDisplay.text = "사후잔념 : " + DataManager.Instance.inGameValue.remnents.ToString();
         killCountDisplay.text = "킬 : " + DataManager.Instance.inGameValue.killCount.ToString();
@@ -104,7 +104,7 @@ public class InGameUI_Panel : Panel
         min = (int)time / 60;
         sec = (int)time % 60;
 
-        return "Time : " + min.ToString("00") + " : " + sec.ToString("00");
+        return min.ToString("00") + " : " + sec.ToString("00");
     }
 
     private void Auto_BTN()
