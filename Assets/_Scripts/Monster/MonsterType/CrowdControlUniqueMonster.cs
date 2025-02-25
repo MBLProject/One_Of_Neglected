@@ -21,7 +21,7 @@ public class CrowdControlUniqueMonster : NormalMonster
             health: 500f,
             speed: 1.2f,
             damage: 15f,
-            range: 0.5f,
+            range: 1f,
             cooldown: 1f,
             defense: 1f,
             regen: 3f,
