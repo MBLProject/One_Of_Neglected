@@ -94,9 +94,11 @@ public class SkillSelector : MonoBehaviour
         }
 
         if (IsMaxLevel(skillName))
+        {
             skillContainer.SelectableSkills.Remove(skillName);
+        }
 
-        if (skillContainer.SelectableSkills.Count < 3)
+        if (skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key)) < 3)
         {
             skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
             skillContainer.AddSelectableSkill(Enums.SkillName.Gold);
