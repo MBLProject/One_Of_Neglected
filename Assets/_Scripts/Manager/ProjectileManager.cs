@@ -72,7 +72,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
             }
 
             Projectile projectile = Instantiate(projectiles[skillName], UnitManager.Instance.GetPlayer().transform);
-            //projectile.InitProjectile(startPosition, Vector3.zero, speed, stats.finalDamage, -1f, stats.pierceCount, -1f);
             projectile.InitProjectile(startPosition, Vector3.zero, stats);
 
             currentAuraProjectile = projectile;
@@ -83,7 +82,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         List<Vector3> targetPositions = GetTargetPositionsBySkill(skillName, startPosition, stats);
 
-        // Needle ?????? targetPositions ??????ル뭽??????椰???????????????????????ル뭽???????⑥レ뿭??? ??遺얘턁?????????????????遺얘턁????傭?끆???嶺뚮?猷볠꽴???????????諛몃마嶺뚮??????
         bool isMultipleTarget = skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway;
         int currentIndex = 0;
 
@@ -121,33 +119,24 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         List<Vector3> targetPositions = new List<Vector3>();
 
-        switch (skillName)
+        if(skillName == Enums.SkillName.Mine)
         {
-            case Enums.SkillName.Gateway:
-                List<Vector3> gatewayTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, 3f, stats.projectileCount);
-                if (gatewayTargets.Count > 0)
-                    targetPositions.AddRange(gatewayTargets);
-                break;
+            for (int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+            {
+                Vector3 randomDirection = Random.insideUnitCircle.normalized;
+                targetPositions.Add(startPosition + randomDirection * 2f);
+            }
+        }
+        else
+        {
+            List<Vector3> defaultTargets = new List<Vector3>();
+            if (stats.projectileCount > 1)
+                defaultTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, 3f, stats.projectileCount);
+            else
+                defaultTargets.Add((Vector3)UnitManager.Instance.GetNearestMonsterPosition());
 
-            case Enums.SkillName.Mine:
-                for (int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
-                {
-                    Vector3 randomDirection = Random.insideUnitCircle.normalized;
-                    targetPositions.Add(startPosition + randomDirection * 2f);
-                }
-                break;
-
-            case Enums.SkillName.Needle:
-                List<Vector3> needleTargets = UnitManager.Instance.GetMonsterPositionsInRange(0f, 3f);
-                if (needleTargets.Count > 0)
-                    targetPositions.AddRange(needleTargets);
-                break;
-
-            default:
-                Vector3? defaultTarget = UnitManager.Instance.GetNearestMonsterPosition();
-                if (defaultTarget.HasValue)
-                    targetPositions.Add(defaultTarget.Value);
-                break;
+            if (defaultTargets.Count > 0)
+                targetPositions.AddRange(defaultTargets);
         }
 
         if (targetPositions.Count == 0)

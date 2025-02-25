@@ -19,15 +19,12 @@ public class SkillDispenser : MonoBehaviour
     {
         if (skills.ContainsKey(skillName))
         {
-            print($"RegisterSkill!!!!2 : {skills[skillName].level}");
-
-            skills[skillName].LevelUp(); // ???뉖낵??嶺뚮∥?꾥땻???筌뤾쑵??
-            print($"RegisterSkill!!!!3 : {skills[skillName].level}");
-
+            skills[skillName].LevelUp();
             return;
         }
-        print("RegisterSkill!!!!1");
+
         Skill newSkill = SkillFactory.CreateSkill(skillName);
+
         if (newSkill != null)
         {
             newSkill.StartMainTask();
