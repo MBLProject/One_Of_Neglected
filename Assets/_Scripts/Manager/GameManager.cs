@@ -20,18 +20,18 @@ public class GameManager : Singleton<GameManager>
     private void HandleInputs()
     {
         // ESC로 일시정지/재개
-        if (Input.GetKeyDown(KeyCode.Escape) && isGameStarted)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
                 UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 isPaused = false;
             }
             else
             {
                 UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
-                Time.timeScale = 1;
+                Time.timeScale = 0;
                 isPaused = true;
             }
         }

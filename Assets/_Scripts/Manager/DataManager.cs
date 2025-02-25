@@ -9,6 +9,7 @@ using DG.Tweening.Plugins;
 using DG.Tweening.Core.Easing;
 using JetBrains.Annotations;
 using static Enums;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class DicDataTable
@@ -146,9 +147,6 @@ public class DataManager : Singleton<DataManager>
     public DamageStats currentDamageStats = new DamageStats();
     public InGameValue inGameValue;
 
-    public Dictionary<AugmentName, List<string>> augs_Dic = new Dictionary<Enums.AugmentName, List<string>>();
-    public List<string> textByAugs = new List<string>();
-
     protected override void Awake()
     {
         base.Awake();
@@ -159,10 +157,26 @@ public class DataManager : Singleton<DataManager>
         fromJsonData = Load_JsonUtility<BTS>("BTS", BTS);
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
         LoadBlessData();
+
+        SceneManager.sceneLoaded += (x, y) =>
+        {
+            if (x.name == "Title")
+            {
+                player_Property.gold += inGameValue.gold;
+                player_Property.remnants_Point += inGameValue.remnents;
+                ResetInGameInfo();
+            }
+        };
     }
 
-    public void InitAugsText()
+    public void ResetInGameInfo()
     {
+        inGameValue.gold = 0;
+        inGameValue.remnents = 0;
+        inGameValue.killCount = 0;
+        inGameValue.playerIcon = null;
+        currentDamageStats.skillDamages.Clear();
+        currentDamageStats.augmentDamages.Clear();
     }
 
     public void SaveData()

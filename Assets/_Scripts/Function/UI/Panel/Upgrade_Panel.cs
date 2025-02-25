@@ -28,6 +28,7 @@ public class Upgrade_Panel : Panel
 
     public Bless_Panel bless_Panel;
     public Training_Panel training_Panel;
+
     private void Awake()
     {
         buttons[0].onClick.AddListener(BlessReset_BTN);
@@ -48,13 +49,19 @@ public class Upgrade_Panel : Panel
         if (UI_Manager.Instance.panel_Dic["Bless_Panel"].gameObject.activeSelf)
         {
             float zoomAmount = Input.GetAxis("Mouse ScrollWheel") * 1f;
+
             Vector3 scale = new Vector3(bless_Rect.localScale.x + zoomAmount,
                                         bless_Rect.localScale.y + zoomAmount,
                                         bless_Rect.localScale.z + zoomAmount);
+
             if (scale.magnitude > MinMagnitude && scale.magnitude < MaxMagnitude)
+            {
                 bless_Rect.localScale = scale;
+            }
+
         }
     }
+
     //토글 제어 메서드
     private void ToggleEvents(bool arg0)
     {

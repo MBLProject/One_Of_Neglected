@@ -108,6 +108,9 @@ public class Major_Panel : MonoBehaviour
         levelUp_Panel.aug_Property.
         aug_Name[levelUp_Panel.augUpCount_Property];
 
+        augment_TMP.augDamage.text =
+        DataManager.Instance.currentDamageStats.augmentDamages[levelUp_Panel.aug_Property.aug_Type[0]].ToString();
+
         float time = TimeManager.Instance.gameTime -
                      levelUp_Panel.aug_Property.selectedTime;
 

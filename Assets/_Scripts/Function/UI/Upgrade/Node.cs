@@ -31,6 +31,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public event Action baseNodeAction;
     public Image m_Line;
     private Image m_Icon;
+    public string m_Text;
     private void Awake()
     {
         m_BTN = GetComponent<Button>();
@@ -166,11 +167,16 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void OnPointerEnter(PointerEventData eventData)
     {
         //TODO 툴팁 활성화
+
+        bless_Panel.tooltip.gameObject.SetActive(true);
+        bless_Panel.tooltip.gameObject.transform.position = this.gameObject.transform.position;
+        bless_Panel.tooltip.m_Text.text = "효과 : " + m_Text;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         //TODO 툴팁 비활성화
+        bless_Panel.tooltip.gameObject.SetActive(false);
     }
 
 }

@@ -12,8 +12,6 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private TextMeshProUGUI className_TMP;
     [SerializeField]
-    private TextMeshProUGUI level_TMP;
-    [SerializeField]
     private Image protrait_IMG;
     [SerializeField]
     private Image weaponIcon_IMG;
@@ -21,7 +19,6 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     private ClassSelect_Panel classSelect_Panel;
 
     public string m_className;
-    public int m_level;
     public Sprite m_Portrait;
     public Sprite m_WeaponIcon;
     public Button m_BTN;
@@ -40,7 +37,6 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         className_TMP.text = m_className;
-        level_TMP.text = m_level.ToString();
         protrait_IMG.sprite = m_Portrait;
         weaponIcon_IMG.sprite = m_WeaponIcon;
     }

@@ -65,6 +65,8 @@ public class Bless_Panel : Panel
 
     public NodeReset nodeReset;
 
+    public BlessTooltip tooltip;
+
     private void OnEnable()
     {
         Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
