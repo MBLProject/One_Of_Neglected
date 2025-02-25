@@ -208,20 +208,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.LongBow);
                     aug_Name.Add("기본기[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살이 한 개 더 추가되며, 피해량이 증가합니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/LongBow_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("기본기[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살의 피해량이 증가합니다.");
                     break;
                 case 2:
                     aug_Name.Add("기본기[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살이 한 개 더 추가되며, 피해량이 증가합니다.");
                     break;
                 case 3:
                     aug_Name.Add("기본기[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살의 피해량이 증가합니다.");
                     break;
             }
         }
@@ -235,20 +235,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.CrossBow);
                     aug_Name.Add("속사[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("속사의 주기가 빨라집니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/CrossBow_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("속사[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("속사의 사격 횟수와 위력이 증가합니다.");
                     break;
                 case 2:
                     aug_Name.Add("속사[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("속사의 주기가 빨라집니다.");
                     break;
                 case 3:
                     aug_Name.Add("속사[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("속사의 사격 횟수와 위력이 증가합니다.");
                     break;
             }
         }
@@ -262,20 +262,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.GreatBow);
                     aug_Name.Add("관통[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("관통의 주기가 빨라집니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/GreateBow_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("관통[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살의 적 타격 회수 1회 증가");
                     break;
                 case 2:
                     aug_Name.Add("관통[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("관통력이 증가합니다.");
                     break;
                 case 3:
                     aug_Name.Add("관통[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화살의 적 타격 회수 1회 증가");
                     break;
 
             }
@@ -290,20 +290,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.ArcRanger);
                     aug_Name.Add("테크닉[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("대쉬를 조금 더 자주 사용할 수 있습니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/ArcRanger_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("테크닉[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("방패가 조금 더 단단해지며, 대쉬 회수가 증가합니다.");
                     break;
                 case 2:
                     aug_Name.Add("테크닉[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("대쉬를 더 자주 사용할 수 있습니다.");
                     break;
                 case 3:
                     aug_Name.Add("테크닉[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("적에게 적중 시, 화살이 터집니다.");
                     break;
 
             }
@@ -354,20 +354,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.Staff);
                     aug_Name.Add("파워[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("더 강한 힘으로 적을 공격합니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/Power_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("파워[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("주기가 감소합니다.");
                     break;
                 case 2:
                     aug_Name.Add("파워[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("더 강한 힘으로 적을 공격합니다.");
                     break;
                 case 3:
                     aug_Name.Add("파워[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("주기가 감소합니다.");
                     break;
 
             }
@@ -382,20 +382,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.Wand);
                     aug_Name.Add("캐스팅[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("캐스팅 속도가 빨라집니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/Wand_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("캐스팅[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("캐스팅 속도가 빨라집니다.");
                     break;
                 case 2:
                     aug_Name.Add("캐스팅[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("캐스팅 속도가 빨라집니다.");
                     break;
                 case 3:
                     aug_Name.Add("캐스팅[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("캐스팅 속도가 빨라집니다.");
                     break;
 
             }
@@ -410,20 +410,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.Orb);
                     aug_Name.Add("쥬얼[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화염구의 주기가 빨라지며, 피해량이 상승합니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/Orb_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("쥬얼[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화염구의 주기가 빨라지며, 피해량이 상승합니다.");
                     break;
                 case 2:
                     aug_Name.Add("쥬얼[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화염구의 주기가 빨라지며, 피해량이 상승합니다.");
                     break;
                 case 3:
                     aug_Name.Add("쥬얼[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("화염구가 더욱 맹렬하게 타오릅니다.");
                     break;
 
             }
@@ -438,20 +438,20 @@ public class Augment_Info
                 case 0:
                     aug_Type.Add(Enums.AugmentName.Warlock);
                     aug_Name.Add("룬워드[Lv.2]");
-                    aug_Text.Add("");
+                    aug_Text.Add("텔레포트를 조금 더 자주 사용할 수 있습니다.");
                     aug_Icon.Add(Resources.Load<Sprite>("Using/UI/Icon/Custom/BattleMage_Icon"));
                     break;
                 case 1:
                     aug_Name.Add("룬워드[Lv.3]");
-                    aug_Text.Add("");
+                    aug_Text.Add("텔레포트 사용 회수가 1 증가하며, 피해 범위가 늘어납니다.");
                     break;
                 case 2:
                     aug_Name.Add("룬워드[Lv.4]");
-                    aug_Text.Add("");
+                    aug_Text.Add("텔레포트를 조금 더 자주 사용할 수 있습니다.");
                     break;
                 case 3:
                     aug_Name.Add("룬워드[Lv.5]");
-                    aug_Text.Add("");
+                    aug_Text.Add("텔레포트 사용 회수가 1 증가하며, 피해 범위가 늘어납니다.");
                     break;
             }
         }
