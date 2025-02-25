@@ -433,7 +433,7 @@ PrefabInstance:
     - target: {fileID: 1179077508010068061, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 1179077508010068061, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
@@ -510,6 +510,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5057826491007593005, guid: af43ab69a35482a43aec1c53c3205fa7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057826491007593005, guid: af43ab69a35482a43aec1c53c3205fa7,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057826491007593005, guid: af43ab69a35482a43aec1c53c3205fa7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 35.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057826491007593005, guid: af43ab69a35482a43aec1c53c3205fa7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7893251490094114155, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -523,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 7893251490094114155, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 32
+      value: 28.5
       objectReference: {fileID: 0}
     - target: {fileID: 7893251490094114155, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
@@ -543,7 +563,7 @@ PrefabInstance:
     - target: {fileID: 8157807426917219362, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 18
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 8157807426917219362, guid: af43ab69a35482a43aec1c53c3205fa7,
         type: 3}
@@ -1683,7 +1703,6 @@ MonoBehaviour:
     gold: 0
     remnents: 0
     playerIcon: {fileID: 0}
-  textByAugs: []
 --- !u!4 &444655103
 Transform:
   m_ObjectHideFlags: 0
@@ -10259,6 +10278,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &196873926821732659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11251,6 +11271,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &337218029254572531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12637,6 +12658,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &491970044445902057
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14439,6 +14461,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &706836536597524972
 GameObject:
   m_ObjectHideFlags: 0
@@ -14875,6 +14898,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &750362851971073349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15623,6 +15647,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &888579252110553639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16514,6 +16539,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &978577182207942196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16951,6 +16977,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &1030607126925292720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16985,6 +17012,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &1034846089006135951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17041,6 +17069,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!95 &1038303917539102454
 Animator:
   serializedVersion: 5
@@ -19536,6 +19565,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &1345704160371106551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19766,6 +19796,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &1373341815351593297
 GameObject:
   m_ObjectHideFlags: 0
@@ -19838,6 +19869,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &1390347639785073198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22211,6 +22243,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &1653039377064047809
 GameObject:
   m_ObjectHideFlags: 0
@@ -22330,6 +22363,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &1675360220591783394
 GameObject:
   m_ObjectHideFlags: 0
@@ -22695,6 +22729,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &1738399516442955050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23822,12 +23857,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   className_TMP: {fileID: 7573351092427870510}
-  level_TMP: {fileID: 3669251216754940121}
   protrait_IMG: {fileID: 2092040634846065965}
   weaponIcon_IMG: {fileID: 6342270411183772350}
   classSelect_Panel: {fileID: 6673668297404102834}
   m_className: Mage
-  m_level: 3
   m_Portrait: {fileID: 1414391077, guid: e177321eee3af524398710ef75c7e296, type: 3}
   m_WeaponIcon: {fileID: 1420730711, guid: dfeb1a9e01db9ca45a5249e4e0514499, type: 3}
   m_BTN: {fileID: 5779457398148620691}
@@ -26523,6 +26556,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &2249180209044091636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27221,6 +27255,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &2347875797588088006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27399,6 +27434,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &2369621109610910277
 GameObject:
   m_ObjectHideFlags: 0
@@ -27712,6 +27748,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &2390405062252406525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28004,6 +28041,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &2434132213142368882
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28433,6 +28471,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &2502585615796891276
 GameObject:
   m_ObjectHideFlags: 0
@@ -28651,6 +28690,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &2533290745664733742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28725,6 +28765,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &2545444500268850185
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32178,6 +32219,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &2950036999325598603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32369,6 +32411,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &2965407205871969671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32793,6 +32836,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &3018066643095621504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33643,6 +33687,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &3124155427210589061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33774,6 +33819,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &3138589429702999209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35484,6 +35530,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &3346631348476389978
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36005,6 +36052,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &3424511685630888600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39545,6 +39593,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &3821894273067599868
 GameObject:
   m_ObjectHideFlags: 0
@@ -39653,6 +39702,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &3838364181181846251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40160,6 +40210,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &3904387062733180871
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -40566,6 +40617,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &3965151714247836075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40975,6 +41027,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &4012906887083465029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41912,6 +41965,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &4170273912056728791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42259,6 +42313,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &4215933659705825778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49278,6 +49333,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &5026750696375443816
 GameObject:
   m_ObjectHideFlags: 0
@@ -50093,6 +50149,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &5110218746988371444
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50351,6 +50408,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &5155203243655422430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50475,6 +50533,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &5169778320851544565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51696,6 +51755,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!95 &5368703400815024503
 Animator:
   serializedVersion: 5
@@ -51996,12 +52056,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   className_TMP: {fileID: 4419432711967511282}
-  level_TMP: {fileID: 907629157714750718}
   protrait_IMG: {fileID: 7977891656085018636}
   weaponIcon_IMG: {fileID: 8140515048505069329}
   classSelect_Panel: {fileID: 6673668297404102834}
   m_className: Warrior
-  m_level: 1
   m_Portrait: {fileID: -1714632815, guid: e177321eee3af524398710ef75c7e296, type: 3}
   m_WeaponIcon: {fileID: 538082960, guid: dfeb1a9e01db9ca45a5249e4e0514499, type: 3}
   m_BTN: {fileID: 6562709623747408572}
@@ -53392,6 +53450,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &5560201110248640247
 GameObject:
   m_ObjectHideFlags: 0
@@ -55207,6 +55266,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &5824064847015640809
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -55588,6 +55648,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &5872744008576103418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -55758,6 +55819,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &5886705482402950766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -55927,12 +55989,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   className_TMP: {fileID: 2573781408633343577}
-  level_TMP: {fileID: 7161186229464558151}
   protrait_IMG: {fileID: 1626604876714313802}
   weaponIcon_IMG: {fileID: 5086489053856806674}
   classSelect_Panel: {fileID: 6673668297404102834}
   m_className: Archer
-  m_level: 2
   m_Portrait: {fileID: -667858473, guid: e177321eee3af524398710ef75c7e296, type: 3}
   m_WeaponIcon: {fileID: 1843309469, guid: dfeb1a9e01db9ca45a5249e4e0514499, type: 3}
   m_BTN: {fileID: 5263505138853569238}
@@ -56471,6 +56531,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &5945811267910748287
 GameObject:
   m_ObjectHideFlags: 0
@@ -57067,6 +57128,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &6011678841247193579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57235,6 +57297,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &6034413004091826210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58501,6 +58564,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &6167208112989860385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58641,6 +58705,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &6175687987626576424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58973,6 +59038,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &6215748968847264258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59660,6 +59726,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &6266789173447342166
 GameObject:
   m_ObjectHideFlags: 0
@@ -61021,6 +61088,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &6461658056483920455
 GameObject:
   m_ObjectHideFlags: 0
@@ -61858,6 +61926,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &6576275466090304796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -62038,6 +62107,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &6595047185357883446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62506,6 +62576,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &6644835840866013321
 GameObject:
   m_ObjectHideFlags: 0
@@ -62566,6 +62637,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &6654638338996519605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -63470,6 +63542,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!95 &6752765717294546670
 Animator:
   serializedVersion: 5
@@ -64843,6 +64916,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &6987737496198378829
 GameObject:
   m_ObjectHideFlags: 0
@@ -65470,6 +65544,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &7078214950273812059
 RectTransform:
   m_ObjectHideFlags: 0
@@ -65770,6 +65845,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &7147832401695690237
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -66591,6 +66667,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &7268114679904541508
 GameObject:
   m_ObjectHideFlags: 0
@@ -68330,6 +68407,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &7474563797642417367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68820,6 +68898,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &7531977146076568242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68917,6 +68996,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &7540962934958984649
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68962,6 +69042,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &7544051609486356935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69601,6 +69682,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &7636801271201402824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -69646,6 +69728,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &7650674152065605779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72527,6 +72610,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &8112575031797241741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73314,6 +73398,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &8176405862305373287
 GameObject:
   m_ObjectHideFlags: 0
@@ -73872,6 +73957,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &8258565441833792847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -74044,6 +74130,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &8286592502888654043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74452,6 +74539,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &8333161196376556443
 GameObject:
   m_ObjectHideFlags: 0
@@ -75689,6 +75777,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &8483131512393931068
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -75924,6 +76013,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &8503484663943437651
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -76052,6 +76142,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &8548552037081884492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76170,6 +76261,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &8557354054887417798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76527,6 +76619,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &8595099423778209968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77581,6 +77674,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!222 &8750630083750327099
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -78788,6 +78882,7 @@ MonoBehaviour:
   - {fileID: 3855453555232286293}
   - {fileID: 4006037556609292047}
   - {fileID: 7182327735425353008}
+  tooltip: {fileID: 0}
 --- !u!222 &8933749009664105900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -79031,6 +79126,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &8963945348107958857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -79402,6 +79498,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &8993546547445431423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -79488,6 +79585,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &8998352014140847400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -79916,6 +80014,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &9048142766134911249
 GameObject:
   m_ObjectHideFlags: 0
@@ -79989,6 +80088,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &9057722756634389214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80474,6 +80574,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!114 &9111363032734541533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80500,6 +80601,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &9114169030181028871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -80685,6 +80787,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!224 &9124673229143000905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -81182,6 +81285,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
+  m_Text: 
 --- !u!1 &9187750911735385494
 GameObject:
   m_ObjectHideFlags: 0

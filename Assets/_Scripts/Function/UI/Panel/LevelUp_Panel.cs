@@ -103,6 +103,7 @@ public class LevelUp_Panel : Panel
 
     private void OnEnable()
     {
+        SoundManager.Instance.Play("LevelUp", SoundManager.Sound.Effect);
         if (SceneManager.GetActiveScene().name != "Game") return;
         Time.timeScale = 0;
         inGameUI_Panel.display_Level_TMP.text =

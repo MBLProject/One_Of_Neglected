@@ -80,6 +80,7 @@ public class ArcherAttackState : BaseState<Player>
             Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ?? 
                 (player.transform.position + (Vector3)(direction * 10f));
 
+            SoundManager.Instance.Play("Bow Attack 1", SoundManager.Sound.Effect);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "ArcherAttackProjectile",
                 player.transform.position,

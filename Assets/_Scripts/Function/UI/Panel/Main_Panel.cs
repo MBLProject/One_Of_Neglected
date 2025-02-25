@@ -17,7 +17,9 @@ public class Main_Panel : Panel
 
     private void Start()
     {
-
+        SoundManager.Instance.Play("Title_Loopable", SoundManager.Sound.Bgm);
+        SoundManager.Instance.SetVolume(SoundManager.Sound.Bgm, 0.5f);
+        
     }
     //게임 시작
     private void Start_BTN()

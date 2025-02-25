@@ -476,6 +476,7 @@ public abstract class Player : MonoBehaviour
 
     private void CollectObj(WorldObject worldObject)
     {
+        SoundManager.Instance.Play("SFX_UI_Click_Organic_Pop_Negative_1", SoundManager.Sound.Effect);
         switch (worldObject.objectType)
         {
             case WorldObjectType.ExpBlue:

@@ -58,8 +58,9 @@ public class WarriorAttackState : BaseState<Player>
             bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
             Vector2 direction = isLookingRight ? Vector2.right : Vector2.left;
             Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
-            Vector3 targetPosition = spawnPosition + (Vector3)(direction * 1f); 
+            Vector3 targetPosition = spawnPosition + (Vector3)(direction * 1f);
 
+            SoundManager.Instance?.Play("Sword Attack 2", SoundManager.Sound.Effect);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "WarriorAttackProjectile",
                 spawnPosition,

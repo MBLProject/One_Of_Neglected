@@ -79,7 +79,8 @@ public class MagicianAttackState : BaseState<Player>
             Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ??
                 (player.transform.position + (Vector3)(direction * 10f));
 
-
+            
+            SoundManager.Instance.Play("Fireball 1", SoundManager.Sound.Effect);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "MagicianAttackProjectile",
                 player.transform.position,
