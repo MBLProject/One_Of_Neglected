@@ -52,7 +52,10 @@ public class Selection : MonoBehaviour
         if (SkillFactory.IsActiveSkill(m_skillName))
         {
             if (levelUp_Panel.m_MainSkills.Contains(m_skillName) == false)
+            {
                 levelUp_Panel.m_MainSkills.Add(m_skillName);
+                levelUp_Panel.m_MainSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+            }
         }
         else if (
         !SkillFactory.IsActiveSkill(m_skillName) &&
@@ -60,7 +63,10 @@ public class Selection : MonoBehaviour
          m_skillName != Enums.SkillName.Cheese)
         {
             if (levelUp_Panel.m_SubSkills.Contains(m_skillName) == false)
+            {
                 levelUp_Panel.m_SubSkills.Add(m_skillName);
+                levelUp_Panel.m_SubSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+            }
         }
         levelUp_Panel.PanelClose();
     }

@@ -32,6 +32,10 @@ public class LevelUp_Panel : Panel
 
     public List<Enums.SkillName> m_MainSkills;
     public List<Enums.SkillName> m_SubSkills;
+    public Dictionary<Enums.SkillName, float> m_MainSkill_Time = new Dictionary<Enums.SkillName, float>();
+    public Dictionary<Enums.SkillName, float> m_SubSkill_Time = new Dictionary<Enums.SkillName, float>();
+    public Dictionary<Enums.AugmentName, float> m_Aug_Time = new Dictionary<Enums.AugmentName, float>();
+
     private int augUpCount = 0;
     public bool isAugSelected = false;
 
@@ -154,7 +158,7 @@ public class LevelUp_Panel : Panel
         for (int i = 0; i < popSkill_List.Count; i++)
         {
             skill_Info = skill_Info_Dic[popSkill_List[i]];
-
+            Debug.LogWarning(popSkill_List[i]);
             current_Selections[i].m_skillName = skill_Info.skill_Name;
             current_Selections[i].display_Name.text = skill_Info.display_Name;
             current_Selections[i].info_TMP.text = skill_Info.skill_Text;
