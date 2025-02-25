@@ -78,7 +78,7 @@ public class Magician : Player
 
 
 
-        UpdateStats();
+        SyncStatsFromViewer();
     }
     #endregion
 }

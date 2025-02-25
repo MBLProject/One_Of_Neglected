@@ -78,7 +78,7 @@ public class Archer : Player
 
 
 
-        UpdateStats();
+        SyncStatsFromViewer();
     }
     #endregion
 }
