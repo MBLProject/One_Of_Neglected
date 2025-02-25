@@ -85,11 +85,8 @@ public class UnitManager : Singleton<UnitManager>
 
         mainCamera = Camera.main;
 
-        //if (DataManager.Instance.classSelect_Type == Enums.ClassType.None)
-        //{
-        //    DataManager.Instance.classSelect_Type = Enums.ClassType.Warrior;
-        //}
-        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
+        //SpawnPlayerByType(DataManager.Instance.classSelect_Type);
+        SpawnPlayerByType(ClassType.Magician);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
