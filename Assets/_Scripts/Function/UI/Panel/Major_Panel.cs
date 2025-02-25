@@ -82,8 +82,19 @@ public class Major_Panel : MonoBehaviour
             {
                 skillMembers[startIdx].damage.text =
                 DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
+
+                float time = TimeManager.Instance.gameTime -
+                levelUp_Panel.m_MainSkill_Time[skillNames[i]];
+
+                skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
             }
-            //TODO : 보유 시간 반영해서 적용
+            else
+            {
+                float time = TimeManager.Instance.gameTime -
+                levelUp_Panel.m_SubSkill_Time[skillNames[i]];
+
+                skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
+            }
             startIdx++;
         }
 
