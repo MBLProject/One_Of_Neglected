@@ -57,19 +57,18 @@ public class Aug_GreatBow : TimeBasedAugment
         switch (level)
         {
             case 1:
-                //damageMultiplier = 1f;
                 break;
             case 2:
-                //baseProjectileSize += 0.3f;
+                ModifyBaseInterval(-2f);
                 break;
             case 3:
-                //damageMultiplier *= 1.2f;
+                //TODO : 타격횟수 2회로
                 break;
             case 4:
-                //ModifyBaseInterval(-2f);
+                damageMultiplier *= 2f;
                 break;
             case 5:
-                //damageMultiplier *= 1.3f;
+                //TODO : 폭발화살
                 break;
         }
     }

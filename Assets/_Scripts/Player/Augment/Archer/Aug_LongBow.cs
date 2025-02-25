@@ -10,13 +10,11 @@ public class Aug_LongBow : ConditionalAugment
     private float projectileSpeed = 1f;
     private float baseProjectileSize = 10f;
     private int penetration = 0;
-    private float delayedProjectileDelay = 0.1f;
     private float duration = 10f;
     private float maxDistance = 30f;
-
+    private int Projectiles = 0;
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
-    private float lastAttackTime = 0f;
 
     public Aug_LongBow(Player owner) : base(owner)
     {
@@ -31,11 +29,11 @@ public class Aug_LongBow : ConditionalAugment
 
     private async void OnAttackDetect(Vector3 targetPosition)
     {
-        int projAmount = owner.Stats.CurrentProjAmount - 1;
+        int projAmount = owner.Stats.CurrentProjAmount - 1 + Projectiles;
 
         await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
 
-        for (int i = 0; i < projAmount + 1; i++)
+        for (int i = 0; i < projAmount; i++)
         {
             SpawnProjectile(targetPosition);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
@@ -73,12 +71,18 @@ public class Aug_LongBow : ConditionalAugment
             case 1:
                 break;
             case 2:
+                damageMultiplier *= 1.1f;
+                Projectiles += 1;
                 break;
             case 3:
+                damageMultiplier *= 1.2f;
                 break;
             case 4:
+                damageMultiplier *= 1.1f;
+                Projectiles += 1;
                 break;
             case 5:
+                damageMultiplier *= 1.2f;
                 break;
         }
     }

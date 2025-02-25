@@ -20,7 +20,6 @@ public class UI_PlayerTest : MonoBehaviour
 
     public Slider expSlider;
 
-
     private void Start()
     {
         player = UnitManager.Instance.GetPlayer();
