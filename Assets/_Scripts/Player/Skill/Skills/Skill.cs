@@ -34,11 +34,6 @@ public class Skill
 
     public virtual void ModifySkill()
     {
-        
-    }
-
-    public virtual void InitSkill()
-    {
 
     }
 

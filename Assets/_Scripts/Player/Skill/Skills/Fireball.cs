@@ -17,7 +17,7 @@ public class Fireball : ActiveSkill
         playerStats.OnProjAmountChanged += (value) => stats.shotCount = value;
     }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         // init SkillStats
         stats = new SkillStats()

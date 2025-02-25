@@ -44,7 +44,7 @@ public class Aura : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
     }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         // init SkillStats
         stats = new SkillStats()

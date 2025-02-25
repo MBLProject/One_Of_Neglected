@@ -6,7 +6,7 @@ public class Crown : Skill
 {
     public Crown() : base(Enums.SkillName.Crown) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,7 +20,7 @@ public class Crown : Skill
         switch (level)
         {
             default:
-                InitSkill();
+                ModifySkill();
                 break;
         }
     }

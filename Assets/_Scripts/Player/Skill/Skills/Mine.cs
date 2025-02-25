@@ -21,7 +21,7 @@ public class Mine : ActiveSkill
 
     
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         // init SkillStats
         stats = new SkillStats()

@@ -6,7 +6,7 @@ public class Cheese : Skill
     {
     }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -15,6 +15,6 @@ public class Cheese : Skill
 
     public override void LevelUp()
     {
-        InitSkill();
+        ModifySkill();
     }
 }

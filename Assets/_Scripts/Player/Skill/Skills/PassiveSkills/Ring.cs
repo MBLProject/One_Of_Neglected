@@ -6,7 +6,7 @@ public class Ring : Skill
 {
     public Ring() : base(Enums.SkillName.Ring) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -21,7 +21,7 @@ public class Ring : Skill
         {
             case 1:
             case 2:
-                InitSkill();
+                ModifySkill();
                 break;
             default:
                 break;

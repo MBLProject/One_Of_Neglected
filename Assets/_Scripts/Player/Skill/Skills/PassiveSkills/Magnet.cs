@@ -6,7 +6,7 @@ public class Magnet : Skill
 {
     public Magnet() : base(Enums.SkillName.Magnet) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,7 +20,7 @@ public class Magnet : Skill
         switch (level)
         {
             default:
-                InitSkill();
+                ModifySkill();
                 break;
         }
     }

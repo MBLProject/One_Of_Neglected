@@ -6,7 +6,7 @@ public class Meat : Skill
 {
     public Meat() : base(Enums.SkillName.Meat) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,7 +20,7 @@ public class Meat : Skill
         switch (level)
         {
             default:
-                InitSkill();
+                ModifySkill();
                 break;
         }
     }

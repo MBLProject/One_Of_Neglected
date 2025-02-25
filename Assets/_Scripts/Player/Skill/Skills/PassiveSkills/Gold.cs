@@ -6,7 +6,7 @@ public class Gold : Skill
 {
     public Gold() : base(Enums.SkillName.Gold) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -15,7 +15,7 @@ public class Gold : Skill
 
     public override void LevelUp()
     {
-        InitSkill();
+        ModifySkill();
     }
 
 }

@@ -19,7 +19,7 @@ public class Needle : ActiveSkill
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         // init SkillStats
         stats = new SkillStats()

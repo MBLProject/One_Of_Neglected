@@ -6,7 +6,7 @@ public class Bracelet : Skill
 {
     public Bracelet() : base(Enums.SkillName.Bracelet) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,7 +20,7 @@ public class Bracelet : Skill
         switch (level)
         {
             default:
-                InitSkill();
+                ModifySkill();
                 break;
         }
     }
