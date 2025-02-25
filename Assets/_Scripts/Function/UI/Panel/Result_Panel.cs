@@ -25,13 +25,11 @@ public class Result_Panel : Panel
     private void Title_BTN()
     {
         Time.timeScale = 1;
-        UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
         Destroy(GameManager.Instance.gameObject);
         Destroy(UnitManager.Instance.gameObject);
         Destroy(ProjectileManager.Instance.gameObject);
         Destroy(TimeManager.Instance.gameObject);
         GameSceneManager.SceneLoad("Title");
-        PanelClose();
     }
 
 }

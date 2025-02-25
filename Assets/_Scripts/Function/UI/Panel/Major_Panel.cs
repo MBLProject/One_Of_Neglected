@@ -50,11 +50,11 @@ public class Major_Panel : MonoBehaviour
             subSkill_Icons[i].sprite = panel.subSkill_Icon_Container[i].sprite;
         }
         //기본 정보
-        // base_Info.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
-        // base_Info.killCount.text = DataManager.Instance.inGameValue.killCount.ToString();
-        // base_Info.gold.text = DataManager.Instance.inGameValue.gold.ToString();
-        // base_Info.remnents.text = DataManager.Instance.inGameValue.remnents.ToString();
-        // base_Info.player_Portrait.sprite = DataManager.Instance.inGameValue.playerIcon;
+        base_Info.time.text = panel.TimeCalc(TimeManager.Instance.gameTime);
+        base_Info.killCount.text = DataManager.Instance.inGameValue.killCount.ToString();
+        base_Info.gold.text = DataManager.Instance.inGameValue.gold.ToString();
+        base_Info.remnents.text = DataManager.Instance.inGameValue.remnents.ToString();
+        base_Info.player_Portrait.sprite = DataManager.Instance.inGameValue.playerIcon;
 
     }
 }

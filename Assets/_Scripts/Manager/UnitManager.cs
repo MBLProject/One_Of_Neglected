@@ -48,7 +48,6 @@ public class UnitManager : Singleton<UnitManager>
         new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분 (게임 종료)
     };
 
-
     // 드랍 오브젝트 프리팹
     private GameObject expBlue;
     private GameObject expPurple;
@@ -67,7 +66,6 @@ public class UnitManager : Singleton<UnitManager>
     private Camera mainCamera;
 
     public Player GetPlayer() => currentPlayer;
-
 
     private float boxSpawnInterval = 15f;
     private float nextBoxSpawnTime = 0f;
@@ -400,22 +398,11 @@ public class UnitManager : Singleton<UnitManager>
         ClearAllMonsters();
         currentNormalMonsterType = MonsterType.EarlyNormal;
         nextBoxSpawnTime = Time.time + boxSpawnInterval;
-        
+
         if (TimeManager.Instance != null)
         {
             TimeManager.Instance.OnOneMinFiftySecondsPassed += SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed += SpawnStrongMonsters;
-        }
-    }
-
-    public void PauseGame()
-    {
-        isGameStarted = false;
-
-        if (TimeManager.Instance != null)
-        {
-            TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
-            TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
         }
     }
 
@@ -616,7 +603,7 @@ public class UnitManager : Singleton<UnitManager>
 
         Vector2 randomPosition = GetRandomSpawnPosition();
         GameObject boxObj = Instantiate(boxMonsterPrefab, randomPosition, Quaternion.identity);
-        
+
         BoxMonster boxMonster = boxObj.GetComponent<BoxMonster>();
         if (boxMonster != null)
         {
