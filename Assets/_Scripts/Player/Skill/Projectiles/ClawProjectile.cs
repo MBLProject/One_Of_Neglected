@@ -83,7 +83,8 @@ public class ClawProjectile : Projectile
 
             monster.TakeDamage(finalFinalDamage);
             DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
-            Instantiate(Resources.Load<GameObject>("Using/Projectile/ClawEffect"),monster.gameObject.transform.position, Quaternion.identity);
+            GameObject clawEffect = Instantiate(Resources.Load<GameObject>("Using/Projectile/ClawEffect"),monster.gameObject.transform.position, Quaternion.identity);
+            Destroy(clawEffect, 1.083f);
         }
     }
 }
