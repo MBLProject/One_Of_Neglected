@@ -6,7 +6,7 @@ public class Fist : Skill
 {
     public Fist() : base(Enums.SkillName.Fist) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,6 +20,7 @@ public class Fist : Skill
         switch (level)
         {
             default:
+                ModifySkill();
                 break;
         }
     }

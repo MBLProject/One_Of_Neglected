@@ -6,7 +6,7 @@ public class Shoes : Skill
 {
     public Shoes() : base(Enums.SkillName.Shoes) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 

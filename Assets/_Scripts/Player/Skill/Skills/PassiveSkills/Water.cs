@@ -4,7 +4,7 @@ public class Water : Skill
 {
     public Water() : base(Enums.SkillName.Water) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 

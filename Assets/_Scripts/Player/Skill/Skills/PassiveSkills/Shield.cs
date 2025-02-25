@@ -4,7 +4,7 @@ public class Shield : Skill
 {
     public Shield() : base(Enums.SkillName.Shield) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 

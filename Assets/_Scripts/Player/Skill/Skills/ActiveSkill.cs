@@ -18,7 +18,7 @@ public class ActiveSkill : Skill
     public ActiveSkill(Enums.SkillName skillName) : base(skillName)
     {
         // init Stats
-        InitSkill();
+        ModifySkill();
 
         SubscribeToPlayerStats();
     }

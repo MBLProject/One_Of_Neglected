@@ -6,7 +6,7 @@ public class Clock : Skill
 {
     public Clock() : base(Enums.SkillName.Clock) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,6 +20,7 @@ public class Clock : Skill
         switch (level)
         {
             default:
+                ModifySkill();
                 break;
         }
     }

@@ -5,7 +5,7 @@ public class Blood : Skill
 
     public Blood() : base(Enums.SkillName.Blood) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -19,9 +19,7 @@ public class Blood : Skill
         switch (level)
         {
             default:
-                var player = UnitManager.Instance.GetPlayer();
-
-                player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10f);
+                ModifySkill();
                 break;
         }
     }

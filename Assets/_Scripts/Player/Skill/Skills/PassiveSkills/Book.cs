@@ -6,7 +6,7 @@ public class Book : Skill
 {
     public Book() : base(Enums.SkillName.Book) { }
 
-    public override void InitSkill()
+    public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
@@ -20,6 +20,7 @@ public class Book : Skill
         switch (level)
         {
             default:
+                ModifySkill();
                 break;
         }
     }

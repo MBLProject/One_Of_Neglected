@@ -15,6 +15,8 @@ public class SkillContainer : MonoBehaviour
     private int maxPassiveSkills = 5;
 
     public IReadOnlyList<SkillName> OwnedSkills => ownedSkills.AsReadOnly();
+    public List<SkillName> SelectableSkills => selectableSkills;
+
 
     public void AddSkill(SkillName skillName)
     {
