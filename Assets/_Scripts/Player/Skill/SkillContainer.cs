@@ -11,8 +11,10 @@ public class SkillContainer : MonoBehaviour
 
     public Dictionary<SkillName, int> removedSkills = new Dictionary<SkillName, int>();
 
-    private int maxActiveSkills = 3;
-    private int maxPassiveSkills = 3;
+    private int maxActiveSkills = 5;
+    private int maxPassiveSkills = 5;
+
+    public IReadOnlyList<SkillName> OwnedSkills => ownedSkills.AsReadOnly();
 
     public void AddSkill(SkillName skillName)
     {

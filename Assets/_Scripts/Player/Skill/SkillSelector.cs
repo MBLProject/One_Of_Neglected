@@ -36,7 +36,7 @@ public class SkillSelector : MonoBehaviour
 
         if (activeMax && passiveMax)
         {
-            foreach (var skill in availableAbilities)
+            foreach (var skill in skillContainer.OwnedSkills)
             {
                 if (IsMaxLevel(skill)) continue;
 
@@ -50,7 +50,8 @@ public class SkillSelector : MonoBehaviour
                 if (IsMaxLevel(skill)) continue;
 
                 if (IsActiveSkill(skill))
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) selectedAbilities.Add(skill);
+                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
+                        selectedAbilities.Add(skill);
                 else
                     selectedAbilities.Add(skill);
             }
@@ -62,13 +63,10 @@ public class SkillSelector : MonoBehaviour
                 if (IsMaxLevel(skill)) continue;
 
                 if (IsPassiveSkill(skill))
-                {
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) selectedAbilities.Add(skill);
-                }
+                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
+                        selectedAbilities.Add(skill);
                 else
-                {
                     selectedAbilities.Add(skill);
-                }
             }
         }
         else
