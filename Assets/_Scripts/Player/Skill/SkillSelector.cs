@@ -23,7 +23,9 @@ public class SkillSelector : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Claw);
+            ChooseSkill(Enums.SkillName.Shuriken);
+        if (Input.GetKeyDown(KeyCode.P))
+            ChooseSkill(Enums.SkillName.Ring);
     }
 
     public List<Enums.SkillName> SelectSkills()
@@ -94,9 +96,11 @@ public class SkillSelector : MonoBehaviour
         }
 
         if (IsMaxLevel(skillName))
+        {
             skillContainer.SelectableSkills.Remove(skillName);
+        }
 
-        if (skillContainer.SelectableSkills.Count < 3)
+        if (skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key)) < 3)
         {
             skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
             skillContainer.AddSelectableSkill(Enums.SkillName.Gold);

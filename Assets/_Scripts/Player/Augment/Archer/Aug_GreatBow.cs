@@ -10,6 +10,7 @@ public class Aug_GreatBow : TimeBasedAugment
     private int penetration = 1000;
     private float duration = 5f;
     private float maxDistance = 10f;
+    private int additionalHits = 0;
 
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
@@ -38,7 +39,7 @@ public class Aug_GreatBow : TimeBasedAugment
     {
         Vector3 targetPosition = owner.transform.position + direction * 10f;
 
-        ProjectileManager.Instance.SpawnPlayerProjectile(
+        PlayerProjectile proj = ProjectileManager.Instance.SpawnPlayerProjectile(
             "GreatBowProjectile",
             owner.transform.position,
             targetPosition,
@@ -48,8 +49,12 @@ public class Aug_GreatBow : TimeBasedAugment
             maxDistance,
             penetration,
             duration);
-    }
 
+        if (proj is GreatBowProjectile greatBowProj)
+        {
+            greatBowProj.SetAdditionalHits(additionalHits);
+        }
+    }
 
     protected override void OnLevelUp()
     {
@@ -62,13 +67,13 @@ public class Aug_GreatBow : TimeBasedAugment
                 ModifyBaseInterval(-2f);
                 break;
             case 3:
-                //TODO : 타격횟수 2회로
+                additionalHits++; 
                 break;
             case 4:
                 damageMultiplier *= 2f;
                 break;
             case 5:
-                //TODO : 폭발화살
+                additionalHits++; 
                 break;
         }
     }

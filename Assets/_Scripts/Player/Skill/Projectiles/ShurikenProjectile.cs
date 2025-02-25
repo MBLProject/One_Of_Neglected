@@ -42,36 +42,36 @@ public class ShurikenProjectile : Projectile
 
             DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
 
-            if (pierceCount > 0)
+            if (stats.pierceCount > 0)
             {
-                pierceCount--;
+                stats.pierceCount--;
 
-                Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position, maxDistance);
-                Collider2D closestMonster = null;
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, maxDistance);
+                MonsterBase closestMonster = null;
                 float closestDistance = float.MaxValue;
 
-                if (monsters.Length == 0) DestroyProjectile();
-
-                foreach (var col in monsters)
+                foreach (var col in colliders)
                 {
-                    if (col.CompareTag("Monster") && col != collision)
+                    if (col.TryGetComponent<MonsterBase>(out var nearbyMonster) && col != collision)
                     {
                         float distance = Vector2.Distance(transform.position, col.transform.position);
                         if (distance < closestDistance)
                         {
                             closestDistance = distance;
-                            closestMonster = col;
+                            closestMonster = nearbyMonster;
                         }
                     }
                 }
+
                 if (closestMonster != null)
                 {
                     targetPosition = closestMonster.transform.position;
                     direction = (targetPosition - transform.position).normalized;
                 }
                 else
+                {
                     DestroyProjectile();
-                
+                }
             }
             else
             {

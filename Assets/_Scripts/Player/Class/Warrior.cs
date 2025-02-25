@@ -73,9 +73,7 @@ public class Warrior : Player
         statViewer.ProjDestroy = DataManager.Instance.BTS.ProjDestroy;
         statViewer.ProjParry = DataManager.Instance.BTS.projParry;
 
-        
-
-        UpdateStats();
+        SyncStatsFromViewer();
     }
     #endregion
 }

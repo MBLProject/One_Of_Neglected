@@ -8,6 +8,8 @@ public class Ring : Skill
 
     public override void ModifySkill()
     {
+        Debug.Log($"{skillName} ModifySkill : {level}");
+
         var player = UnitManager.Instance.GetPlayer();
 
         player.Stats.ModifyStatValue(Enums.StatType.ProjAmount, 1f);
@@ -17,9 +19,18 @@ public class Ring : Skill
     {
         base.LevelUp();
 
+        if (level >= 3)
+        {
+            level = 2;
+            Debug.Log($"LevelUp!!!!3 : {level}");
+            return;
+        }
+
         switch (level)
         {
             case 1:
+                ModifySkill();
+                break;
             case 2:
                 ModifySkill();
                 break;

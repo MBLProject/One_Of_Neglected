@@ -13,22 +13,6 @@ public class NeedleProjectile : Projectile
         transform.position = targetPosition;
     }
 
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1f)
-    {
-        startPosition = startPos;
-        targetPosition = targetPos;
-        speed = spd;
-        maxDistance = maxDist;
-        damage = dmg;
-        pierceCount = pierceCnt;
-        lifeTime = lifetime;
-
-        CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", lifeTime);
-
-        direction = (targetPosition - startPos).normalized;
-    }
-
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
     {
         startPosition = startPos;

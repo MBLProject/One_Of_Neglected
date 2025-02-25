@@ -44,9 +44,9 @@ public class Skill
 
     public virtual void LevelUp()
     {
-        Debug.Log($"LevelUp!!!!1 : {level}");
-        level++;
-        Debug.Log($"LevelUp!!!!2 : {level}");
+        
 
+        level++;
+        Debug.Log($"{skillName} LevelUp : {level}");
     }
 }

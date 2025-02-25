@@ -17,6 +17,7 @@ public class UI_PlayerTest : MonoBehaviour
     public Button stoptime;
     public Button gotime;
     public Button revive;
+    public Button upg;
 
     public Slider expSlider;
 
@@ -31,6 +32,12 @@ public class UI_PlayerTest : MonoBehaviour
         stoptime.onClick.AddListener(OnStopTime);
         gotime.onClick.AddListener(OnGoTime);
         revive.onClick.AddListener(OnRevive);
+        upg.onClick.AddListener(OnUpgrade);
+    }
+
+    private void OnUpgrade()
+    {
+        player.Stats.ModifyStatValue(StatType.ProjAmount, 1);
     }
 
     private void OnRevive()

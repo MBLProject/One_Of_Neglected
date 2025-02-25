@@ -12,7 +12,6 @@ public class Projectile : MonoBehaviour
     protected Vector3 startPosition;
     protected Vector3 targetPosition;
     protected bool isMoving;
-    protected int pierceCount = 0;
     protected float lifeTime = 5f;
 
     protected ProjectileStats stats;
@@ -74,7 +73,6 @@ public class Projectile : MonoBehaviour
         speed = spd;
         maxDistance = maxDist;
         damage = dmg;
-        pierceCount = pierceCnt;
         lifeTime = lifetime;
 
         CancelInvoke("DestroyProjectile");
@@ -93,7 +91,7 @@ public class Projectile : MonoBehaviour
 
         stats = projectileStats;
 
-        print($"InitProjectile - lifetime : {stats.lifetime}");
+        //print($"InitProjectile - lifetime : {stats.lifetime}");
 
         CancelInvoke("DestroyProjectile");
 

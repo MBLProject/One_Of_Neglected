@@ -44,12 +44,11 @@ public class Aug_Warlock : ConditionalAugment
 
     public override bool CheckCondition()
     {
-        return true; // 항상 활성화
+        return true; 
     }
 
     public override void OnConditionDetect()
     {
-        // 조건 감지시 필요한 로직
     }
 
     private void OnDashDetected()
@@ -107,7 +106,7 @@ public class Aug_Warlock : ConditionalAugment
     {
         Vector2 dashEnd = owner.targetPosition;
         ProjectileManager.Instance.SpawnPlayerProjectile(
-            "RushEndProjectile",
+            "WarlockShockProjectile",
             dashEnd,
             dashEnd,
             0f,
@@ -146,7 +145,7 @@ public class Aug_Warlock : ConditionalAugment
                 owner.dashRechargeTime *= 0.8f;
                 break;
             case 5:
-                //TODO : 충격파 투사체 만들기
+
                 baseProjectileSize += 0.2f;
                 owner.Stats.CurrentDashCount++;
                 break;
