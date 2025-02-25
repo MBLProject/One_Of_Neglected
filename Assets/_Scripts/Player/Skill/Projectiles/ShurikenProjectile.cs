@@ -50,6 +50,8 @@ public class ShurikenProjectile : Projectile
                 Collider2D closestMonster = null;
                 float closestDistance = float.MaxValue;
 
+                if (monsters.Length == 0) DestroyProjectile();
+
                 foreach (var col in monsters)
                 {
                     if (col.CompareTag("Monster") && col != collision)
@@ -67,6 +69,9 @@ public class ShurikenProjectile : Projectile
                     targetPosition = closestMonster.transform.position;
                     direction = (targetPosition - transform.position).normalized;
                 }
+                else
+                    DestroyProjectile();
+                
             }
             else
             {
