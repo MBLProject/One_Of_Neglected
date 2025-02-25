@@ -708,7 +708,7 @@ public abstract class Player : MonoBehaviour
         statViewer.ProjDestroy = stats.CurrentProjDestroy;
         statViewer.ProjParry = stats.CurrentProjParry;
     }
-    protected void UpdateStats()
+    protected void SyncStatsFromViewer()
     {
         if (stats != null)
         {
@@ -762,7 +762,7 @@ public abstract class Player : MonoBehaviour
     {
         if (stats != null)
         {
-            UpdateStats();
+            SyncStatsFromViewer();
         }
     }
 }
