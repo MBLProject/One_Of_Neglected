@@ -95,6 +95,8 @@ public class SkillSelector : MonoBehaviour
         {
             skillDispenser.RegisterSkill(skillName);
         }
+
+        if (IsMaxLevel(skillName)) skillContainer.SelectableSkills.Remove(skillName);
     }
 
     public void DeductSkill(Enums.SkillName deDuctSkillName)
@@ -138,6 +140,7 @@ public class SkillSelector : MonoBehaviour
 
     private bool IsMaxLevel(Enums.SkillName skillName)
     {
+        if (skillName == Enums.SkillName.Ring) return SkillLevel(skillName) >= 2;
         return IsActiveSkill(skillName) ? SkillLevel(skillName) >= 6 : SkillLevel(skillName) >= 5;
     }
 }
