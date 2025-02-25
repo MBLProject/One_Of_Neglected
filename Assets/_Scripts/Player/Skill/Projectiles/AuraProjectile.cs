@@ -82,18 +82,6 @@ public class AuraProjectile : Projectile
         monster.OnDeath -= RemoveMonsterFromSet;
     }
 
-    private void DecideImage()
-    {
-        switch (stats.level)
-        {
-            case 6:
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/Projectile/AuraProjectile2");
-                break;
-            default:
-                break;
-        }
-    }
-
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 5f)
     {
         startPosition = startPos;
@@ -103,7 +91,6 @@ public class AuraProjectile : Projectile
         damage = dmg;
         pierceCount = pierceCnt;
         lifeTime = lifetime;
-        DecideImage();
     }
 
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
@@ -112,7 +99,6 @@ public class AuraProjectile : Projectile
         targetPosition = targetPos;
         stats = projectileStats;
 
-        DecideImage();
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
     }
 }
