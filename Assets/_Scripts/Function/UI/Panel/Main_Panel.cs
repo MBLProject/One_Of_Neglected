@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class Main_Panel : Panel
         buttons[2].onClick.AddListener(Control_BTN);
         buttons[3].onClick.AddListener(Option_Panel);
         buttons[4].onClick.AddListener(Exit_BTN);
+        buttons[5].onClick.AddListener(Crew_BTN);
     }
+
     private void Start()
     {
 
@@ -52,4 +55,11 @@ public class Main_Panel : Panel
         Debug.Log("나감");
         Application.Quit();
     }
+    //제작진
+    private void Crew_BTN()
+    {
+        UI_Manager.Instance.panel_Dic["Crew_Panel"].PanelOpen();
+        PanelClose();
+    }
+
 }
