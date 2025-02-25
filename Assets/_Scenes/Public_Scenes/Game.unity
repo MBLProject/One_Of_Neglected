@@ -535,6 +535,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 254291825037875009, guid: 18bb54e6914eb4e47b15d50bcc72fe50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3757509644938560046, guid: 18bb54e6914eb4e47b15d50bcc72fe50,
         type: 3}
       propertyPath: m_LocalPosition.x

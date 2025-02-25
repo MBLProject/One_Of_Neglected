@@ -85,8 +85,8 @@ public class UnitManager : Singleton<UnitManager>
 
         mainCamera = Camera.main;
 
-        //SpawnPlayerByType(DataManager.Instance.classSelect_Type);
-        SpawnPlayerByType(ClassType.Magician);
+        SpawnPlayerByType(DataManager.Instance.classSelect_Type);
+        // SpawnPlayerByType(ClassType.Magician);
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;

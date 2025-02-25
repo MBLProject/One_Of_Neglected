@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEditor.Build.Content;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Result_Panel : Panel
 {
