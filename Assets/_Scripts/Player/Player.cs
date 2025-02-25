@@ -531,78 +531,17 @@ public abstract class Player : MonoBehaviour
     private void AddExperience(float amount)
     {
         stats.currentExp += amount;
-
-        // 레벨업이 필요한 횟수 계산
-        int levelUpsNeeded = 0;
-        float remainingExp = stats.currentExp;
-
-        while (remainingExp >= stats.CurrentMaxExp)
+        
+        if (stats.currentExp >= stats.CurrentMaxExp)
         {
-            levelUpsNeeded++;
-            remainingExp -= stats.CurrentMaxExp;
-        }
-
-        // 레벨업이 필요한 경우
-        if (levelUpsNeeded > 0)
-        {
-            // 첫 번째 레벨업 처리
-            ProcessLevelUp();
-
-            // 남은 레벨업들을 큐에 저장
-            for (int i = 1; i < levelUpsNeeded; i++)
-            {
-                QueueLevelUp();
-            }
-        }
-    }
-
-    private bool isProcessingLevelUp = false;
-    private Queue<Action> levelUpQueue = new Queue<Action>();
-
-    private void ProcessLevelUp()
-    {
-        if (!isProcessingLevelUp)
-        {
-            isProcessingLevelUp = true;
-            stats.currentExp -= stats.CurrentMaxExp;
-            stats.CurrentLevel += 1;
-            stats.CurrentMaxExp = CalculateNextLevelExp();
-
-            Debug.Log("레벨업 - 플레이어 호출");
+            stats.currentExp = 0;  
+            stats.CurrentLevel += 1; 
+            stats.CurrentMaxExp = CalculateNextLevelExp();  
+            
             UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
         }
-        else
-        {
-            QueueLevelUp();
-        }
     }
 
-    private void QueueLevelUp()
-    {
-        levelUpQueue.Enqueue(() => ProcessLevelUp());
-    }
-
-    // UI_Manager에서 레벨업 패널이 닫힐 때 호출할 메서드
-    public void OnLevelUpPanelClosed()
-    {
-        isProcessingLevelUp = false;
-
-        // 큐에 대기 중인 레벨업이 있다면 처리
-        if (levelUpQueue.Count > 0)
-        {
-            Action nextLevelUp = levelUpQueue.Dequeue();
-            nextLevelUp?.Invoke();
-        }
-    }
-
-    public void LevelUp()
-    {
-        stats.currentExp -= stats.CurrentMaxExp;
-        stats.CurrentLevel += 1;
-        stats.CurrentMaxExp = CalculateNextLevelExp();
-        Debug.Log("레벨업 - 플레이어 호출");
-        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
-    }
     private int CalculateNextLevelExp()
     {
         float baseExp = 100;
