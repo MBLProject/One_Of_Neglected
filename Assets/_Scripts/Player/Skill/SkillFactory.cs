@@ -48,14 +48,14 @@ public static class SkillFactory
             case SkillName.Claw:
             case SkillName.Javelin:
             case SkillName.Aura:
-            case SkillName.Cape:
+            // case SkillName.Cape:
             case SkillName.Shuriken:
             case SkillName.Gateway:
             case SkillName.Fireball:
-            case SkillName.Ifrit:
-            case SkillName.Flow:
+            // case SkillName.Ifrit:
+            // case SkillName.Flow:
             case SkillName.PoisonShoes:
-            case SkillName.GravityField:
+            // case SkillName.GravityField:
             case SkillName.Mine:
                 return true;
 
