@@ -11,12 +11,13 @@ public class SkillContainer : MonoBehaviour
 
     public Dictionary<SkillName, int> removedSkills = new Dictionary<SkillName, int>();
 
-    private int maxActiveSkills = 3;
-    private int maxPassiveSkills = 3;
+    private int maxActiveSkills = 5;
+    private int maxPassiveSkills = 5;
+
+    public IReadOnlyList<SkillName> OwnedSkills => ownedSkills.AsReadOnly();
 
     public void AddSkill(SkillName skillName)
     {
-        // 癰귣똻?????쎄텢 筌뤴뫖以???곕떽?
         if (!ownedSkills.Contains(skillName))
         {
             ownedSkills.Add(skillName);
@@ -34,7 +35,6 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSelectableSkill(SkillName skillName)
     {
-        // ?醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以???곕떽?
         if (!selectableSkills.Contains(skillName))
         {
             selectableSkills.Add(skillName);
@@ -43,13 +43,11 @@ public class SkillContainer : MonoBehaviour
 
     public List<SkillName> GetAvailableSkills()
     {
-        // ??덇볼?????醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以?獄쏆꼹??
         return new List<SkillName>(selectableSkills);
     }
 
     public SkillName GetSkill(SkillName skillName)
     {
-        // 癰귣똻?????쎄텢 筌뤴뫖以?癒?퐣 ????SkillName??獄쏆꼹??
         if (ownedSkills.Contains(skillName))
         {
             return skillName;

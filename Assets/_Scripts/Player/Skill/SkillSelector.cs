@@ -23,7 +23,7 @@ public class SkillSelector : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Mine);
+            ChooseSkill(Enums.SkillName.Claw);
     }
 
     public List<Enums.SkillName> SelectSkills()
@@ -36,8 +36,10 @@ public class SkillSelector : MonoBehaviour
 
         if (activeMax && passiveMax)
         {
-            foreach (var skill in availableAbilities)
+            foreach (var skill in skillContainer.OwnedSkills)
             {
+                if (IsMaxLevel(skill)) continue;
+
                 selectedAbilities.Add(skill);
             }
         }
@@ -45,33 +47,36 @@ public class SkillSelector : MonoBehaviour
         {
             foreach (var skill in availableAbilities)
             {
+                if (IsMaxLevel(skill)) continue;
+
                 if (IsActiveSkill(skill))
-                {
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) selectedAbilities.Add(skill);
-                }
+                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
+                        selectedAbilities.Add(skill);
                 else
-                {
                     selectedAbilities.Add(skill);
-                }
             }
         }
         else if (passiveMax)
         {
             foreach (var skill in availableAbilities)
             {
+                if (IsMaxLevel(skill)) continue;
+
                 if (IsPassiveSkill(skill))
-                {
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) selectedAbilities.Add(skill);
-                }
+                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
+                        selectedAbilities.Add(skill);
                 else
-                {
                     selectedAbilities.Add(skill);
-                }
             }
         }
         else
         {
-            selectedAbilities = new List<Enums.SkillName>(availableAbilities);
+            foreach (var skill in availableAbilities)
+            {
+                if (IsMaxLevel(skill)) continue;
+
+                selectedAbilities.Add(skill);
+            }
         }
 
         return selectedAbilities.OrderBy(x => Random.value).Take(3).ToList();
@@ -129,5 +134,10 @@ public class SkillSelector : MonoBehaviour
     private bool IsPassiveSkill(Enums.SkillName skillName)
     {
         return !SkillFactory.IsActiveSkill(skillName);
+    }
+
+    private bool IsMaxLevel(Enums.SkillName skillName)
+    {
+        return IsActiveSkill(skillName) ? SkillLevel(skillName) >= 6 : SkillLevel(skillName) >= 5;
     }
 }
