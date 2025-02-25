@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1337224971039928251}
   m_Layer: 8
   m_Name: Env_PurpleExp
-  m_TagString: Env
+  m_TagString: Exp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

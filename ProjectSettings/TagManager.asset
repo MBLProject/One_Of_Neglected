@@ -9,6 +9,7 @@ TagManager:
   - Monster
   - MonsterProjectile
   - Env
+  - Exp
   layers:
   - Default
   - TransparentFX
@@ -37,10 +38,6 @@ TagManager:
   - Layer 1
   - Layer 2
   - Layer 3
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
