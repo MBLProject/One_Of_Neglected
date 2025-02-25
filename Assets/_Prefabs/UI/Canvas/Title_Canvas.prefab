@@ -10815,13 +10815,13 @@ MonoBehaviour:
   weaponIcon_IMG: {fileID: 3485758209410155009}
   classSelect_Panel: {fileID: 3975725419638824192}
   m_className: Mage
-  m_level: 3
+  m_level: 1
   m_Portrait: {fileID: 1414391077, guid: e177321eee3af524398710ef75c7e296, type: 3}
   m_WeaponIcon: {fileID: 1420730711, guid: dfeb1a9e01db9ca45a5249e4e0514499, type: 3}
   m_BTN: {fileID: 7493395850126355616}
   m_Outline: {fileID: 7004291701831139675}
   isUnlocked: 0
-  requireRemnents: 1000
+  requireRemnents: 10
 --- !u!114 &7004291701831139675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21657,13 +21657,13 @@ MonoBehaviour:
   weaponIcon_IMG: {fileID: 1365643434437134931}
   classSelect_Panel: {fileID: 3975725419638824192}
   m_className: Archer
-  m_level: 2
+  m_level: 1
   m_Portrait: {fileID: -667858473, guid: e177321eee3af524398710ef75c7e296, type: 3}
   m_WeaponIcon: {fileID: 1843309469, guid: dfeb1a9e01db9ca45a5249e4e0514499, type: 3}
   m_BTN: {fileID: 3412746158577657143}
   m_Outline: {fileID: 303300239370105945}
   isUnlocked: 0
-  requireRemnents: 100
+  requireRemnents: 5
 --- !u!114 &303300239370105945
 MonoBehaviour:
   m_ObjectHideFlags: 0
