@@ -36,7 +36,7 @@ public class Selection : MonoBehaviour
             m_BTN.onClick.AddListener(Select_BTN);
         }
     }
-    private void Select_BTN()
+    public void Select_BTN()
     {
         if (inGameUI_Panel.skillContainer.
         GetSkill(m_skillName) == Enums.SkillName.None)
@@ -74,7 +74,6 @@ public class Selection : MonoBehaviour
 
         UnitManager.Instance.GetPlayer().augment.ChooseAugment(m_augType);
         levelUp_Panel.SetAugTextInit(m_augType);
-        levelUp_Panel.PanelClose();
-
+        levelUp_Panel.ChangeSelections();
     }
 }
