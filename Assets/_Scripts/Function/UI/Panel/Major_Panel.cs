@@ -78,6 +78,10 @@ public class Major_Panel : MonoBehaviour
             skillMembers[startIdx].level.text =
             "Lv." + inGameUI_Panel.skillSelector.
             SkillLevel(skillNames[i]).ToString();
+
+            skillMembers[startIdx].damage.text =
+            DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
+
             //TODO : 피해량 / 보유 시간 반영해서 적용
             startIdx++;
         }

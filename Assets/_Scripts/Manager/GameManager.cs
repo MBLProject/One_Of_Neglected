@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         StartGame();
-        Debug.Log("Game Started by Space key!");
 
     }
     private void Update()
@@ -25,14 +24,12 @@ public class GameManager : Singleton<GameManager>
         {
             if (isPaused)
             {
-                Debug.Log("Game Resumed by ESC key!");
                 UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
                 Time.timeScale = 0;
                 isPaused = false;
             }
             else
             {
-                Debug.Log("Game Paused by ESC key!");
                 UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
                 Time.timeScale = 1;
                 isPaused = true;
@@ -43,7 +40,6 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        Debug.Log("GameManager: StartGame called");
         isPaused = false;
         isGameStarted = true;
 
