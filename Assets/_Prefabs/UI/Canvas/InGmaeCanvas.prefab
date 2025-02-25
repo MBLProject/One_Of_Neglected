@@ -671,119 +671,97 @@ MonoBehaviour:
     skill_Sprite: {fileID: 21300000, guid: d6c4a2c2eedd5144387b4757f277ab8a, type: 3}
     selectedTime: 0
   - skill_Name: 5
-    display_Name: "\uCF00\uC774\uD504"
-    skill_Text: "\uADFC\uCC98 \uC801\uB4E4\uC744 \uD729\uC501\uB2C8\uB2E4."
-    skill_Sprite: {fileID: 21300000, guid: bbdfd65c633371c498281ebf0b4677af, type: 3}
-    selectedTime: 0
-  - skill_Name: 6
     display_Name: "\uC218\uB9AC\uAC80"
     skill_Text: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uB358\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 5ae937422d4b6be44933b072de9234b8, type: 3}
     selectedTime: 0
-  - skill_Name: 7
+  - skill_Name: 6
     display_Name: "\uAD00\uBB38"
     skill_Text: " \uC8FC\uBCC0 \uC801\uC5D0\uAC8C \uC9C0\uC18D\uC801\uC73C\uB85C
       \uD53C\uD574\uB97C \uAC00\uD558\uB294 \uAD00\uBB38\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c8eea44ae087fb04d9de8191d9003409, type: 3}
     selectedTime: 0
-  - skill_Name: 8
+  - skill_Name: 7
     display_Name: "\uC7A5\uD48D"
     skill_Text: "\uADFC\uCC98 \uC801\uB4E4\uC744 \uB0A0\uB824\uBC84\uB9BD\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c296d0703ac39b34594f02dbd171b06b, type: 3}
     selectedTime: 0
-  - skill_Name: 9
-    display_Name: "\uC774\uD504\uB9AC\uD2B8"
-    skill_Text: "\uC801\uC744 \uD0DC\uC6B0\uB294 \uBD88\uC758 \uC815\uB839\uC744
-      \uC18C\uD658\uD569\uB2C8\uB2E4."
-    skill_Sprite: {fileID: 21300000, guid: 2a57aac4c8551d841ab81cae7e0b57e3, type: 3}
-    selectedTime: 0
-  - skill_Name: 10
-    display_Name: "\uD50C\uB85C\uC6B0"
-    skill_Text: "\uC801\uC744 \uC5BC\uB9AC\uB294 \uC5BC\uC74C\uC758 \uC815\uB839\uC744
-      \uC18C\uD658\uD569\uB2C8\uB2E4."
-    skill_Sprite: {fileID: 21300000, guid: ac0754deb62839e42b3e95384e6fa4dc, type: 3}
-    selectedTime: 0
-  - skill_Name: 11
+  - skill_Name: 8
     display_Name: "\uB3C5\uC2E0"
     skill_Text: "\uBC1C\uC790\uCDE8\uC5D0 \uB3C5\uC744 \uB0A8\uAE41\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 0bb5dfa27f404204ab4f99566547237f, type: 3}
     selectedTime: 0
-  - skill_Name: 12
-    display_Name: "\uC911\uB825\uC7A5"
-    skill_Text: "\uC801\uC758 \uC9D6\uB204\uB974\uB294 \uC601\uC5ED\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4."
-    skill_Sprite: {fileID: 21300000, guid: 2434c2d7b7bce5342b7fc4fd6f58c30d, type: 3}
-    selectedTime: 0
-  - skill_Name: 13
+  - skill_Name: 9
     display_Name: "\uC9C0\uB8B0"
     skill_Text: "\uC8FC\uBCC0\uC5D0 \uD3ED\uD0C4\uC744 \uB358\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 3dc1adfcfe9a9094681d644f7c67acf4, type: 3}
     selectedTime: 0
-  - skill_Name: 14
+  - skill_Name: 10
     display_Name: "\uD53C"
     skill_Text: "\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: b25e716ab96cd6546a7dd3208f232ff6, type: 3}
     selectedTime: 0
-  - skill_Name: 15
+  - skill_Name: 11
     display_Name: "\uBB3C"
     skill_Text: "\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 4ffda14c89906354a83a4dbfa5508154, type: 3}
     selectedTime: 0
-  - skill_Name: 16
+  - skill_Name: 12
     display_Name: "\uBC29\uD328"
     skill_Text: "\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 623f3373e436a4f429408f1af6002581, type: 3}
     selectedTime: 0
-  - skill_Name: 17
+  - skill_Name: 13
     display_Name: "\uC2E0\uBC1C"
     skill_Text: "\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: ee350f1a4b6cb1c44b68ab2a5ba60966, type: 3}
     selectedTime: 0
-  - skill_Name: 18
+  - skill_Name: 14
     display_Name: "\uC8FC\uBA39"
     skill_Text: "\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 9d8d8bbafaef3ff49af816ec9432337b, type: 3}
     selectedTime: 0
-  - skill_Name: 19
+  - skill_Name: 15
     display_Name: "\uBC18\uC9C0"
     skill_Text: "\uD22C\uC0AC\uCCB4\uAC00 1\uAC1C \uC99D\uAC00\uD569\uB2C8\uB2E4.."
     skill_Sprite: {fileID: 21300000, guid: 0cc3bf55378de8044b9110d0e9b2f552, type: 3}
     selectedTime: 0
-  - skill_Name: 20
+  - skill_Name: 16
     display_Name: "\uCC45"
     skill_Text: "\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c1a90a569a97427429fa6b91d5759f38, type: 3}
     selectedTime: 0
-  - skill_Name: 21
+  - skill_Name: 17
     display_Name: "\uD314\uCC0C"
     skill_Text: "\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: fad847e1d069735459fe20c0ccee0398, type: 3}
     selectedTime: 0
-  - skill_Name: 22
+  - skill_Name: 18
     display_Name: "\uC2DC\uACC4"
     skill_Text: "\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: d08f0e8255f4015498c6cb2f9eea2d52, type: 3}
     selectedTime: 0
-  - skill_Name: 23
+  - skill_Name: 19
     display_Name: "\uC790\uC11D"
     skill_Text: "\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: dfd7db9c9962bcd49a3e408352c98eed, type: 3}
     selectedTime: 0
-  - skill_Name: 24
+  - skill_Name: 20
     display_Name: "\uC655\uAD00"
     skill_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: e92cf188a1068564c84a2ebe7892e3a6, type: 3}
     selectedTime: 0
-  - skill_Name: 25
+  - skill_Name: 21
     display_Name: "\uACE0\uAE30"
     skill_Text: "\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 56c014aa404d6704cb5734521b1be545, type: 3}
     selectedTime: 0
-  - skill_Name: 26
+  - skill_Name: 22
     display_Name: "\uCE58\uC988"
     skill_Text: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uD574\uC90D\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 4e908d4eb5560a64fb45cd0650e19d58, type: 3}
     selectedTime: 0
-  - skill_Name: 27
+  - skill_Name: 23
     display_Name: "\uACE8\uB4DC"
     skill_Text: "\uC8FC\uBA38\uB2C8\uAC00 \uB450\uB451\uD574\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: bd3440e894dca33429175396cfa5010c, type: 3}

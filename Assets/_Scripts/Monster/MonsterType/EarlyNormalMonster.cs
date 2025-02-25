@@ -12,9 +12,9 @@ public class EarlyNormalMonster : NormalMonster
             health: 10f,
             speed: 1f,
             damage: 5f,
-            range: 1f,
+            range: 0.78f,
             cooldown: 1f,
-            defense:1
+            defense: 1
         );
     }
 }
