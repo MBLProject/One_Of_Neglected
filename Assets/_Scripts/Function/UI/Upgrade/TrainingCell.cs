@@ -93,6 +93,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
     private void Training()
     {
         if (currentRequireGold == -1) return;
+        if (DataManager.Instance.player_Property.gold < currentRequireGold) return;
         if (maxTrainingLevel > trainingCount || isDisplayLv)
         {
             if (isDisplayLv == false && maxTrainingLevel < 10)

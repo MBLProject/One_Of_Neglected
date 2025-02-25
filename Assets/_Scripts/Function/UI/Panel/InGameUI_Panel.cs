@@ -33,17 +33,12 @@ public class InGameUI_Panel : Panel
 
     private void Start()
     {
+        player = UnitManager.Instance.GetPlayer();
+
         if (skillSelector == null) skillSelector = GetComponent<SkillSelector>();
         skillSelector.Initialize(skillContainer, UnitManager.Instance.GetPlayer().GetComponent<SkillDispenser>());
         display_Level_TMP.text = "Lv." + UnitManager.Instance.GetPlayer().statViewer.Level;
     }
-
-    private void OnEnable()
-    {
-
-        player = UnitManager.Instance.GetPlayer();
-    }
-
     private void Update()
     {
 
