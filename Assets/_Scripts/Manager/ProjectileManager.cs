@@ -52,6 +52,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         playerProjectiles.Add("PowerEffect", Resources.Load<PlayerProjectile>("Using/Projectile/PowerEffect"));
         playerProjectiles.Add("JewelProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/JewelProjectile"));
+        playerProjectiles.Add("WarlockShockProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarlockShockProjectile"));
 
     }
 
