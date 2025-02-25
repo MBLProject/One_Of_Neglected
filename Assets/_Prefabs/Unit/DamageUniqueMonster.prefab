@@ -186,12 +186,14 @@ MonoBehaviour:
   rb: {fileID: 4305074594005286965}
   animator: {fileID: 4724092038599362434}
   dieAnimationLength: 1
+  m_SpriteRenderer: {fileID: 0}
   damageIncreasePerInterval: 30
   healthIncreasePerInterval: 300
   defenseIncreasePerInterval: 1
   statUpdateInterval: 110
   skillCooldown: 8
-  slashPrefab: {fileID: 8822640044567260799, guid: a0874530728194145a28e36d85091cb4, type: 3}
+  slashPrefab: {fileID: 8822640044567260799, guid: a0874530728194145a28e36d85091cb4,
+    type: 3}
   slashSpeed: 6
   slashDamage: 20
   skillRange: 5
