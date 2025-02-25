@@ -58,7 +58,7 @@ public class UI_PlayerTest : MonoBehaviour
     private void OnUpgradeAug()
     {
         //player.GetComponent<AugmentSelector>().LevelUpAugment(AugmentName.TwoHandSword);
-        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Orb);
+        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Warlock);
         Debug.Log("증강 강화됨");
     
     
@@ -66,7 +66,7 @@ public class UI_PlayerTest : MonoBehaviour
     private void OnSelectAug()
     {
         //player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.TwoHandSword);
-        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Orb);
+        player.GetComponent<AugmentSelector>().ChooseAugment(AugmentName.Warlock);
         Debug.Log("증강 선택됨");
     }
     private void Update()
