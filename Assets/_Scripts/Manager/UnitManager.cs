@@ -37,15 +37,15 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField]
     private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
     {
-        new MonsterSpawnData { gameTime = 0.00f, spawnCount = 5 },   // 게임 시작
-        new MonsterSpawnData { gameTime = 0.10f, spawnCount = 10 },  // 10초
-        new MonsterSpawnData { gameTime = 0.20f, spawnCount = 15 },  // 20초
-        new MonsterSpawnData { gameTime = 0.30f, spawnCount = 20 },  // 30초
-        new MonsterSpawnData { gameTime = 0.40f, spawnCount = 25 },  // 40초
-        new MonsterSpawnData { gameTime = 0.50f, spawnCount = 30 },  // 50초
-        new MonsterSpawnData { gameTime = 1.00f, spawnCount = 35 },  // 1분
-        new MonsterSpawnData { gameTime = 1.10f, spawnCount = 40 },  // 1분 10초
-        new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분 (게임 종료)
+         new MonsterSpawnData { gameTime = 0.00f, spawnCount = 5 },   // 0초
+    new MonsterSpawnData { gameTime = 0.17f, spawnCount = 10 },  // 10초
+    new MonsterSpawnData { gameTime = 0.33f, spawnCount = 15 },  // 20초
+    new MonsterSpawnData { gameTime = 0.50f, spawnCount = 20 },  // 30초
+    new MonsterSpawnData { gameTime = 0.67f, spawnCount = 25 },  // 40초
+    new MonsterSpawnData { gameTime = 0.83f, spawnCount = 30 },  // 50초
+    new MonsterSpawnData { gameTime = 1.00f, spawnCount = 35 },  // 1분
+    new MonsterSpawnData { gameTime = 1.17f, spawnCount = 40 },  // 1분 10초
+    new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분
     };
 
     // 드랍 오브젝트 프리팹
@@ -109,26 +109,28 @@ public class UnitManager : Singleton<UnitManager>
 
         if (Time.time < nextSpawnTime) return;  // 스폰 인터벌 체크
         nextSpawnTime = Time.time + spawnInterval;  // 다음 스폰 시간 설정 (if문 밖으로 이동)
-
-        // 현재 시간에 해당하는 스폰 수 찾기
-        while (currentSpawnIndex < monsterSpawnTable.Length &&
-               currentGameTime >= monsterSpawnTable[currentSpawnIndex].gameTime)
+        int spawnCount = 5; // 기본값
+        for (int i = 0; i < monsterSpawnTable.Length; i++)
         {
-            currentSpawnIndex++;
+            if (currentGameTime < monsterSpawnTable[i].gameTime)
+            {
+                spawnCount = i > 0 ? monsterSpawnTable[i - 1].spawnCount : monsterSpawnTable[0].spawnCount;
+                break;
+            }
         }
-
-        // 현재 몬스터 수가 목표치보다 적으면 스폰
-        int targetSpawnCount = currentSpawnIndex > 0 ?
-            monsterSpawnTable[currentSpawnIndex - 1].spawnCount :
-            monsterSpawnTable[0].spawnCount;
-
-        if (GetActiveMonsterCount() < Mathf.Min(targetSpawnCount, maxTotalMonsterCount))
+        for (int i = 0; i < spawnCount; i++)
         {
-            if (GetRangedMonsterCount() < maxRangedMonsterCount)
+            if (GetActiveMonsterCount() >= maxTotalMonsterCount) break;
+
+            // 20% 확률로 원거리 몬스터 생성
+            if (Random.value >= 0.2f || GetRangedMonsterCount() >= maxRangedMonsterCount)
+            {
+                SpawnMonsterAtRandomPosition(currentNormalMonsterType);
+            }
+            else
             {
                 SpawnMonsterAtRandomPosition(MonsterType.RangedNormal);
             }
-            SpawnMonsterAtRandomPosition(currentNormalMonsterType);
         }
 
         if (Time.time >= nextBoxSpawnTime)
