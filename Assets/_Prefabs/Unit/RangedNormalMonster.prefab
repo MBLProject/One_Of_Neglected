@@ -186,8 +186,10 @@ MonoBehaviour:
   rb: {fileID: 4305074594005286965}
   animator: {fileID: 4724092038599362434}
   dieAnimationLength: 1
+  m_SpriteRenderer: {fileID: 0}
   damageIncreasePerInterval: 3
   healthIncreasePerInterval: 10
+  defenseIncreasePerInterval: 0
   statUpdateInterval: 90
   projectileType: RangedNormal
   projectileSpeed: 1

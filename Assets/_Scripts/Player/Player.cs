@@ -809,7 +809,7 @@ public abstract class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Exp"))
+        if (collision.CompareTag("Env"))
         {
             WorldObject Object = collision.gameObject.GetComponent<WorldObject>();
             if (Object != null)
