@@ -53,12 +53,12 @@ public class Major_Panel : MonoBehaviour
         SkillIconSetting();
         BaseInfoSetting();
         AugInfoSetting();
-        SkillInfoSetting(ref levelUp_Panel.m_MainSkills);
-        SkillInfoSetting(ref levelUp_Panel.m_SubSkills, levelUp_Panel.m_MainSkills.Count);
+        SkillInfoSetting(ref levelUp_Panel.m_MainSkills, true);
+        SkillInfoSetting(ref levelUp_Panel.m_SubSkills, false, levelUp_Panel.m_MainSkills.Count);
     }
 
     //스킬 정보
-    private void SkillInfoSetting(ref List<Enums.SkillName> skillNames, int startIdx = 0)
+    private void SkillInfoSetting(ref List<Enums.SkillName> skillNames, bool isActivesSkill, int startIdx = 0)
     {
         if (skillNames.Count == 0) return;
 
@@ -78,11 +78,23 @@ public class Major_Panel : MonoBehaviour
             skillMembers[startIdx].level.text =
             "Lv." + inGameUI_Panel.skillSelector.
             SkillLevel(skillNames[i]).ToString();
+            if (isActivesSkill)
+            {
+                skillMembers[startIdx].damage.text =
+                DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
 
-            skillMembers[startIdx].damage.text =
-            DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
+                float time = TimeManager.Instance.gameTime -
+                levelUp_Panel.m_MainSkill_Time[skillNames[i]];
 
-            //TODO : 피해량 / 보유 시간 반영해서 적용
+                skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
+            }
+            else
+            {
+                float time = TimeManager.Instance.gameTime -
+                levelUp_Panel.m_SubSkill_Time[skillNames[i]];
+
+                skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
+            }
             startIdx++;
         }
 

@@ -36,31 +36,35 @@ public class Selection : MonoBehaviour
             m_BTN.onClick.AddListener(Select_BTN);
         }
     }
-    private void Select_BTN()
+    public void Select_BTN()
     {
         if (inGameUI_Panel.skillContainer.
         GetSkill(m_skillName) == Enums.SkillName.None)
         {
-            if (m_skillName != Enums.SkillName.Cheese && m_skillName != Enums.SkillName.Gold)
+            if (SkillFactory.IsActiveSkill(m_skillName) != 2)
             {
                 inGameUI_Panel.SetIconCell_Mini(m_skillName);
                 banish_Panel.SetIconCell_Banish(m_skillName);
             }
         }
+
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
-        Debug.Log($"스킬 선택 : {m_skillName}");
+
         if (SkillFactory.IsActiveSkill(m_skillName) == 1)
         {
             if (levelUp_Panel.m_MainSkills.Contains(m_skillName) == false)
+            {
                 levelUp_Panel.m_MainSkills.Add(m_skillName);
+                levelUp_Panel.m_MainSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+            }
         }
-        else if (
-        SkillFactory.IsActiveSkill(m_skillName) == 0 &&
-        m_skillName != Enums.SkillName.Gold &&
-         m_skillName != Enums.SkillName.Cheese)
+        else if (SkillFactory.IsActiveSkill(m_skillName) == 0)
         {
             if (levelUp_Panel.m_SubSkills.Contains(m_skillName) == false)
+            {
                 levelUp_Panel.m_SubSkills.Add(m_skillName);
+                levelUp_Panel.m_SubSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+            }
         }
         levelUp_Panel.PanelClose();
     }
@@ -70,7 +74,6 @@ public class Selection : MonoBehaviour
 
         UnitManager.Instance.GetPlayer().augment.ChooseAugment(m_augType);
         levelUp_Panel.SetAugTextInit(m_augType);
-        levelUp_Panel.PanelClose();
-
+        levelUp_Panel.ChangeSelections();
     }
 }

@@ -28,10 +28,19 @@ public class LevelUp_Panel : Panel
     [SerializeField] private List<Skill_Info> skill_Infos;
     [SerializeField] private TextMeshProUGUI reroll_Counter_TMP;
     [SerializeField] private TextMeshProUGUI banish_Counter_TMP;
-    public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic = new Dictionary<Enums.SkillName, Skill_Info>();
+
+    public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic =
+     new Dictionary<Enums.SkillName, Skill_Info>();
 
     public List<Enums.SkillName> m_MainSkills;
     public List<Enums.SkillName> m_SubSkills;
+
+    public Dictionary<Enums.SkillName, float> m_MainSkill_Time =
+    new Dictionary<Enums.SkillName, float>();
+
+    public Dictionary<Enums.SkillName, float> m_SubSkill_Time =
+    new Dictionary<Enums.SkillName, float>();
+
     private int augUpCount = 0;
     public bool isAugSelected = false;
 
@@ -46,6 +55,7 @@ public class LevelUp_Panel : Panel
         get { return aug_Infos; }
         private set { aug_Property = aug_Infos; }
     }
+
     private void Awake()
     {
         augUpCount = 0;
@@ -79,15 +89,12 @@ public class LevelUp_Panel : Panel
         {
             case Enums.ClassType.Warrior:
                 aug_Infos.WarroirInit();
-                Debug.LogWarning("전사설정");
                 break;
             case Enums.ClassType.Archer:
                 aug_Infos.ArcherInit();
-                Debug.LogWarning("궁수설정");
                 break;
             case Enums.ClassType.Magician:
                 aug_Infos.MagicianInit();
-                Debug.LogWarning("마법사설정");
                 break;
             default:
                 break;
@@ -106,7 +113,6 @@ public class LevelUp_Panel : Panel
         {
             //증강과 특성 선택하는 메서드
             AugSelections();
-            Debug.Log("증강");
         }
         else
         {
@@ -139,22 +145,22 @@ public class LevelUp_Panel : Panel
             reroll_Counter_TMP.text = DataManager.Instance.BTS.Reroll.ToString();
         }
     }
-    private void ChangeSelections()
+    public void ChangeSelections()
     {
         if (current_Selections[3].gameObject.activeSelf)
             current_Selections[3].gameObject.SetActive(false);
-        for (int i = 1; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if (current_Selections[i].gameObject.activeSelf == false)
-                current_Selections[i].gameObject.SetActive(true);
-            else break;
+            current_Selections[i].gameObject.SetActive(true);
+            current_Selections[i].m_BTN.onClick.RemoveAllListeners();
+            current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN);
         }
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
         {
             skill_Info = skill_Info_Dic[popSkill_List[i]];
-
+            Debug.LogWarning(popSkill_List[i]);
             current_Selections[i].m_skillName = skill_Info.skill_Name;
             current_Selections[i].display_Name.text = skill_Info.display_Name;
             current_Selections[i].info_TMP.text = skill_Info.skill_Text;
@@ -163,10 +169,6 @@ public class LevelUp_Panel : Panel
     }
     private void AugSelections()
     {
-
-        // Player player = UnitManager.Instance.GetPlayer();
-
-        // List<Enums.AugmentName> popAgu_List = player.augment.SelectAugments();
         if (isAugSelected == false)
         {
             current_Selections[3].gameObject.SetActive(true);
