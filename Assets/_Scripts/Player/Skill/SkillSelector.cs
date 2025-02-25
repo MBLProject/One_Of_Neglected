@@ -23,7 +23,7 @@ public class SkillSelector : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Mine);
+            ChooseSkill(Enums.SkillName.Claw);
     }
 
     public List<Enums.SkillName> SelectSkills()
