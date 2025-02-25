@@ -16,7 +16,6 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSkill(SkillName skillName)
     {
-        // 癰귣똻?????쎄텢 筌뤴뫖以???곕떽?
         if (!ownedSkills.Contains(skillName))
         {
             ownedSkills.Add(skillName);
@@ -34,7 +33,6 @@ public class SkillContainer : MonoBehaviour
 
     public void AddSelectableSkill(SkillName skillName)
     {
-        // ?醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以???곕떽?
         if (!selectableSkills.Contains(skillName))
         {
             selectableSkills.Add(skillName);
@@ -43,13 +41,11 @@ public class SkillContainer : MonoBehaviour
 
     public List<SkillName> GetAvailableSkills()
     {
-        // ??덇볼?????醫뤾문 揶쎛?館釉???쎄텢 筌뤴뫖以?獄쏆꼹??
         return new List<SkillName>(selectableSkills);
     }
 
     public SkillName GetSkill(SkillName skillName)
     {
-        // 癰귣똻?????쎄텢 筌뤴뫖以?癒?퐣 ????SkillName??獄쏆꼹??
         if (ownedSkills.Contains(skillName))
         {
             return skillName;
