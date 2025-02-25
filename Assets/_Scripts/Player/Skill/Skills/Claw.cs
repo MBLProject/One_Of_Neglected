@@ -15,6 +15,7 @@ public class Claw : ActiveSkill
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
         playerStats.OnProjAmountChanged += (value) => stats.projectileCount += value;
+        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
 
