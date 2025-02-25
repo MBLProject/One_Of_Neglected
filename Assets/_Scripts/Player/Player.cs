@@ -465,7 +465,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    private static class CollectibleValues 
+    private static class CollectibleValues
     {
         public const float BASIC_EXP = 10f;
         public const int BASIC_GOLD = 10;
@@ -531,23 +531,23 @@ public abstract class Player : MonoBehaviour
     private void AddExperience(float amount)
     {
         stats.currentExp += amount;
-        
+
         // 레벨업이 필요한 횟수 계산
         int levelUpsNeeded = 0;
         float remainingExp = stats.currentExp;
-        
+
         while (remainingExp >= stats.CurrentMaxExp)
         {
             levelUpsNeeded++;
             remainingExp -= stats.CurrentMaxExp;
         }
-        
+
         // 레벨업이 필요한 경우
         if (levelUpsNeeded > 0)
         {
             // 첫 번째 레벨업 처리
             ProcessLevelUp();
-            
+
             // 남은 레벨업들을 큐에 저장
             for (int i = 1; i < levelUpsNeeded; i++)
             {
@@ -567,7 +567,7 @@ public abstract class Player : MonoBehaviour
             stats.currentExp -= stats.CurrentMaxExp;
             stats.CurrentLevel += 1;
             stats.CurrentMaxExp = CalculateNextLevelExp();
-            
+
             Debug.Log("레벨업 - 플레이어 호출");
             UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
         }
@@ -586,7 +586,7 @@ public abstract class Player : MonoBehaviour
     public void OnLevelUpPanelClosed()
     {
         isProcessingLevelUp = false;
-        
+
         // 큐에 대기 중인 레벨업이 있다면 처리
         if (levelUpQueue.Count > 0)
         {
