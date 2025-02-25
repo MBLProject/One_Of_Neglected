@@ -13,6 +13,7 @@ public class Aug_ArcRanger : ConditionalAugment
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;
 
     private PlayerProjectile currentPathProjectile;
+    private bool isExplosive = false;
 
     public Aug_ArcRanger(Player owner) : base(owner)
     {
@@ -83,7 +84,7 @@ public class Aug_ArcRanger : ConditionalAugment
             Vector2 rotatedDirection = RotateVector(direction, currentAngle);
             Vector2 targetPosition = dashStart + rotatedDirection * maxDistance;
 
-            ProjectileManager.Instance.SpawnPlayerProjectile(
+            PlayerProjectile proj = ProjectileManager.Instance.SpawnPlayerProjectile(
                 "ArcRangerProjectile",
                 dashStart,
                 targetPosition,
@@ -94,6 +95,12 @@ public class Aug_ArcRanger : ConditionalAugment
                 penetration,
                 duration
             );
+
+            // 5레벨 폭발 효과 적용
+            if (isExplosive && proj is ArcRangerProjectile arcProj)
+            {
+                arcProj.SetExplosive(true);
+            }
         }
 
         currentPathProjectile = ProjectileManager.Instance.SpawnPlayerProjectile(
@@ -155,7 +162,7 @@ public class Aug_ArcRanger : ConditionalAugment
                 owner.dashRechargeTime *= 0.8f;
                 break;
             case 5:
-                //TODO : 폭발화살로 변경
+                isExplosive = true;
                 break;
         }
     }
