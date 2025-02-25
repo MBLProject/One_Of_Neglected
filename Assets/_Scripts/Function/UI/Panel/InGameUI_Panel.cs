@@ -52,7 +52,7 @@ public class InGameUI_Panel : Panel
     public void SetIconCell_Mini(Enums.SkillName skillName)
     {
 
-        if (SkillFactory.IsActiveSkill(skillName))
+        if (SkillFactory.IsActiveSkill(skillName) == 1)
         {
             SetIcons(mainSkill_Icon_Container, skillName);
         }
@@ -76,7 +76,7 @@ public class InGameUI_Panel : Panel
     }
     public void Remove_MiniIcon(Enums.SkillName skillName, Sprite sprite)
     {
-        if (SkillFactory.IsActiveSkill(skillName))
+        if (SkillFactory.IsActiveSkill(skillName) == 1)
         {
             Icon_Replace(mainSkill_Icon_Container, sprite, main_Icon_Rect);
         }

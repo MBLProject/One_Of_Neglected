@@ -34,7 +34,7 @@ public class Banish_Panel : Panel
 
     public void SetIconCell_Banish(Enums.SkillName skillName)
     {
-        if (SkillFactory.IsActiveSkill(skillName))
+        if (SkillFactory.IsActiveSkill(skillName) == 1)
         {
             SetIcons(mainIcon_List, skillName);
         }
@@ -64,7 +64,7 @@ public class Banish_Panel : Panel
     public void Remove_BanishIcon(Banish_Icon icon)
     {
         icon.m_Icon.sprite = defaultIcon;
-        if (SkillFactory.IsActiveSkill(icon.m_SkillName))
+        if (SkillFactory.IsActiveSkill(icon.m_SkillName) == 1)
         {
             ReplacingCell(mainIcon_List, icon, mainBanish_Rect);
         }

@@ -49,13 +49,13 @@ public class Selection : MonoBehaviour
         }
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
         Debug.Log($"스킬 선택 : {m_skillName}");
-        if (SkillFactory.IsActiveSkill(m_skillName))
+        if (SkillFactory.IsActiveSkill(m_skillName) == 1)
         {
             if (levelUp_Panel.m_MainSkills.Contains(m_skillName) == false)
                 levelUp_Panel.m_MainSkills.Add(m_skillName);
         }
         else if (
-        !SkillFactory.IsActiveSkill(m_skillName) &&
+        SkillFactory.IsActiveSkill(m_skillName) == 0 &&
         m_skillName != Enums.SkillName.Gold &&
          m_skillName != Enums.SkillName.Cheese)
         {
