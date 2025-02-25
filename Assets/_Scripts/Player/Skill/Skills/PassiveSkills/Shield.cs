@@ -15,9 +15,17 @@ public class Shield : Skill
     {
         base.LevelUp();
 
+        if (level >= 6)
+        {
+            level = 5;
+            Debug.Log($"LevelUp!!!!3 : {level}");
+            return;
+        }
+
         switch (level)
         {
             default:
+                ModifySkill();
                 break;
         }
     }

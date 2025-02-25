@@ -17,6 +17,13 @@ public class Ring : Skill
     {
         base.LevelUp();
 
+        if (level >= 3)
+        {
+            level = 2;
+            Debug.Log($"LevelUp!!!!3 : {level}");
+            return;
+        }
+
         switch (level)
         {
             case 1:
