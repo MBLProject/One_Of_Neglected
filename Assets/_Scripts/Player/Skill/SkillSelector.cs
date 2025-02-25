@@ -48,7 +48,7 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsPassiveSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                if (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
                 {
                     selectedAbilities.Add(skill);
                 }
@@ -60,7 +60,7 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsActiveSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                if (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
                 {
                     selectedAbilities.Add(skill);
                 }
@@ -135,13 +135,19 @@ public class SkillSelector : MonoBehaviour
 
     private bool IsActiveSkill(Enums.SkillName skillName)
     {
-        return SkillFactory.IsActiveSkill(skillName);
+        return SkillFactory.IsActiveSkill(skillName) == 1;
     }
 
     private bool IsPassiveSkill(Enums.SkillName skillName)
     {
-        return !SkillFactory.IsActiveSkill(skillName);
+        return SkillFactory.IsActiveSkill(skillName) == 0;
     }
+
+    private bool IsEtcSkill(Enums.SkillName skillName)
+    {
+        return SkillFactory.IsActiveSkill(skillName) == 2;
+    }
+
 
     private bool IsMaxLevel(Enums.SkillName skillName)
     {

@@ -40,7 +40,7 @@ public static class SkillFactory
                 return null;
         }
     }
-    public static bool IsActiveSkill(SkillName skillName)
+    public static int IsActiveSkill(SkillName skillName)
     {
         switch (skillName)
         {
@@ -57,7 +57,7 @@ public static class SkillFactory
             case SkillName.PoisonShoes:
             // case SkillName.GravityField:
             case SkillName.Mine:
-                return true;
+                return 1;
 
             case SkillName.Blood:
             case SkillName.Water:
@@ -71,15 +71,15 @@ public static class SkillFactory
             case SkillName.Magnet:
             case SkillName.Crown:
             case SkillName.Meat:
-                return false;
+                return 0;
 
             case SkillName.Cheese:
             case SkillName.Gold:
-                return false;
+                return 2;
 
             default:
                 Debug.LogWarning($"Unknown SkillName: {skillName}");
-                return false;
+                return 2;
         }
     }
 

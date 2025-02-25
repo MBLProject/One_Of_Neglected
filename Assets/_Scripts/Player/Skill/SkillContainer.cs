@@ -74,7 +74,7 @@ public class SkillContainer : MonoBehaviour
         int count = 0;
         foreach (var skillName in ownedSkills)
         {
-            if (SkillFactory.IsActiveSkill(skillName)) count++;
+            if (SkillFactory.IsActiveSkill(skillName) == 1) count++;
         }
         return count;
     }
@@ -84,7 +84,7 @@ public class SkillContainer : MonoBehaviour
         int count = 0;
         foreach (var skillName in ownedSkills)
         {
-            if (!SkillFactory.IsActiveSkill(skillName)) count++;
+            if (SkillFactory.IsActiveSkill(skillName) == 0) count++;
         }
         return count;
     }
