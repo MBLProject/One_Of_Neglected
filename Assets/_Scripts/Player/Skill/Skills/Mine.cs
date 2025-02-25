@@ -15,11 +15,9 @@ public class Mine : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount = value;
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount += value;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
-
-    
 
     public override void ModifySkill()
     {
@@ -40,7 +38,7 @@ public class Mine : ActiveSkill
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1,
-            lifetime = 5f,
+            lifetime = 3f,
             projectileSpeed = 1f,
 
         };

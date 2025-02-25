@@ -3,6 +3,7 @@ using UnityEngine;
 using static Enums;
 using Random = UnityEngine.Random;
 using System.Linq;
+using System.Collections.Generic;
 
 [Serializable]
 public class StatViewer
@@ -352,7 +353,7 @@ public abstract class Player : MonoBehaviour
         // (데미지 - 방어력) * 뎀감
         float finalDamage = Mathf.Max(0, damage - stats.CurrentDefense) * (100 - DamageReduction) / 100;
         stats.currentHp -= finalDamage;
-        ShowDamageFont(transform.position, damage, transform);
+        ShowDamageFont(transform.position, finalDamage, transform);
 
         if (stats.CurrentInvincibility)
         {
@@ -463,76 +464,137 @@ public abstract class Player : MonoBehaviour
             // 여기에 HP회복 이펙트 등 추가 가능
         }
     }
+
+    private static class CollectibleValues 
+    {
+        public const float BASIC_EXP = 10f;
+        public const int BASIC_GOLD = 10;
+        public const int LARGE_GOLD = 50;
+        public const float HEAL_AMOUNT = 20f;
+        public const float BOMB_DAMAGE = 100f;
+    }
+
     private void CollectObj(WorldObject worldObject)
     {
-        float expAmount = 0;
-        if (worldObject.objectType == WorldObjectType.ExpBlue)
+        switch (worldObject.objectType)
         {
-            expAmount = 10;
-            expAmount *= stats.CurrentGrowth;
-            stats.currentExp += expAmount;
+            case WorldObjectType.ExpBlue:
+            case WorldObjectType.ExpPurple:
+                ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
+                break;
 
-            if (stats.currentExp >= stats.CurrentMaxExp)
-            {
-                LevelUp();
-            }
-        }
-        else if (worldObject.objectType == WorldObjectType.ExpPurple)
-        {
-            expAmount = 10;
-            expAmount *= stats.CurrentGrowth;
-            stats.currentExp += expAmount;
+            case WorldObjectType.ExpBlack:
+                ProcessExperience(stats.CurrentMaxExp * stats.CurrentGrowth);
+                DataManager.Instance.inGameValue.remnents += 1;
+                break;
 
-            if (stats.currentExp >= stats.CurrentMaxExp)
-            {
-                LevelUp();
-            }
-        }
-        else if (worldObject.objectType == WorldObjectType.ExpBlack)
-        {
-            expAmount = stats.CurrentMaxExp;
-            expAmount = 10;
-            expAmount *= stats.CurrentGrowth;
-            stats.currentExp += expAmount;
+            case WorldObjectType.Gold_1:
+                DataManager.Instance.inGameValue.gold += (int)(CollectibleValues.BASIC_GOLD * stats.CurrentGreed);
+                break;
 
-            if (stats.currentExp >= stats.CurrentMaxExp)
-            {
-                LevelUp();
-            }
-            DataManager.Instance.inGameValue.remnents += 1;
+            case WorldObjectType.Gold_2:
+                DataManager.Instance.inGameValue.gold += (int)(CollectibleValues.LARGE_GOLD * stats.CurrentGreed);
+                break;
+
+            case WorldObjectType.Chicken:
+                stats.currentHp += CollectibleValues.HEAL_AMOUNT;
+                break;
+
+            case WorldObjectType.Time_Stop:
+                // TODO: 타임 스톱 구현
+                break;
+
+            case WorldObjectType.Boom:
+                ProcessBoomEffect();
+                break;
         }
-        else if (worldObject.objectType == WorldObjectType.Gold_1)
-        {
-            DataManager.Instance.inGameValue.gold += (int)Math.Round(10 * stats.CurrentGreed);
-        }
-        else if (worldObject.objectType == WorldObjectType.Gold_2)
-        {
-            DataManager.Instance.inGameValue.gold += (int)Math.Round(50 * stats.CurrentGreed);
-        }
-        else if (worldObject.objectType == WorldObjectType.Chicken)
-        {
-            stats.currentHp += 20;
-        }
-        else if (worldObject.objectType == WorldObjectType.Time_Stop)
-        {
-            //TODO : 타임 스토푸 구현하기....
-        }
-        else if (worldObject.objectType == WorldObjectType.Boom)
-        {
-            var activeMonsters = UnitManager.Instance.GetMonstersInRange(0f, float.MaxValue);
-            if (activeMonsters != null)
-            {
-                foreach (MonsterBase monster in activeMonsters)
-                {
-                    if (monster != null)
-                    {
-                        monster.TakeDamage(100);
-                    }
-                }
-            }
-        }
+
         worldObject.selfDestroy();
     }
+
+    private void ProcessExperience(float expAmount)
+    {
+        AddExperience(expAmount);
+    }
+
+    private void ProcessBoomEffect()
+    {
+        var activeMonsters = UnitManager.Instance.GetMonstersInRange(0f, float.MaxValue);
+        if (activeMonsters == null) return;
+
+        foreach (var monster in activeMonsters.Where(m => m != null))
+        {
+            monster.TakeDamage(CollectibleValues.BOMB_DAMAGE);
+        }
+    }
+
+    private void AddExperience(float amount)
+    {
+        stats.currentExp += amount;
+        
+        // 레벨업이 필요한 횟수 계산
+        int levelUpsNeeded = 0;
+        float remainingExp = stats.currentExp;
+        
+        while (remainingExp >= stats.CurrentMaxExp)
+        {
+            levelUpsNeeded++;
+            remainingExp -= stats.CurrentMaxExp;
+        }
+        
+        // 레벨업이 필요한 경우
+        if (levelUpsNeeded > 0)
+        {
+            // 첫 번째 레벨업 처리
+            ProcessLevelUp();
+            
+            // 남은 레벨업들을 큐에 저장
+            for (int i = 1; i < levelUpsNeeded; i++)
+            {
+                QueueLevelUp();
+            }
+        }
+    }
+
+    private bool isProcessingLevelUp = false;
+    private Queue<Action> levelUpQueue = new Queue<Action>();
+
+    private void ProcessLevelUp()
+    {
+        if (!isProcessingLevelUp)
+        {
+            isProcessingLevelUp = true;
+            stats.currentExp -= stats.CurrentMaxExp;
+            stats.CurrentLevel += 1;
+            stats.CurrentMaxExp = CalculateNextLevelExp();
+            
+            Debug.Log("레벨업 - 플레이어 호출");
+            UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+        }
+        else
+        {
+            QueueLevelUp();
+        }
+    }
+
+    private void QueueLevelUp()
+    {
+        levelUpQueue.Enqueue(() => ProcessLevelUp());
+    }
+
+    // UI_Manager에서 레벨업 패널이 닫힐 때 호출할 메서드
+    public void OnLevelUpPanelClosed()
+    {
+        isProcessingLevelUp = false;
+        
+        // 큐에 대기 중인 레벨업이 있다면 처리
+        if (levelUpQueue.Count > 0)
+        {
+            Action nextLevelUp = levelUpQueue.Dequeue();
+            nextLevelUp?.Invoke();
+        }
+    }
+
     public void LevelUp()
     {
         stats.currentExp -= stats.CurrentMaxExp;
@@ -747,7 +809,7 @@ public abstract class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Env"))
+        if (collision.CompareTag("Exp"))
         {
             WorldObject Object = collision.gameObject.GetComponent<WorldObject>();
             if (Object != null)

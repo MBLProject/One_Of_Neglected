@@ -10,7 +10,7 @@ public class Cheese : Skill
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Hp, player.Stats.CurrentMaxHp * 0.3f);
+        player.Stats.ModifyStatValue(Enums.StatType.Hp, 20f);
     }
 
     public override void LevelUp()

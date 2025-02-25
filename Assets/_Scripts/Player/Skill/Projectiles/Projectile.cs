@@ -121,7 +121,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void DestroyProjectile()
+    public virtual void DestroyProjectile()
     {
         if (!isMoving || gameObject == null)
         {

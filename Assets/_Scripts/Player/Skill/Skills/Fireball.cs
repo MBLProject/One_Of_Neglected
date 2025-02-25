@@ -14,7 +14,8 @@ public class Fireball : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.shotCount = value;
+        playerStats.OnProjAmountChanged += (value) => stats.projectileCount += value;
+        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
     public override void ModifySkill()
@@ -29,7 +30,6 @@ public class Fireball : ActiveSkill
             defaultDamage = 30f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
-            //shotCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
             shotCount = 1,
             projectileCount = 1,
             projectileDelay = 0.1f,

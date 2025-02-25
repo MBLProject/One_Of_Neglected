@@ -26,4 +26,26 @@ public class Aug_Wand : TimeBasedAugment
     {
         base.Deactivate();
     }
+
+    protected override void OnLevelUp()
+    {
+        base.OnLevelUp();
+        switch (level)
+        {
+            case 1:
+                break;
+            case 2:
+                ModifyBaseInterval(-2f);
+                break;
+            case 3:
+                ModifyBaseInterval(-2f);
+                break;
+            case 4:
+                ModifyBaseInterval(-2f);
+                break;
+            case 5:
+                ModifyBaseInterval(-4f);
+                break;
+        }
+    }
 }

@@ -39,7 +39,6 @@ public class SkillSelector : MonoBehaviour
             foreach (var skill in skillContainer.OwnedSkills)
             {
                 if (IsMaxLevel(skill)) continue;
-
                 selectedAbilities.Add(skill);
             }
         }
@@ -49,11 +48,10 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsActiveSkill(skill))
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
-                        selectedAbilities.Add(skill);
-                else
+                if (IsPassiveSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                {
                     selectedAbilities.Add(skill);
+                }
             }
         }
         else if (passiveMax)
@@ -62,11 +60,10 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsPassiveSkill(skill))
-                    if (skillContainer.GetSkill(skill) != Enums.SkillName.None) 
-                        selectedAbilities.Add(skill);
-                else
+                if (IsActiveSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                {
                     selectedAbilities.Add(skill);
+                }
             }
         }
         else
@@ -74,10 +71,10 @@ public class SkillSelector : MonoBehaviour
             foreach (var skill in availableAbilities)
             {
                 if (IsMaxLevel(skill)) continue;
-
                 selectedAbilities.Add(skill);
             }
         }
+
 
         return selectedAbilities.OrderBy(x => Random.value).Take(3).ToList();
     }
@@ -96,8 +93,16 @@ public class SkillSelector : MonoBehaviour
             skillDispenser.RegisterSkill(skillName);
         }
 
-        if (IsMaxLevel(skillName)) skillContainer.SelectableSkills.Remove(skillName);
+        if (IsMaxLevel(skillName))
+            skillContainer.SelectableSkills.Remove(skillName);
+
+        if (skillContainer.SelectableSkills.Count < 3)
+        {
+            skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
+            skillContainer.AddSelectableSkill(Enums.SkillName.Gold);
+        }
     }
+
 
     public void DeductSkill(Enums.SkillName deDuctSkillName)
     {

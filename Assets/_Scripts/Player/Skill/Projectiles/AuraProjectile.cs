@@ -27,7 +27,7 @@ public class AuraProjectile : Projectile
         {
             if (!GameManager.Instance.isPaused)
             {
-                transform.Rotate(0, 0, 360 * 5 * Time.deltaTime);
+                transform.Rotate(0, 0, 360 * 3 * Time.deltaTime);
 
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
