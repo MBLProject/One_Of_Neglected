@@ -249,4 +249,9 @@ public class DataManager : Singleton<DataManager>
 
         currentDamageStats.UpdateLists();
     }
+    public void AddKillCount()
+    {
+        inGameValue.killCount++;
+        Debug.Log($"Kill Count: {inGameValue.killCount}");
+    }
 }

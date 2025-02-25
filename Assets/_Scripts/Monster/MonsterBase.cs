@@ -263,6 +263,7 @@ public abstract class MonsterBase : MonoBehaviour
     {
         if (isDying) return;
         isDying = true;
+        DataManager.Instance.AddKillCount();
 
         UnitManager.Instance.RemoveMonster(this);
         stateHandler.ChangeState(typeof(MonsterDieState));
