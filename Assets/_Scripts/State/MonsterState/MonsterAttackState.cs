@@ -48,6 +48,12 @@ public class MonsterAttackState : MonsterStateBase
         }
 
         entity.Animator?.SetTrigger("Attack");
-        Debug.Log("Monster attacks player!");
+        Player player = UnitManager.Instance.GetPlayer();
+        if (player != null)
+        {
+            // 몬스터의 공격력으로 플레이어에게 데미지
+            player.TakeDamage(entity.Stats.attackDamage);
+            Debug.Log($"Monster deals {entity.Stats.attackDamage} damage to player!");
+        }
     }
 }
