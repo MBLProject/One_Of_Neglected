@@ -75,6 +75,8 @@ public class ActiveSkill : Skill
                 projectileSpeed = stats.projectileSpeed,
             }
             );
+
+        if(skillName != Enums.SkillName.Mine || skillName != Enums.SkillName.Aura) SoundManager.Instance.Play(skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 1f);
     }
 
 }

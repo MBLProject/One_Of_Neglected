@@ -113,6 +113,8 @@ public class MineProjectile : Projectile
 
     public override void DestroyProjectile()
     {
+        SoundManager.Instance.Play(stats.skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 0.8f);
+
         GameObject explosion = Instantiate(Resources.Load<GameObject>("Using/Projectile/MineExplosion"), transform.position, Quaternion.identity);
         explosion.transform.localScale = Vector3.one * stats.finalATKRange;
         Destroy(explosion, 1.0f);

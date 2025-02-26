@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using static Enums;
 
 public class AuraProjectile : Projectile
 {
@@ -52,6 +53,7 @@ public class AuraProjectile : Projectile
 
                     DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
                 }
+                SoundManager.Instance.Play(stats.skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 0.8f);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
         }
