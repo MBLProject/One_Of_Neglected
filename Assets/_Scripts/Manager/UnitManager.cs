@@ -37,21 +37,21 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField]
     private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
     {
-         new MonsterSpawnData { gameTime = 0.00f, spawnCount = 5 },   // 0초
-    new MonsterSpawnData { gameTime = 0.17f, spawnCount = 10 },  // 10초
-    new MonsterSpawnData { gameTime = 0.33f, spawnCount = 15 },  // 20초
-    new MonsterSpawnData { gameTime = 0.50f, spawnCount = 20 },  // 30초
-    new MonsterSpawnData { gameTime = 0.67f, spawnCount = 25 },  // 40초
-    new MonsterSpawnData { gameTime = 0.83f, spawnCount = 30 },  // 50초
-    new MonsterSpawnData { gameTime = 1.00f, spawnCount = 35 },  // 1분
-    new MonsterSpawnData { gameTime = 1.17f, spawnCount = 40 },  // 1분 10초
-    new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분
+         new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // 0초
+         new MonsterSpawnData { gameTime = 0.17f, spawnCount = 5 },  // 10초
+         new MonsterSpawnData { gameTime = 0.33f, spawnCount = 10 },  // 20초
+         new MonsterSpawnData { gameTime = 0.50f, spawnCount = 15 },  // 30초
+         new MonsterSpawnData { gameTime = 0.67f, spawnCount = 20 },  // 40초
+         new MonsterSpawnData { gameTime = 0.83f, spawnCount = 25 },  // 50초
+         new MonsterSpawnData { gameTime = 1.00f, spawnCount = 30 },  // 1분
+         new MonsterSpawnData { gameTime = 1.17f, spawnCount = 35 },  // 1분 10초
+         new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분
     };
     [Header("맵 범위")]
-    [SerializeField] private float mapMinX = -30f;
-    [SerializeField] private float mapMaxX = 30f;
-    [SerializeField] private float mapMinY = -30f;
-    [SerializeField] private float mapMaxY = 30f;
+    [SerializeField] private float mapMinX;
+    [SerializeField] private float mapMaxX;
+    [SerializeField] private float mapMinY;
+    [SerializeField] private float mapMaxY;
 
     // 드랍 오브젝트 프리팹
     private GameObject expBlue;
