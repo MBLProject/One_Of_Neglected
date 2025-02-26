@@ -43,6 +43,8 @@ public class AuraProjectile : Projectile
     {
         while (!token.IsCancellationRequested)
         {
+            SoundManager.Instance.Play(stats.skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 0.5f);
+
             if (!GameManager.Instance.isPaused)
             {
                 foreach (var monster in monstersInRange.ToList())
@@ -53,7 +55,6 @@ public class AuraProjectile : Projectile
 
                     DataManager.Instance.AddDamageData(finalFinalDamage, stats.skillName);
                 }
-                SoundManager.Instance.Play(stats.skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 0.8f);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(tickInterval), cancellationToken: token);
         }

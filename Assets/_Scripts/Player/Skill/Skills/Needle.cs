@@ -15,7 +15,6 @@ public class Needle : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) =>stats.projectileCount++;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
@@ -32,7 +31,7 @@ public class Needle : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
-            projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
@@ -40,7 +39,6 @@ public class Needle : ActiveSkill
             amount = 1f,
             lifetime = 0.25f,
             projectileSpeed = 1f,
-
         };
     }
 
@@ -56,19 +54,26 @@ public class Needle : ActiveSkill
 
         switch (level)
         {
-            case 0:
-                break;
-            case 1:
-                break;
             case 2:
+                stats.defaultProjectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 3:
+                stats.defaultATKRange += 0.1f;
                 break;
             case 4:
+                stats.defaultProjectileCount++;
+                stats.defaultDamage += 5f;
                 break;
             case 5:
+                stats.defaultATKRange += 0.1f;
+                stats.defaultDamage += 15f;
+                stats.defaultCooldown -= 0.3f;
                 break;
             case 6:
+                stats.defaultProjectileCount++;
+                stats.defaultATKRange += 0.2f;
+                stats.defaultDamage += 20f;
                 break;
         }
     }

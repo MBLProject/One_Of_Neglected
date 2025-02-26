@@ -1,10 +1,16 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shuriken : ActiveSkill
+public class Cape : ActiveSkill
 {
-    public Shuriken() : base(Enums.SkillName.Shuriken) { }
+    public Cape() : base(Enums.SkillName.Cape) { }
+
+    protected override async UniTask StartSkill()
+    {
+        await UniTask.CompletedTask;
+    }
 
     protected override void SubscribeToPlayerStats()
     {
@@ -19,14 +25,13 @@ public class Shuriken : ActiveSkill
 
     public override void ModifySkill()
     {
-        // init SkillStats
         stats = new SkillStats()
         {
-            defaultCooldown = 1f,
+            defaultCooldown = 1.2f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 5f,
+            defaultDamage = 10f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
@@ -36,8 +41,9 @@ public class Shuriken : ActiveSkill
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
-            lifetime = 3f,
-            projectileSpeed = 3f,
+            lifetime = 0.25f,
+            projectileSpeed = 1f,
+
         };
     }
 
@@ -53,27 +59,20 @@ public class Shuriken : ActiveSkill
 
         switch (level)
         {
+            case 0:
+                break;
+            case 1:
+                break;
             case 2:
-                stats.defaultProjectileCount++;
-                stats.pierceCount++;
                 break;
             case 3:
-                stats.defaultProjectileCount++;
-                stats.pierceCount++;
                 break;
             case 4:
-                stats.defaultProjectileCount++;
-                stats.pierceCount++;
                 break;
             case 5:
-                stats.defaultProjectileCount++;
-                stats.pierceCount++;
                 break;
             case 6:
-                stats.defaultProjectileCount++;
-                stats.pierceCount++;
                 break;
         }
     }
-    
 }

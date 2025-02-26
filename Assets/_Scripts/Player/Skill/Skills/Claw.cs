@@ -14,7 +14,6 @@ public class Claw : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount++;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
@@ -32,7 +31,7 @@ public class Claw : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 10000,
             shotCount = 1,
-            projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
@@ -56,23 +55,23 @@ public class Claw : ActiveSkill
         switch (level)
         {
             case 2:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 5f;
                 break;
             case 3:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 5f;
                 break;
             case 4:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 5f;
                 break;
             case 5:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 5f;
                 break;
             case 6:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 5f;
                 break;
         }

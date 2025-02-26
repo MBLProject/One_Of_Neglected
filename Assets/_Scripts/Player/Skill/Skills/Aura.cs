@@ -39,7 +39,7 @@ public class Aura : ActiveSkill
 
         playerStats.OnATKChanged += (value) => { stats.aTK = value; Fire(); };
         playerStats.OnATKRangeChanged += (value) => {stats.aTKRange = value; Fire(); };
-    playerStats.OnCriRateChanged += (value) => {stats.critical = value; Fire(); };
+        playerStats.OnCriRateChanged += (value) => {stats.critical = value; Fire(); };
         playerStats.OnCriDamageChanged += (value) => {stats.cATK = value; Fire(); };
         playerStats.OnATKRangeChanged += (value) => {stats.aTKRange = value; Fire(); };
     }
@@ -57,7 +57,7 @@ public class Aura : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
-            projectileCount = 1,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
