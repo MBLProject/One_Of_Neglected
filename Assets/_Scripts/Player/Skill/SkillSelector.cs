@@ -96,12 +96,12 @@ public class SkillSelector : MonoBehaviour
         while (n > 1)
         {
             n--;
-            int k = Random.Range(0, n + 1);
+            int k = UnityEngine.Random.Range(0, n + 1);
             var temp = skillList[k];
             skillList[k] = skillList[n];
             skillList[n] = temp;
         }
-        
+
         return skillList.Take(3).ToList();
     }
 
@@ -124,7 +124,7 @@ public class SkillSelector : MonoBehaviour
             skillContainer.SelectableSkills.Remove(skillName);
         }
 
-        if(skillDispenser.skills.Count >= 10)
+        if (skillDispenser.skills.Count >= 10)
         {
             int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
             if (nonMaxLevelSkills <= 2)
@@ -136,7 +136,6 @@ public class SkillSelector : MonoBehaviour
             }
         }
     }
-
 
     public void DeductSkill(Enums.SkillName deDuctSkillName)
     {
@@ -156,7 +155,7 @@ public class SkillSelector : MonoBehaviour
         {
             return skillDispenser.skills[skillName].level;
         }
-        else if(skillContainer.removedSkills.ContainsKey(skillName))
+        else if (skillContainer.removedSkills.ContainsKey(skillName))
         {
             return skillContainer.removedSkills[skillName];
         }
@@ -181,7 +180,6 @@ public class SkillSelector : MonoBehaviour
     {
         return SkillFactory.IsActiveSkill(skillName) == 2;
     }
-
 
     private bool IsMaxLevel(Enums.SkillName skillName)
     {
