@@ -255,11 +255,11 @@ public class DataManager : Singleton<DataManager>
     {
         inGameValue.killCount++;
 
-        if (inGameValue.killCount >= 1000)
+        if (inGameValue.killCount % 1000 == 0)
         {
             OnKillCountReached?.Invoke(inGameValue.killCount);
-            inGameValue.killCount = 0; // 킬 카운트 리셋
-            Debug.Log("킬 카운트 1000 달성 - 카운트 리셋");
+            // inGameValue.killCount = 0; // 킬 카운트 리셋
+            // Debug.Log("킬 카운트 1000 달성 - 카운트 리셋");
         }
 
         Debug.Log($"Kill Count: {inGameValue.killCount}");
