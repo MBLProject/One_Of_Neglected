@@ -188,6 +188,6 @@ MonoBehaviour:
   dieAnimationLength: 1
   m_SpriteRenderer: {fileID: 0}
   damageIncreasePerInterval: 1
-  healthIncreasePerInterval: 5
+  healthIncreasePerInterval: 10
   defenseIncreasePerInterval: 0
   statUpdateInterval: 30

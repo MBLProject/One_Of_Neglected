@@ -37,11 +37,11 @@ public class Aura : ActiveSkill
     {
         PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
 
-        playerStats.OnATKChanged += (value) => stats.aTK = value;
-        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
-        playerStats.OnCriRateChanged += (value) => stats.critical = value;
-        playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
+        playerStats.OnATKChanged += (value) => { stats.aTK = value; Fire(); };
+        playerStats.OnATKRangeChanged += (value) => {stats.aTKRange = value; Fire(); };
+    playerStats.OnCriRateChanged += (value) => {stats.critical = value; Fire(); };
+        playerStats.OnCriDamageChanged += (value) => {stats.cATK = value; Fire(); };
+        playerStats.OnATKRangeChanged += (value) => {stats.aTKRange = value; Fire(); };
     }
 
     public override void ModifySkill()

@@ -171,7 +171,10 @@ public class UnitManager : Singleton<UnitManager>
 
     private void OnEnable()
     {
-
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.OnKillCountReached += SpawnUniqueMonster;
+        }
     }
 
     private void OnDisable()
@@ -180,6 +183,11 @@ public class UnitManager : Singleton<UnitManager>
         {
             TimeManager.Instance.OnOneMinFiftySecondsPassed -= SpawnUniqueMonster;
             TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
+        }
+
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.OnKillCountReached -= SpawnUniqueMonster;
         }
     }
     private int GetRangedMonsterCount()
