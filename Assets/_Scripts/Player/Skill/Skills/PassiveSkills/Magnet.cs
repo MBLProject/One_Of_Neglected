@@ -10,7 +10,7 @@ public class Magnet : Skill
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Magnet, 10f);
+        player.Stats.ModifyStatValue(Enums.StatType.Magnet, 30f);
     }
 
     public override void LevelUp()

@@ -28,7 +28,7 @@ public class Mine : ActiveSkill
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 20f,
+            defaultDamage = 5f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
@@ -60,14 +60,14 @@ public class Mine : ActiveSkill
                 stats.projectileCount++;
                 break;
             case 3:
-                stats.defaultDamage += 10f;
+                stats.defaultDamage += 5f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 4:
                 stats.projectileCount++;
                 break;
             case 5:
-                stats.defaultDamage += 10f;
+                stats.defaultDamage += 5f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 6:
