@@ -42,6 +42,11 @@ public class Skill
 
     }
 
+    public virtual void UnRegister()
+    {
+
+    }
+
     public virtual void LevelUp()
     {
         

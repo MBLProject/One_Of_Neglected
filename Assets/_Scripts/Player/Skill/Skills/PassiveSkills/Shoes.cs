@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoes : Skill
+public class Shoes : PassiveSkill
 {
-    public Shoes() : base(Enums.SkillName.Shoes) { }
+    public Shoes() : base(Enums.SkillName.Shoes) { statType = Enums.StatType.Mspd; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Mspd, 4f);
+        player.Stats.ModifyStatValue(statType, 4f);
     }
 
     public override void LevelUp()
@@ -30,5 +30,12 @@ public class Shoes : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -4f * level);
     }
 }

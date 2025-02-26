@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ring : Skill
+public class Ring : PassiveSkill
 {
-    public Ring() : base(Enums.SkillName.Ring) { }
+    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount; }
 
     public override void ModifySkill()
     {
@@ -12,7 +12,7 @@ public class Ring : Skill
 
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.ProjAmount, 1f);
+        player.Stats.ModifyStatValue(statType, 1f);
     }
 
     public override void LevelUp()
@@ -37,5 +37,12 @@ public class Ring : Skill
             default:
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -1f * level);
     }
 }

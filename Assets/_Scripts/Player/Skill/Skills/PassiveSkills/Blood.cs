@@ -1,15 +1,14 @@
 using UnityEngine;
 
-public class Blood : Skill
+public class Blood : PassiveSkill
 {
-
-    public Blood() : base(Enums.SkillName.Blood) { }
+    public Blood() : base(Enums.SkillName.Blood) { statType = Enums.StatType.MaxHp; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.MaxHp, 10f);
+        player.Stats.ModifyStatValue(statType, 10f);
     }
 
     public override void LevelUp()
@@ -19,7 +18,6 @@ public class Blood : Skill
         if (level >= 6)
         {
             level = 5;
-            Debug.Log($"LevelUp!!!!3 : {level}");
             return;
         }
 
@@ -29,5 +27,12 @@ public class Blood : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -10f * level);
     }
 }

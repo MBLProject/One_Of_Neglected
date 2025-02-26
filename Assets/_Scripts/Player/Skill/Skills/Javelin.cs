@@ -15,6 +15,7 @@ public class Javelin : ActiveSkill
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnProjParryChanged += (value) => stats.canParry = value;
     }
 
     public override void ModifySkill()
@@ -37,6 +38,7 @@ public class Javelin : ActiveSkill
             amount = 1f,
             lifetime = 3f,
             projectileSpeed = 5f,
+            canParry = UnitManager.Instance.GetPlayer().Stats.CurrentProjParry,
         };
     }
 

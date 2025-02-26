@@ -47,8 +47,6 @@ public class PoisonShoes : ActiveSkill
             projectileSpeed = 1f,
 
         };
-        Debug.Log($"InitSkill!! {skillName} : stats.lifetime : {stats.lifetime}");
-
     }
 
     public override void LevelUp()

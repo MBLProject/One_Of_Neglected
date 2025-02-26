@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SlashProjectile : Projectile
 {
+    private bool isParried;
     public void Initialize(Vector2 dir, float spd, float dmg)
     {
         Vector3 startPos = transform.position;

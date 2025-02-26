@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Water : Skill
+public class Water : PassiveSkill
 {
-    public Water() : base(Enums.SkillName.Water) { }
+    public Water() : base(Enums.SkillName.Water) { statType = Enums.StatType.HpRegen; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.HpRegen, 1f);
+        player.Stats.ModifyStatValue(statType, 1f);
     }
 
     public override void LevelUp()
@@ -28,5 +28,12 @@ public class Water : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -1f * level);
     }
 }

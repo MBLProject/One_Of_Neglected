@@ -21,6 +21,7 @@ public class Cape : ActiveSkill
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnProjParryChanged += (value) => _ = value;
     }
 
     public override void ModifySkill()

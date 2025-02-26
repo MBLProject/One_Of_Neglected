@@ -19,14 +19,6 @@ public class PoisonShoesProjectile : Projectile
         MoveProjectileAsync(cts.Token).Forget();
     }
 
-    public override void InitProjectile(Vector3 startPos, Vector3 targetPos, float spd, float dmg, float maxDist = 0f, int pierceCnt = 0, float lifetime = 1.1f)
-    {
-
-        CancelInvoke("DestroyProjectile");
-
-        Invoke("DestroyProjectile", lifeTime);
-    }
-
     public override void InitProjectile(Vector3 startPos, Vector3 targetPos, ProjectileStats projectileStats)
     {
         startPosition = startPos;

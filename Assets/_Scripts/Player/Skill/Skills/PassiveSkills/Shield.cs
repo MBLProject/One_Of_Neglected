@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Shield : Skill
+public class Shield : PassiveSkill
 {
-    public Shield() : base(Enums.SkillName.Shield) { }
+    public Shield() : base(Enums.SkillName.Shield) { statType = Enums.StatType.Defense; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Defense, 1f);
+        player.Stats.ModifyStatValue(statType, 1f);
     }
 
     public override void LevelUp()
@@ -27,5 +27,12 @@ public class Shield : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -1f * level);
     }
 }
