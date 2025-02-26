@@ -8,6 +8,8 @@ public class SkillSelector : MonoBehaviour
     private SkillContainer skillContainer;
     private SkillDispenser skillDispenser;
 
+    public int count;
+
     private void Start()
     {
         skillContainer = GetComponent<SkillContainer>();
@@ -23,6 +25,8 @@ public class SkillSelector : MonoBehaviour
 
     private void Update()
     {
+        count = skillContainer.OwnedSkills.Count;
+
         if (Input.GetKeyDown(KeyCode.O))
             ChooseSkill(Enums.SkillName.Shuriken);
         if (Input.GetKeyDown(KeyCode.P))
@@ -79,29 +83,28 @@ public class SkillSelector : MonoBehaviour
         }
 
         var skillList = selectedSkills.ToList();
-
-        foreach (var skill in skillList)
-        {
-            print(Enum.GetName(typeof(Enums.SkillName), skill));
-        }
+        print($"selectedSkills : {selectedSkills.Count}, skillList : {skillList.Count}");
 
         if (skillList.Count < 3)
         {
-            Debug.LogWarning($"selected Abilities is less than 3!!! selectedAbilities.Count : {skillList.Count}");
-            return skillList;
+            if(!skillList.Contains(Enums.SkillName.Cheese))
+                skillList.Add(Enums.SkillName.Cheese);
+            if (!skillList.Contains(Enums.SkillName.Gold))
+                skillList.Add(Enums.SkillName.Gold);
         }
 
         // Fisher - Yates Shuffle
         int n = skillList.Count;
+
         while (n > 1)
         {
             n--;
-            int k = Random.Range(0, n + 1);
+            int k = UnityEngine.Random.Range(0, n + 1);
             var temp = skillList[k];
             skillList[k] = skillList[n];
             skillList[n] = temp;
         }
-        
+
         return skillList.Take(3).ToList();
     }
 
