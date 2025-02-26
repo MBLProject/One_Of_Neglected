@@ -15,7 +15,7 @@ public class Enums
         Claw,
         Javelin,
         Aura,
-        //Cape,
+        Cape,
         Shuriken,
         Gateway,
         Fireball,

@@ -14,7 +14,6 @@ public class Gateway : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) =>stats.projectileCount++;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
@@ -31,7 +30,7 @@ public class Gateway : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
-            projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
@@ -59,14 +58,14 @@ public class Gateway : ActiveSkill
                 stats.lifetime += 1f;
                 break;
             case 3:
-                stats.projectileCount += 1;
+                stats.defaultProjectileCount++;
                 break;
             case 4:
                 stats.defaultATKRange += 0.1f;
                 stats.lifetime += 1f;
                 break;
             case 5:
-                stats.projectileCount += 1;
+                stats.defaultProjectileCount++;
                 break;
             case 6:
                 stats.defaultDamage += 10f;

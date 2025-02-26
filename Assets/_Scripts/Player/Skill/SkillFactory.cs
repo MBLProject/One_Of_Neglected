@@ -48,7 +48,7 @@ public static class SkillFactory
             case SkillName.Claw:
             case SkillName.Javelin:
             case SkillName.Aura:
-            // case SkillName.Cape:
+            case SkillName.Cape:
             case SkillName.Shuriken:
             case SkillName.Gateway:
             case SkillName.Fireball:
@@ -91,10 +91,10 @@ public struct SkillStats
     public float defaultCooldown;
     public float defaultATKRange;
     public float defaultDamage;
+    public int defaultProjectileCount;
     public float aTK;
     public int pierceCount;
     public int shotCount;
-    public int projectileCount;
     public float projectileDelay;
     public float shotDelay;
     public float aTKRange;
@@ -117,7 +117,7 @@ public struct ProjectileStats
     public float finalDamage;
     public int pierceCount;
     public int shotCount;
-    public int projectileCount;
+    public int finalProjectileCount;
     public float projectileDelay;
     public float shotDelay;
     public float critical;

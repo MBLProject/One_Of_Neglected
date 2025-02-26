@@ -93,7 +93,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             for (int i = 0; i < stats.shotCount; i++)
             {
-                for (int j = 0; j < stats.projectileCount; j++)
+                for (int j = 0; j < stats.finalProjectileCount; j++)
                 {
                     if (targetPositions.Count == 0) continue;
 
@@ -113,7 +113,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
                     activeProjectiles.Add(projectile);
                     await UniTask.Delay(TimeSpan.FromSeconds(stats.projectileDelay));
                 }
-                await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Max((stats.shotDelay - stats.projectileCount * stats.projectileDelay), 0f)));
+                await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Max((stats.shotDelay - stats.finalProjectileCount * stats.projectileDelay), 0f)));
             }
         });
     }
@@ -124,7 +124,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         if(skillName == Enums.SkillName.Mine)
         {
-            for (int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+            for (int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
             {
                 Vector3 randomDirection = Random.insideUnitCircle.normalized;
                 targetPositions.Add(startPosition + randomDirection * 2f);
@@ -133,8 +133,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         else
         {
             List<Vector3> defaultTargets = new List<Vector3>();
-            if (stats.projectileCount > 1)
-                defaultTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, maxSerachRange, stats.projectileCount);
+            if (stats.finalProjectileCount > 1)
+                defaultTargets = UnitManager.Instance.GetMonsterRamdomPositionsInRange(0f, maxSerachRange, stats.finalProjectileCount);
             else
                 defaultTargets.Add((Vector3)UnitManager.Instance.GetNearestMonsterPosition());
 
@@ -146,7 +146,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway || skillName == Enums.SkillName.Mine)
             {
-                for(int i = 0; i < stats.projectileCount * stats.shotCount; ++i)
+                for(int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
                 {
                     Vector3 randomDirection = Random.insideUnitCircle.normalized;
                     targetPositions.Add(startPosition + randomDirection * 1f);

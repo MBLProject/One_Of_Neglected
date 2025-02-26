@@ -28,7 +28,7 @@ public class SkillSelector : MonoBehaviour
         count = skillContainer.OwnedSkills.Count;
 
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Shuriken);
+            ChooseSkill(Enums.SkillName.Javelin);
         if (Input.GetKeyDown(KeyCode.P))
             ChooseSkill(Enums.SkillName.Ring);
     }

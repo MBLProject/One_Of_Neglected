@@ -37,7 +37,7 @@ public class PoisonShoes : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
-            projectileCount = 1,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,

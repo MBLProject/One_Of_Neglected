@@ -14,13 +14,11 @@ public class Javelin : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount++;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
     public override void ModifySkill()
     {
-        // init SkillStats
         stats = new SkillStats()
         {
             defaultCooldown = 4f,
@@ -31,7 +29,7 @@ public class Javelin : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 1,
             shotCount = 1,
-            projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
@@ -39,7 +37,6 @@ public class Javelin : ActiveSkill
             amount = 1f,
             lifetime = 3f,
             projectileSpeed = 5f,
-
         };
     }
 
@@ -59,6 +56,7 @@ public class Javelin : ActiveSkill
                 stats.defaultDamage += 20f;
                 stats.pierceCount += 1;
                 stats.aTKRange += 0.2f;
+                stats.defaultProjectileCount++;
                 break;
             case 3:
                 stats.defaultDamage += 20f;

@@ -15,7 +15,6 @@ public class Mine : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnProjAmountChanged += (value) => stats.projectileCount++;
         playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
     }
 
@@ -32,7 +31,7 @@ public class Mine : ActiveSkill
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,
-            projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
+            defaultProjectileCount = 1,
             projectileDelay = 0.1f,
             shotDelay = 0.5f,
             critical = 0.1f,
@@ -57,21 +56,21 @@ public class Mine : ActiveSkill
         switch (level)
         {
             case 2:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 break;
             case 3:
                 stats.defaultDamage += 5f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 4:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 break;
             case 5:
                 stats.defaultDamage += 5f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 6:
-                stats.projectileCount++;
+                stats.defaultProjectileCount++;
                 stats.defaultDamage += 10f;
                 stats.defaultATKRange += 0.2f;
                 break;
