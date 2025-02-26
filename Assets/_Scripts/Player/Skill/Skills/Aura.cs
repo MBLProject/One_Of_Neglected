@@ -51,9 +51,9 @@ public class Aura : ActiveSkill
         {
             defaultCooldown = 2f,
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
-            defaultATKRange = 1f,
+            defaultATKRange = 0.2f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 5f,
+            defaultDamage = 1f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 0,
             shotCount = 1,

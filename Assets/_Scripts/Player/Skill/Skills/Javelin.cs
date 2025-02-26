@@ -38,7 +38,7 @@ public class Javelin : ActiveSkill
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 3f,
-            projectileSpeed = 1f,
+            projectileSpeed = 5f,
 
         };
     }
