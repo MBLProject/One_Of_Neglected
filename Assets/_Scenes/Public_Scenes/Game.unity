@@ -507,6 +507,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6170652890293262783, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: skill_Infos.Array.data[0].display_Name
+      value: "\uAC00\uC2DC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170652890293262783, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: skill_Infos.Array.data[1].display_Name
+      value: "\uBC1C\uD1B1"
+      objectReference: {fileID: 0}
     - target: {fileID: 7490813533455178049, guid: 7e24700fcac92c046a6fad8e58b527cd,
         type: 3}
       propertyPath: m_AnchorMax.x
