@@ -153,8 +153,6 @@ public class LevelUp_Panel : Panel
         for (int i = 0; i < 3; i++)
         {
             current_Selections[i].gameObject.SetActive(true);
-            current_Selections[i].m_BTN.onClick.RemoveAllListeners();
-            current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN);
         }
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
         Skill_Info skill_Info;
