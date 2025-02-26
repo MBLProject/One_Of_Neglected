@@ -47,6 +47,11 @@ public class UnitManager : Singleton<UnitManager>
     new MonsterSpawnData { gameTime = 1.17f, spawnCount = 40 },  // 1분 10초
     new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분
     };
+    [Header("맵 범위")]
+    [SerializeField] private float mapMinX = -30f;
+    [SerializeField] private float mapMaxX = 30f;
+    [SerializeField] private float mapMinY = -30f;
+    [SerializeField] private float mapMaxY = 30f;
 
     // 드랍 오브젝트 프리팹
     private GameObject expBlue;
@@ -482,14 +487,33 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (mainCamera == null) return Vector2.zero;
 
-        Vector2 cameraPosition = mainCamera.transform.position;
-        float angle = Random.Range(0f, 360f);
-        float distance = Random.Range(minSpawnDistance, spawnRadius);
+        Vector2 playerPos = currentPlayer.transform.position;
+        Vector2 spawnPos;
+        int attempts = 0;
+        const int MAX_ATTEMPTS = 10;
 
-        return cameraPosition + new Vector2(
-            Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
-            Mathf.Sin(angle * Mathf.Deg2Rad) * distance
-        );
+        do
+        {
+            float angle = Random.Range(0f, 360f);
+            float distance = Random.Range(minSpawnDistance, spawnRadius);
+            Vector2 offset = new Vector2(
+                Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
+                Mathf.Sin(angle * Mathf.Deg2Rad) * distance
+            );
+
+            spawnPos = playerPos + offset;
+            spawnPos.x = Mathf.Clamp(spawnPos.x, mapMinX, mapMaxX);
+            spawnPos.y = Mathf.Clamp(spawnPos.y, mapMinY, mapMaxY);
+
+            if (Vector2.Distance(spawnPos, playerPos) >= minSpawnDistance)
+            {
+                return spawnPos;
+            }
+
+            attempts++;
+        } while (attempts < MAX_ATTEMPTS);
+
+        return spawnPos; // 최악의 경우 마지막 계산된 위치 반환
     }
 
     private GameObject GetMonsterPrefab(MonsterType type)
