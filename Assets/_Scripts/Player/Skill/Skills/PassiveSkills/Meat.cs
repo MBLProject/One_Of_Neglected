@@ -31,4 +31,11 @@ public class Meat : PassiveSkill
                 break;
         }
     }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -10f * level);
+    }
 }

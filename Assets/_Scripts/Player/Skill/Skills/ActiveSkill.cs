@@ -75,6 +75,7 @@ public class ActiveSkill : Skill
                 amount = stats.amount,
                 lifetime = stats.lifetime,
                 projectileSpeed = stats.projectileSpeed,
+                canParry = stats.canParry,
             }
             );
 
