@@ -114,7 +114,6 @@ public class Major_Panel : MonoBehaviour
                      levelUp_Panel.aug_Property.selectedTime;
 
         augment_TMP.augTime.text = inGameUI_Panel.TimeCalc(time);
-        //TODO : 뎀지 누적 / 획득 시간 설정 후 반영
     }
 
     //스킬 아이콘

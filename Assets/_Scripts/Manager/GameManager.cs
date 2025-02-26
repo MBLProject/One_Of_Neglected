@@ -19,6 +19,8 @@ public class GameManager : Singleton<GameManager>
     }
     private void HandleInputs()
     {
+        if (UI_Manager.Instance.panel_Dic["LevelUp_Panel"].gameObject.activeSelf ||
+        UI_Manager.Instance.panel_Dic["Result_Panel"].gameObject.activeSelf) return;
         // ESC로 일시정지/재개
         if (Input.GetKeyDown(KeyCode.Escape))
         {
