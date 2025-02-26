@@ -50,7 +50,11 @@ public class Option_Panel : Panel
                 resolutions.Add(new Resolution { width = resolution.width, height = resolution.height, refreshRateRatio = resolution.refreshRateRatio });
             }
         }
-
+        if (resolutions.Count == 0)
+        {
+            Resolution currentRes = Screen.currentResolution;
+            resolutions.Add(new Resolution { width = currentRes.width, height = currentRes.height, refreshRateRatio = currentRes.refreshRateRatio });
+        }
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();

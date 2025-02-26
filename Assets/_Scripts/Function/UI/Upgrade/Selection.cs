@@ -16,11 +16,6 @@ public class Selection : MonoBehaviour
     public TextMeshProUGUI display_Name;
     public TextMeshProUGUI info_TMP;
     public Image icon_IMG;
-    private void Awake()
-    {
-        m_BTN.onClick.AddListener(Select_BTN);
-
-    }
 
     public void Select_BTN()
     {
