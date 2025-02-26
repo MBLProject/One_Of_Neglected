@@ -286,7 +286,16 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected virtual void OnMonsterDestroy()
     {
-        UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlue, transform.position);
+        // 1% 확률로 골드 드롭
+        if (UnityEngine.Random.Range(0f, 100f) <= 1f)
+        {
+            UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.Gold_1, transform.position);
+            Debug.Log("골드 드롭!");
+        }
+        else
+        {
+            UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlue, transform.position);
+        }
     }
 
     public virtual void ApplyKnockback(Vector2 hitPoint, float knockbackForce)
