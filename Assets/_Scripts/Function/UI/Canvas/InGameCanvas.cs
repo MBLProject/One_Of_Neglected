@@ -15,6 +15,14 @@ public class InGameCanvas : MonoBehaviour
         cheat.onClick.AddListener(LevelUpBTN);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            LevelUpBTN();
+        }
+    }
+
     private void LevelUpBTN()
     {
         UnitManager.Instance.GetPlayer().statViewer.Level++;
