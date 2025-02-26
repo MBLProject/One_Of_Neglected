@@ -4,6 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine.AI;
+using System.Linq;
 
 public abstract class MonsterBase : MonoBehaviour
 {
@@ -286,6 +287,29 @@ public abstract class MonsterBase : MonoBehaviour
 
     protected virtual void OnMonsterDestroy()
     {
+        // 유니크 몬스터인 경우
+        if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster)
+        {
+            UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlack, transform.position);
+            Debug.Log($"{GetType().Name} 처치 - ExpBlack 드롭!");
+            return;
+        }
+        // 탱크 유니크 몬스터인 경우
+        else if (this is TankUniqueMonster)
+        {
+            // 현재 활성화된 탱크 몬스터 수 확인
+            int remainingTankMonsters = UnitManager.Instance.activeMonsters
+                .Count(monster => monster != null && monster is TankUniqueMonster);
+
+            // 마지막 탱크 몬스터인 경우
+            if (remainingTankMonsters == 1)
+            {
+                UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlack, transform.position);
+                Debug.Log("마지막 탱크 몬스터 처치 - ExpBlack 드롭!");
+                return;
+            }
+        }
+
         // 1% 확률로 골드 드롭
         if (UnityEngine.Random.Range(0f, 100f) <= 1f)
         {
