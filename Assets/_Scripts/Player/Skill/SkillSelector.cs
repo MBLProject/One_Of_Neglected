@@ -127,7 +127,7 @@ public class SkillSelector : MonoBehaviour
             skillContainer.SelectableSkills.Remove(skillName);
         }
 
-        if(skillDispenser.skills.Count >= 10)
+        if (skillDispenser.skills.Count >= 10)
         {
             int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
             if (nonMaxLevelSkills <= 2)
@@ -139,7 +139,6 @@ public class SkillSelector : MonoBehaviour
             }
         }
     }
-
 
     public void DeductSkill(Enums.SkillName deDuctSkillName)
     {
@@ -159,7 +158,7 @@ public class SkillSelector : MonoBehaviour
         {
             return skillDispenser.skills[skillName].level;
         }
-        else if(skillContainer.removedSkills.ContainsKey(skillName))
+        else if (skillContainer.removedSkills.ContainsKey(skillName))
         {
             return skillContainer.removedSkills[skillName];
         }
@@ -184,7 +183,6 @@ public class SkillSelector : MonoBehaviour
     {
         return SkillFactory.IsActiveSkill(skillName) == 2;
     }
-
 
     private bool IsMaxLevel(Enums.SkillName skillName)
     {

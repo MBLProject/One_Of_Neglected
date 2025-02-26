@@ -262,7 +262,5 @@ public class DataManager : Singleton<DataManager>
             // Debug.Log("킬 카운트 1000 달성 - 카운트 리셋");
         }
 
-        Debug.Log($"Kill Count: {inGameValue.killCount}");
-
     }
 }

@@ -279,6 +279,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b,
         type: 3}
+      propertyPath: mapMaxX
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b,
+        type: 3}
+      propertyPath: mapMaxY
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b,
+        type: 3}
+      propertyPath: mapMinX
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b,
+        type: 3}
+      propertyPath: mapMinY
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541001563985297490, guid: cf3bb022fb617ef4197a0c664d01e45b,
+        type: 3}
       propertyPath: spawnInterval
       value: 1
       objectReference: {fileID: 0}
