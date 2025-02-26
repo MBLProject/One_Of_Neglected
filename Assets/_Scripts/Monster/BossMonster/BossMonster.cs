@@ -118,6 +118,12 @@ public class BossMonster : BossMonsterBase
 
         Debug.Log("[Boss] 사망!");
 
+        if (UI_Manager.Instance != null && UI_Manager.Instance.panel_Dic.ContainsKey("Result_Panel"))
+        {
+            UI_Manager.Instance.panel_Dic["Result_Panel"].gameObject.SetActive(true);
+            Debug.Log("[Boss] 결과 패널 오픈!");
+        }
+
         // 일정 시간 후 오브젝트 제거
         Destroy(gameObject, 2f);
     }
