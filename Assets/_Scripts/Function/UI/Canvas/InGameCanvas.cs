@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InGameCanvas : MonoBehaviour
 {
+    public CanvasScaler m_CanvasScaler;
     public List<Panel> inGameCanvasPanels;
     public Button cheat;
 

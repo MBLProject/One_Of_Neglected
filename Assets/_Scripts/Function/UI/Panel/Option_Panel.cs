@@ -7,21 +7,31 @@ using UnityEngine.UI;
 
 public class Option_Panel : Panel
 {
-    public TMP_Dropdown screenScale_Dropdown;
+    [SerializeField] private CanvasScaler m_CanvasScaler;
+    public TMP_Dropdown resolutionDropdown;
     public Slider sounds_Slider;
     public Slider effects_Slider;
-    public enum ScreenMode
-    {
-        FullScreen,
-        FullScreenWindow,
-        Window
-    }
+    private Resolution[] tempRes;
+    private List<Resolution> resolutions = new List<Resolution>();
+    private int optimalResolutionIndex = 0;
+
+    // public enum ScreenMode
+    // {
+    //     FullScreen,
+    //     FullScreenWindow,
+    //     Window
+    // }
 
     private void Awake()
     {
         buttons[0].onClick.AddListener(OnCheckBTNClick);
         buttons[1].onClick.AddListener(ReturnMainPanel);
         buttons[2].onClick.AddListener(ReturnTitle_BTN);
+
+    }
+    private void Start()
+    {
+
     }
     private void OnEnable()
     {
@@ -36,49 +46,58 @@ public class Option_Panel : Panel
     }
     public void OnStart()
     {
-        List<string> options = new List<string>
-        {
-            "전체화면",
-            "전체화면(창모드)",
-            "창모드"
-        };
+        tempRes = Screen.resolutions;
 
-        screenScale_Dropdown.ClearOptions();
-        screenScale_Dropdown.AddOptions(options);
-        screenScale_Dropdown.onValueChanged.
-        AddListener(index => ChangeFullScreenMode((ScreenMode)index));
-
-        switch (screenScale_Dropdown.value)
+        foreach (Resolution resolution in tempRes)
         {
-            case 0:
-                Screen.SetResolution(2560, 1440, FullScreenMode.ExclusiveFullScreen);
-                break;
-            case 1:
-                Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
-                break;
-            case 2:
-                Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
-                break;
+            var MAX = GCD(resolution.width, resolution.height);
+            if ((resolution.width / MAX == 16) && (resolution.height / MAX == 9))
+            {
+                if (resolution.refreshRateRatio.value < 60) continue;
+                resolutions.Add(new Resolution { width = resolution.width, height = resolution.height, refreshRateRatio = resolution.refreshRateRatio });
+            }
         }
+
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        for (int i = 0; i < resolutions.Count; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height + " / " + resolutions[i].refreshRateRatio;
+            options.Add(option);
+        }
+        options.Add("전체화면(창) *");
+        options.Add("전체화면 *");
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = options.Count - 1;
+        resolutionDropdown.RefreshShownValue();
+
+        // 게임이 가장 적합한 해상도로 시작되도록 설정합니다.
+        SetResolution(options.Count - 1);
     }
-    private void ChangeFullScreenMode(ScreenMode mode)
+
+    public void SetResolution(int resolutionIdx)
     {
-
-        switch (mode)
+        if (resolutionIdx > resolutions.Count - 1)
         {
-            case ScreenMode.FullScreen:
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-            case ScreenMode.FullScreenWindow:
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
-            case ScreenMode.Window:
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-
-                break;
+            if (resolutionIdx == resolutions.Count)
+            {
+                Screen.SetResolution(resolutions[resolutions.Count - 1].width, resolutions[resolutions.Count - 1].height, FullScreenMode.FullScreenWindow);
+            }
+            else
+            {
+                Screen.SetResolution(resolutions[resolutions.Count - 1].width, resolutions[resolutions.Count - 1].height, FullScreenMode.ExclusiveFullScreen);
+            }
+            UI_Manager.Instance.SetCanvasScaler();
+            m_CanvasScaler.referenceResolution = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+            return;
         }
+        Resolution resolution = resolutions[resolutionIdx];
+        Screen.SetResolution(resolution.width, resolution.height, FullScreenMode.Windowed);
+        UI_Manager.Instance.SetCanvasScaler();
+        m_CanvasScaler.referenceResolution = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
     }
-
     private void OnCheckBTNClick()
     {
         UI_Manager.Instance.sounds_Value = sounds_Slider.value;
@@ -105,6 +124,17 @@ public class Option_Panel : Panel
     private void ReturnTitle_BTN()
     {
         GameSceneManager.SceneLoad("Title");
+    }
+
+    private int GCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 
 }
