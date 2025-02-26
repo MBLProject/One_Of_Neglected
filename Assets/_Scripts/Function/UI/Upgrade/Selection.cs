@@ -22,20 +22,6 @@ public class Selection : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 &&
-            UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
-        {
-            m_BTN.onClick.RemoveAllListeners();
-            m_BTN.onClick.AddListener(Select_BTN2);
-        }
-        else
-        {
-            m_BTN.onClick.RemoveAllListeners();
-            m_BTN.onClick.AddListener(Select_BTN);
-        }
-    }
     public void Select_BTN()
     {
         if (inGameUI_Panel.skillContainer.
@@ -69,7 +55,7 @@ public class Selection : MonoBehaviour
         levelUp_Panel.PanelClose(true);
     }
 
-    private void Select_BTN2()
+    public void Select_BTN2()
     {
 
         UnitManager.Instance.GetPlayer().augment.ChooseAugment(m_augType);

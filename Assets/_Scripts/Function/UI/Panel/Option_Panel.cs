@@ -13,14 +13,6 @@ public class Option_Panel : Panel
     public Slider effects_Slider;
     private Resolution[] tempRes;
     private List<Resolution> resolutions = new List<Resolution>();
-    private int optimalResolutionIndex = 0;
-
-    // public enum ScreenMode
-    // {
-    //     FullScreen,
-    //     FullScreenWindow,
-    //     Window
-    // }
 
     private void Awake()
     {

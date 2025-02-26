@@ -152,6 +152,8 @@ public class LevelUp_Panel : Panel
             current_Selections[3].gameObject.SetActive(false);
         for (int i = 0; i < 3; i++)
         {
+            current_Selections[i].m_BTN.onClick.RemoveAllListeners();
+            current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN);
             current_Selections[i].gameObject.SetActive(true);
         }
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
@@ -173,6 +175,8 @@ public class LevelUp_Panel : Panel
             current_Selections[3].gameObject.SetActive(true);
             for (int i = 0; i < 4; i++)
             {
+                current_Selections[i].m_BTN.onClick.RemoveAllListeners();
+                current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN2);
                 current_Selections[i].m_augType = aug_Infos.aug_Type[i];
                 current_Selections[i].display_Name.text = aug_Infos.aug_Name[i];
                 current_Selections[i].info_TMP.text = aug_Infos.aug_Text[i];
