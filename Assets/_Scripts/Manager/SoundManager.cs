@@ -11,45 +11,18 @@ public class SoundManager : Singleton<SoundManager>
         MaxCount
     }
 
-    private static SoundManager instance;
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject go = GameObject.Find("@Sound");
-                if (go == null)
-                {
-                    go = new GameObject { name = "@Sound" };
-                    go.AddComponent<SoundManager>();
-                }
-                else
-                {
-                    instance = go.GetComponent<SoundManager>();
-                }
-                DontDestroyOnLoad(go);
-            }
-            return instance;
-        }
-    }
-
     private AudioSource[] _audioSources = new AudioSource[(int)Sound.MaxCount];
     private Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
+        base.Awake();
+        if (Instance == this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
             Init();
         }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
     }
+
     public void Init()
     {
         string[] soundNames = System.Enum.GetNames(typeof(Sound));
@@ -71,6 +44,7 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.Stop();
         }
         _audioClips.Clear();
+        
     }
 
     public void Play(string path, Sound type = Sound.Effect, float pitch = 1.0f)

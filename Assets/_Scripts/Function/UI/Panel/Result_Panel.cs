@@ -26,6 +26,7 @@ public class Result_Panel : Panel
         Destroy(UnitManager.Instance.gameObject);
         Destroy(ProjectileManager.Instance.gameObject);
         Destroy(TimeManager.Instance.gameObject);
+        Destroy(SoundManager.Instance.gameObject);
         GameSceneManager.SceneLoad("Title");
     }
 
