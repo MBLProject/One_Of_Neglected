@@ -38,7 +38,7 @@ public class Aug_GreatBow : TimeBasedAugment
     private void SpawnProjectile(Vector3 direction)
     {
         Vector3 targetPosition = owner.transform.position + direction * 10f;
-
+        SoundManager.Instance.Play("Greatbow", SoundManager.Sound.Effect, 1f, false, 0.5f);
         PlayerProjectile proj = ProjectileManager.Instance.SpawnPlayerProjectile(
             "GreatBowProjectile",
             owner.transform.position,

@@ -38,6 +38,7 @@ public class ArcRangerProjectile : PlayerProjectile
                 {
                     Vector3 hitPoint = collision.ClosestPoint(transform.position);
                     Explode(finalFinalDamage, hitPoint);
+                    SoundManager.Instance.Play("ArcBoom", SoundManager.Sound.Effect, 1f, false, 0.1f);
                 }
 
                 if (stats.pierceCount > 0)
@@ -62,6 +63,7 @@ public class ArcRangerProjectile : PlayerProjectile
         {
             if (collider.CompareTag("Monster") && collider.TryGetComponent(out MonsterBase monster))
             {
+                
                 float explosionDamage = damage * 0.3f;
                 monster.TakeDamage(explosionDamage);
                 DataManager.Instance.AddDamageData(explosionDamage, Enums.AugmentName.ArcRanger);

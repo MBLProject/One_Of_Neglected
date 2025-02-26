@@ -27,6 +27,7 @@ public class WarriorDashState : BaseState<Player>
         player.SetSkillInProgress(true, false);
 
         player.InvokeDashDetect();
+        SoundManager.Instance.Play("Dash", SoundManager.Sound.Effect, 1.0f, false, 0.5f);
 
         player.Animator?.SetBool("IsMoving", false);
         player.Animator?.ResetTrigger("Idle");
@@ -68,7 +69,7 @@ public class WarriorDashState : BaseState<Player>
     }
 
     public override void Update(Player player)
-    {
+    {        
         lerpProgress += Time.deltaTime * dashSpeed;
         player.transform.position = Vector2.Lerp(startPosition, targetPosition, lerpProgress);
 

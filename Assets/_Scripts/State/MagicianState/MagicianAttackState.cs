@@ -80,7 +80,7 @@ public class MagicianAttackState : BaseState<Player>
                 (player.transform.position + (Vector3)(direction * 10f));
 
             
-            SoundManager.Instance.Play("Fireball 1", SoundManager.Sound.Effect);
+            SoundManager.Instance.Play("Fireball 1", SoundManager.Sound.Effect, 1f, false, 0.3f);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "MagicianAttackProjectile",
                 player.transform.position,

@@ -104,6 +104,7 @@ public class Aug_Warlock : ConditionalAugment
     }
     private void SpawnshockwaveProjectile()
     {
+        SoundManager.Instance.Play("ShockWave", SoundManager.Sound.Effect, 1.0f, false, 0.3f);
         Vector2 dashEnd = owner.targetPosition;
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "WarlockShockProjectile",

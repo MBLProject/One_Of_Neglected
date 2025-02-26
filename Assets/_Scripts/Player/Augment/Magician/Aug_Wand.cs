@@ -14,6 +14,7 @@ public class Aug_Wand : TimeBasedAugment
     {
         if (wandtEffectPrefab != null)
         {
+            SoundManager.Instance.Play("casting", SoundManager.Sound.Effect, 1f, false, 0.5f);
             GameObject startEffect = GameObject.Instantiate(wandtEffectPrefab, owner.transform.position, Quaternion.identity);
             GameObject.Destroy(startEffect, 1f); 
         }

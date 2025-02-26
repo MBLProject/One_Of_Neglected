@@ -75,10 +75,15 @@ public class SoundManager : Singleton<SoundManager>
 
     public void Play(string path, Sound type = Sound.Effect, float pitch = 1.0f)
     {
-        Play(path, type, pitch, true);
+        Play(path, type, pitch, true, 1.0f);
     }
 
     public void Play(string path, Sound type, float pitch, bool loop)
+    {
+        Play(path, type, pitch, loop, 1.0f);
+    }
+
+    public void Play(string path, Sound type, float pitch, bool loop, float volume)
     {
         if (string.IsNullOrEmpty(path))
             return;
@@ -96,13 +101,18 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.pitch = pitch;
             audioSource.loop = loop;
             audioSource.clip = audioClip;
+            audioSource.volume = volume * masterVolume * bgmVolume;
             audioSource.Play();
         }
         else
         {
             AudioSource audioSource = _audioSources[(int)Sound.Effect];
             audioSource.pitch = pitch;
-            audioSource.PlayOneShot(audioClip);
+            if (audioSource.volume != masterVolume * effectVolume)
+            {
+                audioSource.volume = masterVolume * effectVolume;
+            }
+            audioSource.PlayOneShot(audioClip, volume);
         }
     }
 

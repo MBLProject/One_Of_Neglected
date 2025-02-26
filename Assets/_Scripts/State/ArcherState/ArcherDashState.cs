@@ -21,7 +21,7 @@ public class ArcherDashState : BaseState<Player>
             handler.ChangeState(typeof(ArcherIdleState));
             return;
         }
-
+        SoundManager.Instance.Play("Dash", SoundManager.Sound.Effect, 1.0f, false, 0.5f);
         player.ConsumeDash();
         player.SetDashing(true);
         player.SetSkillInProgress(true, false);

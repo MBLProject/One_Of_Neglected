@@ -69,8 +69,8 @@ public class Aug_SwordShield : TimeBasedAugment
             }
 
             Vector3 currentDirection = (projectile.StartPosition- projectile.transform.position).normalized;
-            Vector3 reflectDirection = -currentDirection;  
-
+            Vector3 reflectDirection = -currentDirection;
+            SoundManager.Instance.Play("Sword Parry 1", SoundManager.Sound.Effect);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "SwordShieldProjectile", 
                 projectile.transform.position,  

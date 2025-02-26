@@ -52,6 +52,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
         float totalAngleSpread = (totalProjectiles - 1) * angleStep;
         float startAngle = -totalAngleSpread / 2f;
         
+        SoundManager.Instance.Play("SwordAuror", SoundManager.Sound.Effect);
         for (int i = 0; i < totalProjectiles; i++)
         {
             float currentAngle = startAngle + (i * angleStep);
