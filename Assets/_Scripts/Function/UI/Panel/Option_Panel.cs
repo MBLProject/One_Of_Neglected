@@ -53,7 +53,7 @@ public class Option_Panel : Panel
         if (resolutions.Count == 0)
         {
             Resolution currentRes = Screen.currentResolution;
-            resolutions.Add(new Resolution { width = currentRes.width, height = currentRes.height, refreshRateRatio =  currentRes.refreshRateRatio });
+            resolutions.Add(new Resolution { width = currentRes.width, height = currentRes.height, refreshRateRatio = currentRes.refreshRateRatio });
         }
         resolutionDropdown.ClearOptions();
 
@@ -61,7 +61,7 @@ public class Option_Panel : Panel
 
         for (int i = 0; i < resolutions.Count; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " / " + Mathf.Round((float)resolutions[i].refreshRateRatio.value);
+            string option = resolutions[i].width + " x " + resolutions[i].height + " / " + Mathf.Round((float)resolutions[i].refreshRateRatio.value) + "Hz";
             options.Add(option);
         }
         options.Add("전체화면(창) *");
