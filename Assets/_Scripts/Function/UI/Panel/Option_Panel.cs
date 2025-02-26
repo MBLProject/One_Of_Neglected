@@ -19,7 +19,8 @@ public class Option_Panel : Panel
         buttons[0].onClick.AddListener(OnCheckBTNClick);
         buttons[1].onClick.AddListener(ReturnMainPanel);
         buttons[2].onClick.AddListener(ReturnTitle_BTN);
-
+        
+        sounds_Slider.onValueChanged.AddListener(OnSoundSliderValueChanged);
     }
     private void Start()
     {
@@ -35,6 +36,7 @@ public class Option_Panel : Panel
         {
             buttons[2].gameObject.SetActive(false);
         }
+        
         sounds_Slider.value = SoundManager.Instance.getMasterVolume();
     }
     public void OnStart()
@@ -97,7 +99,6 @@ public class Option_Panel : Panel
     }
     private void OnCheckBTNClick()
     {
-        SoundManager.Instance.SetMasterVolume(sounds_Slider.value * 100);
     }
 
     private void ReturnMainPanel()
@@ -130,4 +131,8 @@ public class Option_Panel : Panel
         return a;
     }
 
+    private void OnSoundSliderValueChanged(float value)
+    {
+        SoundManager.Instance.SetMasterVolume(value * 100);
+    }
 }
