@@ -117,13 +117,16 @@ public class SkillSelector : MonoBehaviour
             skillContainer.SelectableSkills.Remove(skillName);
         }
 
-        int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
-        if (nonMaxLevelSkills <= 2)
+        if(skillDispenser.skills.Count >= 10)
         {
-            if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Cheese))
-                skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
-            if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Gold))
-                skillContainer.AddSelectableSkill(Enums.SkillName.Gold);
+            int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
+            if (nonMaxLevelSkills <= 2)
+            {
+                if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Cheese))
+                    skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
+                if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Gold))
+                    skillContainer.AddSelectableSkill(Enums.SkillName.Gold);
+            }
         }
     }
 

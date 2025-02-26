@@ -30,7 +30,7 @@ public class SkillContainer : MonoBehaviour
     {
         foreach (SkillName skillName in Enum.GetValues(typeof(SkillName)))
         {
-            if (skillName == SkillName.None) continue;
+            if (skillName == SkillName.None || skillName == SkillName.Cheese || skillName == SkillName.Gold) continue;
             AddSelectableSkill(skillName);
         }
     }
