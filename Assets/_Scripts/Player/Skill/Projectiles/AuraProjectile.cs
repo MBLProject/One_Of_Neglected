@@ -10,7 +10,7 @@ using System.Linq;
 public class AuraProjectile : Projectile
 {
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
-    private float tickInterval = 0.5f;
+    private float tickInterval = 1f;
 
     protected override void Start()
     {
@@ -89,5 +89,15 @@ public class AuraProjectile : Projectile
         stats = projectileStats;
 
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
+
+        switch(stats.level)
+        {
+            case 6:
+                tickInterval = 0.5f;
+                break;
+            default:
+                tickInterval = 1f;
+                break;
+        }
     }
 }

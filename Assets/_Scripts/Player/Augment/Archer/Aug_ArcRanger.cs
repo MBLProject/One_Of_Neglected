@@ -96,7 +96,6 @@ public class Aug_ArcRanger : ConditionalAugment
                 duration
             );
 
-            // 5레벨 폭발 효과 적용
             if (isExplosive && proj is ArcRangerProjectile arcProj)
             {
                 arcProj.SetExplosive(true);
