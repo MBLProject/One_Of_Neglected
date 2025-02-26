@@ -110,6 +110,11 @@ public class PlayerStats
         set
         {
             MaxHp = value;
+            // 최대 체력이 감소할 때 현재 체력도 함께 조정
+            if (currentHp > MaxHp)
+            {
+                currentHp = MaxHp;
+            }
             OnMaxHpChanged?.Invoke(MaxHp);
         }
     }

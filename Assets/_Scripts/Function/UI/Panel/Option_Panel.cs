@@ -19,7 +19,7 @@ public class Option_Panel : Panel
         buttons[0].onClick.AddListener(OnCheckBTNClick);
         buttons[1].onClick.AddListener(ReturnMainPanel);
         buttons[2].onClick.AddListener(ReturnTitle_BTN);
-        
+
         sounds_Slider.onValueChanged.AddListener(OnSoundSliderValueChanged);
     }
     private void Start()
@@ -36,7 +36,7 @@ public class Option_Panel : Panel
         {
             buttons[2].gameObject.SetActive(false);
         }
-        
+
         sounds_Slider.value = SoundManager.Instance.getMasterVolume();
     }
     public void OnStart()
@@ -48,7 +48,7 @@ public class Option_Panel : Panel
             var MAX = GCD(resolution.width, resolution.height);
             if ((resolution.width / MAX == 16) && (resolution.height / MAX == 9))
             {
-                if (resolution.refreshRateRatio.value < 60) continue;
+                if (resolution.refreshRateRatio.value < 60 || resolution.width > 2000) continue;
                 resolutions.Add(new Resolution { width = resolution.width, height = resolution.height, refreshRateRatio = resolution.refreshRateRatio });
             }
         }

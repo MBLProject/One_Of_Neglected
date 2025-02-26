@@ -42,7 +42,7 @@ public class Training_Panel : Panel, IPointerExitHandler
     Training training;
     public CellReset cellReset;
     public List<TrainingCell> trainingCells_List;
-
+    public TextMeshProUGUI requireGold_TMP;
     private void Start()
     {
         ByCellCategory();
