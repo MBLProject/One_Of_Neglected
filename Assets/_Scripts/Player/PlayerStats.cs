@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using static Enums;
+using System.Collections.Generic;
+
 public class PlayerStats
 {
     #region Field               
@@ -35,6 +37,18 @@ public class PlayerStats
     private bool Adversary;
     private bool ProjDestroy;
     private bool projParry;
+
+    // 기본값 저장을 위한 새로운 필드들
+    private float baseMspd;
+    private float baseAspd;
+    private float baseATK;
+    private float baseATKRange;
+    private float baseDuration;
+    private float baseCooldown;
+    private float baseMagnet;
+    private float baseGrowth;
+    private float baseGreed;
+    private float baseCurse;
 
     #endregion
 
@@ -109,8 +123,7 @@ public class PlayerStats
         get => MaxHp;
         set
         {
-            MaxHp = value;
-            // 최대 체력이 감소할 때 현재 체력도 함께 조정
+            MaxHp = value;            
             if (currentHp > MaxHp)
             {
                 currentHp = MaxHp;
@@ -151,6 +164,7 @@ public class PlayerStats
         set
         {
             Mspd = value;
+            if (baseMspd == 0) baseMspd = value;  // 초기화 시에만 기본값 설정
             OnMspdChanged?.Invoke(Mspd);
         }
     }
@@ -160,6 +174,7 @@ public class PlayerStats
         set
         {
             ATK = value;
+            if (baseATK == 0) baseATK = value;
             OnATKChanged?.Invoke(ATK);
         }
     }
@@ -169,6 +184,7 @@ public class PlayerStats
         set
         {
             Aspd = value;
+            if (baseAspd == 0) baseAspd = value;
             OnAspdChanged?.Invoke(Aspd);
         }
     }
@@ -374,7 +390,7 @@ public class PlayerStats
                 CurrentLevel += (int)finalValue;
                 break;
             case StatType.Exp:
-                currentExp += (int)finalValue;
+                currentExp += finalValue;
                 break;
             case StatType.MaxHp:
                 CurrentMaxHp += (int)finalValue;
@@ -388,68 +404,39 @@ public class PlayerStats
             case StatType.Defense:
                 CurrentDefense += (int)finalValue;
                 break;
-            case StatType.Mspd:
-                CurrentMspd = CurrentMspd * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Aspd:
-                CurrentAspd = CurrentAspd * ((100 + finalValue) / 100f);
-                break;
-            case StatType.ATK:
-                CurrentATK = CurrentATK * ((100 + finalValue) / 100f);
+            case StatType.ProjAmount:
+                CurrentProjAmount += (int)finalValue;
                 break;
             case StatType.CriRate:
                 CurrentCriRate += finalValue;
                 break;
             case StatType.CriDamage:
-                CurrentCriDamage = (CurrentCriDamage * 100 + finalValue) / 100f;
-                break;
-            case StatType.ProjAmount:
-                CurrentProjAmount += (int)finalValue;
-                break;
-            case StatType.ATKRange:
-                CurrentATKRange = CurrentATKRange * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Duration:
-                CurrentDuration = CurrentDuration * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Cooldown:
-                CurrentCooldown = CurrentCooldown * ((100 - finalValue) / 100f);
+                CurrentCriDamage += finalValue;
                 break;
             case StatType.Revival:
                 CurrentRevival += (int)finalValue;
                 break;
-            case StatType.Magnet:
-                CurrentMagnet = CurrentMagnet * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Growth:
-                CurrentGrowth = CurrentGrowth * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Greed:
-                CurrentGreed = CurrentGreed * ((100 + finalValue) / 100f);
-                break;
-            case StatType.Curse:
-                CurrentCurse = CurrentCurse * ((100 + finalValue) / 100f);
-                break;
             case StatType.Reroll:
-                CurrentGreed += (int)finalValue;
+                CurrentReroll += (int)finalValue;
                 break;
             case StatType.Banish:
                 CurrentBanish += (int)finalValue;
                 break;
+            case StatType.DashCount:
+                CurrentDashCount += (int)finalValue;
+                break;
+            case StatType.BarrierCooldown:
+                CurrentBarrierCooldown += finalValue;
+                break;
+
             case StatType.GodKill:
                 CurrentGodKill = Convert.ToBoolean(finalValue);
                 break;
             case StatType.Barrier:
                 CurrentBarrier = Convert.ToBoolean(finalValue);
                 break;
-            case StatType.BarrierCooldown:
-                CurrentBarrierCooldown += finalValue;
-                break;
             case StatType.Invincibility:
                 CurrentInvincibility = Convert.ToBoolean(finalValue);
-                break;
-            case StatType.DashCount:
-                CurrentDashCount += (int)finalValue;
                 break;
             case StatType.Adversary:
                 CurrentAdversary = Convert.ToBoolean(finalValue);
@@ -459,6 +446,47 @@ public class PlayerStats
                 break;
             case StatType.ProjParry:
                 CurrentProjParry = Convert.ToBoolean(finalValue);
+                break;
+
+            case StatType.Mspd:
+                AddPercentModifier(StatType.Mspd, finalValue);
+                CurrentMspd = baseMspd * (1 + GetTotalPercentModifier(StatType.Mspd) / 100f);
+                break;
+            case StatType.Aspd:
+                AddPercentModifier(StatType.Aspd, finalValue);
+                CurrentAspd = baseAspd * (1 + GetTotalPercentModifier(StatType.Aspd) / 100f);
+                break;
+            case StatType.ATK:
+                AddPercentModifier(StatType.ATK, finalValue);
+                CurrentATK = baseATK * (1 + GetTotalPercentModifier(StatType.ATK) / 100f);
+                break;
+            case StatType.ATKRange:
+                AddPercentModifier(StatType.ATKRange, finalValue);
+                CurrentATKRange = baseATKRange * (1 + GetTotalPercentModifier(StatType.ATKRange) / 100f);
+                break;
+            case StatType.Duration:
+                AddPercentModifier(StatType.Duration, finalValue);
+                CurrentDuration = baseDuration * (1 + GetTotalPercentModifier(StatType.Duration) / 100f);
+                break;
+            case StatType.Cooldown:
+                AddPercentModifier(StatType.Cooldown, finalValue);
+                CurrentCooldown = baseCooldown * (1 - GetTotalPercentModifier(StatType.Cooldown) / 100f);
+                break;
+            case StatType.Magnet:
+                AddPercentModifier(StatType.Magnet, finalValue);
+                CurrentMagnet = baseMagnet * (1 + GetTotalPercentModifier(StatType.Magnet) / 100f);
+                break;
+            case StatType.Growth:
+                AddPercentModifier(StatType.Growth, finalValue);
+                CurrentGrowth = baseGrowth * (1 + GetTotalPercentModifier(StatType.Growth) / 100f);
+                break;
+            case StatType.Greed:
+                AddPercentModifier(StatType.Greed, finalValue);
+                CurrentGreed = baseGreed * (1 + GetTotalPercentModifier(StatType.Greed) / 100f);
+                break;
+            case StatType.Curse:
+                AddPercentModifier(StatType.Curse, finalValue);
+                CurrentCurse = baseCurse * (1 + GetTotalPercentModifier(StatType.Curse) / 100f);
                 break;
         }
     }
@@ -558,6 +586,23 @@ public class PlayerStats
                 CurrentProjParry = Convert.ToBoolean(value);
                 break;
         }
+    }
+
+    // 각 스탯 타입별 총 수정치를 저장하고 관리하기 위한 Dictionary
+    private Dictionary<StatType, float> percentModifiers = new Dictionary<StatType, float>();
+
+    private float GetTotalPercentModifier(StatType statType)
+    {
+        if (!percentModifiers.ContainsKey(statType))
+            percentModifiers[statType] = 0;
+        return percentModifiers[statType];
+    }
+
+    private void AddPercentModifier(StatType statType, float value)
+    {
+        if (!percentModifiers.ContainsKey(statType))
+            percentModifiers[statType] = 0;
+        percentModifiers[statType] += value;
     }
     #endregion
 }
