@@ -62,7 +62,6 @@ public class Projectile : MonoBehaviour
         }
         catch (Exception ex)
         {
-            print(ex.ToString() + " " + ex.StackTrace.ToString());
         }
     }
 

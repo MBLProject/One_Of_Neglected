@@ -8,7 +8,7 @@ public class Shield : Skill
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Defense, 4f);
+        player.Stats.ModifyStatValue(Enums.StatType.Defense, 1f);
     }
 
     public override void LevelUp()
