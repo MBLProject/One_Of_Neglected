@@ -35,6 +35,7 @@ public class Aug_LongBow : ConditionalAugment
 
         for (int i = 0; i < projAmount; i++)
         {
+            SoundManager.Instance.Play("Bow Attack 1", SoundManager.Sound.Effect);
             SpawnProjectile(targetPosition);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }

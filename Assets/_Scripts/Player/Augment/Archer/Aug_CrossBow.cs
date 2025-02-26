@@ -30,6 +30,7 @@ public class Aug_CrossBow : TimeBasedAugment
 
         for (int i = 0; i < projAmount; i++)
         {
+            SoundManager.Instance.Play("CrossBow", SoundManager.Sound.Effect);
             SpawnProjectile(direction);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }

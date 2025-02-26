@@ -40,6 +40,7 @@ public class Aug_BigSword : TimeBasedAugment
 
     private void SpawnProjectile()
     {
+        SoundManager.Instance.Play("ShockWave", SoundManager.Sound.Effect, 1.0f, false, 0.3f);
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "EarthquakeProjectile",
             owner.transform.position,
@@ -53,6 +54,7 @@ public class Aug_BigSword : TimeBasedAugment
     }
     private void SpawnSubProjectile()
     {
+        SoundManager.Instance.Play("ShockWave", SoundManager.Sound.Effect, 1.0f, false, 0.3f);
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "SubEarthquakeProjectile",
             owner.transform.position,

@@ -29,6 +29,7 @@ public class Aug_Staff : TimeBasedAugment
         float finalFinalDamage = UnityEngine.Random.value < owner.Stats.CurrentCriRate ? CurrentDamage * owner.Stats.CurrentCriDamage : CurrentDamage;
         if (activeMonsters != null)
         {
+            SoundManager.Instance.Play("Staff", SoundManager.Sound.Effect, 1f, false, 0.6f);
             foreach (MonsterBase monster in activeMonsters)
             {
                 if (monster != null)

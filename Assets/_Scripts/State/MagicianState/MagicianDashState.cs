@@ -31,7 +31,12 @@ public class MagicianDashState : BaseState<Player>
         var warlock = player.augment.activeAugments.Find(aug => aug is Aug_Warlock) as Aug_Warlock;
         if (warlock != null && warlock.WasTeleported())
         {
-            return;  // 워록 증강이 텔레포트를 처리했으므로 여기서 종료
+            SoundManager.Instance.Play("Teleport", SoundManager.Sound.Effect, 1.0f, false, 0.5f);
+            return;  
+        }
+        else
+        {
+            SoundManager.Instance.Play("Dash", SoundManager.Sound.Effect, 1.0f, false, 0.5f);
         }
 
         player.Animator?.SetBool("IsMoving", false);

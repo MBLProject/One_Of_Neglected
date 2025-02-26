@@ -77,7 +77,7 @@ public class Aug_ArcRanger : ConditionalAugment
         int totalProjectiles = baseProjectiles + owner.Stats.CurrentProjAmount -1;
         float totalAngleSpread = (totalProjectiles - 1) * angleStep;
         float startAngle = -totalAngleSpread / 2f;
-
+        SoundManager.Instance.Play("CrossBow", SoundManager.Sound.Effect);
         for (int i = 0; i < totalProjectiles; i++)
         {
             float currentAngle = startAngle + (i * angleStep);

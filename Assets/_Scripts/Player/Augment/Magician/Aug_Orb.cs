@@ -33,6 +33,7 @@ public class Aug_Orb : TimeBasedAugment
         Vector3 spawnPosition = owner.transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
         Vector2 dashStart = owner.transform.position;
 
+        SoundManager.Instance.Play("Orb", SoundManager.Sound.Effect, 1f, false, 0.5f);
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "JewelProjectile",
             dashStart,
