@@ -120,7 +120,7 @@ public class BossMonster : BossMonsterBase
 
         if (UI_Manager.Instance != null && UI_Manager.Instance.panel_Dic.ContainsKey("Result_Panel"))
         {
-            UI_Manager.Instance.panel_Dic["Result_Panel"].gameObject.SetActive(true);
+            UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
             Debug.Log("[Boss] 결과 패널 오픈!");
         }
 
