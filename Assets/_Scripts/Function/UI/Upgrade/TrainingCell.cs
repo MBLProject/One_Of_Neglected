@@ -244,6 +244,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             training_Panel.trainingInfo.gameObject.SetActive(true);
             training_Panel.info_Text.text = training_Text;
             training_Panel.info_IMG.sprite = training_IMG.sprite;
+            training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
         }
     }
 
