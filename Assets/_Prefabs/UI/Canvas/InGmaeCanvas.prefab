@@ -651,12 +651,12 @@ MonoBehaviour:
     tempSprite: {fileID: 759610761, guid: 9643a367d2a551845b687a9227199b95, type: 3}
   skill_Infos:
   - skill_Name: 1
-    display_Name: "\uB2C8\uB4E4"
+    display_Name: "\uAC00\uC2DC"
     skill_Text: "\uADFC\uCC98\uC758 \uC801\uC744 \uCC0C\uB985\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 1bec48fd5213a414db64aa5cf5c57f8e, type: 3}
     selectedTime: 0
   - skill_Name: 2
-    display_Name: "\uD074\uB85C"
+    display_Name: "\uBC1C\uD1B1"
     skill_Text: "\uBC94\uC704 \uB0B4 \uC801\uB4E4\uC744 \uAE0B\uC2B5\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 19da537632c2b8141a83ab913532f341, type: 3}
     selectedTime: 0
