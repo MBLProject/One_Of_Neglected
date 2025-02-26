@@ -173,7 +173,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (DataManager.Instance != null)
         {
-            DataManager.Instance.OnKillCountReached += SpawnUniqueMonster;
+            DataManager.Instance.OnKillCountReached += OnKillCountReachedHandler;
         }
     }
 
@@ -187,7 +187,15 @@ public class UnitManager : Singleton<UnitManager>
 
         if (DataManager.Instance != null)
         {
-            DataManager.Instance.OnKillCountReached -= SpawnUniqueMonster;
+            DataManager.Instance.OnKillCountReached -= OnKillCountReachedHandler;
+        }
+    }
+    private void OnKillCountReachedHandler(int killCount)
+    {
+        if (killCount >= 1000)
+        {
+            SpawnUniqueMonster();
+            Debug.Log($"킬 카운트 {killCount} 달성으로 유니크 몬스터 소환");
         }
     }
     private int GetRangedMonsterCount()

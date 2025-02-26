@@ -146,6 +146,8 @@ public class DataManager : Singleton<DataManager>
 
     public DamageStats currentDamageStats = new DamageStats();
     public InGameValue inGameValue;
+    public delegate void KillCountHandler(int killCount);
+    public event KillCountHandler OnKillCountReached;
 
     protected override void Awake()
     {
