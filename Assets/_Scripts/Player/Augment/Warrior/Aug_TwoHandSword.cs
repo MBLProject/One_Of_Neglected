@@ -8,6 +8,8 @@ public class Aug_TwoHandSword : TimeBasedAugment
     private int penetration = 0;
     private float duration = 5f;
     private float maxDistance = 10f;
+
+    private bool isProjBreak = false;
     
     private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;  
@@ -54,6 +56,8 @@ public class Aug_TwoHandSword : TimeBasedAugment
         {
             float currentAngle = startAngle + (i * angleStep);
             SpawnProjectile(RotateVector(direction, currentAngle));
+
+         
         }
     }
 
@@ -72,6 +76,11 @@ public class Aug_TwoHandSword : TimeBasedAugment
             maxDistance,
             penetration,
             duration);
+
+        if (isProjBreak && proj is SwordAurorProjectile aurorProj)
+        {
+            aurorProj.SetProjBreak(true);
+        }
     }
 
     private Vector3 RotateVector(Vector3 vector, float degrees)
@@ -102,6 +111,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
                 ModifyBaseInterval(-2f);
                 break;
             case 5:
+                isProjBreak = true;
                 break;
         }
     }

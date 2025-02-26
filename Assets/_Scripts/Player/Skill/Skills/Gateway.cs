@@ -37,7 +37,7 @@ public class Gateway : ActiveSkill
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
-            lifetime = 5f,
+            lifetime = 3f,
             projectileSpeed = 1f,
         };
     }
@@ -59,7 +59,6 @@ public class Gateway : ActiveSkill
                 stats.lifetime += 1f;
                 break;
             case 3:
-                stats.defaultDamage += 10f;
                 stats.projectileCount += 1;
                 break;
             case 4:
@@ -67,7 +66,6 @@ public class Gateway : ActiveSkill
                 stats.lifetime += 1f;
                 break;
             case 5:
-                stats.defaultDamage += 10f;
                 stats.projectileCount += 1;
                 break;
             case 6:

@@ -31,7 +31,7 @@ public class Shuriken : ActiveSkill
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
             defaultDamage = 5f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
-            pierceCount = 1,
+            pierceCount = 0,
             shotCount = 1,
             projectileCount = UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount,
             projectileDelay = 0.1f,
@@ -58,27 +58,22 @@ public class Shuriken : ActiveSkill
         {
             case 2:
                 stats.projectileCount++;
-                stats.defaultDamage += 5f;
                 stats.pierceCount++;
                 break;
             case 3:
                 stats.projectileCount++;
-                stats.defaultDamage += 5f;
                 stats.pierceCount++;
                 break;
             case 4:
                 stats.projectileCount++;
-                stats.defaultDamage += 5f;
                 stats.pierceCount++;
                 break;
             case 5:
                 stats.projectileCount++;
-                stats.defaultDamage += 5f;
                 stats.pierceCount++;
                 break;
             case 6:
                 stats.projectileCount++;
-                stats.defaultDamage += 5f;
                 stats.pierceCount++;
                 break;
         }

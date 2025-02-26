@@ -11,7 +11,7 @@ public class GatewayProjectile : Projectile
 {
     private float knockbackForce;
     private HashSet<MonsterBase> monstersInRange = new HashSet<MonsterBase>();
-    private float tickInterval = 0.5f;
+    private float tickInterval = 1f;
 
     protected override void Start()
     {

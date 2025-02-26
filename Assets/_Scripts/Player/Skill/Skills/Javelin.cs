@@ -27,7 +27,7 @@ public class Javelin : ActiveSkill
             cooldown = UnitManager.Instance.GetPlayer().Stats.CurrentCooldown,
             defaultATKRange = 1f,
             aTKRange = UnitManager.Instance.GetPlayer().Stats.CurrentATKRange,
-            defaultDamage = 20f,
+            defaultDamage = 40f,
             aTK = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
             pierceCount = 1,
             shotCount = 1,
@@ -56,24 +56,29 @@ public class Javelin : ActiveSkill
         switch (level)
         {
             case 2:
-                stats.defaultDamage += 10f;
+                stats.defaultDamage += 20f;
                 stats.pierceCount += 1;
+                stats.aTKRange += 0.2f;
                 break;
             case 3:
-                stats.projectileCount += 1;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultDamage += 20f;
+                stats.pierceCount += 1;
+                stats.aTKRange += 0.2f;
                 break;
             case 4:
                 stats.defaultDamage += 20f;
                 stats.pierceCount += 1;
+                stats.aTKRange += 0.2f;
                 break;
             case 5:
-                stats.projectileCount += 1;
-                stats.defaultATKRange *= 1.1f;
+                stats.defaultDamage += 20f;
+                stats.pierceCount += 1;
+                stats.aTKRange += 0.2f;
                 break;
             case 6:
                 stats.defaultDamage += 30f;
-                stats.pierceCount += 2;
+                stats.pierceCount += 1;
+                stats.aTKRange += 0.2f;
                 break;
         }
     }
