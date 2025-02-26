@@ -594,6 +594,25 @@ public class UnitManager : Singleton<UnitManager>
     public void SpawnWorldObject(WorldObjectType objectType, Vector2 position)
     {
         GameObject Object = Instantiate(GetEnvPrefab(objectType), position, Quaternion.identity);
+        if (objectType == WorldObjectType.ExpBlue)
+        {
+            int val = Random.Range(0, 4);
+            switch (val)
+            {
+                case 0:
+                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_140");
+                    break;
+                case 1:
+                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_107");
+                    break;
+                case 2:
+                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_188");
+                    break;
+                case 3:
+                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_172");
+                    break;
+            }
+        }
     }
 
     public void RemoveWorldObject(WorldObjectType worldObject)
