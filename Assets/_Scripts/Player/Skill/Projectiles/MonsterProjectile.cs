@@ -6,6 +6,8 @@ using System.Threading;
 public class MonsterProjectile : Projectile
 {
     private float elapsedTime = 0f;
+    private bool isParried;
+
     public Vector3 StartPosition { get; private set; }
     public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
     {

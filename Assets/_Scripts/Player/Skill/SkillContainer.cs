@@ -93,6 +93,7 @@ public class SkillContainer : MonoBehaviour
     {
         if (ownedSkills.Contains(deDuctSkillName))
         {
+            print("SuccessFully Removed in Container!!");
             ownedSkills.Remove(deDuctSkillName);
             selectableSkills.Remove(deDuctSkillName);
         }

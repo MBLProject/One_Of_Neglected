@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fist : Skill
+public class Fist : PassiveSkill
 {
-    public Fist() : base(Enums.SkillName.Fist) { }
+    public Fist() : base(Enums.SkillName.Fist) { statType = Enums.StatType.ATK; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.ATK, 20f);
+        player.Stats.ModifyStatValue(statType, 20f);
     }
 
     public override void LevelUp()
@@ -30,5 +30,12 @@ public class Fist : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -20f * level);
     }
 }

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bracelet : Skill
+public class Bracelet : PassiveSkill
 {
-    public Bracelet() : base(Enums.SkillName.Bracelet) { }
+    public Bracelet() : base(Enums.SkillName.Bracelet) { statType = Enums.StatType.Duration; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Duration, 10f);
+        player.Stats.ModifyStatValue(statType, 10f);
     }
 
     public override void LevelUp()
@@ -30,5 +30,12 @@ public class Bracelet : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -10f * level);
     }
 }

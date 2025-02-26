@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crown : Skill
+public class Crown : PassiveSkill
 {
-    public Crown() : base(Enums.SkillName.Crown) { }
+    public Crown() : base(Enums.SkillName.Crown) { statType = Enums.StatType.Growth; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.Growth, 10f);
+        player.Stats.ModifyStatValue(statType, 10f);
     }
 
     public override void LevelUp()
@@ -30,5 +30,11 @@ public class Crown : Skill
                 ModifySkill();
                 break;
         }
+    }
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -10f * level);
     }
 }

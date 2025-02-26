@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillDispenser : MonoBehaviour
@@ -6,14 +8,7 @@ public class SkillDispenser : MonoBehaviour
     public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
     //public List<Skill> skills = new List<Skill>();
 
-    public int Count;
-
-    private void Update()
-    {
-        // for Debug
-        Count = skills.Count;
-
-    }
+    public List<Enums.SkillName> Count = new List<Enums.SkillName>();
 
     public void RegisterSkill(Enums.SkillName skillName)
     {
@@ -29,6 +24,7 @@ public class SkillDispenser : MonoBehaviour
         {
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
+            Count.Add(skillName);
         }
     }
 
@@ -36,8 +32,11 @@ public class SkillDispenser : MonoBehaviour
     {
         if (skills.ContainsKey(skillName))
         {
+            skills[skillName].UnRegister();
             skills[skillName].StopMainTask();
             skills.Remove(skillName);
+            print("SuccessFully Removed in Dispenser!!");
+
         }
         else
             print($"{skillName} is NOT Registered Skill!!");

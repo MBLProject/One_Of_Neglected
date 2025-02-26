@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Book : Skill
+public class Book : PassiveSkill
 {
-    public Book() : base(Enums.SkillName.Book) { }
+    public Book() : base(Enums.SkillName.Book) { statType = Enums.StatType.ATKRange; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(Enums.StatType.ATKRange, 10f);
+        player.Stats.ModifyStatValue(statType, 10f);
     }
 
     public override void LevelUp()
@@ -30,5 +30,12 @@ public class Book : Skill
                 ModifySkill();
                 break;
         }
+    }
+
+    public override void UnRegister()
+    {
+        var player = UnitManager.Instance.GetPlayer();
+
+        player.Stats.ModifyStatValue(statType, -10f * level);
     }
 }
