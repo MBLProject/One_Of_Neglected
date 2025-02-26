@@ -189,6 +189,8 @@ public class LevelUp_Panel : Panel
             {
                 current_Selections[i].gameObject.SetActive(false);
             }
+            current_Selections[0].m_BTN.onClick.RemoveAllListeners();
+            current_Selections[0].m_BTN.onClick.AddListener(current_Selections[0].Select_BTN2);
             current_Selections[0].m_augType = aug_Infos.aug_Type[0];
             Debug.Log($"Selection : {current_Selections[0].m_augType}");
             Debug.Log($"augInfo : {aug_Infos.aug_Type[0]}");
