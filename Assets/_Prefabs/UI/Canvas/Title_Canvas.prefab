@@ -1305,8 +1305,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2227,7 +2227,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 80}
+  m_SizeDelta: {x: 220, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &2103018603346904283
 CanvasRenderer:
@@ -19376,7 +19376,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
-  m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7/S, 5/S"
+  m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7\uCD08, 5\uCD08"
 --- !u!1 &4060430263648744014
 GameObject:
   m_ObjectHideFlags: 0
@@ -31188,7 +31188,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
-  m_Text: "\uD53C\uACA9 \uC2DC \uBB34\uC801 0.1/S"
+  m_Text: "\uD53C\uACA9 \uC2DC \uBB34\uC801 0.1\uCD08"
 --- !u!1 &6446020719275889799
 GameObject:
   m_ObjectHideFlags: 0
@@ -35076,7 +35076,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -40744,7 +40744,7 @@ MonoBehaviour:
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
-  m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7/S, 5/S"
+  m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7\uCD08, 5\uCD08"
 --- !u!1 &8029221809064103966
 GameObject:
   m_ObjectHideFlags: 0

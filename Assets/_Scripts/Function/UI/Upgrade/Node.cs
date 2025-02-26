@@ -170,15 +170,13 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //TODO 툴팁 활성화
-        Debug.Log("들어옴");
         bless_Panel.tooltip.gameObject.SetActive(true);
         bless_Panel.tooltip.gameObject.transform.position = this.gameObject.transform.position;
-        bless_Panel.tooltip.m_Text.text = "효과 : " + m_Text;
+
+        bless_Panel.tooltip.m_Text.text = "효과\n" + m_Text;
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("나감");
         bless_Panel.tooltip.gameObject.SetActive(false);
     }
 }

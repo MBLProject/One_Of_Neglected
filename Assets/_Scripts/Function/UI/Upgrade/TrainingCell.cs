@@ -36,6 +36,16 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         m_BTN.onClick.AddListener(Training);
         RequireGoldCalc(Convert.ToDouble(requireGold_List[0]));
     }
+    private void Start()
+    {
+        if (isDisplayLv)
+        {
+            if (trainingCount > 10) currentRequireGold = requireGold_List[10];
+            else currentRequireGold = requireGold_List[trainingCount];
+        }
+        training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
+
+    }
     private void OnEnable()
     {
         training_Panel.cellReset += CellReset;
@@ -139,11 +149,9 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 }
                 lvText.text = "Lv." + trainingCount.ToString();
             }
-        }
-        else
-        {
-            Debug.Log("최대 레벨 도달");
-            return;
+            training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
+            if (maxTrainingLevel == trainingCount)
+                training_Panel.requireGold_TMP.text = "Master";
         }
     }
     public void ByTrainingCount()
@@ -151,7 +159,8 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         if (isDisplayLv)
         {
             lvText.text = "Lv." + trainingCount.ToString();
-            currentRequireGold = requireGold_List[requireGold_List.Count - 1];
+            if (trainingCount > 10) currentRequireGold = requireGold_List[10];
+            else currentRequireGold = requireGold_List[trainingCount];
         }
         else
         {
@@ -203,7 +212,6 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                         tinyCells[trainingCount - 1].sprite = training_Panel.tinyCellOff_Sprite;
                 }
             }
-
             if (trainingCount == 0) return;
 
             trainingCount--;
@@ -232,8 +240,12 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 else currentRequireGold = requireGold_List[trainingCount];
             }
             if (isDisplayLv)
+            {
                 lvText.text = "Lv." + trainingCount.ToString();
-
+                training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
+                return;
+            }
+            training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
         }
 
     }
@@ -244,7 +256,14 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             training_Panel.trainingInfo.gameObject.SetActive(true);
             training_Panel.info_Text.text = training_Text;
             training_Panel.info_IMG.sprite = training_IMG.sprite;
-            training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
+            if (maxTrainingLevel == trainingCount)
+            {
+                training_Panel.requireGold_TMP.text = "Master";
+            }
+            else
+            {
+                training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
+            }
         }
     }
 
