@@ -16,15 +16,10 @@ public class Option_Panel : Panel
 
     private void Awake()
     {
-        buttons[0].onClick.AddListener(OnCheckBTNClick);
-        buttons[1].onClick.AddListener(ReturnMainPanel);
-        buttons[2].onClick.AddListener(ReturnTitle_BTN);
+        buttons[0].onClick.AddListener(ReturnMainPanel);
+        buttons[1].onClick.AddListener(ReturnTitle_BTN);
 
         sounds_Slider.onValueChanged.AddListener(OnSoundSliderValueChanged);
-    }
-    private void Start()
-    {
-
     }
     private void OnEnable()
     {
@@ -48,7 +43,7 @@ public class Option_Panel : Panel
             var MAX = GCD(resolution.width, resolution.height);
             if ((resolution.width / MAX == 16) && (resolution.height / MAX == 9))
             {
-                if (resolution.refreshRateRatio.value < 60 || resolution.width > 2000) continue;
+                if (resolution.refreshRateRatio.value < 60) continue;
                 resolutions.Add(new Resolution { width = resolution.width, height = resolution.height, refreshRateRatio = resolution.refreshRateRatio });
             }
         }
@@ -97,9 +92,6 @@ public class Option_Panel : Panel
         UI_Manager.Instance.SetCanvasScaler();
         m_CanvasScaler.referenceResolution = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
     }
-    private void OnCheckBTNClick()
-    {
-    }
 
     private void ReturnMainPanel()
     {
@@ -111,7 +103,8 @@ public class Option_Panel : Panel
         else
         {
             PanelClose(true);
-            UnitManager.Instance.ResumeGame();
+            Time.timeScale = 1;
+            GameManager.Instance.isPaused = false;
         }
     }
 

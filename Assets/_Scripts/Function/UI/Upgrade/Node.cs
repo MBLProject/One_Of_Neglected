@@ -44,9 +44,13 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         colorBlock_Origin = m_BTN.colors;
         colorBlock_Temp = colorBlock_Origin;
 
-        SetNextNode(next_Nodes);
         m_Icon = transform.GetChild(0).GetComponent<Image>();
         m_Icon.color = Color.gray;
+    }
+    private void Start()
+    {
+        SetNextNode(next_Nodes);
+
     }
     private void OnEnable()
     {

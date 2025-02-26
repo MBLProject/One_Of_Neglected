@@ -139,9 +139,11 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
     public PlayerProperty player_Property = new PlayerProperty();
     public BTS BTS = new BTS();
-
+#if UNITY_EDITOR
     string path = "Assets/Resources/SaveFile/";
-
+#else
+string path = Application.persistentDataPath + "/Save";  
+#endif
     public ClassType classSelect_Type = Enums.ClassType.None;
 
     public DamageStats currentDamageStats = new DamageStats();

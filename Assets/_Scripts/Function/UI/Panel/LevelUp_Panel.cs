@@ -173,6 +173,9 @@ public class LevelUp_Panel : Panel
         if (isAugSelected == false)
         {
             current_Selections[3].gameObject.SetActive(true);
+
+            if (DataManager.Instance.BTS.DashCount == 0)
+                current_Selections[3].m_BTN.interactable = false;
             for (int i = 0; i < 4; i++)
             {
                 current_Selections[i].m_BTN.onClick.RemoveAllListeners();

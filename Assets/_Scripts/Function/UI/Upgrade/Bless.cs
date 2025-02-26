@@ -8,7 +8,6 @@ public class Bless : MonoBehaviour
     #region 공격가호
     public void ATK_Modify(bool On)
     {
-        Debug.Log("공격력");
         if (On)
         {
             DataManager.Instance.BTS.ATK += 5;
@@ -23,7 +22,6 @@ public class Bless : MonoBehaviour
 
     public void ProjAmount_Modify(bool On)
     {
-        Debug.Log("투사체");
         if (On)
         {
             DataManager.Instance.BTS.ProjAmount += 1;
@@ -38,22 +36,20 @@ public class Bless : MonoBehaviour
 
     public void ASPD_Modify(bool On)
     {
-        Debug.Log("공속");
         if (On)
         {
-            DataManager.Instance.BTS.Aspd += 2;
+            DataManager.Instance.BTS.Aspd += 5;
             DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.BTS.Aspd -= 2;
+            DataManager.Instance.BTS.Aspd -= 5;
             DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
     public void CriDamage_Modify(bool On)
     {
-        Debug.Log("치뎀");
         if (On)
         {
             DataManager.Instance.BTS.CriDamage += 10;
@@ -68,22 +64,20 @@ public class Bless : MonoBehaviour
 
     public void CriRate_Modify(bool On)
     {
-        Debug.Log("치확");
         if (On)
         {
-            DataManager.Instance.BTS.CriRate += 15;
+            DataManager.Instance.BTS.CriRate += 10;
             DataManager.Instance.player_Property.bless_Point--;
         }
         else
         {
-            DataManager.Instance.BTS.CriRate -= 15;
+            DataManager.Instance.BTS.CriRate -= 10;
             DataManager.Instance.player_Property.bless_Point++;
         }
     }
 
     public void ProjDestroy_Modify(bool On)
     {
-        Debug.Log("파괴");
         DataManager.Instance.BTS.ProjDestroy = On;
         if (On)
         {
@@ -97,7 +91,6 @@ public class Bless : MonoBehaviour
 
     public void ProjParry_Modify(bool On)
     {
-        Debug.Log("패링");
         DataManager.Instance.BTS.projParry = On;
         if (On)
         {
@@ -111,9 +104,7 @@ public class Bless : MonoBehaviour
 
     public void GodKill_Modify(bool On)
     {
-        Debug.Log("신살");
         DataManager.Instance.BTS.GodKill = On;
-        Debug.Log(On);
         if (On)
         {
             DataManager.Instance.player_Property.bless_Point--;
@@ -130,7 +121,6 @@ public class Bless : MonoBehaviour
 
     public void MaxHP_Modify(bool On)
     {
-        Debug.Log("최대체력");
         if (On)
         {
             DataManager.Instance.BTS.MaxHp += 10;
@@ -145,7 +135,6 @@ public class Bless : MonoBehaviour
 
     public void Defense_Modify(bool On)
     {
-        Debug.Log("방어력");
         if (On)
         {
             DataManager.Instance.BTS.Defense += 2;
@@ -160,7 +149,6 @@ public class Bless : MonoBehaviour
 
     public void HPRegen_Modify(bool On)
     {
-        Debug.Log("체력회복");
         if (On)
         {
             DataManager.Instance.BTS.HpRegen += 1;
@@ -175,7 +163,6 @@ public class Bless : MonoBehaviour
 
     public void Barrier_Modify(bool On)
     {
-        Debug.Log("배리어");
         DataManager.Instance.BTS.Barrier = On;
         if (On)
         {
@@ -189,7 +176,6 @@ public class Bless : MonoBehaviour
 
     public void BarrierCooldown_Modify(bool On)
     {
-        Debug.Log("배리어 쿨타임");
         if (On)
         {
             if (DataManager.Instance.BTS.BarrierCooldown == 7)
@@ -218,7 +204,6 @@ public class Bless : MonoBehaviour
 
     public void Invincibility_Modify(bool On)
     {
-        Debug.Log("피격 시 무적");
         DataManager.Instance.BTS.Invincibility = On;
         if (On)
         {
@@ -232,7 +217,6 @@ public class Bless : MonoBehaviour
 
     public void Adversary_Modify(bool On)
     {
-        Debug.Log("대적자");
         DataManager.Instance.BTS.Adversary = On;
         if (On)
         {
@@ -250,7 +234,6 @@ public class Bless : MonoBehaviour
 
     public void ATKRange_Modify(bool On)
     {
-        Debug.Log("공격범위");
         if (On)
         {
             DataManager.Instance.BTS.ATKRange += 5;
@@ -265,7 +248,6 @@ public class Bless : MonoBehaviour
 
     public void Duration_Modify(bool On)
     {
-        Debug.Log("지속시간");
         if (On)
         {
             DataManager.Instance.BTS.Duration += 5;
@@ -280,7 +262,6 @@ public class Bless : MonoBehaviour
 
     public void Cooldown_Modify(bool On)
     {
-        Debug.Log("쿨타임");
         if (On)
         {
             DataManager.Instance.BTS.Cooldown += 5;
@@ -295,7 +276,6 @@ public class Bless : MonoBehaviour
 
     public void Revival_Modify(bool On)
     {
-        Debug.Log("부활");
         if (On)
         {
             DataManager.Instance.BTS.Revival += 1;
@@ -310,7 +290,6 @@ public class Bless : MonoBehaviour
 
     public void Magnet_Modify(bool On)
     {
-        Debug.Log("자석");
         if (On)
         {
             DataManager.Instance.BTS.Magnet += 5;
@@ -325,7 +304,6 @@ public class Bless : MonoBehaviour
 
     public void Growth_Modify(bool On)
     {
-        Debug.Log("성장");
         if (On)
         {
             DataManager.Instance.BTS.Growth += 5;
@@ -340,7 +318,6 @@ public class Bless : MonoBehaviour
 
     public void Greed_Modify(bool On)
     {
-        Debug.Log("탐욕");
         if (On)
         {
             DataManager.Instance.BTS.Greed += 5;
@@ -355,7 +332,6 @@ public class Bless : MonoBehaviour
 
     public void DashCount_Modify(bool On)
     {
-        Debug.Log("대쉬");
         if (On)
         {
             DataManager.Instance.BTS.DashCount += 1;

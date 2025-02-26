@@ -55,7 +55,11 @@ public class Main_Panel : Panel
     {
         DataManager.Instance.SaveData();
         Debug.Log("나감");
-        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit(); // 어플리케이션 종료
+#endif
     }
     //제작진
     private void Crew_BTN()

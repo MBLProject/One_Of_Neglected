@@ -66,8 +66,7 @@ public class Bless_Panel : Panel
     public NodeReset nodeReset;
 
     public BlessTooltip tooltip;
-
-    private void OnEnable()
+    private void Start()
     {
         Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
         Node_Initialize(ref DEF_Node_List, ref DEF_Node_Line);
@@ -94,6 +93,10 @@ public class Bless_Panel : Panel
             if (node.next_Nodes.Count != 0)
             {
                 node.m_Line = nodeLines[i];
+                if (DataManager.Instance.bless_Dic[node])
+                {
+                    node.m_Line.color = Color.white;
+                }
             }
 
             i++;

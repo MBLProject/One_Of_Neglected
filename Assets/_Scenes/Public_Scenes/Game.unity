@@ -407,6 +407,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGmaeCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351516968768867439, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1680
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976784832576124946, guid: 7e24700fcac92c046a6fad8e58b527cd,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 840
+      objectReference: {fileID: 0}
     - target: {fileID: 6128665101292670927, guid: 7e24700fcac92c046a6fad8e58b527cd,
         type: 3}
       propertyPath: m_Pivot.x

@@ -6,8 +6,6 @@ public class GameManager : Singleton<GameManager>
 {
     public bool isPaused = false;
     public bool isGameStarted = false;
-    public float gold;
-    public int remnents;
     private void Start()
     {
         StartGame();

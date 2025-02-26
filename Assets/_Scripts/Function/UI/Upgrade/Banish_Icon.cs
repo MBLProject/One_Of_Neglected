@@ -29,13 +29,12 @@ public class Banish_Icon : MonoBehaviour
 
     private void RemoveSkill()
     {
-        if (DataManager.Instance.BTS.Banish == 0) return;
-        DataManager.Instance.BTS.Banish--;
+        if (UnitManager.Instance.GetPlayer().Stats.CurrentBanish == 0) return;
+        UnitManager.Instance.GetPlayer().ModifyStat(Enums.StatType.Banish, -1);
 
         levelUp_Panel.UpdateBanishCnt();
 
-        //TODO 셀렉터에서 호출될 예정
-        // banish_Panel.skillDispenser.UnRegisterSkill(m_SkillName);
+        inGameUI_Panel.skillSelector.DeductSkill(m_SkillName);
         //기본 비활성화
         m_Icon.color = Color.clear;
         m_BTN.interactable = false;
