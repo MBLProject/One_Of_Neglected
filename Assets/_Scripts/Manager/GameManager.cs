@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (isPaused)
             {
-                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose();
+                UI_Manager.Instance.panel_Dic["Option_Panel"].PanelClose(true);
                 Time.timeScale = 1;
                 isPaused = false;
             }

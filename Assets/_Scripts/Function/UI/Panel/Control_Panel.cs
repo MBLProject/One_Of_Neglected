@@ -11,7 +11,7 @@ public class Control_Panel : Panel
 
     private void CtrlBTNClick()
     {
-        PanelClose();
+        PanelClose(true);
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
     }
 }

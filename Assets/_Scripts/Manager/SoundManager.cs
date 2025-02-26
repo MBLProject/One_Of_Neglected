@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     public enum Sound
     {
@@ -50,7 +50,6 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public void Init()
     {
         string[] soundNames = System.Enum.GetNames(typeof(Sound));
@@ -190,7 +189,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetEffectVolume(float effectAmount)
     {
-        effectVolume = effectAmount / 100f;
+        effectVolume = effectAmount * 100f;
         AudioSource effectSource = _audioSources[(int)Sound.Effect];
         effectSource.volume = masterVolume * effectVolume;
     }

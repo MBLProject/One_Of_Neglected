@@ -79,7 +79,7 @@ public class Upgrade_Panel : Panel
             buttons[0].onClick.RemoveAllListeners();
             buttons[0].onClick.AddListener(TrainingReset_BTN);
 
-            UI_Manager.Instance.panel_Dic["Bless_Panel"].PanelClose();
+            UI_Manager.Instance.panel_Dic["Bless_Panel"].PanelClose(false);
             UI_Manager.Instance.panel_Dic["Training_Panel"].PanelOpen();
         }
         else
@@ -96,7 +96,7 @@ public class Upgrade_Panel : Panel
             buttons[0].onClick.RemoveAllListeners();
             buttons[0].onClick.AddListener(BlessReset_BTN);
 
-            UI_Manager.Instance.panel_Dic["Training_Panel"].PanelClose();
+            UI_Manager.Instance.panel_Dic["Training_Panel"].PanelClose(false);
             UI_Manager.Instance.panel_Dic["Bless_Panel"].PanelOpen();
         }
     }
@@ -117,7 +117,7 @@ public class Upgrade_Panel : Panel
     {
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
         bless_Toggle.isOn = true;
-        PanelClose();
+        PanelClose(true);
     }
 
     private void HelpElemets(List<GameObject> enableElements, List<GameObject> disableElements)

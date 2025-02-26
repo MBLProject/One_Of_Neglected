@@ -13,8 +13,19 @@ public abstract class Panel : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    public virtual void PanelClose()
+    public void PanelClose(bool soundPlay)
     {
+        if (soundPlay)
+        {
+            StartCoroutine(SoundCoroutine());
+        }
         this.gameObject.SetActive(false);
+    }
+
+    protected IEnumerator SoundCoroutine()
+    {
+        SoundManager.Instance.Play("SFX_UI_Button_Keyboard_Enter_Thick_1");
+        yield return null;
+
     }
 }

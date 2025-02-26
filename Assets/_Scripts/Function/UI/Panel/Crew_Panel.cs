@@ -13,6 +13,6 @@ public class Crew_Panel : Panel
     private void Return_BTN()
     {
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
     }
 }

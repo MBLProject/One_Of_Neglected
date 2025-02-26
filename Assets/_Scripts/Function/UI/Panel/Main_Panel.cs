@@ -19,13 +19,13 @@ public class Main_Panel : Panel
     {
         SoundManager.Instance.Play("Title_Loopable", SoundManager.Sound.Bgm);
         SoundManager.Instance.SetVolume(SoundManager.Sound.Bgm, 0.5f);
-        
+
     }
     //게임 시작
     private void Start_BTN()
     {
         UI_Manager.Instance.panel_Dic["ClassSelect_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
         // GameSceneManager.SceneLoad("Game");
     }
 
@@ -33,21 +33,21 @@ public class Main_Panel : Panel
     private void Upgrade_BTN()
     {
         UI_Manager.Instance.panel_Dic["Upgrade_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
     }
 
     //조작방법 패널
     private void Control_BTN()
     {
         UI_Manager.Instance.panel_Dic["Control_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
     }
 
     //옵션 패널
     private void Option_Panel()
     {
         UI_Manager.Instance.panel_Dic["Option_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
     }
 
     //게임 종료
@@ -61,7 +61,7 @@ public class Main_Panel : Panel
     private void Crew_BTN()
     {
         UI_Manager.Instance.panel_Dic["Crew_Panel"].PanelOpen();
-        PanelClose();
+        PanelClose(true);
     }
 
 }
