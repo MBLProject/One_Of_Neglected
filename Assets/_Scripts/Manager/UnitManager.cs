@@ -66,7 +66,7 @@ public class UnitManager : Singleton<UnitManager>
     private BossMonster currentBoss;
     private bool isGameStarted = false;
     private Player currentPlayer;
-    private List<MonsterBase> activeMonsters = new List<MonsterBase>();
+    public List<MonsterBase> activeMonsters = new List<MonsterBase>();
     private List<WorldObjectType> activeExpObjects = new List<WorldObjectType>();
     private Camera mainCamera;
 
