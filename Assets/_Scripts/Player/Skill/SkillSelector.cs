@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -78,6 +79,12 @@ public class SkillSelector : MonoBehaviour
         }
 
         var skillList = selectedSkills.ToList();
+
+        foreach (var skill in skillList)
+        {
+            print(Enum.GetName(typeof(Enums.SkillName), skill));
+        }
+
         if (skillList.Count < 3)
         {
             Debug.LogWarning($"selected Abilities is less than 3!!! selectedAbilities.Count : {skillList.Count}");
