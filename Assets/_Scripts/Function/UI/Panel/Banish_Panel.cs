@@ -26,7 +26,7 @@ public class Banish_Panel : Panel
     }
     private void Return_BTN()
     {
-        UI_Manager.Instance.panel_Dic["Banish_Panel"].PanelClose();
+        UI_Manager.Instance.panel_Dic["Banish_Panel"].PanelClose(true);
         levelUp_Panel.SelectionOnOff(true);
     }
 

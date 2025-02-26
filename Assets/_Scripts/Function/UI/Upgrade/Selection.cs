@@ -66,7 +66,7 @@ public class Selection : MonoBehaviour
                 levelUp_Panel.m_SubSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
             }
         }
-        levelUp_Panel.PanelClose();
+        levelUp_Panel.PanelClose(true);
     }
 
     private void Select_BTN2()

@@ -43,6 +43,7 @@ public class Option_Panel : Panel
         {
             buttons[2].gameObject.SetActive(false);
         }
+        sounds_Slider.value = SoundManager.Instance.getMasterVolume();
     }
     public void OnStart()
     {
@@ -100,23 +101,19 @@ public class Option_Panel : Panel
     }
     private void OnCheckBTNClick()
     {
-        UI_Manager.Instance.sounds_Value = sounds_Slider.value;
-        UI_Manager.Instance.effects_Value = effects_Slider.value;
+        SoundManager.Instance.SetMasterVolume(sounds_Slider.value * 100);
     }
 
     private void ReturnMainPanel()
     {
         if (SceneManager.GetActiveScene().name == "Title")
         {
-            PanelClose();
-            sounds_Slider.value = UI_Manager.Instance.sounds_Value;
-            effects_Slider.value = UI_Manager.Instance.effects_Value;
+            PanelClose(true);
             UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
-
         }
         else
         {
-            PanelClose();
+            PanelClose(true);
             UnitManager.Instance.ResumeGame();
         }
     }
