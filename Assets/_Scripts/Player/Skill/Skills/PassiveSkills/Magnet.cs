@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Magnet : PassiveSkill
 {
-    public Magnet() : base(Enums.SkillName.Magnet) { statType = Enums.StatType.Magnet; ModifySkill(); }
+    public Magnet() : base(Enums.SkillName.Magnet) { statType = Enums.StatType.Magnet;}
 
     public override void ModifySkill()
     {

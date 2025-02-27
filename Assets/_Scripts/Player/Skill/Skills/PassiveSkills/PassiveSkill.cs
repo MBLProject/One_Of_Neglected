@@ -13,7 +13,5 @@ public class PassiveSkill : Skill
         if (level >= 5) return;
 
         base.LevelUp();
-        ModifySkill();
     }
-
 }
