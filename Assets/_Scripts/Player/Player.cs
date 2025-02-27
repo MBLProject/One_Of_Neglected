@@ -44,6 +44,8 @@ public class StatViewer
 public abstract class Player : MonoBehaviour
 {
     #region Field
+    protected bool isDead = false;
+    
     public ClassType ClassType { get; protected set; }
     public Animator Animator => animator;
     public PlayerStats Stats
@@ -52,6 +54,7 @@ public abstract class Player : MonoBehaviour
         protected set { stats = value; }
     }
     public ParticleSystem DashEffect => dashEffect;
+    [SerializeField]private GameObject ReviveEffect;
 
     protected AugmentSelector augmentSelector;
 
@@ -476,7 +479,8 @@ public abstract class Player : MonoBehaviour
     }
     public virtual void TakeDamage(float damage)
     {
-        if (isInvincible) return;  // 무적 상태면 데미지를 받지 않음
+        // 무적이거나 죽은 상태면 데미지를 받지 않음
+        if (isInvincible || isDead) return;  
 
         // 베리어 체크
         if (isBarrier && hasBarrierCharge)
@@ -502,6 +506,20 @@ public abstract class Player : MonoBehaviour
         if (stats.currentHp <= 0)
         {
             stats.currentHp = 0;
+            isDead = true;  // 죽은 상태로 설정
+            
+            if (stats.CurrentRevival > 0)
+            {
+                SoundManager.Instance.Play("Revive", SoundManager.Sound.Effect, 1f, false, 0.6f);
+              
+                GameObject startEffect = GameObject.Instantiate(ReviveEffect, transform.position, Quaternion.identity);
+                GameObject.Destroy(startEffect, 1f);
+
+                stats.CurrentRevival -= 1; 
+                ChangePlayerRevive();
+                return; 
+            }
+                        
             ChangePlayerDie();
             UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
         }
@@ -529,20 +547,20 @@ public abstract class Player : MonoBehaviour
     //되살릴때 쓰시오
     public void ChangePlayerRevive()
     {
+        isDead = false;  
+        stats.SetStatValue(StatType.Hp, stats.CurrentMaxHp);
+
         if (ClassType == ClassType.Warrior)
         {
             stateHandler.ChangeState(typeof(WarriorIdleState));
-            stats.currentHp = stats.CurrentMaxHp;
         }
         else if (ClassType == ClassType.Archer)
         {
             stateHandler.ChangeState(typeof(ArcherIdleState));
-            stats.currentHp = stats.CurrentMaxHp;
         }
         else if (ClassType == ClassType.Magician)
         {
             stateHandler.ChangeState(typeof(MagicianIdleState));
-            stats.currentHp = stats.CurrentMaxHp;
         }
     }
 

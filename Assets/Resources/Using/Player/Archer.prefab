@@ -6212,6 +6212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818258d78dd3a7d4db3079e78539df43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReviveEffect: {fileID: 5913232554477800046, guid: 2ca5f618b42454f4f8c17167ec123ecb,
+    type: 3}
   animator: {fileID: 5003735280031505066}
   dashEffect: {fileID: 8905768557215414232}
   statViewer:

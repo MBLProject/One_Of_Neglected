@@ -2534,6 +2534,8 @@ MonoBehaviour:
     gold: 0
     bless_Point: 0
     remnants_Point: 0
+    causalityLv: 0
+    causalityEXP: 0
     class_Unlocked: 010000
     MaxHp_TrainingCount: 0
     HpRegen_TrainingCount: 0
@@ -5556,30 +5558,9 @@ MonoBehaviour:
     type: 3}
   bossMonsterPrefab: {fileID: 4209662324636049061, guid: 3c05d48e07e7cf34c816648cd9dff0d8,
     type: 3}
-  spawnRadius: 15
-  minSpawnDistance: 8
   maxRangedMonsterCount: 20
   maxTotalMonsterCount: 100
   spawnInterval: 1
-  monsterSpawnTable:
-  - gameTime: 0
-    spawnCount: 5
-  - gameTime: 0.17
-    spawnCount: 10
-  - gameTime: 0.33
-    spawnCount: 15
-  - gameTime: 0.5
-    spawnCount: 20
-  - gameTime: 0.67
-    spawnCount: 25
-  - gameTime: 0.83
-    spawnCount: 30
-  - gameTime: 1
-    spawnCount: 35
-  - gameTime: 1.17
-    spawnCount: 40
-  - gameTime: 10
-    spawnCount: 40
   mapMinX: -30
   mapMaxX: 30
   mapMinY: -30
@@ -15237,7 +15218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -15247,7 +15227,6 @@ MonoBehaviour:
   - {fileID: 8593457182515829402}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -16231,7 +16210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -16241,7 +16219,6 @@ MonoBehaviour:
   - {fileID: 2433667687184734553}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -17619,7 +17596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -17629,7 +17605,6 @@ MonoBehaviour:
   - {fileID: 7645085476450107061}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -19422,7 +19397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 3
@@ -19433,7 +19407,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6166185368568739503}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -19860,7 +19833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -19871,7 +19843,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6215537620194015337}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -20610,7 +20581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -20621,7 +20591,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3343089741716075741}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -21503,7 +21472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -21514,7 +21482,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 9054307415104955513}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -21942,7 +21909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 2
@@ -21953,7 +21919,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8992283483995514125}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -21978,7 +21943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -21989,7 +21953,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8555793478404468032}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -22036,7 +21999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -22047,7 +22009,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7142254043508921464}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -24532,7 +24493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -24544,7 +24504,6 @@ MonoBehaviour:
   - {fileID: 2236418556543682038}
   - {fileID: 1672424304478671324}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -24766,7 +24725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -24777,7 +24735,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1389784230894857262}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -24840,7 +24797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -24851,7 +24807,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8252545327445069781}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -27214,7 +27169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 4
@@ -27226,7 +27180,6 @@ MonoBehaviour:
   - {fileID: 4168492350709773048}
   - {fileID: 6575428381257230620}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -27336,7 +27289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -27347,7 +27299,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2962089124500802719}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -27703,7 +27654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -27714,7 +27664,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 9187318357771784625}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -31531,7 +31480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -31542,7 +31490,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8958357843153712495}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -32231,7 +32178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -32242,7 +32188,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7474386083658087455}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -32411,7 +32356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 4
@@ -32422,7 +32366,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6653135409873882833}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -32726,7 +32669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -32737,7 +32679,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 975565684726169447}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -33020,7 +32961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -33031,7 +32971,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 327832629359415805}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -33451,7 +33390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -33462,7 +33400,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8741647456163928625}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -33671,7 +33608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 3
@@ -33682,7 +33618,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2364500574386490888}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -33748,7 +33683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -33758,7 +33692,6 @@ MonoBehaviour:
   - {fileID: 3964416801766256217}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -37202,7 +37135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 2
@@ -37213,7 +37145,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6010739557007981434}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -37395,7 +37326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -37406,7 +37336,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 749254139676557549}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -37821,7 +37750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 7
@@ -37832,7 +37760,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5559531144117073129}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -38673,7 +38600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 3
@@ -38684,7 +38610,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3903901463209934752}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -38806,7 +38731,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -38817,7 +38741,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 4010662258879133732}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -40518,7 +40441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -40529,7 +40451,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3964416801766256217}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -41041,7 +40962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -41052,7 +40972,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8593457182515829402}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -44583,7 +44502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 3
@@ -44594,7 +44512,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7634962246489571931}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -44693,7 +44610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -44704,7 +44620,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8286224022046121114}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -45202,7 +45117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 4
@@ -45213,7 +45127,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6170341716771391216}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -45610,7 +45523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -45621,7 +45533,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2540409769349410108}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -46021,7 +45932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -46032,7 +45942,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1371801680060165100}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -46960,7 +46869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 3
@@ -46971,7 +46879,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1029727305553144565}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -47310,7 +47217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -47320,7 +47226,6 @@ MonoBehaviour:
   - {fileID: 9111363032734541533}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -54330,7 +54235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -54341,7 +54245,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 884249545155310875}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -55147,7 +55050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -55158,7 +55060,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5169615975206068856}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -55407,7 +55308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -55418,7 +55318,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2390397759486398074}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -55533,7 +55432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -55544,7 +55442,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5025373350743182436}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -56756,7 +56653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -56767,7 +56663,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8174909141820287590}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -58452,7 +58347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -58463,7 +58357,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3116728833516288763}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -60269,7 +60162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -60280,7 +60172,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6986011883538046260}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -60652,7 +60543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -60663,7 +60553,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3412181136980530957}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -60824,7 +60713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 4
@@ -60835,7 +60723,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7076837108836244990}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -61537,7 +61424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -61548,7 +61434,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3131478050691336458}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -62135,7 +62020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 4
@@ -62146,7 +62030,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 696140400557124949}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -62305,7 +62188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -62316,7 +62198,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1737287433697456490}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -63574,7 +63455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 5
@@ -63585,7 +63465,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3014355238249700988}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -63716,7 +63595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -63727,7 +63605,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2433667687184734553}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -64050,7 +63927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -64061,7 +63937,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5154907171391844812}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -64740,7 +64615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -64750,7 +64624,6 @@ MonoBehaviour:
   - {fileID: 8174909141820287590}
   prev_Nodes: []
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -66102,7 +65975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -66113,7 +65985,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1035418810402869417}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -66941,7 +66812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 2
@@ -66952,7 +66822,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3817942629829747526}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -67123,7 +66992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -67134,7 +67002,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5945351830710608542}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -67593,7 +67460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 6
@@ -67604,7 +67470,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2347871853714889227}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -67655,7 +67520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 2
@@ -67666,7 +67530,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8109132321793898018}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -68561,7 +68424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -68572,7 +68434,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6028216032129730942}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -69936,7 +69797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -69947,7 +69807,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7645085476450107061}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -70565,7 +70424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -70576,7 +70434,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 9111363032734541533}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -70867,7 +70724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -70878,7 +70734,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6750861891760821629}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -71690,7 +71545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -71701,7 +71555,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8482674514080055513}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -73431,7 +73284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 2
@@ -73442,7 +73294,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5886506839673388716}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -73923,7 +73774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -73934,7 +73784,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5365948677309774679}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -74022,7 +73871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -74033,7 +73881,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 9110629309000584623}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -74069,7 +73916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -74080,7 +73926,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2500449285610472791}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -74710,7 +74555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -74721,7 +74565,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2948569905426247844}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -74757,7 +74600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -74768,7 +74610,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 489318406457556610}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -77640,7 +77481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 5
@@ -77651,7 +77491,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6642325179925726876}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -78429,7 +78268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -78440,7 +78278,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 6266476934406765174}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -78990,7 +78827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -79001,7 +78837,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5109023450047557764}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -79164,7 +78999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -79175,7 +79009,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8996117086645000799}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -79575,7 +79408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -79585,7 +79417,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1344861567468872040}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -80813,7 +80644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -80824,7 +80654,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7540923979015172223}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -81049,7 +80878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -81061,7 +80889,6 @@ MonoBehaviour:
   - {fileID: 6593605795956912089}
   - {fileID: 6458319623411388386}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -81181,7 +81008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 8
@@ -81191,7 +81017,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1652528299056504592}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -81300,7 +81125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -81311,7 +81135,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7526738967334521123}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -81659,7 +81482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -81670,7 +81492,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 196660194397893670}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -82715,7 +82536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -82726,7 +82546,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 9120456008088722970}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -84168,7 +83987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -84179,7 +83997,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7266330497395016332}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -84541,7 +84358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -84552,7 +84368,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 2531245826182701672}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -84629,7 +84444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -84640,7 +84454,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5823867424149327167}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -85060,7 +84873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -85070,7 +84882,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 8500524611362378898}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -85134,7 +84945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -85145,7 +84955,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 1031335228798109937}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -85621,7 +85430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -85632,7 +85440,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 7542146953133462610}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -85649,7 +85456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 0
   ATK_Bless: 1
@@ -85660,7 +85466,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 4210800810277372323}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -85836,7 +85641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 2
   ATK_Bless: 0
@@ -85847,7 +85651,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 5871407262888784516}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}
@@ -86335,7 +86138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea42b15cddb964408601ad145c8a3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
   bless_Panel: {fileID: 8932020856157218873}
   nodeDefine: 1
   ATK_Bless: 0
@@ -86346,7 +86148,6 @@ MonoBehaviour:
   prev_Nodes:
   - {fileID: 3838248859359769089}
   m_BTN: {fileID: 0}
-  can_Interactable: 0
   can_Revert: 0
   clicked: 0
   m_Line: {fileID: 0}

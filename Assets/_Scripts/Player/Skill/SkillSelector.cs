@@ -32,6 +32,8 @@ public class SkillSelector : MonoBehaviour
             ChooseSkill(SkillName.Javelin);
         if (Input.GetKeyDown(KeyCode.P))
             UnitManager.Instance.GetPlayer().Stats.ModifyStatValue(StatType.ProjAmount, 1f);
+        if (Input.GetKeyDown(KeyCode.C))
+            ChooseSkill(SkillName.Crown);
     }
 
     public List<SkillName> SelectSkills()
