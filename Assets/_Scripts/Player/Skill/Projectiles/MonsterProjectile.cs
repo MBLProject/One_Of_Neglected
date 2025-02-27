@@ -6,12 +6,12 @@ using System.Threading;
 public class MonsterProjectile : Projectile
 {
     private float elapsedTime = 0f;
-    private bool isParried;
 
     public Vector3 StartPosition { get; private set; }
     public void InitProjectile(Vector3 startPos, Vector3 direction, float speed, float damage)
     {
-        this.startPosition = startPos; 
+        this.startPosition = startPos;
+        StartPosition = startPos;
         Vector3 targetPos = startPos + direction * 100f; 
         base.InitProjectile(startPos, targetPos, speed, damage);
     }
