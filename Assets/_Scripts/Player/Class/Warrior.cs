@@ -56,7 +56,7 @@ public class Warrior : Player
         statViewer.Aspd = 1 * ((100 + DataManager.Instance.BTS.Aspd) / 100f);
         statViewer.ATKRange = 1 * ((100 + DataManager.Instance.BTS.ATKRange) / 100f);
         statViewer.Duration = 1 * ((100 + DataManager.Instance.BTS.Duration) / 100f);
-        statViewer.Magnet = 0.3f * ((100 + DataManager.Instance.BTS.Magnet) / 100f);
+        statViewer.Magnet = 0.5f * ((100 + DataManager.Instance.BTS.Magnet) / 100f);
         statViewer.Growth = (100 + DataManager.Instance.BTS.Growth) / 100f;
         statViewer.Greed = 1 * ((100 + DataManager.Instance.BTS.Greed) / 100f);
         statViewer.Curse = 1 * ((100 + DataManager.Instance.BTS.Curse) / 100f);
