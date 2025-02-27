@@ -72,8 +72,6 @@ public class Warrior : Player
         statViewer.Invincibility = DataManager.Instance.BTS.Invincibility;
         statViewer.ProjDestroy = DataManager.Instance.BTS.ProjDestroy;
         statViewer.ProjParry = DataManager.Instance.BTS.projParry;
-
-        SyncStatsFromViewer();
     }
     #endregion
 }
