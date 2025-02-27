@@ -38,13 +38,13 @@ public class UnitManager : Singleton<UnitManager>
     private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
     {
          new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // 0초
-         new MonsterSpawnData { gameTime = 0.17f, spawnCount = 5 },  // 10초
-         new MonsterSpawnData { gameTime = 0.33f, spawnCount = 10 },  // 20초
-         new MonsterSpawnData { gameTime = 0.50f, spawnCount = 15 },  // 30초
-         new MonsterSpawnData { gameTime = 0.67f, spawnCount = 20 },  // 40초
-         new MonsterSpawnData { gameTime = 0.83f, spawnCount = 25 },  // 50초
-         new MonsterSpawnData { gameTime = 1.00f, spawnCount = 30 },  // 1분
-         new MonsterSpawnData { gameTime = 1.17f, spawnCount = 35 },  // 1분 10초
+         new MonsterSpawnData { gameTime = 0.33f, spawnCount = 5 },  // 10초 20
+         new MonsterSpawnData { gameTime = 0.50f, spawnCount = 10 },  // 20초 30
+         new MonsterSpawnData { gameTime = 0.67f, spawnCount = 15 },  // 30초 40
+         new MonsterSpawnData { gameTime = 0.83f, spawnCount = 20 },  // 40초 50
+         new MonsterSpawnData { gameTime = 1.00f, spawnCount = 25 },  // 50초 60 
+         new MonsterSpawnData { gameTime = 1.17f, spawnCount = 30 },  // 1분  70 
+         new MonsterSpawnData { gameTime = 1.33f, spawnCount = 35 },  // 1분 10초  80
          new MonsterSpawnData { gameTime = 10.00f, spawnCount = 40 }  // 10분
     };
     [Header("맵 범위")]
