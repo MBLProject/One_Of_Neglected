@@ -55,11 +55,11 @@ public class Archer : Player
 
         // 2. 승산 스탯 - (100 + 증가율) / 100
         statViewer.ATK = 10 * ((DataManager.Instance.BTS.ATK + 100) / 100);
-        statViewer.Mspd = 1 * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
+        statViewer.Mspd = 1.3f * ((100 + DataManager.Instance.BTS.Mspd) / 100f);
         statViewer.Aspd = 1 * ((100 + DataManager.Instance.BTS.Aspd) / 100f);
         statViewer.ATKRange = 1 * ((100 + DataManager.Instance.BTS.ATKRange) / 100f);
         statViewer.Duration = 1 * ((100 + DataManager.Instance.BTS.Duration) / 100f);
-        statViewer.Magnet = 0.3f * ((100 + DataManager.Instance.BTS.Magnet) / 100f);
+        statViewer.Magnet = 0.5f * ((100 + DataManager.Instance.BTS.Magnet) / 100f);
         statViewer.Growth = (100 + DataManager.Instance.BTS.Growth) / 100f;
         statViewer.Greed = 1 * ((100 + DataManager.Instance.BTS.Greed) / 100f);
         statViewer.Curse = 1 * ((100 + DataManager.Instance.BTS.Curse) / 100f);
