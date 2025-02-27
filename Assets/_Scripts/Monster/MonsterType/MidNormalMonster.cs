@@ -10,7 +10,7 @@ public class MidNormalMonster : NormalMonster
             health: 40f,
             speed: 1.2f,
             damage: 11f,
-            range: 1f,
+            range: 0.7f,
             cooldown: 1f,
             defense:2f
         );

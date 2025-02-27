@@ -11,7 +11,7 @@ public class TankUniqueMonster : NormalMonster
             health: 100f,
             speed: 1f,
             damage: 10f,
-            range: 1f,
+            range: 0.7f,
             cooldown: 1f,
             defense: 6f,        
             regen: 5f,          
