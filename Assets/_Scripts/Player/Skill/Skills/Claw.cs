@@ -14,7 +14,7 @@ public class Claw : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnDurationChanged += (value) => stats.duration = value;
     }
 
 
@@ -38,6 +38,7 @@ public class Claw : ActiveSkill
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 0.25f,
+            duration = UnitManager.Instance.GetPlayer().Stats.CurrentDuration,
             projectileSpeed = 5f,
         };
     }

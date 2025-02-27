@@ -45,11 +45,11 @@ public class JewelProjectile : PlayerProjectile
         targetPosition = targetPos;
         stats = projectileStats;
 
-        // ÌÅ¨Í∏∞ ÏÑ§Ï†ï
+        // ≈©±‚ º≥¡§
         transform.localScale = Vector3.one * stats.finalATKRange;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", stats.lifetime);
+        Invoke("DestroyProjectile", stats.finalDuration);
     }
 
     protected override async UniTaskVoid MoveProjectileAsync(CancellationToken token)

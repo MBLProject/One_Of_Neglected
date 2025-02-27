@@ -35,6 +35,7 @@ public static class SkillFactory
             case SkillName.Crown: return new Crown();
             case SkillName.Meat: return new Meat();
             case SkillName.Cheese: return new Cheese();
+            case SkillName.Gold: return new Gold();
             default:
                 Debug.LogWarning($"Unknown SkillName: {skillName}");
                 return null;
@@ -102,6 +103,7 @@ public struct SkillStats
     public float cATK;
     public float amount;
     public float lifetime;
+    public float duration;
     public float cooldown;
     public float Aspd;
     public float projectileSpeed;
@@ -124,7 +126,7 @@ public struct ProjectileStats
     public float critical;
     public float cATK;
     public float amount;
-    public float lifetime;
+    public float finalDuration;
     public float projectileSpeed;
     public bool canParry;
 }

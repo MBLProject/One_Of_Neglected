@@ -199,7 +199,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
             finalDamage = damage,
             finalATKRange = size,
             pierceCount = pierceCnt,
-            lifetime = lifetime,
+            finalDuration = lifetime,
             critical = criticalChance,    
             cATK = criticalDamage,
         };

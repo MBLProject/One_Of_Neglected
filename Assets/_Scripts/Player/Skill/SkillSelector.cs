@@ -53,8 +53,8 @@ public class SkillSelector : MonoBehaviour
                 if (IsMaxLevel(skill)) continue;
 
                 SkillName skillName = (!activeMax && !passiveMax) ||
-                    (activeMax && (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.OwnedSkills.Contains(skill))) ||
-                    (passiveMax && (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.OwnedSkills.Contains(skill)))
+                    (activeMax && (IsPassiveSkill(skill) || skillContainer.OwnedSkills.Contains(skill))) ||
+                    (passiveMax && (IsActiveSkill(skill) || skillContainer.OwnedSkills.Contains(skill)))
                     ? skill : SkillName.None;
                 selectedSkills.Add(skillName);
             }
@@ -125,18 +125,6 @@ public class SkillSelector : MonoBehaviour
         if (IsMaxLevel(skillName))
         {
             skillContainer.SelectableSkills.Remove(skillName);
-        }
-
-        if (skillDispenser.skills.Count >= 10)
-        {
-            int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
-            if (nonMaxLevelSkills <= 2)
-            {
-                if (!skillContainer.SelectableSkills.Contains(SkillName.Cheese))
-                    skillContainer.AddSelectableSkill(SkillName.Cheese);
-                if (!skillContainer.SelectableSkills.Contains(SkillName.Gold))
-                    skillContainer.AddSelectableSkill(SkillName.Gold);
-            }
         }
     }
 
