@@ -14,6 +14,7 @@ public class CrowdControlUniqueMonster : NormalMonster
     private float skillTimer = 0f;                         // 현재 스킬 쿨타임 타이머
     private Vector2 dashDirection;                         // 돌진 방향
     private bool isDashing = false;                        // 현재 돌진 중인지 여부
+    private bool hasDamaged = false;
 
     protected override void InitializeStats()
     {
@@ -21,7 +22,7 @@ public class CrowdControlUniqueMonster : NormalMonster
             health: 500f,
             speed: 1.2f,
             damage: 15f,
-            range: 1f,
+            range: 0.7f,
             cooldown: 1f,
             defense: 1f,
             regen: 3f,
@@ -87,6 +88,7 @@ public class CrowdControlUniqueMonster : NormalMonster
     private IEnumerator DashCoroutine()
     {
         isDashing = true;
+        hasDamaged = false;
         dashDirection = (playerTransform.position - transform.position).normalized;
 
         float elapsedTime = 0f;
@@ -99,17 +101,20 @@ public class CrowdControlUniqueMonster : NormalMonster
             transform.position = Vector2.Lerp(startPos,
                 startPos + (dashDirection * dashSpeed),
                 elapsedTime / dashDuration);
-
-            // 돌진 중 플레이어와의 충돌 체크
-            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.5f);
-            foreach (var hit in hits)
+            if (!hasDamaged)  
             {
-                if (hit.CompareTag("Player"))
+                Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+                foreach (var hit in hits)
                 {
-                    Player player = hit.GetComponent<Player>();
-                    if (player != null)
+                    if (hit.CompareTag("Player"))
                     {
-                        player.TakeDamage(dashDamage);
+                        Player player = hit.GetComponent<Player>();
+                        if (player != null)
+                        {
+                            player.TakeDamage(dashDamage);
+                            hasDamaged = true;  
+                            break;  
+                        }
                     }
                 }
             }

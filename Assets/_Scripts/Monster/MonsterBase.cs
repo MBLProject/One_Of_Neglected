@@ -297,17 +297,17 @@ public abstract class MonsterBase : MonoBehaviour
         // 탱크 유니크 몬스터인 경우
         else if (this is TankUniqueMonster)
         {
-            // 현재 활성화된 탱크 몬스터 수 확인
-            int remainingTankMonsters = UnitManager.Instance.activeMonsters
-                .Count(monster => monster != null && monster is TankUniqueMonster);
-
-            // 마지막 탱크 몬스터인 경우
-            if (remainingTankMonsters == 1)
+            // [수정] activeMonsters.Count 대신 킬 카운트 사용
+            if (UnitManager.Instance.IsLastTankMonster())
             {
                 UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlack, transform.position);
                 Debug.Log("마지막 탱크 몬스터 처치 - ExpBlack 드롭!");
+                // [추가] 킬 카운트 리셋
+                UnitManager.Instance.ResetTankMonsterKillCount();
                 return;
             }
+            // [추가] 탱크 몬스터 킬 카운트 증가
+            UnitManager.Instance.IncreaseTankMonsterKillCount();
         }
 
         // 1% 확률로 골드 드롭
