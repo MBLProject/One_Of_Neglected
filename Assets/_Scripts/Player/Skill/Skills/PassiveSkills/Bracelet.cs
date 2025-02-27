@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bracelet : PassiveSkill
 {
-    public Bracelet() : base(Enums.SkillName.Bracelet) { statType = Enums.StatType.Duration; }
+    public Bracelet() : base(Enums.SkillName.Bracelet) { statType = Enums.StatType.Duration; ModifySkill(); }
 
     public override void ModifySkill()
     {
@@ -15,21 +15,10 @@ public class Bracelet : PassiveSkill
 
     public override void LevelUp()
     {
+        if (level >= 5) return;
+
         base.LevelUp();
-
-        if (level >= 6)
-        {
-            level = 5;
-            Debug.Log($"LevelUp!!!!3 : {level}");
-            return;
-        }
-
-        switch (level)
-        {
-            default:
-                ModifySkill();
-                break;
-        }
+        ModifySkill();
     }
 
     public override void UnRegister()

@@ -10,20 +10,10 @@ public class PassiveSkill : Skill
 
     public override void LevelUp()
     {
+        if (level >= 5) return;
+
         base.LevelUp();
-
-        if (level >= 6)
-        {
-            level = 5;
-            return;
-        }
-
-        switch (level)
-        {
-            default:
-                ModifySkill();
-                break;
-        }
+        ModifySkill();
     }
 
 }

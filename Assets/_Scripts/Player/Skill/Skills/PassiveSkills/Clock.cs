@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Clock : PassiveSkill
 {
-    public Clock() : base(Enums.SkillName.Clock) { statType = Enums.StatType.Cooldown; }
+    public Clock() : base(Enums.SkillName.Clock) { statType = Enums.StatType.Cooldown; ModifySkill(); }
 
     public override void ModifySkill()
     {
@@ -15,21 +15,10 @@ public class Clock : PassiveSkill
 
     public override void LevelUp()
     {
+        if (level >= 5) return;
+
         base.LevelUp();
-
-        if (level >= 6)
-        {
-            level = 5;
-            Debug.Log($"LevelUp!!!!3 : {level}");
-            return;
-        }
-
-        switch (level)
-        {
-            default:
-                ModifySkill();
-                break;
-        }
+        ModifySkill();
     }
 
     public override void UnRegister()

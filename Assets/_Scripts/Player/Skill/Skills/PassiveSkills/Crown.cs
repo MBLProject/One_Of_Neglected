@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crown : PassiveSkill
 {
-    public Crown() : base(Enums.SkillName.Crown) { statType = Enums.StatType.Growth; }
+    public Crown() : base(Enums.SkillName.Crown) { statType = Enums.StatType.Growth; ModifySkill(); }
 
     public override void ModifySkill()
     {
@@ -15,21 +15,10 @@ public class Crown : PassiveSkill
 
     public override void LevelUp()
     {
+        if (level >= 5) return;
+
         base.LevelUp();
-
-        if (level >= 6)
-        {
-            level = 5;
-            Debug.Log($"LevelUp!!!!3 : {level}");
-            return;
-        }
-
-        switch (level)
-        {
-            default:
-                ModifySkill();
-                break;
-        }
+        ModifySkill();
     }
     public override void UnRegister()
     {

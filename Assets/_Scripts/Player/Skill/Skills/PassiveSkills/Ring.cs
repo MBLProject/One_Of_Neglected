@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ring : PassiveSkill
 {
-    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount; }
+    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount; ModifySkill(); }
 
     public override void ModifySkill()
     {
@@ -17,26 +17,10 @@ public class Ring : PassiveSkill
 
     public override void LevelUp()
     {
-        base.LevelUp();
+        if (level >= 2) return;
 
-        if (level >= 3)
-        {
-            level = 2;
-            Debug.Log($"LevelUp!!!!3 : {level}");
-            return;
-        }
-
-        switch (level)
-        {
-            case 1:
-                ModifySkill();
-                break;
-            case 2:
-                ModifySkill();
-                break;
-            default:
-                break;
-        }
+        level++;
+        ModifySkill();
     }
 
     public override void UnRegister()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Blood : PassiveSkill
 {
-    public Blood() : base(Enums.SkillName.Blood) { statType = Enums.StatType.MaxHp; }
+    public Blood() : base(Enums.SkillName.Blood) { statType = Enums.StatType.MaxHp; ModifySkill(); }
 
     public override void ModifySkill()
     {
@@ -13,20 +13,10 @@ public class Blood : PassiveSkill
 
     public override void LevelUp()
     {
+        if (level >= 5) return;
+
         base.LevelUp();
-
-        if (level >= 6)
-        {
-            level = 5;
-            return;
-        }
-
-        switch (level)
-        {
-            default:
-                ModifySkill();
-                break;
-        }
+        ModifySkill();
     }
 
     public override void UnRegister()
