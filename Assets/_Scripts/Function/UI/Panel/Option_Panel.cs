@@ -25,11 +25,11 @@ public class Option_Panel : Panel
     {
         if (SceneManager.GetActiveScene().name == "Game")
         {
-            buttons[2].gameObject.SetActive(true);
+            buttons[1].gameObject.SetActive(true);
         }
         else
         {
-            buttons[2].gameObject.SetActive(false);
+            buttons[1].gameObject.SetActive(false);
         }
 
         sounds_Slider.value = SoundManager.Instance.getMasterVolume();
