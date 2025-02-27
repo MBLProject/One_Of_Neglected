@@ -79,6 +79,7 @@ public class Major_Panel : MonoBehaviour
             SkillLevel(skillNames[i]).ToString();
             if (isActivesSkill)
             {
+                if (false == DataManager.Instance.currentDamageStats.skillDamages.ContainsKey(skillNames[i])) continue;
                 skillMembers[startIdx].damage.text =
                 DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
 
