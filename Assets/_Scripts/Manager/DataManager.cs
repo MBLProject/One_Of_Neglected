@@ -23,6 +23,8 @@ public class PlayerProperty
     public int gold;
     public int bless_Point;
     public int remnants_Point;
+    public int causalityLv;
+    public float causalityEXP;
     public List<bool> class_Unlocked =
     new List<bool>() { true, false, false };
     [HideInInspector] public int MaxHp_TrainingCount;
@@ -171,11 +173,16 @@ string path = Application.persistentDataPath + "/Save";
             {
                 player_Property.gold += inGameValue.gold;
                 player_Property.remnants_Point += inGameValue.remnents;
+                CausalityCalc();
+
                 ResetInGameInfo();
             }
         };
     }
+    private void CausalityTable(float causalityEXP)
+    {
 
+    }
     public void ResetInGameInfo()
     {
         inGameValue.gold = 0;
@@ -263,6 +270,31 @@ string path = Application.persistentDataPath + "/Save";
         {
             OnKillCountReached?.Invoke(inGameValue.killCount);
         }
-
+    }
+    private void CausalityCalc()
+    {
+        if (player_Property.causalityLv == 0) player_Property.causalityLv = 1;
+        player_Property.causalityEXP += (float)inGameValue.killCount / 10 * player_Property.causalityLv;
+        Debug.Log($"killCount : {inGameValue.killCount}");
+        Debug.Log($"causalityEXP : {player_Property.causalityEXP}");
+        CausalityTable();
+    }
+    private void CausalityTable()
+    {
+        if (player_Property.causalityLv == 90) return;
+        float requireEXP = 100;
+        for (int i = 1; i < player_Property.causalityLv; i++)
+        {
+            requireEXP *= 1.1f;
+        }
+        Debug.Log($"requireEXP : {requireEXP}");
+        while (player_Property.causalityEXP - requireEXP > 0)
+        {
+            player_Property.causalityEXP -= (int)requireEXP;
+            player_Property.causalityLv++;
+            requireEXP *= 1.1f;
+            Debug.Log($"requireEXP_Update : {requireEXP}");
+            if (player_Property.causalityLv == 90) break;
+        }
     }
 }
