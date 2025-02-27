@@ -60,13 +60,11 @@ MonoBehaviour:
     type: 3}
   bossMonsterPrefab: {fileID: 4209662324636049061, guid: 3c05d48e07e7cf34c816648cd9dff0d8,
     type: 3}
-  spawnRadius: 15
-  minSpawnDistance: 8
   maxRangedMonsterCount: 20
   maxTotalMonsterCount: 100
   spawnInterval: 3
-  mapMinX: -5
-  mapMaxX: 32
-  mapMinY: -9
-  mapMaxY: 30
+  mapMinX: -9
+  mapMaxX: 36
+  mapMinY: -13
+  mapMaxY: 32
   activeMonsters: []
