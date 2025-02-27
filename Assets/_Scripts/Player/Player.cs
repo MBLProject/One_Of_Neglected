@@ -575,7 +575,7 @@ public abstract class Player : MonoBehaviour
 
     private static class CollectibleValues
     {
-        public const float BASIC_EXP = 10f;
+        public const float BASIC_EXP = 70f;
         public const int BASIC_GOLD = 10;
         public const int LARGE_GOLD = 50;
         public const float HEAL_AMOUNT = 20f;
@@ -622,7 +622,24 @@ public abstract class Player : MonoBehaviour
 
     private void ProcessExperience(float expAmount)
     {
-        AddExperience(expAmount);
+        stats.currentExp += expAmount;
+        
+        while (stats.currentExp >= stats.CurrentMaxExp && Time.timeScale > 0)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        stats.currentExp -= stats.CurrentMaxExp;
+        stats.CurrentLevel += 1;
+        stats.CurrentMaxExp = CalculateNextLevelExp();
+        
+        if (Time.timeScale > 0)
+        {
+            UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
+        }
     }
 
     private void ProcessBoomEffect()
@@ -633,20 +650,6 @@ public abstract class Player : MonoBehaviour
         foreach (var monster in activeMonsters.Where(m => m != null))
         {
             monster.TakeDamage(CollectibleValues.BOMB_DAMAGE);
-        }
-    }
-
-    private void AddExperience(float amount)
-    {
-        stats.currentExp += amount;
-        
-        if (stats.currentExp >= stats.CurrentMaxExp)
-        {
-            stats.currentExp = 0;  
-            stats.CurrentLevel += 1; 
-            stats.CurrentMaxExp = CalculateNextLevelExp();  
-            
-            UI_Manager.Instance.panel_Dic["LevelUp_Panel"].PanelOpen();
         }
     }
 

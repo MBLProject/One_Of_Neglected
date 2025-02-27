@@ -97,9 +97,7 @@ public class PlayerStats
             {
                 Level = value;
                 OnLevelUp?.Invoke(Level);
-                
-                // 레벨업 시 최대 경험치도 업데이트
-                CurrentMaxExp = CalculateNextLevelExp();
+                CurrentMaxExp = CalculateNextLevelExp();  // 최대 경험치 업데이트
             }
         }
     }
@@ -120,19 +118,8 @@ public class PlayerStats
         get => Exp;
         set
         {
-            if (Exp != value)  // 값이 변경될 때만 이벤트 발생
-            {
-                Exp = value;
-                OnExpChanged?.Invoke(Exp);
-                
-                // 경험치가 최대치를 넘으면 레벨업
-                if (Exp >= MaxExp)
-                {
-                    float remainingExp = Exp - MaxExp;
-                    CurrentLevel++;
-                    Exp = remainingExp;
-                }
-            }
+            Exp = value;
+            OnExpChanged?.Invoke(Exp);
         }
     }
     public int CurrentMaxHp
@@ -445,6 +432,12 @@ public class PlayerStats
     #region Stat
     public void ModifyStatValue(StatType statType, float value)
     {
+        // TimeScale이 0일 때는 Level 스탯 변경을 막음
+        if (Time.timeScale == 0 && statType == StatType.Level)
+        {
+            return;
+        }
+
         float finalValue = value;
 
         switch (statType)
