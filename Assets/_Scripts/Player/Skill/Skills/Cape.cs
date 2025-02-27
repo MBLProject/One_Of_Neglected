@@ -7,11 +7,6 @@ public class Cape : ActiveSkill
 {
     public Cape() : base(Enums.SkillName.None) { }
 
-    protected override async UniTask StartSkill()
-    {
-        await UniTask.CompletedTask;
-    }
-
     protected override void SubscribeToPlayerStats()
     {
         PlayerStats playerStats = UnitManager.Instance.GetPlayer().Stats;
