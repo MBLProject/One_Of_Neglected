@@ -18,7 +18,6 @@ public class ClassSelect_Panel : Panel
     }
     private void Start()
     {
-        remnents_TMP.text = DataManager.Instance.player_Property.remnants_Point.ToString();
 
         if (DataManager.Instance.player_Property.class_Unlocked.Count > 0)
         {
@@ -28,8 +27,12 @@ public class ClassSelect_Panel : Panel
                 DataManager.Instance.player_Property.class_Unlocked[i];
             }
         }
-    }
 
+    }
+    private void OnEnable()
+    {
+        remnents_TMP.text = DataManager.Instance.player_Property.remnants_Point.ToString();
+    }
     private void Return_BTN()
     {
         UI_Manager.Instance.panel_Dic["Main_Panel"].PanelOpen();
