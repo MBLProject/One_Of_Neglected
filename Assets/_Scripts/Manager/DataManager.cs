@@ -292,6 +292,7 @@ string path = Application.persistentDataPath + "/Save";
         {
             player_Property.causalityEXP -= (int)requireEXP;
             player_Property.causalityLv++;
+            player_Property.bless_Point++;
             requireEXP *= 1.1f;
             Debug.Log($"requireEXP_Update : {requireEXP}");
             if (player_Property.causalityLv == 90) break;
