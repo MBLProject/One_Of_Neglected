@@ -13,8 +13,8 @@ public class Main_Panel : Panel
         buttons[3].onClick.AddListener(Option_Panel);
         buttons[4].onClick.AddListener(Exit_BTN);
         buttons[5].onClick.AddListener(Crew_BTN);
+        buttons[6].onClick.AddListener(Story_BTN);
     }
-
     private void Start()
     {
         SoundManager.Instance.Play("Title_Loopable", SoundManager.Sound.Bgm);
@@ -64,6 +64,12 @@ public class Main_Panel : Panel
     private void Crew_BTN()
     {
         UI_Manager.Instance.panel_Dic["Crew_Panel"].PanelOpen();
+        PanelClose(true);
+    }
+    //스토리
+    private void Story_BTN()
+    {
+        UI_Manager.Instance.panel_Dic["Story_Panel"].PanelOpen();
         PanelClose(true);
     }
 
