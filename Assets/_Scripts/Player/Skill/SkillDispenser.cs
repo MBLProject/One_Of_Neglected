@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillDispenser : MonoBehaviour
@@ -25,6 +24,11 @@ public class SkillDispenser : MonoBehaviour
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
             Count.Add(skillName);
+            
+            if (SkillFactory.IsActiveSkill(skillName) == 0)
+            {
+                newSkill.ModifySkill();
+            }
         }
     }
 

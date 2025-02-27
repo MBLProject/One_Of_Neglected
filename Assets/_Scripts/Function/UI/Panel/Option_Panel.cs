@@ -110,7 +110,14 @@ public class Option_Panel : Panel
 
     private void ReturnTitle_BTN()
     {
+        Time.timeScale = 1;
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(UnitManager.Instance.gameObject);
+        Destroy(ProjectileManager.Instance.gameObject);
+        Destroy(TimeManager.Instance.gameObject);
+        Destroy(SoundManager.Instance.gameObject);
         GameSceneManager.SceneLoad("Title");
+        PanelClose(true);
     }
 
     private int GCD(int a, int b)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Book : PassiveSkill
 {
-    public Book() : base(Enums.SkillName.Book) { statType = Enums.StatType.ATKRange; ModifySkill(); }
+    public Book() : base(Enums.SkillName.Book) { statType = Enums.StatType.ATKRange;}
 
     public override void ModifySkill()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shoes : PassiveSkill
 {
-    public Shoes() : base(Enums.SkillName.Shoes) { statType = Enums.StatType.Mspd; ModifySkill(); }
+    public Shoes() : base(Enums.SkillName.Shoes) { statType = Enums.StatType.Mspd;}
 
     public override void ModifySkill()
     {

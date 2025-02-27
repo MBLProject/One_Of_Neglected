@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ring : PassiveSkill
 {
-    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount; ModifySkill(); }
+    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount;}
 
     public override void ModifySkill()
     {

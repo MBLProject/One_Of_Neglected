@@ -34,6 +34,8 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         _audioSources[(int)Sound.Bgm].loop = true;
+        SetMasterVolume(0.5f * 100);
+
     }
 
     public void Clear()
@@ -44,7 +46,7 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.Stop();
         }
         _audioClips.Clear();
-        
+
     }
 
     public void Play(string path, Sound type = Sound.Effect, float pitch = 1.0f)

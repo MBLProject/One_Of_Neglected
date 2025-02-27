@@ -652,119 +652,244 @@ MonoBehaviour:
   skill_Infos:
   - skill_Name: 1
     display_Name: "\uAC00\uC2DC"
-    skill_Text: "\uADFC\uCC98\uC758 \uC801\uC744 \uCC0C\uB985\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uADFC\uCC98\uC758 \uC801\uC744 \uCC0C\uB985\uB2C8\uB2E4."
+    - "[Lv.2]\n\uAC00\uC2DC\uAC00 \uCD94\uAC00\uB85C \uC0DD\uC131\uB418\uBA70, \uB0A0\uCE74\uB85C\uC6CC\uC9D1\uB2C8\uB2E4."
+    - "[Lv.3]\n\uAC00\uC2DC\uC758 \uD06C\uAE30\uAC00 \uCEE4\uC9D1\uB2C8\uB2E4."
+    - "[Lv.4]\n\uAC00\uC2DC\uAC00 \uCD94\uAC00\uB85C \uC0DD\uC131\uB418\uBA70, \uB0A0\uCE74\uB85C\uC6CC\uC9D1\uB2C8\uB2E4."
+    - "[Lv.5]\n\uAC00\uC2DC\uC758 \uD06C\uAE30\uAC00 \uCEE4\uC9D1\uB2C8\uB2E4."
+    - "[Lv.6]\n\uAC70\uB300\uD558\uACE0 \uCCA8\uC608\uD55C \uAC00\uC2DC\uB97C \uCD94\uAC00\uB85C
+      \uC0DD\uC131\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 1bec48fd5213a414db64aa5cf5c57f8e, type: 3}
     selectedTime: 0
   - skill_Name: 2
     display_Name: "\uBC1C\uD1B1"
-    skill_Text: "\uBC94\uC704 \uB0B4 \uC801\uB4E4\uC744 \uAE0B\uC2B5\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uBC94\uC704 \uB0B4 \uC801\uB4E4\uC744 \uAE0B\uC2B5\uB2C8\uB2E4."
+    - "[Lv.2]\n\uD074\uB85C\uC5D0 \uB0A0\uC774 \uCD94\uAC00\uB429\uB2C8\uB2E4."
+    - "[Lv.3]\n\uD074\uB85C\uC5D0 \uB0A0\uC774 \uCD94\uAC00\uB429\uB2C8\uB2E4."
+    - "[Lv.4]\n\uD074\uB85C\uC5D0 \uB0A0\uC774 \uCD94\uAC00\uB429\uB2C8\uB2E4."
+    - "[Lv.5]\n\uD074\uB85C\uC5D0 \uB0A0\uC774 \uCD94\uAC00\uB429\uB2C8\uB2E4."
+    - "[Lv.6]\n\uC644\uC804\uD55C \uD074\uB85C\uB97C \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 19da537632c2b8141a83ab913532f341, type: 3}
     selectedTime: 0
   - skill_Name: 3
     display_Name: "\uD22C\uCC3D"
-    skill_Text: "\uC801\uC744 \uAD00\uD1B5\uD558\uB294 \uCC3D\uC744 \uB358\uC9D1\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC801\uC744 \uAD00\uD1B5\uD558\uB294 \uCC3D\uC744 \uB358\uC9D1\uB2C8\uB2E4."
+    - "[Lv.2]\n\uCC3D\uC758 \uC704\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uCC3D\uC758 \uC704\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uCC3D\uC758 \uC704\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uCC3D\uC758 \uC704\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.6]\n\uCC3D\uC758 \uC704\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: a6aa8aaf5acca4141b0b0bf3382df769, type: 3}
     selectedTime: 0
   - skill_Name: 4
     display_Name: "\uC624\uB77C"
-    skill_Text: "\uADFC\uCC98 \uC801\uC5D0\uAC8C \uC0C1\uC2DC\uB85C \uD53C\uD574\uB97C
+    skill_Texts:
+    - "[Lv.1]\n\uADFC\uCC98 \uC801\uC5D0\uAC8C \uC0C1\uC2DC\uB85C \uD53C\uD574\uB97C
       \uC90D\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC624\uB77C\uAC00 \uC870\uAE08 \uB354 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC624\uB77C\uAC00 \uC870\uAE08 \uB354 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC624\uB77C\uAC00 \uC870\uAE08 \uB354 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC624\uB77C\uAC00 \uC870\uAE08 \uB354 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.6]\n\uC624\uB77C\uAC00 \uC870\uAE08 \uB354 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: d6c4a2c2eedd5144387b4757f277ab8a, type: 3}
     selectedTime: 0
   - skill_Name: 5
     display_Name: "\uC218\uB9AC\uAC80"
-    skill_Text: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uB358\uC9D1\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uB358\uC9D1\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC218\uB9AC\uAC80\uC744 \uCD94\uAC00\uB85C \uB358\uC9C0\uBA70, \uADFC\uCC98
+      \uC801\uC5D0\uAC8C \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC218\uB9AC\uAC80\uC744 \uCD94\uAC00\uB85C \uB358\uC9C0\uBA70, \uADFC\uCC98
+      \uC801\uC5D0\uAC8C \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC218\uB9AC\uAC80\uC744 \uCD94\uAC00\uB85C \uB358\uC9C0\uBA70, \uADFC\uCC98
+      \uC801\uC5D0\uAC8C \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC218\uB9AC\uAC80\uC744 \uCD94\uAC00\uB85C \uB358\uC9C0\uBA70, \uADFC\uCC98
+      \uC801\uC5D0\uAC8C \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
+    - "[Lv.6]\n\uC218\uB9AC\uAC80\uC744 \uCD94\uAC00\uB85C \uB358\uC9C0\uBA70, \uADFC\uCC98
+      \uC801\uC5D0\uAC8C \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 5ae937422d4b6be44933b072de9234b8, type: 3}
     selectedTime: 0
   - skill_Name: 6
     display_Name: "\uAD00\uBB38"
-    skill_Text: " \uC8FC\uBCC0 \uC801\uC5D0\uAC8C \uC9C0\uC18D\uC801\uC73C\uB85C
-      \uD53C\uD574\uB97C \uAC00\uD558\uB294 \uAD00\uBB38\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC8FC\uBCC0 \uC801\uC5D0\uAC8C \uC9C0\uC18D\uC801\uC73C\uB85C \uD53C\uD574\uB97C
+      \uAC00\uD558\uB294 \uAD00\uBB38\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC720\uC9C0 \uC2DC\uAC04\uC774 \uAE38\uC5B4\uC9C0\uACE0, \uD06C\uAE30\uAC00
+      \uC870\uAE08 \uCEE4\uC9D1\uB2C8\uB2E4."
+    - "[Lv.3]\n\uAD00\uBB38\uC744 \uCD94\uAC00 \uC124\uCE58\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC720\uC9C0 \uC2DC\uAC04\uC774 \uAE38\uC5B4\uC9C0\uACE0, \uD06C\uAE30\uAC00
+      \uC870\uAE08 \uCEE4\uC9D1\uB2C8\uB2E4."
+    - "[Lv.5]\n\uAD00\uBB38\uC744 \uCD94\uAC00 \uC124\uCE58\uD569\uB2C8\uB2E4."
+    - "[Lv.6]\n\uC720\uC9C0 \uC2DC\uAC04\uC774 \uB300\uD3ED \uD5A5\uC0C1\uD558\uBA70,
+      \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uACE0 \uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c8eea44ae087fb04d9de8191d9003409, type: 3}
     selectedTime: 0
   - skill_Name: 7
     display_Name: "\uC7A5\uD48D"
-    skill_Text: "\uADFC\uCC98 \uC801\uB4E4\uC744 \uB0A0\uB824\uBC84\uB9BD\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uADFC\uCC98 \uC801\uB4E4\uC744 \uB0A0\uB824\uBC84\uB9BD\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC7A5\uD48D\uC758 \uBC94\uC704\uAC00 \uCEE4\uC9C0\uACE0, \uD53C\uD574\uB7C9\uC774
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC7A5\uD48D \uC0AC\uC6A9 \uC18D\uB3C4\uAC00 \uBE68\uB77C\uC9D1\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC7A5\uD48D\uC758 \uBC94\uC704\uAC00 \uCEE4\uC9C0\uACE0, \uD53C\uD574\uB7C9\uC774
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC7A5\uD48D \uC0AC\uC6A9 \uC18D\uB3C4\uAC00 \uBE68\uB77C\uC9D1\uB2C8\uB2E4."
+    - "[Lv.6]\n\uC7A5\uD48D\uC758 \uBC94\uC704 \uBC0F \uD53C\uD574\uB7C9\uC774 \uD070\uD3ED\uC73C\uB85C
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c296d0703ac39b34594f02dbd171b06b, type: 3}
     selectedTime: 0
   - skill_Name: 8
     display_Name: "\uB3C5\uC2E0"
-    skill_Text: "\uBC1C\uC790\uCDE8\uC5D0 \uB3C5\uC744 \uB0A8\uAE41\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uBC1C\uC790\uCDE8\uC5D0 \uB3C5\uC744 \uB0A8\uAE41\uB2C8\uB2E4."
+    - "[Lv.2]\n\uB3C5\uAE30\uAC00 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.3]\n\uB3C5\uAE30\uAC00 \uB354 \uC624\uB798 \uBA38\uBB34\uB985\uB2C8\uB2E4."
+    - "[Lv.4]\n\uB3C5\uAE30\uAC00 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.5]\n\uB3C5\uAE30\uAC00 \uB354 \uC624\uB798 \uBA38\uBB34\uB985\uB2C8\uB2E4."
+    - "[Lv.6]\n\uB3C5\uC131\uC774 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 0bb5dfa27f404204ab4f99566547237f, type: 3}
     selectedTime: 0
   - skill_Name: 9
     display_Name: "\uC9C0\uB8B0"
-    skill_Text: "\uC8FC\uBCC0\uC5D0 \uD3ED\uD0C4\uC744 \uB358\uC9D1\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC8FC\uBCC0\uC5D0 \uC9C0\uB8B0\uB97C \uB358\uC9D1\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC9C0\uB8B0\uB97C \uCD94\uAC00\uB85C \uB358\uC9D1\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC9C0\uB8B0\uC758 \uC704\uB825\uC774 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC9C0\uB8B0\uB97C \uCD94\uAC00\uB85C \uB358\uC9D1\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC9C0\uB8B0\uC758 \uC704\uB825\uC774 \uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    - "[Lv.6]\n\uACE0\uC131\uB2A5 \uC9C0\uB8B0\uB97C \uB2E4\uC218 \uB358\uC9D1\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 3dc1adfcfe9a9094681d644f7c67acf4, type: 3}
     selectedTime: 0
   - skill_Name: 10
     display_Name: "\uD53C"
-    skill_Text: "\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uCD5C\uB300 \uCCB4\uB825\uC774 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: b25e716ab96cd6546a7dd3208f232ff6, type: 3}
     selectedTime: 0
   - skill_Name: 11
     display_Name: "\uBB3C"
-    skill_Text: "\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC790\uC5F0 \uD68C\uBCF5\uB825\uC774 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 4ffda14c89906354a83a4dbfa5508154, type: 3}
     selectedTime: 0
   - skill_Name: 12
     display_Name: "\uBC29\uD328"
-    skill_Text: "\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uBC1B\uB294 \uD53C\uD574\uAC00 1\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 623f3373e436a4f429408f1af6002581, type: 3}
     selectedTime: 0
   - skill_Name: 13
     display_Name: "\uC2E0\uBC1C"
-    skill_Text: "\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: ee350f1a4b6cb1c44b68ab2a5ba60966, type: 3}
     selectedTime: 0
   - skill_Name: 14
     display_Name: "\uC8FC\uBA39"
-    skill_Text: "\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 9d8d8bbafaef3ff49af816ec9432337b, type: 3}
     selectedTime: 0
   - skill_Name: 15
     display_Name: "\uBC18\uC9C0"
-    skill_Text: "\uD22C\uC0AC\uCCB4\uAC00 1\uAC1C \uC99D\uAC00\uD569\uB2C8\uB2E4.."
+    skill_Texts:
+    - "[Lv.1]\n\uD22C\uC0AC\uCCB4\uAC00 1\uAC1C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uD22C\uC0AC\uCCB4\uAC00 1\uAC1C \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 0cc3bf55378de8044b9110d0e9b2f552, type: 3}
     selectedTime: 0
   - skill_Name: 16
     display_Name: "\uCC45"
-    skill_Text: "\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: c1a90a569a97427429fa6b91d5759f38, type: 3}
     selectedTime: 0
   - skill_Name: 17
     display_Name: "\uD314\uCC0C"
-    skill_Text: "\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC9C0\uC18D \uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: fad847e1d069735459fe20c0ccee0398, type: 3}
     selectedTime: 0
   - skill_Name: 18
     display_Name: "\uC2DC\uACC4"
-    skill_Text: "\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uCFE8\uD0C0\uC784\uC774 10% \uAC10\uC18C\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: d08f0e8255f4015498c6cb2f9eea2d52, type: 3}
     selectedTime: 0
   - skill_Name: 19
     display_Name: "\uC790\uC11D"
-    skill_Text: "\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC544\uC774\uD15C \uD68D\uB4DD \uAC70\uB9AC\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: dfd7db9c9962bcd49a3e408352c98eed, type: 3}
     selectedTime: 0
   - skill_Name: 20
     display_Name: "\uC655\uAD00"
-    skill_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: e92cf188a1068564c84a2ebe7892e3a6, type: 3}
     selectedTime: 0
   - skill_Name: 21
     display_Name: "\uACE0\uAE30"
-    skill_Text: "\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    skill_Texts:
+    - "[Lv.1]\n\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 56c014aa404d6704cb5734521b1be545, type: 3}
     selectedTime: 0
   - skill_Name: 22
     display_Name: "\uCE58\uC988"
-    skill_Text: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uD574\uC90D\uB2C8\uB2E4."
+    skill_Texts:
+    - "\uCCB4\uB825\uC744 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: 4e908d4eb5560a64fb45cd0650e19d58, type: 3}
     selectedTime: 0
   - skill_Name: 23
     display_Name: "\uACE8\uB4DC"
-    skill_Text: "\uC8FC\uBA38\uB2C8\uAC00 \uB450\uB451\uD574\uC9D1\uB2C8\uB2E4."
+    skill_Texts:
+    - "\uACE8\uB4DC\uB97C 10 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: bd3440e894dca33429175396cfa5010c, type: 3}
     selectedTime: 0
   reroll_Counter_TMP: {fileID: 991423786136457667}
@@ -9074,9 +9199,9 @@ RectTransform:
   - {fileID: 8550760290324304916}
   m_Father: {fileID: 913664149117610936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1430, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 450, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3130982480371751930
@@ -10834,9 +10959,9 @@ RectTransform:
   - {fileID: 1366697683883486024}
   m_Father: {fileID: 913664149117610936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 490, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 450, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4459597440213521062
@@ -11111,9 +11236,9 @@ RectTransform:
   - {fileID: 6677379494456061423}
   m_Father: {fileID: 94439328020643777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 90, y: -60}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7476645923105905525
@@ -11450,9 +11575,9 @@ RectTransform:
   - {fileID: 4383475927264315485}
   m_Father: {fileID: 913664149117610936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 450, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &474245299955536564
@@ -11895,9 +12020,9 @@ RectTransform:
   - {fileID: 5009097620777351447}
   m_Father: {fileID: 94439328020643777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 310, y: -60}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2523007986767663304

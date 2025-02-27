@@ -15,7 +15,8 @@ public struct Skill_Info
     public Enums.SkillName skill_Name;
     public string display_Name;
     [Multiline(4)]
-    public string skill_Text;
+    // public string skill_Text;
+    public List<string> skill_Texts;
     public Sprite skill_Sprite;
     public float selectedTime;
 }
@@ -111,7 +112,7 @@ public class LevelUp_Panel : Panel
 
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 &&
         UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
-        {
+        {   //TODO : 최대 레벨설정
             //증강과 특성 선택하는 메서드
             AugSelections();
         }
@@ -161,10 +162,17 @@ public class LevelUp_Panel : Panel
         for (int i = 0; i < popSkill_List.Count; i++)
         {
             skill_Info = skill_Info_Dic[popSkill_List[i]];
-            Debug.LogWarning(popSkill_List[i]);
             current_Selections[i].m_skillName = skill_Info.skill_Name;
             current_Selections[i].display_Name.text = skill_Info.display_Name;
-            current_Selections[i].info_TMP.text = skill_Info.skill_Text;
+            if (inGameUI_Panel.skillContainer.GetSkill(skill_Info.skill_Name) != Enums.SkillName.None)
+            {
+                current_Selections[i].info_TMP.text =
+                skill_Info.skill_Texts[inGameUI_Panel.skillSelector.SkillLevel(skill_Info.skill_Name)];
+            }
+            else
+            {
+                current_Selections[i].info_TMP.text = skill_Info.skill_Texts[0];
+            }
             current_Selections[i].icon_IMG.sprite = skill_Info.skill_Sprite;
         }
     }

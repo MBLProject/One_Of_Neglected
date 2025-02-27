@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fist : PassiveSkill
 {
-    public Fist() : base(Enums.SkillName.Fist) { statType = Enums.StatType.ATK; ModifySkill(); }
+    public Fist() : base(Enums.SkillName.Fist) { statType = Enums.StatType.ATK;}
 
     public override void ModifySkill()
     {

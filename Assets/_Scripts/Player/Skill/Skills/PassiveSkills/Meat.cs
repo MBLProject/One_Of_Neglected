@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Meat : PassiveSkill
 {
-    public Meat() : base(Enums.SkillName.Meat) { statType = Enums.StatType.Greed; ModifySkill(); }
+    public Meat() : base(Enums.SkillName.Meat) { statType = Enums.StatType.Greed;}
 
     public override void ModifySkill()
     {
