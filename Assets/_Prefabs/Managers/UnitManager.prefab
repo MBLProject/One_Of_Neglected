@@ -61,7 +61,7 @@ MonoBehaviour:
   bossMonsterPrefab: {fileID: 4209662324636049061, guid: 3c05d48e07e7cf34c816648cd9dff0d8,
     type: 3}
   maxRangedMonsterCount: 20
-  maxTotalMonsterCount: 100
+  maxTotalMonsterCount: 10000
   spawnInterval: 3
   mapMinX: -24
   mapMaxX: 21
