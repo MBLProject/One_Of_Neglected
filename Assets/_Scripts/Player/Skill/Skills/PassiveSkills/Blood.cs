@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Blood : PassiveSkill
 {
-    public Blood() : base(Enums.SkillName.Blood) { statType = Enums.StatType.MaxHp; ModifySkill(); }
+    public Blood() : base(Enums.SkillName.Blood) { statType = Enums.StatType.MaxHp;}
 
     public override void ModifySkill()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Clock : PassiveSkill
 {
-    public Clock() : base(Enums.SkillName.Clock) { statType = Enums.StatType.Cooldown; ModifySkill(); }
+    public Clock() : base(Enums.SkillName.Clock) { statType = Enums.StatType.Cooldown;}
 
     public override void ModifySkill()
     {

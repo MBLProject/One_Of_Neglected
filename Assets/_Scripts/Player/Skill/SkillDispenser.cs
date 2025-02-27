@@ -25,6 +25,11 @@ public class SkillDispenser : MonoBehaviour
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
             Count.Add(skillName);
+            
+            if (SkillFactory.IsActiveSkill(skillName) == 0)
+            {
+                newSkill.ModifySkill();
+            }
         }
     }
 

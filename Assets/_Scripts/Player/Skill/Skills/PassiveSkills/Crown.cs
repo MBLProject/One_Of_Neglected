@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crown : PassiveSkill
 {
-    public Crown() : base(Enums.SkillName.Crown) { statType = Enums.StatType.Growth; ModifySkill(); }
+    public Crown() : base(Enums.SkillName.Crown) { statType = Enums.StatType.Growth;}
 
     public override void ModifySkill()
     {

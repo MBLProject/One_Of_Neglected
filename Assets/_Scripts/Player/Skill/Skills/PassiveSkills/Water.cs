@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Water : PassiveSkill
 {
-    public Water() : base(Enums.SkillName.Water) { statType = Enums.StatType.HpRegen; ModifySkill(); }
+    public Water() : base(Enums.SkillName.Water) { statType = Enums.StatType.HpRegen;}
 
     public override void ModifySkill()
     {

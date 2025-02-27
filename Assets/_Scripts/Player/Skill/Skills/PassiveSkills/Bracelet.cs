@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bracelet : PassiveSkill
 {
-    public Bracelet() : base(Enums.SkillName.Bracelet) { statType = Enums.StatType.Duration; ModifySkill(); }
+    public Bracelet() : base(Enums.SkillName.Bracelet) { statType = Enums.StatType.Duration;}
 
     public override void ModifySkill()
     {
