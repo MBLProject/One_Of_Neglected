@@ -35,6 +35,7 @@ public static class SkillFactory
             case SkillName.Crown: return new Crown();
             case SkillName.Meat: return new Meat();
             case SkillName.Cheese: return new Cheese();
+            case SkillName.Gold: return new Gold();
             default:
                 Debug.LogWarning($"Unknown SkillName: {skillName}");
                 return null;
