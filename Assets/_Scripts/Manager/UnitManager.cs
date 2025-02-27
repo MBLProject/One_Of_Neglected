@@ -512,7 +512,7 @@ public class UnitManager : Singleton<UnitManager>
                 Random.Range(mapMinY, mapMaxY)
             );
 
-            if (Vector2.Distance(spawnPos, playerPos) >= 8f)
+            if (Vector2.Distance(spawnPos, playerPos) >= 4f)
             {
                 return spawnPos;
             }
