@@ -16,5 +16,10 @@ public class JavelinProjectile : Projectile
             if (stats.pierceCount > 0) stats.pierceCount--;
             else DestroyProjectile();
         }
+        if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
+        {
+
+            monsterProjectile.DestroyProjectile();
+        }
     }
 }
