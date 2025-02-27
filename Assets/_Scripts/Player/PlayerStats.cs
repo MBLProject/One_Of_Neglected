@@ -93,10 +93,13 @@ public class PlayerStats
         get => Level;
         set
         {
-            if (Level != value)  // 값이 변경될 때만 이벤트 발생
+            if (Level != value)  
             {
                 Level = value;
                 OnLevelUp?.Invoke(Level);
+                
+                // 레벨업 시 최대 경험치도 업데이트
+                CurrentMaxExp = CalculateNextLevelExp();
             }
         }
     }
@@ -105,8 +108,11 @@ public class PlayerStats
         get => MaxExp;
         set
         {
-            MaxExp = value;
-            OnMaxExpChanged?.Invoke(MaxExp);
+            if (MaxExp != value)  // 값이 변경될 때만 이벤트 발생
+            {
+                MaxExp = value;
+                OnMaxExpChanged?.Invoke(MaxExp);
+            }
         }
     }
     public float currentExp
@@ -114,8 +120,19 @@ public class PlayerStats
         get => Exp;
         set
         {
-            Exp = value;
-            OnExpChanged?.Invoke(Exp);
+            if (Exp != value)  // 값이 변경될 때만 이벤트 발생
+            {
+                Exp = value;
+                OnExpChanged?.Invoke(Exp);
+                
+                // 경험치가 최대치를 넘으면 레벨업
+                if (Exp >= MaxExp)
+                {
+                    float remainingExp = Exp - MaxExp;
+                    CurrentLevel++;
+                    Exp = remainingExp;
+                }
+            }
         }
     }
     public int CurrentMaxHp
@@ -163,9 +180,12 @@ public class PlayerStats
         get => Mspd;
         set
         {
-            Mspd = value;
-            if (baseMspd == 0) baseMspd = value;  // 초기화 시에만 기본값 설정
-            OnMspdChanged?.Invoke(Mspd);
+            if (Mspd != value)  
+            {
+                Mspd = value;
+                if (baseMspd == 0) baseMspd = value; 
+                OnMspdChanged?.Invoke(Mspd);
+            }
         }
     }
     public float CurrentATK
@@ -173,9 +193,12 @@ public class PlayerStats
         get => ATK;
         set
         {
-            ATK = value;
-            if (baseATK == 0) baseATK = value;
-            OnATKChanged?.Invoke(ATK);
+            if (ATK != value)  
+            {
+                ATK = value;
+                if (baseATK == 0) baseATK = value;
+                OnATKChanged?.Invoke(ATK);
+            }
         }
     }
     public float CurrentAspd
@@ -183,9 +206,12 @@ public class PlayerStats
         get => Aspd;
         set
         {
-            Aspd = value;
-            if (baseAspd == 0) baseAspd = value;
-            OnAspdChanged?.Invoke(Aspd);
+            if (Aspd != value)  
+            {
+                Aspd = value;
+                if (baseAspd == 0) baseAspd = value;
+                OnAspdChanged?.Invoke(Aspd);
+            }
         }
     }
     public float CurrentCriRate
@@ -193,8 +219,11 @@ public class PlayerStats
         get => CriRate;
         set
         {
-            CriRate = value;
-            OnCriRateChanged?.Invoke(CriRate);
+            if (CriRate != value)  
+            {
+                CriRate = value;
+                OnCriRateChanged?.Invoke(CriRate);
+            }
         }
     }
     public float CurrentCriDamage
@@ -202,8 +231,11 @@ public class PlayerStats
         get => CriDamage;
         set
         {
-            CriDamage = value;
-            OnCriDamageChanged?.Invoke(CriDamage);
+            if (CriDamage != value)  
+            {
+                CriDamage = value;
+                OnCriDamageChanged?.Invoke(CriDamage);
+            }
         }
     }
     public int CurrentProjAmount
@@ -211,8 +243,11 @@ public class PlayerStats
         get => ProjAmount;
         set
         {
-            ProjAmount = value;
-            OnProjAmountChanged?.Invoke(ProjAmount);
+            if (ProjAmount != value)  
+            {
+                ProjAmount = value;
+                OnProjAmountChanged?.Invoke(ProjAmount);
+            }
         }
     }
     public float CurrentATKRange
@@ -220,8 +255,12 @@ public class PlayerStats
         get => ATKRange;
         set
         {
-            ATKRange = value;
-            OnATKRangeChanged?.Invoke(ATKRange);
+            if (ATKRange != value)  
+            {
+                ATKRange = value;
+                if (baseATKRange == 0) baseATKRange = value;
+                OnATKRangeChanged?.Invoke(ATKRange);
+            }
         }
     }
     public float CurrentDuration
@@ -229,8 +268,12 @@ public class PlayerStats
         get => Duration;
         set
         {
-            Duration = value;
-            OnDurationChanged?.Invoke(Duration);
+            if (Duration != value)  
+            {
+                Duration = value;
+                if (baseDuration == 0) baseDuration = value;
+                OnDurationChanged?.Invoke(Duration);
+            }
         }
     }
     public float CurrentCooldown
@@ -238,8 +281,12 @@ public class PlayerStats
         get => Cooldown;
         set
         {
-            Cooldown = value;
-            OnCooldownChanged?.Invoke(Cooldown);
+            if (Cooldown != value)  
+            {
+                Cooldown = value;
+                if (baseCooldown == 0) baseCooldown = value;
+                OnCooldownChanged?.Invoke(Cooldown);
+            }
         }
     }
     public int CurrentRevival
@@ -256,8 +303,12 @@ public class PlayerStats
         get => Magnet;
         set
         {
-            Magnet = value;
-            OnMagnetChanged?.Invoke(Magnet);
+            if (Magnet != value)  
+            {
+                Magnet = value;
+                if (baseMagnet == 0) baseMagnet = value;
+                OnMagnetChanged?.Invoke(Magnet);
+            }
         }
     }
     public float CurrentGrowth
@@ -265,8 +316,12 @@ public class PlayerStats
         get => Growth;
         set
         {
-            Growth = value;
-            OnGrowthChanged?.Invoke(Growth);
+            if (Growth != value)  
+            {
+                Growth = value;
+                if (baseGrowth == 0) baseGrowth = value;
+                OnGrowthChanged?.Invoke(Growth);
+            }
         }
     }
     public float CurrentGreed
@@ -274,8 +329,12 @@ public class PlayerStats
         get => Greed;
         set
         {
-            Greed = value;
-            OnGreedChanged?.Invoke(Greed);
+            if (Greed != value)  
+            {
+                Greed = value;
+                if (baseGreed == 0) baseGreed = value;
+                OnGreedChanged?.Invoke(Greed);
+            }
         }
     }
     public float CurrentCurse
@@ -283,8 +342,12 @@ public class PlayerStats
         get => Curse;
         set
         {
-            Curse = value;
-            OnCurseChanged?.Invoke(Curse);
+            if (Curse != value)  
+            {
+                Curse = value;
+                if (baseCurse == 0) baseCurse = value;
+                OnCurseChanged?.Invoke(Curse);
+            }
         }
     }
     public int CurrentReroll
@@ -411,7 +474,8 @@ public class PlayerStats
                 CurrentCriRate += finalValue;
                 break;
             case StatType.CriDamage:
-                CurrentCriDamage += finalValue;
+                AddPercentModifier(StatType.CriDamage, finalValue);
+                CurrentCriDamage = 1.5f * (1 + GetTotalPercentModifier(StatType.CriDamage) / 100f);
                 break;
             case StatType.Revival:
                 CurrentRevival += (int)finalValue;
@@ -605,4 +669,67 @@ public class PlayerStats
         percentModifiers[statType] += value;
     }
     #endregion
+
+    private int CalculateNextLevelExp()
+    {
+        float baseExp = 100;
+        float totalMultiplier = 1f;
+
+        if (Level <= 10)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, Level - 1);
+        }
+        else if (Level <= 15)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9);
+        }
+        else if (Level <= 30)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, Level - 15);
+        }
+        else if (Level <= 35)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15);
+        }
+        else if (Level <= 60)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, Level - 35);
+        }
+        else if (Level <= 65)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25);
+        }
+        else if (Level <= 80)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, Level - 65);
+        }
+        else if (Level <= 85)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15);
+        }
+        else if (Level <= 100)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) *
+                             Mathf.Pow(1.015f, Level - 85);
+        }
+        else if (Level <= 105)
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) *
+                             Mathf.Pow(1.015f, 15);
+        }
+        else
+        {
+            totalMultiplier = Mathf.Pow(1.1f, 9) * Mathf.Pow(1.075f, 15) *
+                             Mathf.Pow(1.05f, 25) * Mathf.Pow(1.025f, 15) *
+                             Mathf.Pow(1.015f, 15) * Mathf.Pow(1.01f, Level - 105);
+        }
+
+        return Mathf.RoundToInt(baseExp * totalMultiplier);
+    }
 }

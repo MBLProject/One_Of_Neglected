@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private int m_ID;
     [SerializeField]
     private Bless_Panel bless_Panel;
     public NodeDefine nodeDefine;
@@ -21,7 +20,6 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     //이전 노드
     public List<Node> prev_Nodes;
     public Button m_BTN;
-    public bool can_Interactable = false;
     public bool can_Revert = false;
 
     public bool clicked = false;
@@ -47,11 +45,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         m_Icon = transform.GetChild(0).GetComponent<Image>();
         m_Icon.color = Color.gray;
-    }
-    private void Start()
-    {
         SetNextNode(next_Nodes);
-
     }
     private void OnEnable()
     {

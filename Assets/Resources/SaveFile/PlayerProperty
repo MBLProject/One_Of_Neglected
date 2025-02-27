@@ -1,6 +1,6 @@
 {
-    "gold": 99996750,
-    "bless_Point": 10,
+    "gold": 0,
+    "bless_Point": 8,
     "remnants_Point": 0,
     "class_Unlocked": [
         true,
@@ -15,7 +15,7 @@
     "Aspd_TrainingCount": 0,
     "CriRate_TrainingCount": 0,
     "CriDamage_TrainingCount": 0,
-    "ProjAmount_TrainingCount": 2,
+    "ProjAmount_TrainingCount": 0,
     "ATKRange_TrainingCount": 0,
     "Duration_TrainingCount": 0,
     "Cooldown_TrainingCount": 0,

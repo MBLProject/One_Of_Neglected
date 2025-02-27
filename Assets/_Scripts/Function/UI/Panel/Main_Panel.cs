@@ -54,7 +54,6 @@ public class Main_Panel : Panel
     private void Exit_BTN()
     {
         DataManager.Instance.SaveData();
-        Debug.Log("나감");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

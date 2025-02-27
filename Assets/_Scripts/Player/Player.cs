@@ -161,8 +161,26 @@ public abstract class Player : MonoBehaviour
         InitializeStateHandler();
         InitializeStats();
         InitializeClassType();
-        InitializeStatViewer();
+        InitializeStatViewer();  // 먼저 StatViewer 초기화
 
+        // StatViewer가 null이 아닌지 확인
+        if (statViewer == null)
+        {
+            Debug.LogError("StatViewer is not assigned!");
+            return;
+        }
+
+        // Stats가 null이 아닌지 확인
+        if (stats == null)
+        {
+            Debug.LogError("Stats is not initialized!");
+            return;
+        }
+
+        // 초기화된 StatViewer의 값을 stats에 동기화
+        SyncStatsFromViewer();
+        UpdateStatViewer();
+        
         SubscribeToStatEvents();
 
         currentDashCount = stats.CurrentDashCount;
@@ -206,45 +224,135 @@ public abstract class Player : MonoBehaviour
 
     private void SubscribeToStatEvents()
     {
-        // 모든 스탯 변경 이벤트 구독
-        stats.OnLevelUp += (value) => statViewer.Level = value;
-        stats.OnMaxExpChanged += (value) => statViewer.MaxExp = value;
-        stats.OnExpChanged += (value) => statViewer.Exp = value;
-        stats.OnMaxHpChanged += (value) => statViewer.MaxHp = value;
-        stats.OnHpChanged += (value) => statViewer.Hp = value;
-        stats.OnHpRegenChanged += (value) => statViewer.HpRegen = value;
-        stats.OnDefenseChanged += (value) => statViewer.Defense = value;
-        stats.OnMspdChanged += (value) => statViewer.Mspd = value;
-        stats.OnATKChanged += (value) => statViewer.ATK = value;
-        stats.OnAspdChanged += (value) => statViewer.Aspd = value;
-        stats.OnCriRateChanged += (value) => statViewer.CriRate = value;
-        stats.OnCriDamageChanged += (value) => statViewer.CriDamage = value;
-        stats.OnProjAmountChanged += (value) => statViewer.ProjAmount = value;
-        stats.OnATKRangeChanged += (value) => statViewer.ATKRange = value;
-        stats.OnDurationChanged += (value) => statViewer.Duration = value;
-        stats.OnCooldownChanged += (value) => statViewer.Cooldown = value;
-        stats.OnRevivalChanged += (value) => statViewer.Revival = value;
-        stats.OnMagnetChanged += (value) =>
-        {
+        // 모든 스탯 변경 이벤트에 UpdateStatViewer 추가
+        stats.OnLevelUp += (value) => { 
+            statViewer.Level = value;
+            UpdateStatViewer();
+        };
+        stats.OnMaxExpChanged += (value) => {
+            statViewer.MaxExp = value;
+            UpdateStatViewer();
+        };
+        stats.OnExpChanged += (value) => {
+            statViewer.Exp = value;
+            UpdateStatViewer();
+        };
+        stats.OnMaxHpChanged += (value) => {
+            statViewer.MaxHp = value;
+            UpdateStatViewer();
+        };
+        stats.OnHpChanged += (value) => {
+            statViewer.Hp = value;
+            UpdateStatViewer();
+        };
+        stats.OnHpRegenChanged += (value) => {
+            statViewer.HpRegen = value;
+            UpdateStatViewer();
+        };
+        stats.OnDefenseChanged += (value) => {
+            statViewer.Defense = value;
+            UpdateStatViewer();
+        };
+        stats.OnMspdChanged += (value) => {
+            statViewer.Mspd = value;
+            UpdateStatViewer();
+        };
+        stats.OnATKChanged += (value) => {
+            statViewer.ATK = value;
+            UpdateStatViewer();
+        };
+        stats.OnAspdChanged += (value) => {
+            statViewer.Aspd = value;
+            UpdateStatViewer();
+        };
+        stats.OnCriRateChanged += (value) => {
+            statViewer.CriRate = value;
+            UpdateStatViewer();
+        };
+        stats.OnCriDamageChanged += (value) => {
+            statViewer.CriDamage = value;
+            UpdateStatViewer();
+        };
+        stats.OnProjAmountChanged += (value) => {
+            statViewer.ProjAmount = value;
+            UpdateStatViewer();
+        };
+        stats.OnATKRangeChanged += (value) => {
+            statViewer.ATKRange = value;
+            UpdateStatViewer();
+        };
+        stats.OnDurationChanged += (value) => {
+            statViewer.Duration = value;
+            UpdateStatViewer();
+        };
+        stats.OnCooldownChanged += (value) => {
+            statViewer.Cooldown = value;
+            UpdateStatViewer();
+        };
+        stats.OnRevivalChanged += (value) => {
+            statViewer.Revival = value;
+            UpdateStatViewer();
+        };
+        stats.OnMagnetChanged += (value) => {
             statViewer.Magnet = value;
             if (magnetCollider != null)
             {
                 magnetCollider.radius = value;
             }
+            UpdateStatViewer();
         };
-        stats.OnGrowthChanged += (value) => statViewer.Growth = value;
-        stats.OnGreedChanged += (value) => statViewer.Greed = value;
-        stats.OnCurseChanged += (value) => statViewer.Curse = value;
-        stats.OnRerollChanged += (value) => statViewer.Reroll = value;
-        stats.OnBanishChanged += (value) => statViewer.Banish = value;
-        stats.OnGodKillChanged += (value) => statViewer.GodKill = value;
-        stats.OnBarrierChanged += (value) => statViewer.Barrier = value;
-        stats.OnBarrierCooldownChanged += (value) => statViewer.BarrierCooldown = value;
-        stats.OnInvincibilityChanged += (value) => statViewer.Invincibility = value;
-        stats.OnDashCountChanged += (value) => statViewer.DashCount = value;
-        stats.OnAdversaryChanged += (value) => statViewer.Adversary = value;
-        stats.OnProjDestroyChanged += (value) => statViewer.ProjDestroy = value;
-        stats.OnProjParryChanged += (value) => statViewer.ProjParry = value;
+        stats.OnGrowthChanged += (value) => {
+            statViewer.Growth = value;
+            UpdateStatViewer();
+        };
+        stats.OnGreedChanged += (value) => {
+            statViewer.Greed = value;
+            UpdateStatViewer();
+        };
+        stats.OnCurseChanged += (value) => {
+            statViewer.Curse = value;
+            UpdateStatViewer();
+        };
+        stats.OnRerollChanged += (value) => {
+            statViewer.Reroll = value;
+            UpdateStatViewer();
+        };
+        stats.OnBanishChanged += (value) => {
+            statViewer.Banish = value;
+            UpdateStatViewer();
+        };
+        stats.OnGodKillChanged += (value) => {
+            statViewer.GodKill = value;
+            UpdateStatViewer();
+        };
+        stats.OnBarrierChanged += (value) => {
+            statViewer.Barrier = value;
+            UpdateStatViewer();
+        };
+        stats.OnBarrierCooldownChanged += (value) => {
+            statViewer.BarrierCooldown = value;
+            UpdateStatViewer();
+        };
+        stats.OnInvincibilityChanged += (value) => {
+            statViewer.Invincibility = value;
+            UpdateStatViewer();
+        };
+        stats.OnDashCountChanged += (value) => {
+            statViewer.DashCount = value;
+            UpdateStatViewer();
+        };
+        stats.OnAdversaryChanged += (value) => {
+            statViewer.Adversary = value;
+            UpdateStatViewer();
+        };
+        stats.OnProjDestroyChanged += (value) => {
+            statViewer.ProjDestroy = value;
+            UpdateStatViewer();
+        };
+        stats.OnProjParryChanged += (value) => {
+            statViewer.ProjParry = value;
+            UpdateStatViewer();
+        };
     }
 
     #region Dash
@@ -476,14 +584,13 @@ public abstract class Player : MonoBehaviour
 
     private void CollectObj(WorldObject worldObject)
     {
-        SoundManager.Instance.Play("SFX_UI_Click_Organic_Pop_Negative_1", SoundManager.Sound.Effect);
+        SoundManager.Instance.Play("SFX_UI_Click_Organic_Pop_Negative_1", SoundManager.Sound.Effect, 1f, false, 0.7f);
         switch (worldObject.objectType)
         {
             case WorldObjectType.ExpBlue:
-            case WorldObjectType.ExpPurple:
                 ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
+                Debug.Log($" 먹은 경험치 : {CollectibleValues.BASIC_EXP * stats.CurrentGrowth}");
                 break;
-
             case WorldObjectType.ExpBlack:
                 ProcessExperience(stats.CurrentMaxExp * stats.CurrentGrowth);
                 DataManager.Instance.inGameValue.remnents += 1;
@@ -662,7 +769,7 @@ public abstract class Player : MonoBehaviour
     public void ModifyStat(StatType statType, float value)
     {
         stats.ModifyStatValue(statType, value);
-        UpdateStatViewer();
+        UpdateStatViewer();  // 스탯 변경 후 즉시 StatViewer 업데이트
     }
     /// <summary>
     /// 기존 스탯을 value값으로 바꿈
@@ -672,47 +779,58 @@ public abstract class Player : MonoBehaviour
     public void SetStat(StatType statType, float value)
     {
         stats.SetStatValue(statType, value);
-        UpdateStatViewer();
+        UpdateStatViewer();  // 스탯 변경 후 즉시 StatViewer 업데이트
     }
     private void UpdateStatViewer()
     {
-        statViewer.Level = stats.CurrentLevel;
-        statViewer.MaxHp = stats.CurrentMaxHp;
-        statViewer.Hp = stats.currentHp;
-        statViewer.MaxExp = stats.CurrentMaxExp;
-        statViewer.Exp = stats.currentExp;
-        statViewer.MaxHp = stats.CurrentMaxHp;
-        statViewer.HpRegen = stats.CurrentHpRegen;
-        statViewer.Defense = stats.CurrentDefense;
-        statViewer.Mspd = stats.CurrentMspd;
-        statViewer.ATK = stats.CurrentATK;
-        statViewer.Aspd = stats.CurrentAspd;
-        statViewer.CriRate = stats.CurrentCriRate;
-        statViewer.CriDamage = stats.CurrentCriDamage;
-        statViewer.ProjAmount = stats.CurrentProjAmount;
-        statViewer.ATKRange = stats.CurrentATKRange;
-        statViewer.Duration = stats.CurrentDuration;
-        statViewer.Cooldown = stats.CurrentCooldown;
-        statViewer.Revival = stats.CurrentRevival;
-        statViewer.Magnet = stats.CurrentMagnet;
-        statViewer.Growth = stats.CurrentGrowth;
-        statViewer.Greed = stats.CurrentGreed;
-        statViewer.Curse = stats.CurrentCurse;
-        statViewer.Reroll = stats.CurrentReroll;
-        statViewer.Banish = stats.CurrentBanish;
-        statViewer.GodKill = stats.CurrentGodKill;
-        statViewer.Barrier = stats.CurrentBarrier;
-        statViewer.BarrierCooldown = stats.CurrentBarrierCooldown;
-        statViewer.Invincibility = stats.CurrentInvincibility;
-        statViewer.DashCount = stats.CurrentDashCount;
-        statViewer.Adversary = stats.CurrentAdversary;
-        statViewer.ProjDestroy = stats.CurrentProjDestroy;
-        statViewer.ProjParry = stats.CurrentProjParry;
+        if (statViewer == null || stats == null) return;
+
+        try 
+        {
+            statViewer.Level = stats.CurrentLevel;
+            statViewer.MaxExp = stats.CurrentMaxExp;
+            statViewer.Exp = stats.currentExp;
+            statViewer.MaxHp = stats.CurrentMaxHp;
+            statViewer.Hp = stats.currentHp;
+            statViewer.HpRegen = stats.CurrentHpRegen;
+            statViewer.Defense = stats.CurrentDefense;
+            statViewer.Mspd = stats.CurrentMspd;
+            statViewer.ATK = stats.CurrentATK;
+            statViewer.Aspd = stats.CurrentAspd;
+            statViewer.CriRate = stats.CurrentCriRate;
+            statViewer.CriDamage = stats.CurrentCriDamage;
+            statViewer.ProjAmount = stats.CurrentProjAmount;
+            statViewer.ATKRange = stats.CurrentATKRange;
+            statViewer.Duration = stats.CurrentDuration;
+            statViewer.Cooldown = stats.CurrentCooldown;
+            statViewer.Revival = stats.CurrentRevival;
+            statViewer.Magnet = stats.CurrentMagnet;
+            statViewer.Growth = stats.CurrentGrowth;
+            statViewer.Greed = stats.CurrentGreed;
+            statViewer.Curse = stats.CurrentCurse;
+            statViewer.Reroll = stats.CurrentReroll;
+            statViewer.Banish = stats.CurrentBanish;
+            statViewer.GodKill = stats.CurrentGodKill;
+            statViewer.Barrier = stats.CurrentBarrier;
+            statViewer.BarrierCooldown = stats.CurrentBarrierCooldown;
+            statViewer.Invincibility = stats.CurrentInvincibility;
+            statViewer.DashCount = stats.CurrentDashCount;
+            statViewer.Adversary = stats.CurrentAdversary;
+            statViewer.ProjDestroy = stats.CurrentProjDestroy;
+            statViewer.ProjParry = stats.CurrentProjParry;
+
+            Debug.Log($"Updated StatViewer - Level: {statViewer.Level}, HP: {statViewer.Hp}/{statViewer.MaxHp}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error updating StatViewer: {e.Message}");
+        }
     }
     protected void SyncStatsFromViewer()
     {
         if (stats != null)
         {
+            stats.CurrentLevel = statViewer.Level;
             stats.CurrentMaxExp = statViewer.MaxExp;
             stats.currentExp = statViewer.Exp;
             stats.CurrentMaxHp = statViewer.MaxHp;

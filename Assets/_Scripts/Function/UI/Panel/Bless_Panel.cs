@@ -64,13 +64,24 @@ public class Bless_Panel : Panel
     public List<Image> UTI_Node_Line;
 
     public NodeReset nodeReset;
-
     public BlessTooltip tooltip;
+    private bool isInit = false;
     private void Start()
     {
         Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
         Node_Initialize(ref DEF_Node_List, ref DEF_Node_Line);
         Node_Initialize(ref UTI_Node_List, ref UTI_Node_Line);
+
+    }
+
+    private void OnEnable()
+    {
+        if (isInit)
+        {
+            AfterInit(ref ATK_Node_List);
+            AfterInit(ref DEF_Node_List);
+            AfterInit(ref UTI_Node_List);
+        }
     }
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
     private void Node_Initialize(ref List<Node> nodes, ref List<Image> nodeLines)
@@ -84,12 +95,14 @@ public class Bless_Panel : Panel
             }
             if (DataManager.Instance.bless_Dic[node] == true)
             {
+                DataManager.Instance.player_Property.bless_Point++;
                 node.m_BTN.onClick?.Invoke();
+                DataManager.Instance.player_Property.bless_Point--;
             }
 
             node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
             ByNodeDefine(node);
-
+            isInit = true;
             if (node.next_Nodes.Count != 0)
             {
                 node.m_Line = nodeLines[i];
@@ -102,6 +115,7 @@ public class Bless_Panel : Panel
             i++;
         }
     }
+
     private void ByNodeDefine(Node node)
     {
         switch (node.nodeDefine)
@@ -115,6 +129,14 @@ public class Bless_Panel : Panel
             case NodeDefine.UIL:
                 Add_UTI_Bless(node);
                 break;
+        }
+    }
+    private void AfterInit(ref List<Node> nodes)
+    {
+        foreach (Node node in nodes)
+        {
+            node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
+            ByNodeDefine(node);
         }
     }
     private void Add_ATK_Bless(Node node)
