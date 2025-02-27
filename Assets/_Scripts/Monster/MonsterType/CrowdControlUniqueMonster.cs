@@ -48,7 +48,7 @@ public class CrowdControlUniqueMonster : NormalMonster
     {
         stats.currentHealth -= damage;
         ShowDamageFont(transform.position, damage, transform);
-
+        SoundManager.Instance.Play("MonsterAttacked2", SoundManager.Sound.Effect, 1f, false, 0.3f);
         // 돌진 중이 아닐 때만 히트 애니메이션 재생
         if (!isDashing)
         {
