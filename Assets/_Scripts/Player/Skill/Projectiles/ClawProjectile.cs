@@ -14,7 +14,7 @@ public class ClawProjectile : Projectile
 
         CancelInvoke("DestroyProjectile");
 
-        Invoke("DestroyProjectile", stats.lifetime);
+        Invoke("DestroyProjectile", stats.finalDuration);
 
         direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

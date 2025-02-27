@@ -14,7 +14,7 @@ public class Shuriken : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnDurationChanged += (value) => stats.duration = value;
     }
 
     public override void ModifySkill()
@@ -35,6 +35,7 @@ public class Shuriken : ActiveSkill
             shotDelay = 0.5f,
             critical = 0.1f,
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
+            duration = UnitManager.Instance.GetPlayer().Stats.CurrentDuration,
             amount = 1f,
             lifetime = 3f,
             projectileSpeed = 3f,

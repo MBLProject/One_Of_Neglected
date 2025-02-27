@@ -21,7 +21,7 @@ public class NeedleProjectile : Projectile
         stats = projectileStats;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", stats.lifetime);
+        Invoke("DestroyProjectile", stats.finalDuration);
 
         direction = (targetPosition - startPos).normalized;
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;

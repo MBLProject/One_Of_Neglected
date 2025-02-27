@@ -50,7 +50,7 @@ public class GatewayProjectile : Projectile
         stats = projectileStats;
 
         CancelInvoke("DestroyProjectile");
-        Invoke("DestroyProjectile", stats.lifetime);
+        Invoke("DestroyProjectile", stats.finalDuration);
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
     }
 

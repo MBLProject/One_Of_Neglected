@@ -20,12 +20,12 @@ public class PlayerProjectile : Projectile
             projectileSpeed = spd,
             finalDamage = dmg,
             pierceCount = pierceCnt,
-            lifetime = lifetime,
+            finalDuration = lifetime,
             critical = 0.1f,
             cATK = 1.5f
         };
         
         base.InitProjectile(startPos, targetPos, stats);
-        transform.localScale = Vector3.one * size;  // ÌÅ¨Í∏∞Îäî ÏßÅÏ†ë ÏÑ§Ï†ï
+        transform.localScale = Vector3.one * size;  // ≈©±‚¥¬ ¡˜¡¢ º≥¡§
     }
 } 
