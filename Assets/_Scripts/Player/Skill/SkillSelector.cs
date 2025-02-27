@@ -44,69 +44,68 @@ public class SkillSelector : MonoBehaviour
 
         if (activeMax && passiveMax)
         {
-            foreach (var skill in skillContainer.OwnedSkills)
-            {
-                if (IsMaxLevel(skill)) continue;
-                selectedSkills.Add(skill);
-            }
-        }
-        else if (activeMax)
-        {
-            foreach (var skill in availableSkills)
-            {
-                if (IsMaxLevel(skill)) continue;
-
-                if (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != SkillName.None)
-                {
-                    selectedSkills.Add(skill);
-                }
-            }
-        }
-        else if (passiveMax)
-        {
-            foreach (var skill in availableSkills)
-            {
-                if (IsMaxLevel(skill)) continue;
-
-                if (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != SkillName.None)
-                {
-                    selectedSkills.Add(skill);
-                }
-            }
+            AddOwnedSkills(selectedSkills);
         }
         else
         {
             foreach (var skill in availableSkills)
             {
                 if (IsMaxLevel(skill)) continue;
-                selectedSkills.Add(skill);
+
+                SkillName skillName = (!activeMax && !passiveMax) ||
+                    (activeMax && (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.OwnedSkills.Contains(skill))) ||
+                    (passiveMax && (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.OwnedSkills.Contains(skill)))
+                    ? skill : SkillName.None;
+                selectedSkills.Add(skillName);
             }
+
+            selectedSkills.RemoveWhere(skill => skill == SkillName.None);
         }
 
         var skillList = selectedSkills.ToList();
-        print($"selectedSkills : {selectedSkills.Count}, skillList : {skillList.Count}");
 
-        if (skillList.Count < 3)
-        {
-            if(!skillList.Contains(SkillName.Cheese))
-                skillList.Add(SkillName.Cheese);
-            if (!skillList.Contains(SkillName.Gold))
-                skillList.Add(SkillName.Gold);
-        }
+        AddEtcSkills(skillList);
 
         // Fisher - Yates Shuffle
-        int n = skillList.Count;
+        Shuffle(skillList);
 
+        return skillList.Take(3).ToList();
+    }
+
+    private void AddOwnedSkills(HashSet<SkillName> selectedSkills)
+    {
+        foreach (var skill in skillContainer.OwnedSkills)
+        {
+            if (!IsMaxLevel(skill))
+            {
+                selectedSkills.Add(skill);
+            }
+        }
+    }
+
+    private void Shuffle(List<SkillName> skillList)
+    {
+        int n = skillList.Count;
         while (n > 1)
         {
             n--;
             int k = UnityEngine.Random.Range(0, n + 1);
-            var temp = skillList[k];
-            skillList[k] = skillList[n];
-            skillList[n] = temp;
+            (skillList[k], skillList[n]) = (skillList[n], skillList[k]);
         }
+    }
 
-        return skillList.Take(3).ToList();
+    private void AddEtcSkills(List<SkillName> skillList)
+    {
+        if (skillList.Count == 1)
+        {
+            if (!skillList.Contains(SkillName.Cheese)) skillList.Add(SkillName.Cheese);
+            if (!skillList.Contains(SkillName.Gold)) skillList.Add(SkillName.Gold);
+        }
+        else if (skillList.Count == 2)
+        {
+            SkillName defaultSkill = UnityEngine.Random.value > 0.5f ? SkillName.Cheese : SkillName.Gold;
+            if (!skillList.Contains(defaultSkill)) skillList.Add(defaultSkill);
+        }
     }
 
     public void ChooseSkill(SkillName chosenAbility)
