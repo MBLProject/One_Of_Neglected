@@ -8,7 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [Serializable]
+
     public class MonsterSpawnData
     {
         public float gameTime;  // 게임 시간 (분:초)
@@ -34,7 +34,6 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private float spawnInterval = 1f;
     private float nextSpawnTime = 0f;                        // 다음 스폰 시간
     private int currentSpawnIndex = 0;
-    [SerializeField]
     private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
     {
          new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // 0초

@@ -65,27 +65,8 @@ MonoBehaviour:
   maxRangedMonsterCount: 20
   maxTotalMonsterCount: 100
   spawnInterval: 3
-  monsterSpawnTable:
-  - gameTime: 0
-    spawnCount: 1
-  - gameTime: 0.17
-    spawnCount: 5
-  - gameTime: 0.33
-    spawnCount: 10
-  - gameTime: 0.5
-    spawnCount: 15
-  - gameTime: 0.67
-    spawnCount: 20
-  - gameTime: 0.83
-    spawnCount: 25
-  - gameTime: 1
-    spawnCount: 30
-  - gameTime: 1.17
-    spawnCount: 35
-  - gameTime: 10
-    spawnCount: 40
-  mapMinX: -11
-  mapMaxX: 38
-  mapMinY: -15
-  mapMaxY: 36
+  mapMinX: -5
+  mapMaxX: 32
+  mapMinY: -9
+  mapMaxY: 30
   activeMonsters: []
