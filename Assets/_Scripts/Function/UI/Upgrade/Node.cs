@@ -31,8 +31,10 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Image m_Line;
     private Image m_Icon;
     public string m_Text;
+    public int m_ID;
     private void Awake()
     {
+        SetMyID();
         m_BTN = GetComponent<Button>();
         if (bless_Panel == null) bless_Panel = GetComponentInParent<Bless_Panel>();
 
@@ -105,8 +107,9 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {
             prevNode.can_Revert = false;
         }
-        DataManager.Instance.bless_Dic[this] = true;
+        DataManager.Instance.bless_Dic[m_ID] = true;
         if (m_Line != null) m_Line.color = Color.white;
+        Debug.Log("흠");
     }
     public void BTN_Reverted()
     {
@@ -120,7 +123,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {
             prevNode.can_Revert = true;
         }
-        DataManager.Instance.bless_Dic[this] = false;
+        DataManager.Instance.bless_Dic[m_ID] = false;
         methodAction?.Invoke(false);
         baseNodeAction?.Invoke();
         if (m_Line != null) m_Line.color = Color.black;
@@ -158,7 +161,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         if (prev_Nodes.Count > 0) m_BTN.interactable = false;
         else m_BTN.interactable = true;
 
-        DataManager.Instance.bless_Dic[this] = false;
+        DataManager.Instance.bless_Dic[m_ID] = false;
         baseNodeAction?.Invoke();
         if (m_Line != null) m_Line.color = Color.black;
 
@@ -173,5 +176,22 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void OnPointerExit(PointerEventData eventData)
     {
         bless_Panel.tooltip.gameObject.SetActive(false);
+    }
+
+    private void SetMyID()
+    {
+        switch (nodeDefine)
+        {
+            case NodeDefine.ATK:
+                m_ID = int.Parse(name);
+                break;
+            case NodeDefine.DEF:
+                m_ID = int.Parse(name) + 30;
+                break;
+            case NodeDefine.UTI:
+                m_ID = int.Parse(name) + 60;
+                break;
+
+        }
     }
 }

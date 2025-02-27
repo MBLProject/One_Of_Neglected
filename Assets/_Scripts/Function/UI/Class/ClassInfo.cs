@@ -82,6 +82,7 @@ public class ClassInfo : MonoBehaviour, IPointerClickHandler
 
     private void ClassSelect()
     {
+        DataManager.Instance.SaveData();
         for (int i = 0; i < classSelect_Panel.classInfos.Count; i++)
         {
             if (classSelect_Panel.classInfos[i] == this)

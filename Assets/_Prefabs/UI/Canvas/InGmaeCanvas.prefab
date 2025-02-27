@@ -796,11 +796,11 @@ MonoBehaviour:
   - skill_Name: 13
     display_Name: "\uC2E0\uBC1C"
     skill_Texts:
-    - "[Lv.1]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    - "[Lv.2]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    - "[Lv.3]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    - "[Lv.4]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    - "[Lv.5]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.1]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.2]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.3]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.4]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    - "[Lv.5]\n\uC774\uB3D9\uC18D\uB3C4\uAC00 10 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     skill_Sprite: {fileID: 21300000, guid: ee350f1a4b6cb1c44b68ab2a5ba60966, type: 3}
     selectedTime: 0
   - skill_Name: 14

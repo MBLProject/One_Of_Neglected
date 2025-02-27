@@ -166,7 +166,9 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         {
             for (int i = 0; i < trainingCount; i++)
             {
-                tinyCells[i].sprite = training_Panel.tinyCellOn_Sprite;
+                if (i < 10)
+                    tinyCells[i].sprite = training_Panel.tinyCellOn_Sprite;
+                else tinyCells[i - 10].color = Color.yellow;
             }
 
             if (maxTrainingLevel != trainingCount) currentRequireGold = requireGold_List[trainingCount];

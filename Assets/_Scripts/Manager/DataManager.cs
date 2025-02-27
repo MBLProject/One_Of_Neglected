@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class DicDataTable
 {
-    public Dictionary<Node, bool> bless_Table = new Dictionary<Node, bool>();
+    public Dictionary<int, bool> bless_Table = new Dictionary<int, bool>();
 }
 
 [Serializable]
@@ -27,25 +27,25 @@ public class PlayerProperty
     public float causalityEXP;
     public List<bool> class_Unlocked =
     new List<bool>() { true, false, false };
-    [HideInInspector] public int MaxHp_TrainingCount;
-    [HideInInspector] public int HpRegen_TrainingCount;
-    [HideInInspector] public int Defense_TrainingCount;
-    [HideInInspector] public int Mspd_TrainingCount;
-    [HideInInspector] public int ATK_TrainingCount;
-    [HideInInspector] public int Aspd_TrainingCount;
-    [HideInInspector] public int CriRate_TrainingCount;
-    [HideInInspector] public int CriDamage_TrainingCount;
-    [HideInInspector] public int ProjAmount_TrainingCount;
-    [HideInInspector] public int ATKRange_TrainingCount;
-    [HideInInspector] public int Duration_TrainingCount;
-    [HideInInspector] public int Cooldown_TrainingCount;
-    [HideInInspector] public int Revival_TrainingCount;
-    [HideInInspector] public int Magnet_TrainingCount;
-    [HideInInspector] public int Growth_TrainingCount;
-    [HideInInspector] public int Greed_TrainingCount;
-    [HideInInspector] public int Curse_TrainingCount;
-    [HideInInspector] public int Reroll_TrainingCount;
-    [HideInInspector] public int Banish_TrainingCount;
+    public int MaxHp_TrainingCount;
+    public int HpRegen_TrainingCount;
+    public int Defense_TrainingCount;
+    public int Mspd_TrainingCount;
+    public int ATK_TrainingCount;
+    public int Aspd_TrainingCount;
+    public int CriRate_TrainingCount;
+    public int CriDamage_TrainingCount;
+    public int ProjAmount_TrainingCount;
+    public int ATKRange_TrainingCount;
+    public int Duration_TrainingCount;
+    public int Cooldown_TrainingCount;
+    public int Revival_TrainingCount;
+    public int Magnet_TrainingCount;
+    public int Growth_TrainingCount;
+    public int Greed_TrainingCount;
+    public int Curse_TrainingCount;
+    public int Reroll_TrainingCount;
+    public int Banish_TrainingCount;
 }
 
 [Serializable]
@@ -138,7 +138,7 @@ public class DataManager : Singleton<DataManager>
 {
 
     public DicDataTable dicDataTable = new DicDataTable();
-    public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
+    public Dictionary<int, bool> bless_Dic = new Dictionary<int, bool>();
     public PlayerProperty player_Property = new PlayerProperty();
     public BTS BTS = new BTS();
 #if UNITY_EDITOR
@@ -230,7 +230,7 @@ string path = Application.persistentDataPath + "/Save";
         string fromJsonData_Bless =
         File.ReadAllText(path + "BlessData");
         dicDataTable.bless_Table =
-        DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
+        DictionaryJsonUtility.FromJson<int, bool>(fromJsonData_Bless);
         bless_Dic = dicDataTable.bless_Table;
 
     }

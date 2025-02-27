@@ -12,7 +12,7 @@ public enum NodeDefine
 {
     ATK,
     DEF,
-    UIL
+    UTI
 }
 public enum ATK_Bless
 {
@@ -66,14 +66,6 @@ public class Bless_Panel : Panel
     public NodeReset nodeReset;
     public BlessTooltip tooltip;
     private bool isInit = false;
-    private void Start()
-    {
-        Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
-        Node_Initialize(ref DEF_Node_List, ref DEF_Node_Line);
-        Node_Initialize(ref UTI_Node_List, ref UTI_Node_Line);
-
-    }
-
     private void OnEnable()
     {
         if (isInit)
@@ -83,33 +75,43 @@ public class Bless_Panel : Panel
             AfterInit(ref UTI_Node_List);
         }
     }
+
+    private void Start()
+    {
+        Node_Initialize(ref ATK_Node_List, ref ATK_Node_Line);
+        Node_Initialize(ref DEF_Node_List, ref DEF_Node_Line);
+        Node_Initialize(ref UTI_Node_List, ref UTI_Node_Line);
+
+    }
+
     //딕셔너리 초기화 및 불러온 데이터에 따라 노드활성화
+    // 어째서인지 모르지만 게임씬에서 넘어왔을 때 딕셔너리의 키를 못찾아옴
     private void Node_Initialize(ref List<Node> nodes, ref List<Image> nodeLines)
     {
         int i = 0;
         foreach (Node node in nodes)
         {   //딕셔너리에 없으면 추가
-            if (DataManager.Instance.bless_Dic.ContainsKey(node) == false)
+            if (DataManager.Instance.bless_Dic.ContainsKey(node.m_ID) == false)
             {
-                DataManager.Instance.bless_Dic.Add(node, false);
+                DataManager.Instance.bless_Dic.Add(node.m_ID, false);
             }
-            if (DataManager.Instance.bless_Dic[node] == true)
+            if (DataManager.Instance.bless_Dic[node.m_ID] == true)
             {
                 DataManager.Instance.player_Property.bless_Point++;
                 node.m_BTN.onClick?.Invoke();
                 DataManager.Instance.player_Property.bless_Point--;
             }
-
             node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
             ByNodeDefine(node);
             isInit = true;
             if (node.next_Nodes.Count != 0)
             {
                 node.m_Line = nodeLines[i];
-                if (DataManager.Instance.bless_Dic[node])
-                {
-                    node.m_Line.color = Color.white;
-                }
+                if (DataManager.Instance.bless_Dic.ContainsKey(node.m_ID))
+                    if (DataManager.Instance.bless_Dic[node.m_ID])
+                    {
+                        node.m_Line.color = Color.white;
+                    }
             }
 
             i++;
@@ -126,7 +128,7 @@ public class Bless_Panel : Panel
             case NodeDefine.DEF:
                 Add_DEF_Bless(node);
                 break;
-            case NodeDefine.UIL:
+            case NodeDefine.UTI:
                 Add_UTI_Bless(node);
                 break;
         }
