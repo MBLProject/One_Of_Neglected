@@ -15,7 +15,7 @@ public class Needle : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnDurationChanged += (value) => stats.duration = value;
     }
 
     public override void ModifySkill()
@@ -38,6 +38,7 @@ public class Needle : ActiveSkill
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 0.25f,
+            duration = UnitManager.Instance.GetPlayer().Stats.CurrentDuration,
             projectileSpeed = 1f,
         };
     }

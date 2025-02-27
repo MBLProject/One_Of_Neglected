@@ -28,7 +28,7 @@ public class JavelinProjectile : Projectile
                     finalDamage = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
                     finalATKRange = stats.finalATKRange,
                     pierceCount = stats.pierceCount,
-                    lifetime = stats.lifetime,
+                    finalDuration = stats.finalDuration,
                     critical = stats.critical,
                     cATK = stats.cATK,
                     skillName = stats.skillName
@@ -51,7 +51,7 @@ public class JavelinProjectile : Projectile
                     finalDamage = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
                     finalATKRange = stats.finalATKRange,
                     pierceCount = stats.pierceCount,
-                    lifetime = stats.lifetime,
+                    finalDuration = stats.finalDuration,
                     critical = stats.critical,
                     cATK = stats.cATK,
                     skillName = stats.skillName

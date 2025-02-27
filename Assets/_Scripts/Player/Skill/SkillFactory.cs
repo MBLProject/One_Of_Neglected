@@ -103,6 +103,7 @@ public struct SkillStats
     public float cATK;
     public float amount;
     public float lifetime;
+    public float duration;
     public float cooldown;
     public float Aspd;
     public float projectileSpeed;
@@ -125,7 +126,7 @@ public struct ProjectileStats
     public float critical;
     public float cATK;
     public float amount;
-    public float lifetime;
+    public float finalDuration;
     public float projectileSpeed;
     public bool canParry;
 }

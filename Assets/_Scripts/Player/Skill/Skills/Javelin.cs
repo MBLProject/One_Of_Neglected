@@ -14,7 +14,7 @@ public class Javelin : ActiveSkill
         playerStats.OnATKRangeChanged += (value) => stats.aTKRange = value;
         playerStats.OnCriRateChanged += (value) => stats.critical = value;
         playerStats.OnCriDamageChanged += (value) => stats.cATK = value;
-        playerStats.OnDurationChanged += (value) => stats.lifetime *= value;
+        playerStats.OnDurationChanged += (value) => stats.duration = value;
         playerStats.OnProjParryChanged += (value) => stats.canParry = value;
     }
 
@@ -37,6 +37,7 @@ public class Javelin : ActiveSkill
             cATK = UnitManager.Instance.GetPlayer().Stats.CurrentCriDamage,
             amount = 1f,
             lifetime = 3f,
+            duration = UnitManager.Instance.GetPlayer().Stats.CurrentDuration,
             projectileSpeed = 5f,
             canParry = UnitManager.Instance.GetPlayer().Stats.CurrentProjParry,
         };

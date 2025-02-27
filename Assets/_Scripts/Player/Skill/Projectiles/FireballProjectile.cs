@@ -24,11 +24,11 @@ public class FireballProjectile : Projectile
 
         stats = projectileStats;
 
-        print($"InitProjectile - lifetime : {stats.lifetime}");
+        print($"InitProjectile - lifetime : {stats.finalDuration}");
 
         CancelInvoke("DestroyProjectile");
 
-        Invoke("DestroyProjectile", stats.lifetime);
+        Invoke("DestroyProjectile", stats.finalDuration);
 
         direction = (targetPosition - startPos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

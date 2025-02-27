@@ -17,6 +17,8 @@ public class ActiveSkill : Skill
 
     public int FinalProjAmount => stats.defaultProjectileCount + UnitManager.Instance.GetPlayer().Stats.CurrentProjAmount - 1;
 
+    public float FinalDuration => stats.lifetime * stats.duration;
+
     public ActiveSkill(Enums.SkillName skillName) : base(skillName)
     {
         // init Stats
@@ -55,6 +57,8 @@ public class ActiveSkill : Skill
 
     public override void Fire()
     {
+        Debug.Log($"skillName : {skillName}, finalDuration : {stats.lifetime} * {stats.duration} = {FinalDuration}");
+
         base.Fire();
         //ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
         ProjectileManager.Instance.SpawnProjectile(skillName,
@@ -73,7 +77,7 @@ public class ActiveSkill : Skill
                 critical = stats.critical,
                 cATK = stats.cATK,
                 amount = stats.amount,
-                lifetime = stats.lifetime,
+                finalDuration = FinalDuration,
                 projectileSpeed = stats.projectileSpeed,
                 canParry = stats.canParry,
             }
