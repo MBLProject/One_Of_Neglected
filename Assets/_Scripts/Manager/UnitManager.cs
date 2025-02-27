@@ -25,6 +25,9 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject tankUniqueMonsterPrefab;
     [SerializeField] private GameObject bossMonsterPrefab;
     private GameObject boxMonsterPrefab;
+    private int tankMonsterSpawnCount = 8;  // 탱크 몬스터 총 스폰 수
+    private int tankMonsterKillCount = 0;   // 탱크 몬스터 처치 수
+
 
     [Header("스폰 설정")]
     [SerializeField] private int maxRangedMonsterCount = 20;
@@ -272,8 +275,28 @@ public class UnitManager : Singleton<UnitManager>
             Debug.Log("탱크 유니크 몬스터 원형 진형 소환");
         }
     }
+    // 탱크 몬스터 킬 카운트 증가 메서드
+    public void IncreaseTankMonsterKillCount()
+    {
+        tankMonsterKillCount++;
+        Debug.Log($"탱크 몬스터 처치 수: {tankMonsterKillCount}");
+    }
+
+    //  탱크 몬스터 킬 카운트 리셋 메서드
+    public void ResetTankMonsterKillCount()
+    {
+        tankMonsterKillCount = 0;
+        Debug.Log("탱크 몬스터 킬 카운트 리셋");
+    }
+
+    //  마지막 탱크 몬스터 체크 메서드
+    public bool IsLastTankMonster()
+    {
+        return tankMonsterKillCount == (tankMonsterSpawnCount - 1);
+    }
     private void SpawnVerticalFormation(Vector2 playerPos)
     {
+        ResetTankMonsterKillCount();
         float spacing = 0.5f; // 몬스터 간 간격
         int monstersPerLine = 8; // 한 줄당 몬스터 수
         float distanceFromPlayer = 4f; // 플레이어로부터의 거리
