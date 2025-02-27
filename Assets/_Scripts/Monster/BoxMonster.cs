@@ -30,6 +30,7 @@ public class BoxMonster : MonsterBase
 
     public override void TakeDamage(float damage)
     {
+        SoundManager.Instance.Play("MonsterAttacked", SoundManager.Sound.Effect, 1f, false, 0.3f);
         stats.currentHealth -= damage;
         if (stats.currentHealth <= 0)
         {
