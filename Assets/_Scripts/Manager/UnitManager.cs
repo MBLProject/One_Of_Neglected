@@ -27,8 +27,6 @@ public class UnitManager : Singleton<UnitManager>
     private GameObject boxMonsterPrefab;
 
     [Header("스폰 설정")]
-    [SerializeField] private float spawnRadius = 15f;        // 스폰 반경
-    [SerializeField] private float minSpawnDistance = 8f;    // 최소 스폰 거리
     [SerializeField] private int maxRangedMonsterCount = 20;
     [SerializeField] private int maxTotalMonsterCount = 100;
     [SerializeField] private float spawnInterval = 1f;
@@ -433,13 +431,29 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (currentPlayer == null) return Vector2.zero;
 
-        float angle = Random.Range(0f, 360f);
-        float distance = spawnRadius;
+        Vector2 playerPos = currentPlayer.transform.position;
+        Vector2 spawnPos;
+        int attempts = 0;
+        const int MAX_ATTEMPTS = 10;
 
-        return (Vector2)currentPlayer.transform.position + new Vector2(
-            Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
-            Mathf.Sin(angle * Mathf.Deg2Rad) * distance
-        );
+        do
+        {
+            // 맵 범위 내에서 랜덤한 위치 생성
+            spawnPos = new Vector2(
+                Random.Range(mapMinX, mapMaxX),
+                Random.Range(mapMinY, mapMaxY)
+            );
+
+            // 보스는 플레이어와 최소 10유닛 이상 떨어진 위치에 스폰
+            if (Vector2.Distance(spawnPos, playerPos) >= 10f)
+            {
+                return spawnPos;
+            }
+
+            attempts++;
+        } while (attempts < MAX_ATTEMPTS);
+
+        return spawnPos;
     }
     public MonsterBase SpawnMonsterAtRandomPosition(MonsterType type)
     {
@@ -493,18 +507,12 @@ public class UnitManager : Singleton<UnitManager>
 
         do
         {
-            float angle = Random.Range(0f, 360f);
-            float distance = Random.Range(minSpawnDistance, spawnRadius);
-            Vector2 offset = new Vector2(
-                Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
-                Mathf.Sin(angle * Mathf.Deg2Rad) * distance
+            spawnPos = new Vector2(
+                Random.Range(mapMinX, mapMaxX),
+                Random.Range(mapMinY, mapMaxY)
             );
 
-            spawnPos = playerPos + offset;
-            spawnPos.x = Mathf.Clamp(spawnPos.x, mapMinX, mapMaxX);
-            spawnPos.y = Mathf.Clamp(spawnPos.y, mapMinY, mapMaxY);
-
-            if (Vector2.Distance(spawnPos, playerPos) >= minSpawnDistance)
+            if (Vector2.Distance(spawnPos, playerPos) >= 8f)
             {
                 return spawnPos;
             }
@@ -512,7 +520,7 @@ public class UnitManager : Singleton<UnitManager>
             attempts++;
         } while (attempts < MAX_ATTEMPTS);
 
-        return spawnPos; // 최악의 경우 마지막 계산된 위치 반환
+        return spawnPos;
     }
 
     private GameObject GetMonsterPrefab(MonsterType type)
@@ -653,7 +661,6 @@ public class UnitManager : Singleton<UnitManager>
             activeExpObjects.Remove(worldObject);
         }
     }
-
     private void SpawnBoxMonster()
     {
         if (boxMonsterPrefab == null) return;
