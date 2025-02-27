@@ -2,6 +2,8 @@
     "gold": 0,
     "bless_Point": 8,
     "remnants_Point": 0,
+    "causalityLv": 1,
+    "causalityEXP": 2.200000047683716,
     "class_Unlocked": [
         true,
         false,
