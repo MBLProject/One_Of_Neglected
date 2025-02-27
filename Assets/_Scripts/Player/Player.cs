@@ -658,7 +658,7 @@ public abstract class Player : MonoBehaviour
                 break;
 
             case WorldObjectType.Time_Stop:
-                // TODO: 타임 스톱 구현
+                //UnitManager.Instance.ActivateMagnet();
                 break;
 
             case WorldObjectType.Boom:

@@ -13082,6 +13082,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1949044870
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124404271557188432, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857305108149186645, guid: 362d5d94ed855db4ab1f80063e626e68,
+        type: 3}
+      propertyPath: m_Name
+      value: Env_TimeStop
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 362d5d94ed855db4ab1f80063e626e68, type: 3}
 --- !u!1 &1949140320
 GameObject:
   m_ObjectHideFlags: 0
@@ -78128,127 +78196,127 @@ MonoBehaviour:
   skill_Infos:
   - skill_Name: 1
     display_Name: "\uB2C8\uB4E4"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 1bec48fd5213a414db64aa5cf5c57f8e, type: 3}
     selectedTime: 0
   - skill_Name: 2
     display_Name: "\uD074\uB85C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 19da537632c2b8141a83ab913532f341, type: 3}
     selectedTime: 0
   - skill_Name: 3
     display_Name: "\uD22C\uCC3D"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: a6aa8aaf5acca4141b0b0bf3382df769, type: 3}
     selectedTime: 0
   - skill_Name: 4
     display_Name: "\uC624\uB77C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: d6c4a2c2eedd5144387b4757f277ab8a, type: 3}
     selectedTime: 0
   - skill_Name: 5
     display_Name: "\uCF00\uC774\uD504"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: bbdfd65c633371c498281ebf0b4677af, type: 3}
     selectedTime: 0
   - skill_Name: 6
     display_Name: "\uC218\uB9AC\uAC80"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 5ae937422d4b6be44933b072de9234b8, type: 3}
     selectedTime: 0
   - skill_Name: 7
     display_Name: "\uAD00\uBB38"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: c8eea44ae087fb04d9de8191d9003409, type: 3}
     selectedTime: 0
   - skill_Name: 8
     display_Name: "\uC7A5\uD48D"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: c296d0703ac39b34594f02dbd171b06b, type: 3}
     selectedTime: 0
   - skill_Name: 9
     display_Name: "\uC774\uD504\uB9AC\uD2B8"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 2a57aac4c8551d841ab81cae7e0b57e3, type: 3}
     selectedTime: 0
   - skill_Name: 10
     display_Name: "\uD50C\uB85C\uC6B0"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: ac0754deb62839e42b3e95384e6fa4dc, type: 3}
     selectedTime: 0
   - skill_Name: 11
     display_Name: "\uB3C5\uC2E0"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 0bb5dfa27f404204ab4f99566547237f, type: 3}
     selectedTime: 0
   - skill_Name: 12
     display_Name: "\uC911\uB825\uC7A5"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 2434c2d7b7bce5342b7fc4fd6f58c30d, type: 3}
     selectedTime: 0
   - skill_Name: 13
     display_Name: "\uC9C0\uB8B0"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 3dc1adfcfe9a9094681d644f7c67acf4, type: 3}
     selectedTime: 0
   - skill_Name: 14
     display_Name: "\uD53C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: b25e716ab96cd6546a7dd3208f232ff6, type: 3}
     selectedTime: 0
   - skill_Name: 15
     display_Name: "\uBB3C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 4ffda14c89906354a83a4dbfa5508154, type: 3}
     selectedTime: 0
   - skill_Name: 16
     display_Name: "\uBC29\uD328"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 623f3373e436a4f429408f1af6002581, type: 3}
     selectedTime: 0
   - skill_Name: 17
     display_Name: "\uC2E0\uBC1C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: ee350f1a4b6cb1c44b68ab2a5ba60966, type: 3}
     selectedTime: 0
   - skill_Name: 18
     display_Name: "\uC8FC\uBA39"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 9d8d8bbafaef3ff49af816ec9432337b, type: 3}
     selectedTime: 0
   - skill_Name: 19
     display_Name: "\uBC18\uC9C0"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 0cc3bf55378de8044b9110d0e9b2f552, type: 3}
     selectedTime: 0
   - skill_Name: 20
     display_Name: "\uCC45"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: c1a90a569a97427429fa6b91d5759f38, type: 3}
     selectedTime: 0
   - skill_Name: 21
     display_Name: "\uD314\uCC0C"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: fad847e1d069735459fe20c0ccee0398, type: 3}
     selectedTime: 0
   - skill_Name: 22
     display_Name: "\uC2DC\uACC4"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: d08f0e8255f4015498c6cb2f9eea2d52, type: 3}
     selectedTime: 0
   - skill_Name: 23
     display_Name: "\uC790\uC11D"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: dfd7db9c9962bcd49a3e408352c98eed, type: 3}
     selectedTime: 0
   - skill_Name: 24
     display_Name: "\uC655\uAD00"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: e92cf188a1068564c84a2ebe7892e3a6, type: 3}
     selectedTime: 0
   - skill_Name: 25
     display_Name: "\uACE0\uAE30"
-    skill_Text: 
+    skill_Texts: []
     skill_Sprite: {fileID: 21300000, guid: 56c014aa404d6704cb5734521b1be545, type: 3}
     selectedTime: 0
   reroll_Counter_TMP: {fileID: 7229022845963059211}
@@ -86437,3 +86505,4 @@ SceneRoots:
   - {fileID: 1449521750}
   - {fileID: 2135234498169954790}
   - {fileID: 270238410}
+  - {fileID: 1949044870}

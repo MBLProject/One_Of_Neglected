@@ -5,6 +5,7 @@ using UnityEngine;
 using static Enums;
 using Random = UnityEngine.Random;
 using static UnityEngine.EventSystems.EventTrigger;
+using DG.Tweening;
 
 public class UnitManager : Singleton<UnitManager>
 {
@@ -74,6 +75,30 @@ public class UnitManager : Singleton<UnitManager>
 
     private float boxSpawnInterval = 15f;
     private float nextBoxSpawnTime = 0f;
+
+    private Sprite[] blueExpSprites;
+
+    private class WorldObjectData
+    {
+        public GameObject gameObject;
+        public WorldObjectType type;
+        public bool isMoving;
+        public Tweener moveTween; 
+
+        public WorldObjectData(GameObject obj, WorldObjectType objType)
+        {
+            gameObject = obj;
+            type = objType;
+            isMoving = false;
+            moveTween = null;
+        }
+    }
+
+    private List<WorldObjectData> activeWorldObjects = new List<WorldObjectData>();
+    private float magnetMoveTime = 1.5f;    
+    private float magnetMinMoveTime = 0.5f; 
+    private Ease magnetEaseType = Ease.OutQuint;  
+
     protected override void Awake()
     {
         base.Awake();
@@ -92,6 +117,14 @@ public class UnitManager : Singleton<UnitManager>
 
         SpawnPlayerByType(DataManager.Instance.classSelect_Type);
         // SpawnPlayerByType(ClassType.Magician);
+
+        blueExpSprites = new Sprite[]
+        {
+            Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_140"),
+            Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_107"),
+            Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_188"),
+            Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_172")
+        };
     }
 
     private MonsterType currentNormalMonsterType = MonsterType.EarlyNormal;
@@ -176,6 +209,9 @@ public class UnitManager : Singleton<UnitManager>
             Debug.Log("탱크 유니크 몬스터 원형 진형 테스트");
             SpawnCircularFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
         }
+
+        // 자석 효과로 이동 중인 오브젝트들 업데이트
+        UpdateMagnetizedObjects();
     }
 
     private void OnEnable()
@@ -662,31 +698,16 @@ public class UnitManager : Singleton<UnitManager>
         GameObject Object = Instantiate(GetEnvPrefab(objectType), position, Quaternion.identity);
         if (objectType == WorldObjectType.ExpBlue)
         {
-            int val = Random.Range(0, 4);
-            switch (val)
-            {
-                case 0:
-                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_140");
-                    break;
-                case 1:
-                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_107");
-                    break;
-                case 2:
-                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_188");
-                    break;
-                case 3:
-                    Object.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Using/UI/Icon/Icons_24x24_172");
-                    break;
-            }
+            int val = Random.Range(0, blueExpSprites.Length);
+            Object.GetComponent<SpriteRenderer>().sprite = blueExpSprites[val];
         }
+
+        activeWorldObjects.Add(new WorldObjectData(Object, objectType));
     }
 
     public void RemoveWorldObject(WorldObjectType worldObject)
     {
-        if (worldObject != null)
-        {
-            activeExpObjects.Remove(worldObject);
-        }
+        activeWorldObjects.RemoveAll(wo => wo.type == worldObject);
     }
     private void SpawnBoxMonster()
     {
@@ -699,6 +720,51 @@ public class UnitManager : Singleton<UnitManager>
         if (boxMonster != null)
         {
             activeMonsters.Add(boxMonster);
+        }
+    }
+
+    private void UpdateMagnetizedObjects()
+    {
+        if (currentPlayer == null) return;
+
+        Vector3 playerPosition = currentPlayer.transform.position;
+        
+        for (int i = activeWorldObjects.Count - 1; i >= 0; i--)
+        {
+            var worldObj = activeWorldObjects[i];
+            if (worldObj.gameObject == null)
+            {
+                activeWorldObjects.RemoveAt(i);
+                continue;
+            }
+        }
+    }
+
+    public void ActivateMagnet()
+    {
+        if (currentPlayer == null) return;
+        
+        foreach (var worldObj in activeWorldObjects)
+        {
+            if (worldObj.gameObject == null) continue;
+            
+            worldObj.moveTween?.Kill();
+            float distance = Vector3.Distance(currentPlayer.transform.position, worldObj.gameObject.transform.position);
+            float moveTime = Mathf.Max(magnetMinMoveTime, magnetMoveTime * (distance / 10f));  
+            
+            // 플레이어를 계속 추적하는 트윈 생성
+            worldObj.moveTween = worldObj.gameObject.transform
+                .DOMove(currentPlayer.transform.position, moveTime)
+                .SetTarget(currentPlayer.transform)  // 타겟을 플레이어로 설정
+                .SetAutoKill(false)  // 자동 종료 방지
+                .SetSpeedBased()  // 시간 기반이 아닌 속도 기반으로 변경
+                .SetEase(magnetEaseType)
+                .OnComplete(() => {
+                    worldObj.isMoving = false;
+                    worldObj.moveTween = null;
+                });
+            
+            worldObj.isMoving = true;
         }
     }
 }

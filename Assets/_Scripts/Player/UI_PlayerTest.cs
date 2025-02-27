@@ -102,7 +102,7 @@ public class UI_PlayerTest : MonoBehaviour
         SetupStatButton(criRateUpBtn, criRateDownBtn, StatType.CriRate, 5);
         SetupStatButton(criDamageUpBtn, criDamageDownBtn, StatType.CriDamage, 10f);
         SetupStatButton(projAmountUpBtn, projAmountDownBtn, StatType.ProjAmount, 1);
-        SetupStatButton(atkRangeUpBtn, atkRangeDownBtn, StatType.ATKRange, 5f);
+        SetupStatButton(atkRangeUpBtn, atkRangeDownBtn, StatType.ATKRange, 10f);
         SetupStatButton(durationUpBtn, durationDownBtn, StatType.Duration, 5f);
         SetupStatButton(cooldownUpBtn, cooldownDownBtn, StatType.Cooldown, 5f);
 
