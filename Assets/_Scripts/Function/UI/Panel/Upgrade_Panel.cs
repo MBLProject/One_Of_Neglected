@@ -36,7 +36,6 @@ public class Upgrade_Panel : Panel
         bless_Toggle.onValueChanged.AddListener(ToggleEvents);
         bless_Toggle.interactable = false;
         training_Toggle.onValueChanged.AddListener(ToggleEvents);
-        //TODO : 보유 가호 포인트 데이터매니저에서 가져오기
         point_Text.text = DataManager.Instance.player_Property.bless_Point.ToString();
     }
     private void Update()
@@ -103,13 +102,10 @@ public class Upgrade_Panel : Panel
 
     private void BlessReset_BTN()
     {
-        //TODO : 스킬셋 초기화
-        Debug.Log("가호 리셋");
         bless_Panel.nodeReset?.Invoke();
     }
     private void TrainingReset_BTN()
     {
-        Debug.Log("단련 리셋");
         training_Panel.cellReset?.Invoke();
     }
     //메인 패널로 돌아가는 메서드

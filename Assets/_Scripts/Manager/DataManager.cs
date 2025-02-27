@@ -15,7 +15,6 @@ using UnityEngine.SceneManagement;
 public class DicDataTable
 {
     public Dictionary<Node, bool> bless_Table = new Dictionary<Node, bool>();
-    public Dictionary<int, bool> bless_Table_Test = new Dictionary<int, bool>();
 }
 
 [Serializable]
@@ -138,7 +137,6 @@ public class DataManager : Singleton<DataManager>
 
     public DicDataTable dicDataTable = new DicDataTable();
     public Dictionary<Node, bool> bless_Dic = new Dictionary<Node, bool>();
-    public Dictionary<int, bool> bless_Dic_Test = new Dictionary<int, bool>();
     public PlayerProperty player_Property = new PlayerProperty();
     public BTS BTS = new BTS();
 #if UNITY_EDITOR
@@ -157,11 +155,14 @@ string path = Application.persistentDataPath + "/Save";
     {
         base.Awake();
         string fromJsonData;
+
         fromJsonData = Load_JsonUtility<PlayerProperty>("PlayerProperty", player_Property);
+
         player_Property = JsonUtility.FromJson<PlayerProperty>(fromJsonData);
 
         fromJsonData = Load_JsonUtility<BTS>("BTS", BTS);
         BTS = JsonUtility.FromJson<BTS>(fromJsonData);
+
         LoadBlessData();
 
         SceneManager.sceneLoaded += (x, y) =>
@@ -187,16 +188,12 @@ string path = Application.persistentDataPath + "/Save";
 
     public void SaveData()
     {
-        Debug.Log("저장");
 
         dicDataTable.bless_Table = bless_Dic;
         string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
         File.WriteAllText(path + "BlessData", Data);
         Save_JsonUtility<PlayerProperty>("PlayerProperty", player_Property, true);
         Save_JsonUtility<BTS>("BTS", BTS, true);
-
-        Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table_Test);
-        File.WriteAllText(path + "BlessDataTest", Data);
 
     }
     public void Save_JsonUtility<T>(string fileName, T data, bool pretty = false)
@@ -222,12 +219,6 @@ string path = Application.persistentDataPath + "/Save";
             string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table);
             File.WriteAllText(path + "BlessData", Data);
         }
-        if (!File.Exists(path + "BlessDataTest"))
-        {
-            dicDataTable.bless_Table_Test = bless_Dic_Test;
-            string Data = DictionaryJsonUtility.ToJson(dicDataTable.bless_Table_Test);
-            File.WriteAllText(path + "BlessDataTest", Data);
-        }
 
         string fromJsonData_Bless =
         File.ReadAllText(path + "BlessData");
@@ -235,11 +226,6 @@ string path = Application.persistentDataPath + "/Save";
         DictionaryJsonUtility.FromJson<Node, bool>(fromJsonData_Bless);
         bless_Dic = dicDataTable.bless_Table;
 
-        fromJsonData_Bless =
-        File.ReadAllText(path + "BlessDataTest");
-        dicDataTable.bless_Table_Test =
-        DictionaryJsonUtility.FromJson<int, bool>(fromJsonData_Bless);
-        bless_Dic_Test = dicDataTable.bless_Table_Test;
     }
 
     public void AddDamageData(float damage, Enums.SkillName skillName)
