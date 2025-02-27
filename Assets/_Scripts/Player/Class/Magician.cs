@@ -77,8 +77,6 @@ public class Magician : Player
         statViewer.ProjParry = DataManager.Instance.BTS.projParry;
 
 
-
-        SyncStatsFromViewer();
     }
     #endregion
 }
