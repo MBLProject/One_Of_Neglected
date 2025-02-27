@@ -62,7 +62,7 @@ MonoBehaviour:
     type: 3}
   maxRangedMonsterCount: 20
   maxTotalMonsterCount: 10000
-  spawnInterval: 3
+  spawnInterval: 1
   mapMinX: -24
   mapMaxX: 21
   mapMinY: -22
