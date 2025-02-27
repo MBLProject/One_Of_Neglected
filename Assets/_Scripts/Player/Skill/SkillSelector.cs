@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Enums;
 
 public class SkillSelector : MonoBehaviour
 {
@@ -28,15 +29,15 @@ public class SkillSelector : MonoBehaviour
         count = skillContainer.OwnedSkills.Count;
 
         if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(Enums.SkillName.Javelin);
+            ChooseSkill(SkillName.Javelin);
         if (Input.GetKeyDown(KeyCode.P))
-            ChooseSkill(Enums.SkillName.Ring);
+            UnitManager.Instance.GetPlayer().Stats.ModifyStatValue(StatType.ProjAmount, 1f);
     }
 
-    public List<Enums.SkillName> SelectSkills()
+    public List<SkillName> SelectSkills()
     {
-        List<Enums.SkillName> availableSkills = skillContainer.GetAvailableSkills();
-        HashSet<Enums.SkillName> selectedSkills = new HashSet<Enums.SkillName>();
+        List<SkillName> availableSkills = skillContainer.GetAvailableSkills();
+        HashSet<SkillName> selectedSkills = new HashSet<SkillName>();
 
         bool activeMax = !skillContainer.CanAddActiveSkill();
         bool passiveMax = !skillContainer.CanAddPassiveSkill();
@@ -55,7 +56,7 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                if (IsPassiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != SkillName.None)
                 {
                     selectedSkills.Add(skill);
                 }
@@ -67,7 +68,7 @@ public class SkillSelector : MonoBehaviour
             {
                 if (IsMaxLevel(skill)) continue;
 
-                if (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != Enums.SkillName.None)
+                if (IsActiveSkill(skill) || IsEtcSkill(skill) || skillContainer.GetSkill(skill) != SkillName.None)
                 {
                     selectedSkills.Add(skill);
                 }
@@ -87,10 +88,10 @@ public class SkillSelector : MonoBehaviour
 
         if (skillList.Count < 3)
         {
-            if(!skillList.Contains(Enums.SkillName.Cheese))
-                skillList.Add(Enums.SkillName.Cheese);
-            if (!skillList.Contains(Enums.SkillName.Gold))
-                skillList.Add(Enums.SkillName.Gold);
+            if(!skillList.Contains(SkillName.Cheese))
+                skillList.Add(SkillName.Cheese);
+            if (!skillList.Contains(SkillName.Gold))
+                skillList.Add(SkillName.Gold);
         }
 
         // Fisher - Yates Shuffle
@@ -108,11 +109,11 @@ public class SkillSelector : MonoBehaviour
         return skillList.Take(3).ToList();
     }
 
-    public void ChooseSkill(Enums.SkillName chosenAbility)
+    public void ChooseSkill(SkillName chosenAbility)
     {
-        Enums.SkillName skillName = skillContainer.GetSkill(chosenAbility);
+        SkillName skillName = skillContainer.GetSkill(chosenAbility);
 
-        if (skillName == Enums.SkillName.None)
+        if (skillName == SkillName.None)
         {
             skillDispenser.RegisterSkill(chosenAbility);
             skillContainer.AddSkill(chosenAbility);
@@ -132,15 +133,15 @@ public class SkillSelector : MonoBehaviour
             int nonMaxLevelSkills = skillDispenser.skills.Count(skill => !IsMaxLevel(skill.Key));
             if (nonMaxLevelSkills <= 2)
             {
-                if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Cheese))
-                    skillContainer.AddSelectableSkill(Enums.SkillName.Cheese);
-                if (!skillContainer.SelectableSkills.Contains(Enums.SkillName.Gold))
-                    skillContainer.AddSelectableSkill(Enums.SkillName.Gold);
+                if (!skillContainer.SelectableSkills.Contains(SkillName.Cheese))
+                    skillContainer.AddSelectableSkill(SkillName.Cheese);
+                if (!skillContainer.SelectableSkills.Contains(SkillName.Gold))
+                    skillContainer.AddSelectableSkill(SkillName.Gold);
             }
         }
     }
 
-    public void DeductSkill(Enums.SkillName deDuctSkillName)
+    public void DeductSkill(SkillName deDuctSkillName)
     {
         if (skillDispenser.skills.ContainsKey(deDuctSkillName))
         {
@@ -152,7 +153,7 @@ public class SkillSelector : MonoBehaviour
         }
     }
 
-    public int SkillLevel(Enums.SkillName skillName)
+    public int SkillLevel(SkillName skillName)
     {
         if (skillDispenser.skills.ContainsKey(skillName))
         {
@@ -169,24 +170,24 @@ public class SkillSelector : MonoBehaviour
         }
     }
 
-    private bool IsActiveSkill(Enums.SkillName skillName)
+    private bool IsActiveSkill(SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName) == 1;
     }
 
-    private bool IsPassiveSkill(Enums.SkillName skillName)
+    private bool IsPassiveSkill(SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName) == 0;
     }
 
-    private bool IsEtcSkill(Enums.SkillName skillName)
+    private bool IsEtcSkill(SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName) == 2;
     }
 
-    private bool IsMaxLevel(Enums.SkillName skillName)
+    private bool IsMaxLevel(SkillName skillName)
     {
-        if (skillName == Enums.SkillName.Ring) return SkillLevel(skillName) >= 2;
+        if (skillName == SkillName.Ring) return SkillLevel(skillName) >= 2;
         return IsActiveSkill(skillName) ? SkillLevel(skillName) >= 6 : SkillLevel(skillName) >= 5;
     }
 }

@@ -54,6 +54,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
         playerProjectiles.Add("JewelProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/JewelProjectile"));
         playerProjectiles.Add("WarlockShockProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/WarlockShockProjectile"));
 
+        playerProjectiles.Add("ReflectedMonsterProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ReflectedMonsterProjectile"));
+        playerProjectiles.Add("ReflectedSlashProjectile", Resources.Load<PlayerProjectile>("Using/Projectile/ReflectedSlashProjectile"));
     }
 
     public void SpawnProjectile(Enums.SkillName skillName, ProjectileStats stats)
@@ -202,6 +204,21 @@ public class ProjectileManager : Singleton<ProjectileManager>
             cATK = criticalDamage,
         };
 
+        projectile.InitProjectile(startPos, targetPos, stats);
+
+        activeProjectiles.Add(projectile);
+        return projectile;
+    }
+
+    public PlayerProjectile SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, ProjectileStats stats)
+    {
+        if (!playerProjectiles.ContainsKey(prefabName))
+        {
+            Debug.LogError($"Projectile type {prefabName} not found!");
+            return null;
+        }
+
+        PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
         projectile.InitProjectile(startPos, targetPos, stats);
 
         activeProjectiles.Add(projectile);

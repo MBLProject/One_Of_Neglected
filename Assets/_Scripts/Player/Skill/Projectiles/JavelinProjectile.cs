@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JavelinProjectile : Projectile
 {
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<MonsterBase>(out var monster))
@@ -16,10 +17,55 @@ public class JavelinProjectile : Projectile
             if (stats.pierceCount > 0) stats.pierceCount--;
             else DestroyProjectile();
         }
-        if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
-        {
 
-            monsterProjectile.DestroyProjectile();
+        if(stats.canParry)
+        {
+            if (collision.TryGetComponent<MonsterProjectile>(out var monsterProjectile))
+            {
+                var reflectedStats = new ProjectileStats
+                {
+                    projectileSpeed = stats.projectileSpeed,
+                    finalDamage = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
+                    finalATKRange = stats.finalATKRange,
+                    pierceCount = stats.pierceCount,
+                    lifetime = stats.lifetime,
+                    critical = stats.critical,
+                    cATK = stats.cATK,
+                    skillName = stats.skillName
+                };
+
+                ProjectileManager.Instance.SpawnPlayerProjectile(
+                    "ReflectedMonsterProjectile",
+                    monsterProjectile.gameObject.transform.position,
+                    monsterProjectile.StartPosition,
+                    reflectedStats
+                );
+
+                monsterProjectile.DestroyProjectile();
+            }
+            if (collision.TryGetComponent<SlashProjectile>(out var slashProjectile))
+            {
+                var reflectedStats = new ProjectileStats
+                {
+                    projectileSpeed = stats.projectileSpeed,
+                    finalDamage = UnitManager.Instance.GetPlayer().Stats.CurrentATK,
+                    finalATKRange = stats.finalATKRange,
+                    pierceCount = stats.pierceCount,
+                    lifetime = stats.lifetime,
+                    critical = stats.critical,
+                    cATK = stats.cATK,
+                    skillName = stats.skillName
+                };
+
+                ProjectileManager.Instance.SpawnPlayerProjectile(
+                    "ReflectedSlashProjectile",
+                    slashProjectile.gameObject.transform.position,
+                    slashProjectile.StartPosition,
+                    reflectedStats
+                );
+
+                slashProjectile.DestroyProjectile();
+            }
         }
     }
 }
