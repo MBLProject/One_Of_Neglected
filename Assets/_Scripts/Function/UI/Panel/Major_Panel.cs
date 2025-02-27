@@ -103,6 +103,7 @@ public class Major_Panel : MonoBehaviour
     //증강 정보
     private void AugInfoSetting()
     {
+        Debug.Log(levelUp_Panel.augUpCount_Property);
         if (levelUp_Panel.augUpCount_Property - 1 < 0) return;
         augment_TMP.augName.text =
         levelUp_Panel.aug_Property.
