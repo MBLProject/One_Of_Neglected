@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private int m_ID;
     [SerializeField]
     private Bless_Panel bless_Panel;
     public NodeDefine nodeDefine;
