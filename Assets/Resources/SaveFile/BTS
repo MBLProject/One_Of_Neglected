@@ -1,5 +1,5 @@
 {
-    "MaxHp": 10000000,
+    "MaxHp": 0,
     "HpRegen": 0.0,
     "Defense": 0,
     "Mspd": 0.0,

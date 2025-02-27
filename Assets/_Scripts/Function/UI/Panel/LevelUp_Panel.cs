@@ -111,7 +111,7 @@ public class LevelUp_Panel : Panel
 
         if (UnitManager.Instance.GetPlayer().Stats.CurrentLevel != 0 &&
         UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
-        {
+        {   //TODO : 최대 레벨설정
             //증강과 특성 선택하는 메서드
             AugSelections();
         }

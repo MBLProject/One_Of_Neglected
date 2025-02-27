@@ -1,9 +1,9 @@
 {
-    "gold": 870,
-    "bless_Point": 4,
-    "remnants_Point": 6,
-    "causalityLv": 5,
-    "causalityEXP": 91.5,
+    "gold": 100000000,
+    "bless_Point": 90,
+    "remnants_Point": 15,
+    "causalityLv": 1,
+    "causalityEXP": 0.0,
     "class_Unlocked": [
         true,
         false,
