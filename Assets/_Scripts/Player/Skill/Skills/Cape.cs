@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Cape : ActiveSkill
 {
-    public Cape() : base(Enums.SkillName.Cape) { }
+    public Cape() : base(Enums.SkillName.None) { }
 
     protected override async UniTask StartSkill()
     {
