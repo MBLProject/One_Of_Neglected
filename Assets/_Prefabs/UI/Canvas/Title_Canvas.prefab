@@ -36526,6 +36526,7 @@ MonoBehaviour:
   - {fileID: 7802322141482506483}
   - {fileID: 6745801472962348973}
   - {fileID: 4582079405027268713}
+  cheat: {fileID: 5712713256241706069}
 --- !u!1 &6956874555869963920
 GameObject:
   m_ObjectHideFlags: 0
