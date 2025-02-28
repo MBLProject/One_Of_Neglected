@@ -151,7 +151,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
                 for(int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
                 {
                     Vector3 randomDirection = Random.insideUnitCircle.normalized;
-                    targetPositions.Add(startPosition + randomDirection * 1f);
+                    targetPositions.Add(startPosition + randomDirection * 2f);
                 }
             }
             else

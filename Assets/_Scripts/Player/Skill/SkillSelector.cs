@@ -27,6 +27,13 @@ public class SkillSelector : MonoBehaviour
     private void Update()
     {
         count = skillContainer.OwnedSkills.Count;
+
+        if (Input.GetKeyDown(KeyCode.O))
+            ChooseSkill(SkillName.Javelin);
+        if (Input.GetKeyDown(KeyCode.P))
+            UnitManager.Instance.GetPlayer().Stats.ModifyStatValue(StatType.ProjAmount, 1f);
+        if (Input.GetKeyDown(KeyCode.C))
+            ChooseSkill(SkillName.Crown);
     }
 
     public List<SkillName> SelectSkills()
@@ -91,7 +98,7 @@ public class SkillSelector : MonoBehaviour
 
     private void AddEtcSkills(List<SkillName> skillList)
     {
-        if (skillList.Count == 1)
+        if (skillList.Count <= 1)
         {
             if (!skillList.Contains(SkillName.Cheese)) skillList.Add(SkillName.Cheese);
             if (!skillList.Contains(SkillName.Gold)) skillList.Add(SkillName.Gold);
@@ -111,6 +118,7 @@ public class SkillSelector : MonoBehaviour
         {
             skillDispenser.RegisterSkill(chosenAbility);
             skillContainer.AddSkill(chosenAbility);
+            return;
         }
         else
         {
@@ -147,7 +155,6 @@ public class SkillSelector : MonoBehaviour
         }
         else
         {
-            // Debug.Log($"{skillName} is not Registerd / Removed Skill!!!");
             return -1;
         }
     }
@@ -160,11 +167,6 @@ public class SkillSelector : MonoBehaviour
     private bool IsPassiveSkill(SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName) == 0;
-    }
-
-    private bool IsEtcSkill(SkillName skillName)
-    {
-        return SkillFactory.IsActiveSkill(skillName) == 2;
     }
 
     private bool IsMaxLevel(SkillName skillName)

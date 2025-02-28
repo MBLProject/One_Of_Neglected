@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
-using static Enums;
 
 public class AuraProjectile : Projectile
 {

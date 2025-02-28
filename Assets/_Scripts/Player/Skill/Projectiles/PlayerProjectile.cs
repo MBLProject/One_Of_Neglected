@@ -1,7 +1,4 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
-using System.Threading;
-using System;
 
 public class PlayerProjectile : Projectile
 {
@@ -26,6 +23,6 @@ public class PlayerProjectile : Projectile
         };
         
         base.InitProjectile(startPos, targetPos, stats);
-        transform.localScale = Vector3.one * size;  // Å©±â´Â Á÷Á¢ ¼³Á¤
+        transform.localScale = Vector3.one * size;  // í¬ê¸°ëŠ” ì§ì ‘ ì„¤ì •
     }
 } 

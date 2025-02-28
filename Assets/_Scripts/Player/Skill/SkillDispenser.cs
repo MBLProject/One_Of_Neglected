@@ -5,7 +5,6 @@ using UnityEngine;
 public class SkillDispenser : MonoBehaviour
 {
     public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
-    //public List<Skill> skills = new List<Skill>();
 
     public List<Enums.SkillName> Count = new List<Enums.SkillName>();
 
@@ -39,11 +38,7 @@ public class SkillDispenser : MonoBehaviour
             skills[skillName].UnRegister();
             skills[skillName].StopMainTask();
             skills.Remove(skillName);
-            print("SuccessFully Removed in Dispenser!!");
-
         }
-        else
-            print($"{skillName} is NOT Registered Skill!!");
     }
 
     public void FireAllSkills()

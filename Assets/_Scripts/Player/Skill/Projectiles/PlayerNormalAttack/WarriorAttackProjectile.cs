@@ -1,7 +1,5 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
-using System;
 
 public class WarriorAttackProjectile : PlayerProjectile
 {

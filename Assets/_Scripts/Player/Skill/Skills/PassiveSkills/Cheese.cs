@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class Cheese : Skill
 {
-    public Cheese() : base(Enums.SkillName.Cheese)
-    {
-    }
+    public Cheese() : base(Enums.SkillName.Cheese) { }
 
     public override void ModifySkill()
     {

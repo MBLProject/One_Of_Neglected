@@ -57,8 +57,6 @@ public class ActiveSkill : Skill
 
     public override void Fire()
     {
-        /* Debug.Log($"skillName : {skillName}, finalDuration : {stats.lifetime} * {stats.duration} = {FinalDuration}");*/
-
         base.Fire();
         //ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
         ProjectileManager.Instance.SpawnProjectile(skillName,
@@ -83,7 +81,7 @@ public class ActiveSkill : Skill
             }
             );
 
-        if (skillName != Enums.SkillName.Mine || skillName != Enums.SkillName.Aura) SoundManager.Instance.Play(skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 1f);
+        if(skillName != Enums.SkillName.Mine || skillName != Enums.SkillName.Aura) SoundManager.Instance.Play(skillName.ToString(), SoundManager.Sound.Effect, 1f, false, 1f);
     }
 
 }
