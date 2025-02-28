@@ -9,7 +9,6 @@ public class WorldObject : MonoBehaviour
     public WorldObjectType objectType;
     private int ExpAmount;
 
-    //아이템 합쳐지는 시간
     private float expConcentrationInterval = 25f;
     private float expConcentrationRadius = 1f;
     private LayerMask expLayer;
@@ -67,46 +66,64 @@ public class WorldObject : MonoBehaviour
 
     private async UniTask ConcentrateNearbyExp(CancellationToken cancellationToken)
     {
-        if (objectType != WorldObjectType.ExpBlue || !gameObject) return;
-
-        var colliders = Physics2D.OverlapCircleAll(
-            transform.position, 
-            expConcentrationRadius,
-            expLayer
-        );
-
-        int expCount = 0;
-        var expObjects = new System.Collections.Generic.List<WorldObject>();
-
-        foreach (var collider in colliders)
+        try
         {
-            if (cancellationToken.IsCancellationRequested) return;
+            if (objectType != WorldObjectType.ExpBlue || !gameObject) return;
 
-            WorldObject worldObj = collider.GetComponent<WorldObject>();
-            
-            if (worldObj != null && worldObj != this && worldObj.objectType == WorldObjectType.ExpBlue)
+            var colliders = Physics2D.OverlapCircleAll(
+                transform.position, 
+                expConcentrationRadius,
+                expLayer
+            );
+
+            int expCount = 0;
+            int totalExpAmount = ExpAmount;
+            var expObjects = new System.Collections.Generic.List<WorldObject>();
+
+            foreach (var collider in colliders)
             {
-                expObjects.Add(worldObj);
-                expCount++;
+                if (cancellationToken.IsCancellationRequested) return;
+
+                WorldObject worldObj = collider.GetComponent<WorldObject>();
+                
+                if (worldObj != null && worldObj != this && worldObj.objectType == WorldObjectType.ExpBlue)
+                {
+                    expObjects.Add(worldObj);
+                    totalExpAmount += worldObj.GetExpAmount();
+                    expCount++;
+                }
             }
-        }
-        if (expCount > 0 && gameObject != null)
-        {
-            GameObject expBlackPrefab = Resources.Load<GameObject>("Using/Env/Env_BlueExp");
-            Vector3 spawnPosition = transform.position + (Vector3)(UnityEngine.Random.insideUnitCircle * 1f);
-            
-            try
+
+            if (expCount > 0 && gameObject != null && !cancellationToken.IsCancellationRequested)
             {
+                GameObject expBlackPrefab = Resources.Load<GameObject>("Using/Env/Env_BlueExp");
+                Vector3 spawnPosition = transform.position;
+                
                 GameObject blackExp = Instantiate(expBlackPrefab, spawnPosition, Quaternion.identity);
+                WorldObject newExpObject = blackExp.GetComponent<WorldObject>();
+                if (newExpObject != null)
+                {
+                    newExpObject.SetExpAmount(totalExpAmount);
+                    
+                    float scaleFactor = 1f + (totalExpAmount - 10) * 0.1f;
+                    scaleFactor = Mathf.Clamp(scaleFactor, 1f, 1.3f);
+                    blackExp.transform.localScale = Vector3.one * scaleFactor;
+                }
 
                 foreach (var expObj in expObjects)
                 {
-                    if (cancellationToken.IsCancellationRequested) return;
+                    if (cancellationToken.IsCancellationRequested) 
+                    {
+                        if (blackExp != null)
+                        {
+                            Destroy(blackExp);
+                        }
+                        return;
+                    }
 
                     if (expObj != null && expObj.gameObject != null)
                     {
                         Destroy(expObj.gameObject);
-                        await UniTask.Yield(cancellationToken);
                     }
                 }
 
@@ -114,13 +131,23 @@ public class WorldObject : MonoBehaviour
                 {
                     Destroy(gameObject);
                 }
-
             }
-            catch (Exception ex)
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception ex)
+        {
+            if (!(ex is OperationCanceledException))
             {
                 Debug.LogError($"ConcentrateNearbyExp 에러: {ex}");
             }
         }
+    }
+
+    public void SetExpAmount(int amount)
+    {
+        ExpAmount = amount;
     }
 
     public void selfDestroy()
@@ -129,15 +156,6 @@ public class WorldObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    // 디버그용 시각화
-    //    if (objectType == WorldObjectType.ExpBlue)
-    //    {
-    //        Gizmos.color = Color.yellow;
-    //        Gizmos.DrawWireSphere(transform.position, expConcentrationRadius);
-    //    }
-    //}
     private void OnDestroy()
     {
         cts?.Cancel();
