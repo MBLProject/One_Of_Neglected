@@ -31,7 +31,6 @@ public class Banish_Icon : MonoBehaviour
     {
         if (UnitManager.Instance.GetPlayer().Stats.CurrentBanish == 0) return;
         UnitManager.Instance.GetPlayer().ModifyStat(Enums.StatType.Banish, -1);
-
         levelUp_Panel.UpdateBanishCnt();
 
         inGameUI_Panel.skillSelector.DeductSkill(m_SkillName);

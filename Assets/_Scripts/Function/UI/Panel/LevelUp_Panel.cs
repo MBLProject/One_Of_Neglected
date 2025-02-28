@@ -222,7 +222,7 @@ public class LevelUp_Panel : Panel
     }
     public void UpdateBanishCnt()
     {
-        banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
+        banish_Counter_TMP.text = UnitManager.Instance.GetPlayer().Stats.CurrentBanish.ToString();
     }
 
     public void SetAugTextInit(Enums.AugmentName augmentName)
