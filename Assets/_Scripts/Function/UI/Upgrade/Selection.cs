@@ -10,13 +10,14 @@ public class Selection : MonoBehaviour
     [SerializeField] private Banish_Panel banish_Panel;
     [SerializeField] private InGameUI_Panel inGameUI_Panel;
     [SerializeField] private LevelUp_Panel levelUp_Panel;
+
     public Enums.SkillName m_skillName;
     public Enums.AugmentName m_augType;
     public Button m_BTN;
     public TextMeshProUGUI display_Name;
     public TextMeshProUGUI info_TMP;
     public Image icon_IMG;
-
+    public Image m_selectionBG_IMG;
     public void Select_BTN()
     {
         if (inGameUI_Panel.skillContainer.

@@ -155,8 +155,13 @@ public class LevelUp_Panel : Panel
             current_Selections[i].m_BTN.onClick.RemoveAllListeners();
             current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN);
             current_Selections[i].gameObject.SetActive(true);
+            current_Selections[i].m_selectionBG_IMG.color = Color.white;
         }
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
+        if (popSkill_List.Count == 2)
+        {
+            current_Selections[2].gameObject.SetActive(false);
+        }
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
         {
@@ -191,6 +196,7 @@ public class LevelUp_Panel : Panel
                 current_Selections[i].display_Name.text = aug_Infos.aug_Name[i];
                 current_Selections[i].info_TMP.text = aug_Infos.aug_Text[i];
                 current_Selections[i].icon_IMG.sprite = aug_Infos.aug_Icon[i];
+                current_Selections[i].m_selectionBG_IMG.color = Color.yellow;
             }
         }
         else
@@ -207,6 +213,7 @@ public class LevelUp_Panel : Panel
             current_Selections[0].display_Name.text = aug_Infos.aug_Name[augUpCount];
             current_Selections[0].info_TMP.text = aug_Infos.aug_Text[augUpCount];
             current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[0];
+            current_Selections[0].m_selectionBG_IMG.color = Color.yellow;
             augUpCount++;
         }
 

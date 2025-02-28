@@ -103,7 +103,7 @@ public class Particular_Panel : MonoBehaviour
                     element.m_ValueTMP.text = stats.CurrentCurse.ToString();
                     break;
                 case 17:
-                    element.m_IconIMG.sprite = Resources.Load<Sprite>("Using/UI/Icon/Custom/dice_Icon");
+                    element.m_IconIMG.sprite = Resources.Load<Sprite>("Using/UI/Icon/Custom/dice_Icon4");
                     element.m_NameTMP.text = "새로고침";
                     element.m_ValueTMP.text = stats.CurrentReroll.ToString();
                     break;

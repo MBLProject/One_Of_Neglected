@@ -25,7 +25,6 @@ public class InGameUI_Panel : Panel
     public TextMeshProUGUI goldDisplay;
     public TextMeshProUGUI remnentsDisplay;
     public TextMeshProUGUI killCountDisplay;
-
     private void Awake()
     {
         buttons[0].onClick.AddListener(Auto_BTN);
@@ -79,10 +78,14 @@ public class InGameUI_Panel : Panel
         if (SkillFactory.IsActiveSkill(skillName) == 1)
         {
             Icon_Replace(mainSkill_Icon_Container, sprite, main_Icon_Rect);
+            levelUp_Panel.m_MainSkills.Remove(skillName);
+            levelUp_Panel.m_MainSkill_Time.Remove(skillName);
         }
         else
         {
             Icon_Replace(subSkill_Icon_Container, sprite, sub_Icon_Rect);
+            levelUp_Panel.m_SubSkills.Remove(skillName);
+            levelUp_Panel.m_SubSkill_Time.Remove(skillName);
         }
     }
 
@@ -92,9 +95,11 @@ public class InGameUI_Panel : Panel
         {
             if (image.sprite == sprite)
             {
-                image.sprite = defaultIcon;
+                image.sprite = null;
+                image.color = Color.clear;
                 image.transform.parent.SetParent(null);
                 image.transform.parent.SetParent(parent_Rect);
+
             }
         }
     }

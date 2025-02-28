@@ -1,15 +1,15 @@
 {
-    "gold": 9986937,
-    "bless_Point": 19,
+    "gold": 9981596,
+    "bless_Point": 30,
     "remnants_Point": 5,
     "causalityLv": 1,
-    "causalityEXP": 0.10000000149011612,
+    "causalityEXP": 0.800000011920929,
     "class_Unlocked": [
         true,
-        false,
-        true
+        true,
+        false
     ],
-    "MaxHp_TrainingCount": 0,
+    "MaxHp_TrainingCount": 10,
     "HpRegen_TrainingCount": 0,
     "Defense_TrainingCount": 0,
     "Mspd_TrainingCount": 0,
