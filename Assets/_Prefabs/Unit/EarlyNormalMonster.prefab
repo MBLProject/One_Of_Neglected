@@ -191,7 +191,7 @@ MonoBehaviour:
   damageIncreasePerInterval: 1
   healthIncreasePerInterval: 10
   defenseIncreasePerInterval: 0
-  statUpdateInterval: 30
+  statUpdateInterval: 60
 --- !u!114 &5104150615968728809
 MonoBehaviour:
   m_ObjectHideFlags: 0

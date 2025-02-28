@@ -13,7 +13,16 @@ public class RendererTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.allSpriteRenderer.Add(m_spriteRenderer);
+        try
+        {
+            GameManager.Instance.allSpriteRenderer.Add(m_spriteRenderer);
+
+        }
+        catch
+        {
+            Debug.Log(gameObject.name);
+
+        }
     }
     private void OnDisable()
     {
