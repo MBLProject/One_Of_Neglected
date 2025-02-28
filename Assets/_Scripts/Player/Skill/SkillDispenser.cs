@@ -6,8 +6,6 @@ public class SkillDispenser : MonoBehaviour
 {
     public Dictionary<Enums.SkillName, Skill> skills = new Dictionary<Enums.SkillName, Skill>();
 
-    public List<Enums.SkillName> Count = new List<Enums.SkillName>();
-
     public void RegisterSkill(Enums.SkillName skillName)
     {
         if (skills.ContainsKey(skillName))
@@ -22,7 +20,6 @@ public class SkillDispenser : MonoBehaviour
         {
             newSkill.StartMainTask();
             skills.Add(skillName, newSkill);
-            Count.Add(skillName);
             
             if (SkillFactory.IsActiveSkill(skillName) == 0)
             {
