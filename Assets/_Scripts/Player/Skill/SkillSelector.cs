@@ -27,13 +27,6 @@ public class SkillSelector : MonoBehaviour
     private void Update()
     {
         count = skillContainer.OwnedSkills.Count;
-
-        if (Input.GetKeyDown(KeyCode.O))
-            ChooseSkill(SkillName.Javelin);
-        if (Input.GetKeyDown(KeyCode.P))
-            UnitManager.Instance.GetPlayer().Stats.ModifyStatValue(StatType.ProjAmount, 1f);
-        if (Input.GetKeyDown(KeyCode.C))
-            ChooseSkill(SkillName.Crown);
     }
 
     public List<SkillName> SelectSkills()
