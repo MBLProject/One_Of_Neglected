@@ -32,7 +32,7 @@ public class SlashProjectile : Projectile
             if (player != null)
             {
                 player.TakeDamage(damage);
-                Debug.Log($"[SlashProjectile] 플레이어에게 {damage} 데미지!");
+                //Debug.Log($"[SlashProjectile] 플레이어에게 {damage} 데미지!");
             }
             DestroyProjectile();
         }

@@ -51,7 +51,7 @@ public class DamageUniqueMonster : NormalMonster
         {
             stateHandler.ChangeState(typeof(DamageUniqueSkillState));
             skillTimer = skillCooldown;
-            Debug.Log($"[{gameObject.name}] 검기 스킬 사용!");
+            //Debug.Log($"[{gameObject.name}] 검기 스킬 사용!");
         }
         base.Update();
         if (stats.healthRegen > 0)

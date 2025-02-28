@@ -25,7 +25,7 @@ public class BossMonster : BossMonsterBase
         stateHandler.RegisterState(new BossSkill2State(stateHandler, false));
 
         stateHandler.ChangeState(typeof(BossMoveState));
-        Debug.Log("[Boss] 상태 초기화 완료");
+        //Debug.Log("[Boss] 상태 초기화 완료");
     }
 
     protected override void Update()
@@ -64,17 +64,17 @@ public class BossMonster : BossMonsterBase
         if (randomValue < skill1Probability)
         {
             stateHandler.ChangeState(typeof(BossSkill1State));
-            Debug.Log("[Boss] 스킬1 사용: 8방향 검기");
+            //Debug.Log("[Boss] 스킬1 사용: 8방향 검기");
         }
         else if (randomValue < skill1Probability + skill2Probability)
         {
             stateHandler.ChangeState(typeof(BossSkill2State));
-            Debug.Log("[Boss] 스킬2 사용: 시계방향 환영");
+            //Debug.Log("[Boss] 스킬2 사용: 시계방향 환영");
         }
         else
         {
             stateHandler.ChangeState(typeof(BossSkill2State));
-            Debug.Log("[Boss] 스킬3 사용: 반시계방향 환영");
+            //Debug.Log("[Boss] 스킬3 사용: 반시계방향 환영");
         }
 
         isSkillReady = false;
@@ -86,7 +86,7 @@ public class BossMonster : BossMonsterBase
 
         // Hit 애니메이션만 재생
         Animator?.SetTrigger("Hit");
-        Debug.Log("[Boss] 피격!");
+        //Debug.Log("[Boss] 피격!");
     }
 
     protected override void Die()
@@ -116,12 +116,12 @@ public class BossMonster : BossMonsterBase
             rb.simulated = false;
         }
 
-        Debug.Log("[Boss] 사망!");
+        //Debug.Log("[Boss] 사망!");
 
         if (UI_Manager.Instance != null && UI_Manager.Instance.panel_Dic.ContainsKey("Result_Panel"))
         {
             UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
-            Debug.Log("[Boss] 결과 패널 오픈!");
+           // Debug.Log("[Boss] 결과 패널 오픈!");
         }
 
         // 일정 시간 후 오브젝트 제거

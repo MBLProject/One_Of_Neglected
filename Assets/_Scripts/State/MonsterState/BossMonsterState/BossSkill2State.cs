@@ -30,7 +30,7 @@ public class BossSkill2State : MonsterStateBase
 
         SpawnPhantoms(entity);
         entity.Animator?.SetTrigger("Skill2");
-        Debug.Log($"[Boss] 스킬{(isClockwise ? "2" : "3")} 시작");
+        //Debug.Log($"[Boss] 스킬{(isClockwise ? "2" : "3")} 시작");
     }
 
     private void SpawnPhantoms(MonsterBase entity)
@@ -77,7 +77,7 @@ public class BossSkill2State : MonsterStateBase
             }
 
             phantoms.Add(phantom);
-            Debug.Log($"환영 생성 - 인덱스: {i}, 각도: {angle}, 위치: {spawnPos}");
+            //Debug.Log($"환영 생성 - 인덱스: {i}, 각도: {angle}, 위치: {spawnPos}");
         }
     }
 
@@ -102,7 +102,7 @@ public class BossSkill2State : MonsterStateBase
                 if (phantom != null)
                 {
                     LaunchPhantomAttack(phantom);
-                    Debug.Log($"환영 돌진 - 인덱스: {index}");
+                    //Debug.Log($"환영 돌진 - 인덱스: {index}");
                 }
             }
             currentPhantomIndex++;
@@ -156,6 +156,6 @@ public class BossSkill2State : MonsterStateBase
     {
         CleanupPhantoms();
         if (bossRenderer != null) bossRenderer.enabled = true;
-        Debug.Log($"[Boss] 스킬{(isClockwise ? "2" : "3")} 종료");
+        //Debug.Log($"[Boss] 스킬{(isClockwise ? "2" : "3")} 종료");
     }
 }

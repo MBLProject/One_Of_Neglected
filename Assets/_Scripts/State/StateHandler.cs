@@ -29,7 +29,7 @@ public class StateHandler<T> where T : class
     {
         if (!states.ContainsKey(stateType))
         {
-            Debug.LogError($"ChangeState : stateType Type Error");
+            //Debug.LogError($"ChangeState : stateType Type Error");
             return;
         }
 

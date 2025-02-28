@@ -15,7 +15,7 @@ public class BossSkill1State : MonsterStateBase
         timer = 0f;
         hasSpawnedEffects = false;
         entity.Animator?.SetTrigger("Skill1");
-        Debug.Log("[Boss] 스킬1 시작: 8방향 검기");
+        //Debug.Log("[Boss] 스킬1 시작: 8방향 검기");
     }
 
     public override void Update(MonsterBase entity)
@@ -74,7 +74,7 @@ public class BossSkill1State : MonsterStateBase
                     collider.isTrigger = true;
                 }
 
-                Debug.Log($"[Boss] 검기 발사 - 각도: {angle}, 데미지: {projectileDamage}");
+                //Debug.Log($"[Boss] 검기 발사 - 각도: {angle}, 데미지: {projectileDamage}");
             }
         }
     }

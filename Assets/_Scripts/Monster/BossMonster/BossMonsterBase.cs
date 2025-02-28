@@ -83,7 +83,7 @@ public abstract class BossMonsterBase : MonsterBase
         // 무적 상태면 데미지 무시
         if (isInvulnerable)
         {
-            Debug.Log("[Boss] 무적 상태 - 데미지 무시됨");
+            //Debug.Log("[Boss] 무적 상태 - 데미지 무시됨");
             return;
         }
 
