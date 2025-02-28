@@ -156,7 +156,7 @@ public class UnitManager : Singleton<UnitManager>
         int curseBonus = Mathf.FloorToInt(DataManager.Instance.BTS.Curse / 10f);
         spawnCount += curseBonus;
 
-        // Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
+        Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
         for (int i = 0; i < spawnCount; i++)
         {
             if (GetActiveMonsterCount() >= maxTotalMonsterCount) break;
