@@ -285,6 +285,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6302260857162212558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +612,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCCB4\uB825\uD68C\uBCF5 1 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2313791477167699614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,6 +1702,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD22C\uC0AC\uCCB4 1\uAC1C \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4587261482306559195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2101,6 +2104,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD22C\uC0AC\uCCB4 1\uAC1C \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3079883132206807540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2968,6 +2972,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uB300\uC26C + 1"
+  m_ID: 0
 --- !u!114 &6025355315216252050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3312,6 +3317,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4283113784009118118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4091,6 +4097,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &455728961937682713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4267,6 +4274,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uC9C0\uC18D\uC2DC\uAC04 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4363737432361363729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4789,6 +4797,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &8674583710627996064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5040,6 +5049,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3779594824726554252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5313,6 +5323,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &7951716744572429960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5489,6 +5500,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &343489883732968514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5815,6 +5827,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACE8\uB4DC\uD68D\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2912364302030380571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7587,6 +7600,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD68D\uB4DD\uBC94\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &964158236100657891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8044,6 +8058,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4367972084311173748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9894,6 +9909,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4219852410359716850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10070,6 +10086,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uBC94\uC704 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3829330604726482324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10796,6 +10813,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4516756124352045618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12358,6 +12376,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6594483121624348881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12724,6 +12743,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &8986751538291492642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13469,6 +13489,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2467569735741977412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13719,6 +13740,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3836424864517513742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14186,6 +14208,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC30\uB9AC\uC5B4 \uC0DD\uC131"
+  m_ID: 0
 --- !u!114 &4846847813462106888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16026,6 +16049,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2575323064647333916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16202,6 +16226,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2774628540847188278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16606,6 +16631,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &7481405945899962247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17425,6 +17451,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBD80\uD65C + 1"
+  m_ID: 0
 --- !u!114 &6216031286119214259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17774,6 +17801,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBD80\uD65C + 1"
+  m_ID: 0
 --- !u!114 &7401947537660773863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18219,6 +18247,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4754705902146044610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18977,6 +19006,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &43843702221618521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19445,6 +19475,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD53C\uD574 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4938773959321723779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19685,6 +19716,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACE8\uB4DC\uD68D\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &411578179364021046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20059,6 +20091,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uC2E0\uC0B4"
+  m_ID: 0
 --- !u!114 &8880788483789930950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20564,6 +20597,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &1715502414211963414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20901,6 +20935,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7\uCD08, 5\uCD08"
+  m_ID: 0
 --- !u!114 &6786289827009936577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21371,6 +21406,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &7511287178510643777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21547,6 +21583,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD22C\uC0AC\uCCB4 \uD328\uB9C1"
+  m_ID: 0
 --- !u!114 &7633380149055557118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22435,6 +22472,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &709932074442312694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23015,6 +23053,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3874871685161344072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23288,6 +23327,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &990603361373664661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23770,6 +23810,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD22C\uC0AC\uCCB4 \uD30C\uAD34"
+  m_ID: 0
 --- !u!114 &4376710239155937804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24294,6 +24335,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3368838854109003686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24951,6 +24993,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD68D\uB4DD\uBC94\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4786852022392314149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25224,6 +25267,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD53C\uD574 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2472367441573643054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25475,6 +25519,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &965923630170491341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27312,6 +27357,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uC9C0\uC18D\uC2DC\uAC04 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &1122133636274457114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27521,9 +27567,8 @@ MonoBehaviour:
   maxTrainingLevel: -2
   training_IMG: {fileID: 5049052303394609765}
   training_Category: 16
-  training_Text: "\uC800\uC8FC\n\uB2E8\uB828 \uD69F\uC218 1\uB2F9 \uC801\uAD70\uC774
-    10% \uAC15\uD654\uB418\uC9C0\uB9CC, \uC2A4\uD3F0\uB960\uB3C4 10% \uC99D\uAC00\uD55C\uB2E4.\r\n(\uC81C\uD55C
-    \uC5C6\uC74C)"
+  training_Text: "\uB2E8\uB828 \uD69F\uC218 1\uB2F9 \uC801\uC774 1\uB9C8\uB9AC\uC529
+    \uCD94\uAC00 \uC2A4\uD3F0\uB41C\uB2E4.\n(\uC81C\uD55C \uC5C6\uC74C)"
   trainingCount: 0
   tinyCells: []
   isDisplayLv: 1
@@ -28508,6 +28553,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2926760965688618008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29349,6 +29395,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6937283627157130770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30156,6 +30203,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &8974660038305725728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30996,6 +31044,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3896295501004881622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31172,6 +31221,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uBC94\uC704 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &103224205091769383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31523,6 +31573,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &897891916385973934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31734,6 +31785,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uBC94\uC704 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &7616546251627637794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31910,6 +31962,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uC9C0\uC18D\uC2DC\uAC04 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6950879311682456407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32258,6 +32311,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &312400581911052158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32734,6 +32788,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD53C\uD574 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2122595676424779062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33046,6 +33101,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCCB4\uB825\uD68C\uBCF5 1 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4151736407763248594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33846,6 +33902,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uACA9 \uC2DC \uBB34\uC801 0.1\uCD08"
+  m_ID: 0
 --- !u!114 &2681559133235943900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34022,6 +34079,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD53C\uD574 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6453057960702749769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34550,6 +34608,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD53C\uD574 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &636868053602634989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35325,6 +35384,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACE8\uB4DC\uD68D\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6176550874633554659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36024,6 +36084,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3648827835124169199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37572,6 +37633,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &6287779100943999954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38181,6 +38243,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uC9C0\uC18D\uC2DC\uAC04 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2494237454628703481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38867,6 +38930,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD53C\uD574\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2279332723578340898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39285,6 +39349,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCCB4\uB825\uD68C\uBCF5 1 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2006555408069942110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39686,6 +39751,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2033128742094589536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39997,6 +40063,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &218342210744821229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40173,6 +40240,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCCB4\uB825\uD68C\uBCF5 1 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &645593459381382798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40483,6 +40551,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uC18D\uB3C4 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3355279274939175242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40944,6 +41013,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &7641858195951030529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41405,6 +41475,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &5164380075877970527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41656,6 +41727,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2732238742244829711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41831,6 +41903,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uB300\uC801\uC790"
+  m_ID: 0
 --- !u!114 &592944045815369175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42336,6 +42409,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &8579376261021692405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42512,6 +42586,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &3853293138092103698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43786,6 +43861,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCCB4\uB825\uD68C\uBCF5 1 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &5830420394846719517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44037,6 +44113,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC30\uB9AC\uC5B4 \uD68C\uBCF5 7\uCD08, 5\uCD08"
+  m_ID: 0
 --- !u!114 &962471109190369567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44424,6 +44501,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACE8\uB4DC\uD68D\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &1723796748999804802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44938,6 +45016,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCFE8\uD0C0\uC784 5% \uAC10\uC18C"
+  m_ID: 0
 --- !u!114 &7165844237214254321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45267,6 +45346,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACF5\uACA9\uBC94\uC704 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &7168645594017738395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45615,6 +45695,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB7C9 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4722467831995420819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48182,6 +48263,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6284323399330428523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48855,6 +48937,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD68D\uB4DD\uBC94\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &780484747235789852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49031,6 +49114,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &6827254931149096606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49355,6 +49439,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uBC29\uC5B4\uB825 2 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &5869975256903404647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50397,6 +50482,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &2865964079869453096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50803,6 +50889,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uD68D\uB4DD\uBC94\uB4DD 5% \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &5343840317028182728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50979,6 +51066,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uB300\uC26C + 1"
+  m_ID: 0
 --- !u!114 &3636172126917446635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51552,6 +51640,7 @@ MonoBehaviour:
   clicked: 0
   m_Line: {fileID: 0}
   m_Text: "\uCD5C\uB300\uCCB4\uB825 10 \uC99D\uAC00"
+  m_ID: 0
 --- !u!114 &4089815206486130101
 MonoBehaviour:
   m_ObjectHideFlags: 0

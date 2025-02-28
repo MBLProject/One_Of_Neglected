@@ -1,13 +1,13 @@
 {
-    "gold": 10000000,
+    "gold": 9986937,
     "bless_Point": 19,
-    "remnants_Point": 15,
+    "remnants_Point": 5,
     "causalityLv": 1,
     "causalityEXP": 0.10000000149011612,
     "class_Unlocked": [
         true,
         false,
-        false
+        true
     ],
     "MaxHp_TrainingCount": 0,
     "HpRegen_TrainingCount": 0,
@@ -21,11 +21,11 @@
     "ATKRange_TrainingCount": 0,
     "Duration_TrainingCount": 0,
     "Cooldown_TrainingCount": 0,
-    "Revival_TrainingCount": 0,
+    "Revival_TrainingCount": 2,
     "Magnet_TrainingCount": 0,
     "Growth_TrainingCount": 0,
     "Greed_TrainingCount": 0,
     "Curse_TrainingCount": 0,
-    "Reroll_TrainingCount": 0,
-    "Banish_TrainingCount": 0
+    "Reroll_TrainingCount": 3,
+    "Banish_TrainingCount": 2
 }
