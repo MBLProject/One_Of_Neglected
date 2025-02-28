@@ -29,7 +29,6 @@ public class UnitManager : Singleton<UnitManager>
     private int tankMonsterSpawnCount = 8;  // 탱크 몬스터 총 스폰 수
     private int tankMonsterKillCount = 0;   // 탱크 몬스터 처치 수
 
-
     [Header("스폰 설정")]
     [SerializeField] private int maxRangedMonsterCount = 20;
     [SerializeField] private int maxTotalMonsterCount = 100;
@@ -156,7 +155,7 @@ public class UnitManager : Singleton<UnitManager>
         int curseBonus = Mathf.FloorToInt(DataManager.Instance.BTS.Curse / 10f);
         spawnCount += curseBonus;
 
-        Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
+        // Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
         for (int i = 0; i < spawnCount; i++)
         {
             if (GetActiveMonsterCount() >= maxTotalMonsterCount) break;

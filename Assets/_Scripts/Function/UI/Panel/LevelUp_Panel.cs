@@ -56,9 +56,10 @@ public class LevelUp_Panel : Panel
         get { return aug_Infos; }
         private set { aug_Property = aug_Infos; }
     }
-
+    private SkillDispenser skillDispenser;
     private void Awake()
     {
+        skillDispenser = UnitManager.Instance.GetPlayer().gameObject.GetComponent<SkillDispenser>();
         augUpCount = 0;
         if (skill_Infos == null) { skill_Infos = new List<Skill_Info>(); }
 
@@ -156,15 +157,22 @@ public class LevelUp_Panel : Panel
             current_Selections[i].m_BTN.onClick.AddListener(current_Selections[i].Select_BTN);
             current_Selections[i].gameObject.SetActive(true);
             current_Selections[i].m_selectionBG_IMG.color = Color.white;
+
         }
         List<Enums.SkillName> popSkill_List = inGameUI_Panel.skillSelector.SelectSkills();
         if (popSkill_List.Count == 2)
         {
             current_Selections[2].gameObject.SetActive(false);
+
         }
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
         {
+            if (skillDispenser.skills.ContainsKey(popSkill_List[i]))
+            {
+                Debug.Log($"뽑은 스킬 :{popSkill_List[i]}");
+                Debug.Log($"Lv : {skillDispenser.skills[popSkill_List[i]].level}");
+            }
             skill_Info = skill_Info_Dic[popSkill_List[i]];
             current_Selections[i].m_skillName = skill_Info.skill_Name;
             current_Selections[i].display_Name.text = skill_Info.display_Name;
