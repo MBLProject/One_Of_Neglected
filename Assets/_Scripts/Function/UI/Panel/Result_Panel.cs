@@ -6,8 +6,8 @@ using UnityEngine;
 public class Result_Panel : Panel
 {
 
-    [SerializeField] Major_Panel major_Panel;
-    [SerializeField] Particular_Panel particular_Panel;
+    public Major_Panel major_Panel;
+    public Particular_Panel particular_Panel;
 
     private void OnEnable()
     {

@@ -51,7 +51,6 @@ public class Major_Panel : MonoBehaviour
 
         SkillIconSetting();
         BaseInfoSetting();
-        AugInfoSetting();
         SkillInfoSetting(ref levelUp_Panel.m_MainSkills, true);
         SkillInfoSetting(ref levelUp_Panel.m_SubSkills, false, levelUp_Panel.m_MainSkills.Count);
     }
@@ -101,12 +100,13 @@ public class Major_Panel : MonoBehaviour
     }
 
     //증강 정보
-    private void AugInfoSetting()
+    public void AugInfoSetting()
     {
-        if (levelUp_Panel.augUpCount_Property - 1 < 0) return;
+        if (levelUp_Panel.augUpCount_Property < 0) return;
+        Debug.Log("흠");
         augment_TMP.augName.text =
         levelUp_Panel.aug_Property.
-        aug_Name[levelUp_Panel.augUpCount_Property - 1];
+        aug_Name[levelUp_Panel.augUpCount_Property];
 
         augment_TMP.augDamage.text =
         DataManager.Instance.currentDamageStats.augmentDamages[levelUp_Panel.aug_Property.aug_Type[0]].ToString();

@@ -205,6 +205,7 @@ public class LevelUp_Panel : Panel
                 current_Selections[i].info_TMP.text = aug_Infos.aug_Text[i];
                 current_Selections[i].icon_IMG.sprite = aug_Infos.aug_Icon[i];
                 current_Selections[i].m_selectionBG_IMG.color = Color.yellow;
+                UI_Manager.Instance.panel_Dic["Result_Panel"].GetComponent<Result_Panel>().major_Panel.AugInfoSetting();
             }
         }
         else
@@ -222,6 +223,7 @@ public class LevelUp_Panel : Panel
             current_Selections[0].info_TMP.text = aug_Infos.aug_Text[augUpCount];
             current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[0];
             current_Selections[0].m_selectionBG_IMG.color = Color.yellow;
+            UI_Manager.Instance.panel_Dic["Result_Panel"].GetComponent<Result_Panel>().major_Panel.AugInfoSetting();
             augUpCount++;
         }
 
