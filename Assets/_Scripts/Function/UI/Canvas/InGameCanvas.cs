@@ -15,6 +15,10 @@ public class InGameCanvas : MonoBehaviour
         {
             LevelUpBTN();
         }
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            UI_Manager.Instance.panel_Dic["LevelUp_Panel"].GetComponent<LevelUp_Panel>().AugSelections();
+        }
     }
 
     private void LevelUpBTN()

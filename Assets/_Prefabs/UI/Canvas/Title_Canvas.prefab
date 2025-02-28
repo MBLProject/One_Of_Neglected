@@ -21213,7 +21213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 33.468018}
   m_SizeDelta: {x: 0, y: 1140.8}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2442965991485864349
@@ -26520,8 +26520,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4954467908292394535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.48895514}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.45961782}
+  m_AnchorMax: {x: 1, y: 0.9706627}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 4, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -46734,7 +46734,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6962965361244686541}
   m_HandleRect: {fileID: 743465967505535792}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.94
   m_Size: 0.51104486
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -62774,6 +62774,53 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoryMember
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081721159593638579, guid: 13ee34a47f09f60499b25d0dc0900d6d,
+        type: 3}
+      propertyPath: m_text
+      value: "[\uC6A9\uC0AC\uAC00 \uC5C6\uB294 \uC138\uACC4\uC120\uC758 \uC774\uC57C\uAE30]\n\uC6A9\uC0AC\uAC00
+        \uB098\uD0C0\uB098 \uB9C8\uC655\uC744 \uBB3C\uB9AC\uCCE4\uC5B4\uC694- \uB77C\uB294
+        \uB0B4\uC6A9\uC758 \uC774\uC57C\uAE30\uB294 \uC5B8\uC81C\uB098 \uD55C\uACB0\uAC19\uB2E4.
+        \uB9C8\uC655\uAD70\uC774 \uCE68\uACF5\uD574\uB3C4, \uC5B4\uB514\uC120\uAC00
+        \uC6A9\uC0AC\uAC00 \uB098\uD0C0\uB098 \uB9C8\uC655\uAD70\uC744 \uBB3C\uB9AC\uCE58\uACE0
+        \uB2E4\uC2DC \uC138\uACC4\uC5D0 \uD3C9\uD654\uB97C \uCC3E\uC544\uC628\uB2E4\uB294
+        \uC774\uC57C\uAE30. \uD558\uC9C0\uB9CC \uB9C8\uC655\uAD70\uC774 \uCE68\uACF5\uC911\uC778
+        \uC774 \uC138\uACC4\uC5D4 \uC544\uC9C1 \uC6A9\uC0AC\uAC00 \uC5C6\uB2E4. \uB9C8\uC871\uC5D0
+        \uB9C8\uC655\uC774 \uD0DC\uC5B4\uB0A8\uC5D0\uB530\uB77C \uADE0\uD615\uC744
+        \uB9DE\uCD94\uAE30 \uC704\uD574 \uC778\uAC04\uC5D0\uAC8C\uB3C4 \uC6A9\uC0AC\uAC00
+        \uD0DC\uC5B4\uB0AC\uC5B4\uC57C\uD558\uB098, \uC54C \uC218 \uC5C6\uB294 \uC774\uC720\uB85C
+        \uC6A9\uC0AC\uAC00 \uB098\uD0C0\uB098\uC9C0 \uC54A\uC544 \uC804\uC138\uAC00
+        \uBC00\uB9AC\uB358 \uC911 \uC655\uAD6D\uC740 \uC131\uBB38\uC744 \uAD73\uAC8C
+        \uAC78\uC5B4 \uC7A0\uADF8\uBA70 \uACFC\uAC70\uC5D0 \uC9C4\uD589\uB41C \uC6A9\uC0AC
+        \uC18C\uD658 \uC758\uC2DD\uC744 \uD1B5\uD574 \uC778\uC704\uC801\uC73C\uB85C
+        \uC6A9\uC0AC\uB97C \uC18C\uD658\uD558\uAE30\uC5D0 \uC774\uB978\uB2E4. \uADF8\uB7EC\uB098
+        \uC6A9\uC0AC\uB294 \uC624\uB79C\uC2DC\uAC04 \uC18C\uD658\uB418\uC9C0 \uC54A\uC558\uC73C\uBA70...
+        \uBC31\uC131\uB4E4\uC740 \uC5B8\uC81C \uC18C\uD658\uB420\uC9C0 \uBAA8\uB97C
+        \uC6A9\uC0AC\uB97C \uAE30\uB2E4\uB9AC\uBA70 \uD558\uB8E8\uD558\uB8E8\uB97C
+        \uC0B4\uC544\uB0A8\uAE30\uC704\uD574 \uBC1C\uBC84\uB465\uCE5C\uB2E4. \uC774
+        \uAC8C\uC784\uC740 \uBC29\uCE58\uB41C \uC138\uACC4 \uC18D\uC5D0\uC11C, \uC6A9\uC0AC\uAC00
+        \uB098\uD0C0\uB098\uAE30\uAE4C\uC9C0 \uC655\uAD6D\uC744 \uC9C0\uD0A4\uB824\uB294
+        \uD55C \uBCD1\uC0AC\uC758 \uC774\uC57C\uAE30\uC774\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081721159593638579, guid: 13ee34a47f09f60499b25d0dc0900d6d,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081721159593638579, guid: 13ee34a47f09f60499b25d0dc0900d6d,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: 134.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081721159593638579, guid: 13ee34a47f09f60499b25d0dc0900d6d,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081721159593638579, guid: 13ee34a47f09f60499b25d0dc0900d6d,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

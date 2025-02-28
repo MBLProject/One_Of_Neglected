@@ -13,7 +13,7 @@
     "Cooldown": 0.0,
     "Revival": 0,
     "Magnet": 0.0,
-    "Growth": 0.0,
+    "Growth": 100000.0,
     "Greed": 0.0,
     "Curse": 0.0,
     "Reroll": 0,

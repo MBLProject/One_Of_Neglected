@@ -37,7 +37,7 @@ public class UnitManager : Singleton<UnitManager>
     private int currentSpawnIndex = 0;
     private MonsterSpawnData[] monsterSpawnTable = new MonsterSpawnData[]
     {
-         new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // 0초
+         new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // n초 n마리
          new MonsterSpawnData { gameTime = 0.33f, spawnCount = 2 },  // 10초 20
          new MonsterSpawnData { gameTime = 0.50f, spawnCount = 3 },  // 20초 30
          new MonsterSpawnData { gameTime = 0.67f, spawnCount = 4 },  // 30초 40
@@ -183,35 +183,35 @@ public class UnitManager : Singleton<UnitManager>
         }
 
         // 테스트용 키 입력
-        if (Input.GetKeyDown(KeyCode.U))  // U키: 유니크 몬스터 소환 테스트
-        {
-            Debug.Log("유니크 몬스터 소환 테스트 시작");
-            SpawnUniqueMonster();
-        }
+        // if (Input.GetKeyDown(KeyCode.U))  // U키: 유니크 몬스터 소환 테스트
+        // {
+        //     Debug.Log("유니크 몬스터 소환 테스트 시작");
+        //     SpawnUniqueMonster();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.T))  // T키: 탱크 유니크 몬스터 진형 테스트
-        {
-            Debug.Log("탱크 유니크 몬스터 진형 테스트 시작");
-            SpawnTankUniquesInFormation();
-        }
+        // if (Input.GetKeyDown(KeyCode.T))  // T키: 탱크 유니크 몬스터 진형 테스트
+        // {
+        //     Debug.Log("탱크 유니크 몬스터 진형 테스트 시작");
+        //     SpawnTankUniquesInFormation();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))  // 1키: 세로 진형
-        {
-            Debug.Log("탱크 유니크 몬스터 세로 진형 테스트");
-            SpawnVerticalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha1))  // 1키: 세로 진형
+        // {
+        //     Debug.Log("탱크 유니크 몬스터 세로 진형 테스트");
+        //     SpawnVerticalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))  // 2키: 가로 진형
-        {
-            Debug.Log("탱크 유니크 몬스터 가로 진형 테스트");
-            SpawnHorizontalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha2))  // 2키: 가로 진형
+        // {
+        //     Debug.Log("탱크 유니크 몬스터 가로 진형 테스트");
+        //     SpawnHorizontalFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))  // 3키: 원형 진형
-        {
-            Debug.Log("탱크 유니크 몬스터 원형 진형 테스트");
-            SpawnCircularFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha3))  // 3키: 원형 진형
+        // {
+        //     Debug.Log("탱크 유니크 몬스터 원형 진형 테스트");
+        //     SpawnCircularFormation(currentPlayer.transform.position);  // 플레이어 위치 사용
+        // }
 
         // 자석 효과로 이동 중인 오브젝트들 업데이트
         UpdateMagnetizedObjects();

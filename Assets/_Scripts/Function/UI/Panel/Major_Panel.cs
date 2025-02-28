@@ -36,21 +36,23 @@ public class Major_Panel : MonoBehaviour
     [SerializeField] private GameObject skillMemeber_Prefab;
     public Augment_TMP augment_TMP;
     public List<SkillMember> skillMembers;
-    private InGameUI_Panel inGameUI_Panel;
-    private LevelUp_Panel levelUp_Panel;
+    public InGameUI_Panel inGameUI_Panel;
+    public LevelUp_Panel levelUp_Panel;
 
     private void Start()
     {
-        inGameUI_Panel =
-        UI_Manager.Instance.panel_Dic["InGameUI_Panel"].
-        GetComponent<InGameUI_Panel>();
-
-        levelUp_Panel =
-        UI_Manager.Instance.panel_Dic["LevelUp_Panel"].
-        GetComponent<LevelUp_Panel>();
+        if (inGameUI_Panel == null)
+            inGameUI_Panel =
+            UI_Manager.Instance.panel_Dic["InGameUI_Panel"].
+            GetComponent<InGameUI_Panel>();
+        if (levelUp_Panel == null)
+            levelUp_Panel =
+            UI_Manager.Instance.panel_Dic["LevelUp_Panel"].
+            GetComponent<LevelUp_Panel>();
 
         SkillIconSetting();
         BaseInfoSetting();
+        AugInfoSetting();
         SkillInfoSetting(ref levelUp_Panel.m_MainSkills, true);
         SkillInfoSetting(ref levelUp_Panel.m_SubSkills, false, levelUp_Panel.m_MainSkills.Count);
     }
@@ -103,14 +105,18 @@ public class Major_Panel : MonoBehaviour
     public void AugInfoSetting()
     {
         if (levelUp_Panel.augUpCount_Property < 0) return;
-        Debug.Log("흠");
+
         augment_TMP.augName.text =
-        levelUp_Panel.aug_Property.
-        aug_Name[levelUp_Panel.augUpCount_Property];
-
-        augment_TMP.augDamage.text =
-        DataManager.Instance.currentDamageStats.augmentDamages[levelUp_Panel.aug_Property.aug_Type[0]].ToString();
-
+        levelUp_Panel.aug_Property.aug_Name[levelUp_Panel.augUpCount - 1];
+        try
+        {
+            augment_TMP.augDamage.text =
+            DataManager.Instance.currentDamageStats.augmentDamages[levelUp_Panel.aug_Property.aug_Type[0]].ToString();
+        }
+        catch
+        {
+            augment_TMP.augDamage.text = "0";
+        }
         float time = TimeManager.Instance.gameTime -
                      levelUp_Panel.aug_Property.selectedTime;
 

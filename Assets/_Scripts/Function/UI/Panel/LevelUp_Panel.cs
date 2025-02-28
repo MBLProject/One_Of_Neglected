@@ -42,7 +42,7 @@ public class LevelUp_Panel : Panel
     public Dictionary<Enums.SkillName, float> m_SubSkill_Time =
     new Dictionary<Enums.SkillName, float>();
 
-    private int augUpCount = 0;
+    public int augUpCount = 0;
     public bool isAugSelected = false;
 
     public int augUpCount_Property
@@ -111,7 +111,7 @@ public class LevelUp_Panel : Panel
         inGameUI_Panel.display_Level_TMP.text =
         "Lv." + UnitManager.Instance.GetPlayer().Stats.CurrentLevel.ToString();
 
-        if (augUpCount < 4 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
+        if (augUpCount <= 4 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {   //TODO : 최대 레벨설정
             //증강과 특성 선택하는 메서드
             AugSelections();
@@ -168,11 +168,6 @@ public class LevelUp_Panel : Panel
         Skill_Info skill_Info;
         for (int i = 0; i < popSkill_List.Count; i++)
         {
-            if (skillDispenser.skills.ContainsKey(popSkill_List[i]))
-            {
-                Debug.Log($"뽑은 스킬 :{popSkill_List[i]}");
-                Debug.Log($"Lv : {skillDispenser.skills[popSkill_List[i]].level}");
-            }
             skill_Info = skill_Info_Dic[popSkill_List[i]];
             current_Selections[i].m_skillName = skill_Info.skill_Name;
             current_Selections[i].display_Name.text = skill_Info.display_Name;
@@ -188,7 +183,7 @@ public class LevelUp_Panel : Panel
             current_Selections[i].icon_IMG.sprite = skill_Info.skill_Sprite;
         }
     }
-    private void AugSelections()
+    public void AugSelections()
     {
         if (isAugSelected == false)
         {
@@ -205,7 +200,6 @@ public class LevelUp_Panel : Panel
                 current_Selections[i].info_TMP.text = aug_Infos.aug_Text[i];
                 current_Selections[i].icon_IMG.sprite = aug_Infos.aug_Icon[i];
                 current_Selections[i].m_selectionBG_IMG.color = Color.yellow;
-                UI_Manager.Instance.panel_Dic["Result_Panel"].GetComponent<Result_Panel>().major_Panel.AugInfoSetting();
             }
         }
         else
@@ -217,14 +211,15 @@ public class LevelUp_Panel : Panel
             current_Selections[0].m_BTN.onClick.RemoveAllListeners();
             current_Selections[0].m_BTN.onClick.AddListener(current_Selections[0].Select_BTN2);
             current_Selections[0].m_augType = aug_Infos.aug_Type[0];
-            Debug.Log($"Selection : {current_Selections[0].m_augType}");
-            Debug.Log($"augInfo : {aug_Infos.aug_Type[0]}");
+            Debug.Log(augUpCount);
+            foreach (string s in aug_Infos.aug_Name)
+            {
+                Debug.Log(s);
+            }
             current_Selections[0].display_Name.text = aug_Infos.aug_Name[augUpCount];
             current_Selections[0].info_TMP.text = aug_Infos.aug_Text[augUpCount];
             current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[0];
             current_Selections[0].m_selectionBG_IMG.color = Color.yellow;
-            UI_Manager.Instance.panel_Dic["Result_Panel"].GetComponent<Result_Panel>().major_Panel.AugInfoSetting();
-            augUpCount++;
         }
 
     }
