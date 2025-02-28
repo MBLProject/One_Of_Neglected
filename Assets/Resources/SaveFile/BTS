@@ -1,9 +1,9 @@
 {
-    "MaxHp": 100,
+    "MaxHp": 11111111,
     "HpRegen": 0.0,
     "Defense": 0,
-    "Mspd": 0.0,
-    "ATK": 50.0,
+    "Mspd": 1111111.0,
+    "ATK": 111.0,
     "Aspd": 30.0,
     "CriRate": 40.0,
     "CriDamage": 50.0,

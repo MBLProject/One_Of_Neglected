@@ -619,7 +619,9 @@ public abstract class Player : MonoBehaviour
         switch (worldObject.objectType)
         {
             case WorldObjectType.ExpBlue:
-                ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
+                int expAmount = worldObject.GetExpAmount();
+                //ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
+                ProcessExperience(expAmount * stats.CurrentGrowth);
                 break;
             case WorldObjectType.ExpBlack:
                 ProcessExperience(stats.CurrentMaxExp * stats.CurrentGrowth);
