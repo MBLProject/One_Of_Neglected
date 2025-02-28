@@ -22,6 +22,7 @@ public class Result_Panel : Panel
     private void Title_BTN()
     {
         Time.timeScale = 1;
+        UnitManager.Instance.GetPlayer().GetComponent<AugmentSelector>().RemoveAllAugments();
         Destroy(GameManager.Instance.gameObject);
         Destroy(UnitManager.Instance.gameObject);
         Destroy(ProjectileManager.Instance.gameObject);

@@ -111,6 +111,7 @@ public class Option_Panel : Panel
     private void ReturnTitle_BTN()
     {
         Time.timeScale = 1;
+        UnitManager.Instance.GetPlayer().GetComponent<AugmentSelector>().RemoveAllAugments();
         Destroy(GameManager.Instance.gameObject);
         Destroy(UnitManager.Instance.gameObject);
         Destroy(ProjectileManager.Instance.gameObject);

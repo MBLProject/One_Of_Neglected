@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using static Enums;
+using System.Threading;
 
 [Serializable]
 public abstract class Augment
@@ -45,10 +46,12 @@ public abstract class TimeBasedAugment : Augment
 {
     private float baseInterval;
     protected float interval => baseInterval * owner.Stats.CurrentCooldown;
+    private CancellationTokenSource cts;
     
     public TimeBasedAugment(Player owner, float interval) : base(owner)
     {
         this.baseInterval = interval;
+        this.cts = new CancellationTokenSource();
     }
     
     protected void ModifyBaseInterval(float amount)
@@ -59,18 +62,33 @@ public abstract class TimeBasedAugment : Augment
     
     protected override async void StartAugment()
     {
-        while (isActive)
+        try 
         {
-            if (!GameManager.Instance.isPaused)
+            while (isActive)
             {
-                OnTrigger();
-                await UniTask.Delay(TimeSpan.FromSeconds(interval));
-            }
-            else
-            {
-                await UniTask.Yield();
+                if (!GameManager.Instance.isPaused)
+                {
+                    OnTrigger();
+                    await UniTask.Delay(TimeSpan.FromSeconds(interval), cancellationToken: cts.Token);
+                }
+                else
+                {
+                    await UniTask.Yield(cts.Token);
+                }
             }
         }
+        catch (OperationCanceledException)
+        {
+            // 작업이 취소되면 조용히 종료
+        }
+    }
+    
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        cts.Cancel();
+        cts.Dispose();
+        cts = new CancellationTokenSource();
     }
     
     protected abstract void OnTrigger();

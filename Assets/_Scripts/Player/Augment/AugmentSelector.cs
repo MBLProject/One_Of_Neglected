@@ -99,4 +99,23 @@ public class AugmentSelector : MonoBehaviour
         }
         return new List<AugmentName>();
     }
+
+    public void RemoveAugment(AugmentName augmentName)
+    {
+        var augment = activeAugments.FirstOrDefault(aug => aug.AugmentName == augmentName);
+        if (augment != null)
+        {
+            augment.Deactivate();
+            activeAugments.Remove(augment);
+        }
+    }
+
+    public void RemoveAllAugments()
+    {
+        foreach (var augment in activeAugments.ToList())
+        {
+            augment.Deactivate();
+        }
+        activeAugments.Clear();
+    }
 }

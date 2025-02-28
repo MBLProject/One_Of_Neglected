@@ -23,13 +23,16 @@ public class Aug_BigSword : TimeBasedAugment
 
     protected override async void OnTrigger()
     {
+        if (owner == null) return;
 
         if (level >= 5)
         {
             SpawnProjectile();
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f / owner.Stats.CurrentAspd));
+            if (owner == null) return;
             SpawnProjectile();
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f / owner.Stats.CurrentAspd));
+            if (owner == null) return;
             SpawnSubProjectile();
         }
         else
@@ -40,6 +43,8 @@ public class Aug_BigSword : TimeBasedAugment
 
     private void SpawnProjectile()
     {
+        if (owner == null) return;
+        
         SoundManager.Instance.Play("ShockWave", SoundManager.Sound.Effect, 1.0f, false, 0.3f);
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "EarthquakeProjectile",
@@ -54,6 +59,8 @@ public class Aug_BigSword : TimeBasedAugment
     }
     private void SpawnSubProjectile()
     {
+        if (owner == null) return;
+        
         SoundManager.Instance.Play("ShockWave", SoundManager.Sound.Effect, 1.0f, false, 0.3f);
         ProjectileManager.Instance.SpawnPlayerProjectile(
             "SubEarthquakeProjectile",
