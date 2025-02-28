@@ -67,8 +67,8 @@ public class Major_Panel : MonoBehaviour
             GameObject member = Instantiate(skillMemeber_Prefab, skillMemberParent, false);
 
             skillMembers.Add(member.GetComponent<SkillMember>());
-            Debug.Log($"i : {i}");
-            Debug.Log($"startIdx : {startIdx}");
+            // Debug.Log($"i : {i}");
+            // Debug.Log($"startIdx : {startIdx}");
             skillMembers[startIdx].icon.sprite =
             levelUp_Panel.FindSkillIcon(skillNames[i]);
 

@@ -45,18 +45,17 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-
     public void Init()
     {
         string[] soundNames = System.Enum.GetNames(typeof(Sound));
-        
+
         GameObject bgmGo = new GameObject { name = soundNames[(int)Sound.Bgm] };
         _audioSources[(int)Sound.Bgm] = bgmGo.AddComponent<AudioSource>();
         bgmGo.transform.parent = transform;
-        
+
         GameObject effectRoot = new GameObject { name = "EffectSources" };
         effectRoot.transform.parent = transform;
-        
+
         for (int i = 0; i < EFFECT_SOURCE_COUNT; i++)
         {
             GameObject go = new GameObject { name = $"EffectSource_{i}" };
@@ -64,8 +63,8 @@ public class SoundManager : Singleton<SoundManager>
             AudioSource source = go.AddComponent<AudioSource>();
             _effectSourcePool.Enqueue(source);
         }
-        
-        _audioSources[(int)Sound.Effect] = _effectSourcePool.Peek(); 
+
+        _audioSources[(int)Sound.Effect] = _effectSourcePool.Peek();
 
         _audioSources[(int)Sound.Bgm].loop = true;
         SetMasterVolume(0.5f * 100);
@@ -84,7 +83,7 @@ public class SoundManager : Singleton<SoundManager>
             source.clip = null;
             source.Stop();
         }
-        
+
         _isProcessingQueue = false;
         _effectQueue.Clear();
     }
@@ -123,7 +122,7 @@ public class SoundManager : Singleton<SoundManager>
         else
         {
             _effectQueue.Enqueue(new SoundEffect(audioClip, pitch, volume));
-            
+
             if (!_isProcessingQueue)
             {
                 ProcessEffectQueue().Forget();
@@ -155,11 +154,11 @@ public class SoundManager : Singleton<SoundManager>
                 }
                 else
                 {
-                    AudioClip[] allClips = Resources.LoadAll<AudioClip>("Sounds");
-                    foreach (var clip in allClips)
-                    {
-                        Debug.Log($"- {clip.name}");
-                    }
+                    // AudioClip[] allClips = Resources.LoadAll<AudioClip>("Sounds");
+                    // foreach (var clip in allClips)
+                    // {
+                    //     // Debug.Log($"- {clip.name}");
+                    // }
                 }
             }
         }
@@ -235,7 +234,7 @@ public class SoundManager : Singleton<SoundManager>
                 return source;
             }
         }
-        
+
         AudioSource oldestSource = _effectSourcePool.Dequeue();
         _effectSourcePool.Enqueue(oldestSource);
         return oldestSource;
@@ -248,19 +247,19 @@ public class SoundManager : Singleton<SoundManager>
         while (_effectQueue.Count > 0)
         {
             var effect = _effectQueue.Dequeue();
-            
+
             AudioSource availableSource = GetAvailableEffectSource();
             if (availableSource != null)
             {
                 availableSource.pitch = effect.Pitch;
                 availableSource.volume = masterVolume * effectVolume;
                 availableSource.PlayOneShot(effect.Clip, effect.Volume);
-                
+
                 float delay = Mathf.Max(0.05f, effect.Clip.length * 0.0001f);
                 await UniTask.Delay(TimeSpan.FromSeconds(delay));
             }
         }
-        
+
         _isProcessingQueue = false;
     }
 }

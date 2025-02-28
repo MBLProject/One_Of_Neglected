@@ -236,7 +236,7 @@ public abstract class MonsterBase : MonoBehaviour
     }
     public virtual void TakeDamage(float damage)
     {
-        SoundManager.Instance.Play("MonsterAttacked", SoundManager.Sound.Effect, 1f, false, 1f);
+        SoundManager.Instance.Play("MonsterAttacked_Test", SoundManager.Sound.Effect, 1f, false, 1f);
         stats.currentHealth -= damage;
         ShowDamageFont(transform.position, damage, transform);
         animator?.SetTrigger("Hit");

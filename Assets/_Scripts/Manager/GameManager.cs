@@ -73,7 +73,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.LogError("TimeManager is not initialized!");
+            // Debug.LogError("TimeManager is not initialized!");
         }
 
         if (UnitManager.Instance != null)
@@ -82,7 +82,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.LogError("UnitManager is not initialized!");
+            // Debug.LogError("UnitManager is not initialized!");
         }
     }
 

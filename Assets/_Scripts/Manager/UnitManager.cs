@@ -146,7 +146,7 @@ public class UnitManager : Singleton<UnitManager>
 
         if (currentGameTime >= 10.0f)
         {
-            Debug.Log("[UnitManager] 10분 경과 - 보스전 시작");
+            // Debug.Log("[UnitManager] 10분 경과 - 보스전 시작");
             SpawnBossMonster();
             return;
         }
@@ -184,7 +184,7 @@ public class UnitManager : Singleton<UnitManager>
         if (Time.time >= nextBoxSpawnTime)
         {
             SpawnBoxMonster();
-            Debug.Log("상자 생성됨");
+            // Debug.Log("상자 생성됨");
             nextBoxSpawnTime = Time.time + boxSpawnInterval;
         }
 
@@ -249,7 +249,7 @@ public class UnitManager : Singleton<UnitManager>
         if (killCount >= 1000)
         {
             SpawnUniqueMonster();
-            Debug.Log($"킬 카운트 {killCount} 달성으로 유니크 몬스터 소환");
+            // Debug.Log($"킬 카운트 {killCount} 달성으로 유니크 몬스터 소환");
         }
     }
     private int GetRangedMonsterCount()
@@ -271,11 +271,11 @@ public class UnitManager : Singleton<UnitManager>
         if (currentBoss != null)
         {
             activeMonsters.Add(currentBoss);
-            Debug.Log("[UnitManager] 보스 몬스터 생성 완료");
+            // Debug.Log("[UnitManager] 보스 몬스터 생성 완료");
         }
         else
         {
-            Debug.LogError("[UnitManager] 보스 몬스터 컴포넌트를 찾을 수 없음");
+            // Debug.LogError("[UnitManager] 보스 몬스터 컴포넌트를 찾을 수 없음");
         }
     }
 
@@ -308,34 +308,34 @@ public class UnitManager : Singleton<UnitManager>
         int formationRoll = Random.Range(1, 101);
         Vector2 spawnCenter = currentPlayer.transform.position;
 
-        if (formationRoll <= 40)  // 40% 확률로 세로 진형
-        {
-            SpawnVerticalFormation(spawnCenter);
-            Debug.Log("탱크 유니크 몬스터 세로 진형 소환");
-        }
-        else if (formationRoll <= 80)  // 40% 확률로 가로 진형
-        {
-            SpawnHorizontalFormation(spawnCenter);
-            Debug.Log("탱크 유니크 몬스터 가로 진형 소환");
-        }
-        else  // 20% 확률로 원형 진형
-        {
-            SpawnCircularFormation(spawnCenter);
-            Debug.Log("탱크 유니크 몬스터 원형 진형 소환");
-        }
+        // if (formationRoll <= 40)  // 40% 확률로 세로 진형
+        // {
+        //     SpawnVerticalFormation(spawnCenter);
+        //     Debug.Log("탱크 유니크 몬스터 세로 진형 소환");
+        // }
+        // else if (formationRoll <= 80)  // 40% 확률로 가로 진형
+        // {
+        //     SpawnHorizontalFormation(spawnCenter);
+        //     Debug.Log("탱크 유니크 몬스터 가로 진형 소환");
+        // }
+        // else  // 20% 확률로 원형 진형
+        // {
+        //     SpawnCircularFormation(spawnCenter);
+        //     Debug.Log("탱크 유니크 몬스터 원형 진형 소환");
+        // }
     }
     // 탱크 몬스터 킬 카운트 증가 메서드
     public void IncreaseTankMonsterKillCount()
     {
         tankMonsterKillCount++;
-        Debug.Log($"탱크 몬스터 처치 수: {tankMonsterKillCount}");
+        // Debug.Log($"탱크 몬스터 처치 수: {tankMonsterKillCount}");
     }
 
     //  탱크 몬스터 킬 카운트 리셋 메서드
     public void ResetTankMonsterKillCount()
     {
         tankMonsterKillCount = 0;
-        Debug.Log("탱크 몬스터 킬 카운트 리셋");
+        // Debug.Log("탱크 몬스터 킬 카운트 리셋");
     }
 
     //  마지막 탱크 몬스터 체크 메서드
@@ -361,7 +361,7 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+                // Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
@@ -383,7 +383,7 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+                // Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
@@ -403,7 +403,7 @@ public class UnitManager : Singleton<UnitManager>
             MonsterBase monster = SpawnMonster(MonsterType.TankUnique, spawnPos);
             if (monster != null)
             {
-                Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
+                // Debug.Log($"탱크 몬스터 생성 - 위치: {spawnPos}, 플레이어와의 거리: {Vector2.Distance(playerPos, spawnPos)}");
             }
         }
     }
@@ -414,12 +414,12 @@ public class UnitManager : Singleton<UnitManager>
         if (gameTime <= 180f)
         {
             currentNormalMonsterType = MonsterType.EarlyNormal;
-            Debug.Log("[UnitManager] 몬스?????????? EarlyNormal");
+            // Debug.Log("[UnitManager] 몬스?????????? EarlyNormal");
         }
         else if (gameTime <= 420f)
         {
             currentNormalMonsterType = MonsterType.MidNormal;
-            Debug.Log("[UnitManager] 몬스?????????? MidNormal");
+            // Debug.Log("[UnitManager] 몬스?????????? MidNormal");
         }
         else if (gameTime <= 600f)
         {
@@ -427,7 +427,7 @@ public class UnitManager : Singleton<UnitManager>
         }
         else if (gameTime >= 600f)
         {
-            Debug.Log("[UnitManager] 보스전 시작!");
+            // Debug.Log("[UnitManager] 보스전 시작!");
 
             // 게임 진행 중단 (몬스터 스폰 중지)
             isGameStarted = false;
@@ -448,7 +448,7 @@ public class UnitManager : Singleton<UnitManager>
                 TimeManager.Instance.OnMinutePassed -= SpawnStrongMonsters;
             }
 
-            Debug.Log("[UnitManager] 보스 생성 완료, 일반 몬스터 스폰 중지");
+            // Debug.Log("[UnitManager] 보스 생성 완료, 일반 몬스터 스폰 중지");
         }
     }
 

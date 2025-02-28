@@ -85,8 +85,8 @@ public class LevelUp_Panel : Panel
         {
             banish_Counter_TMP.text = DataManager.Instance.BTS.Banish.ToString();
         }
-        Debug.LogWarning("AWAKE");
-        Debug.Log(DataManager.Instance.classSelect_Type);
+        // Debug.LogWarning("AWAKE");
+        // Debug.Log(DataManager.Instance.classSelect_Type);
         switch (DataManager.Instance.classSelect_Type)
         {
             case Enums.ClassType.Warrior:
@@ -133,13 +133,13 @@ public class LevelUp_Panel : Panel
     }
     private void Banish_BTN()
     {
-        Debug.Log("배니쉬");
+        // Debug.Log("배니쉬");
         SelectionOnOff(false);
         UI_Manager.Instance.panel_Dic["Banish_Panel"].PanelOpen();
     }
     private void Reroll_BTN()
     {
-        Debug.Log("리롤");
+        // Debug.Log("리롤");
         if (DataManager.Instance.BTS.Reroll > 0)
         {
             ChangeSelections();
@@ -211,11 +211,6 @@ public class LevelUp_Panel : Panel
             current_Selections[0].m_BTN.onClick.RemoveAllListeners();
             current_Selections[0].m_BTN.onClick.AddListener(current_Selections[0].Select_BTN2);
             current_Selections[0].m_augType = aug_Infos.aug_Type[0];
-            Debug.Log(augUpCount);
-            foreach (string s in aug_Infos.aug_Name)
-            {
-                Debug.Log(s);
-            }
             current_Selections[0].display_Name.text = aug_Infos.aug_Name[augUpCount];
             current_Selections[0].info_TMP.text = aug_Infos.aug_Text[augUpCount];
             current_Selections[0].icon_IMG.sprite = aug_Infos.aug_Icon[0];

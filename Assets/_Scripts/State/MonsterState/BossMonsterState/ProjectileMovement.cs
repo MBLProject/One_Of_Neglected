@@ -42,7 +42,7 @@ public class ProjectileMovement : MonoBehaviour
             if (player != null)
             {
                 player.TakeDamage(damage);
-                Debug.Log($"[ProjectileMovement] 플레이어에게 {damage} 데미지!");
+                // Debug.Log($"[ProjectileMovement] 플레이어에게 {damage} 데미지!");
             }
             Destroy(gameObject);
         }
