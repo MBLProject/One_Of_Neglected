@@ -62,7 +62,7 @@ public class BossBasicAttackState : MonsterStateBase
         {
             float damage = boss.Stats.attackDamage;
             player.TakeDamage(damage);
-            Debug.Log($"[Boss] 데미지 적용: {damage}");
+            //Debug.Log($"[Boss] 데미지 적용: {damage}");
         }
     }
 

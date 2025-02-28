@@ -77,7 +77,7 @@ public class CrowdControlUniqueMonster : NormalMonster
         {
             stateHandler.ChangeState(typeof(CCUniqueSkillState));
             skillTimer = skillCooldown;
-            Debug.Log($"[{gameObject.name}] 돌진 스킬 사용!");
+            //Debug.Log($"[{gameObject.name}] 돌진 스킬 사용!");
         }
     }
     public void UseSkill()

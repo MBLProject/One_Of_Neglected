@@ -60,7 +60,7 @@ public class WorldObject : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"StartExpConcentration 에러: {ex}");
+            //Debug.LogError($"StartExpConcentration 에러: {ex}");
         }
     }
 
@@ -140,7 +140,7 @@ public class WorldObject : MonoBehaviour
         {
             if (!(ex is OperationCanceledException))
             {
-                Debug.LogError($"ConcentrateNearbyExp 에러: {ex}");
+               // Debug.LogError($"ConcentrateNearbyExp 에러: {ex}");
             }
         }
     }

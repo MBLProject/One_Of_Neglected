@@ -15,7 +15,7 @@ public class BossSkill3State : MonsterStateBase
     {
         timer = 0f;
         entity.Animator?.SetTrigger("Skill3");
-        Debug.Log("[Boss] 스킬3 시작");
+       // Debug.Log("[Boss] 스킬3 시작");
     }
 
     public override void Update(MonsterBase entity)
@@ -29,6 +29,6 @@ public class BossSkill3State : MonsterStateBase
 
     public override void Exit(MonsterBase entity)
     {
-        Debug.Log("[Boss] 스킬3 종료");
+        //Debug.Log("[Boss] 스킬3 종료");
     }
 }

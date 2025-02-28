@@ -53,7 +53,7 @@ public class MonsterAttackState : MonsterStateBase
         {
             // 몬스터의 공격력으로 플레이어에게 데미지
             player.TakeDamage(entity.Stats.attackDamage);
-            Debug.Log($"Monster deals {entity.Stats.attackDamage} damage to player!");
+            //Debug.Log($"Monster deals {entity.Stats.attackDamage} damage to player!");
         }
     }
 }
