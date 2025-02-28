@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
+using System.Collections;
+using Cysharp.Threading.Tasks;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -13,6 +16,25 @@ public class SoundManager : Singleton<SoundManager>
 
     private AudioSource[] _audioSources = new AudioSource[(int)Sound.MaxCount];
     private Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
+
+    private const int EFFECT_SOURCE_COUNT = 128; // 효과음을 위한 AudioSource 풀 크기
+    private Queue<AudioSource> _effectSourcePool = new Queue<AudioSource>();
+    private Queue<SoundEffect> _effectQueue = new Queue<SoundEffect>();
+    private bool _isProcessingQueue;
+
+    private class SoundEffect
+    {
+        public AudioClip Clip;
+        public float Pitch;
+        public float Volume;
+
+        public SoundEffect(AudioClip clip, float pitch, float volume)
+        {
+            Clip = clip;
+            Pitch = pitch;
+            Volume = volume;
+        }
+    }
 
     protected override void Awake()
     {
@@ -27,16 +49,26 @@ public class SoundManager : Singleton<SoundManager>
     public void Init()
     {
         string[] soundNames = System.Enum.GetNames(typeof(Sound));
-        for (int i = 0; i < soundNames.Length - 1; i++)
+        
+        GameObject bgmGo = new GameObject { name = soundNames[(int)Sound.Bgm] };
+        _audioSources[(int)Sound.Bgm] = bgmGo.AddComponent<AudioSource>();
+        bgmGo.transform.parent = transform;
+        
+        GameObject effectRoot = new GameObject { name = "EffectSources" };
+        effectRoot.transform.parent = transform;
+        
+        for (int i = 0; i < EFFECT_SOURCE_COUNT; i++)
         {
-            GameObject go = new GameObject { name = soundNames[i] };
-            _audioSources[i] = go.AddComponent<AudioSource>();
-            go.transform.parent = transform;
+            GameObject go = new GameObject { name = $"EffectSource_{i}" };
+            go.transform.parent = effectRoot.transform;
+            AudioSource source = go.AddComponent<AudioSource>();
+            _effectSourcePool.Enqueue(source);
         }
+        
+        _audioSources[(int)Sound.Effect] = _effectSourcePool.Peek(); 
 
         _audioSources[(int)Sound.Bgm].loop = true;
         SetMasterVolume(0.5f * 100);
-
     }
 
     public void Clear()
@@ -47,7 +79,14 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.Stop();
         }
         _audioClips.Clear();
-
+        foreach (var source in _effectSourcePool)
+        {
+            source.clip = null;
+            source.Stop();
+        }
+        
+        _isProcessingQueue = false;
+        _effectQueue.Clear();
     }
 
     public void Play(string path, Sound type = Sound.Effect, float pitch = 1.0f)
@@ -83,13 +122,12 @@ public class SoundManager : Singleton<SoundManager>
         }
         else
         {
-            AudioSource audioSource = _audioSources[(int)Sound.Effect];
-            audioSource.pitch = pitch;
-            if (audioSource.volume != masterVolume * effectVolume)
+            _effectQueue.Enqueue(new SoundEffect(audioClip, pitch, volume));
+            
+            if (!_isProcessingQueue)
             {
-                audioSource.volume = masterVolume * effectVolume;
+                ProcessEffectQueue().Forget();
             }
-            audioSource.PlayOneShot(audioClip, volume);
         }
     }
 
@@ -186,5 +224,43 @@ public class SoundManager : Singleton<SoundManager>
         bgmVolume = bgmAmount / 100f;
         AudioSource bgmSource = _audioSources[(int)Sound.Bgm];
         bgmSource.volume = masterVolume * bgmVolume;
+    }
+
+    private AudioSource GetAvailableEffectSource()
+    {
+        foreach (var source in _effectSourcePool)
+        {
+            if (!source.isPlaying)
+            {
+                return source;
+            }
+        }
+        
+        AudioSource oldestSource = _effectSourcePool.Dequeue();
+        _effectSourcePool.Enqueue(oldestSource);
+        return oldestSource;
+    }
+
+    private async UniTaskVoid ProcessEffectQueue()
+    {
+        _isProcessingQueue = true;
+
+        while (_effectQueue.Count > 0)
+        {
+            var effect = _effectQueue.Dequeue();
+            
+            AudioSource availableSource = GetAvailableEffectSource();
+            if (availableSource != null)
+            {
+                availableSource.pitch = effect.Pitch;
+                availableSource.volume = masterVolume * effectVolume;
+                availableSource.PlayOneShot(effect.Clip, effect.Volume);
+                
+                float delay = Mathf.Max(0.05f, effect.Clip.length * 0.0001f);
+                await UniTask.Delay(TimeSpan.FromSeconds(delay));
+            }
+        }
+        
+        _isProcessingQueue = false;
     }
 }
