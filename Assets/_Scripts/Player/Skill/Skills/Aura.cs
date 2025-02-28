@@ -81,23 +81,23 @@ public class Aura : ActiveSkill
         switch (level)
         {
             case 2:
-                stats.defaultDamage += 3f;
+                stats.defaultDamage += 1f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 3:
-                stats.defaultDamage += 3f;
+                stats.defaultDamage += 1f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 4:
-                stats.defaultDamage += 3f;
+                stats.defaultDamage += 1f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 5:
-                stats.defaultDamage += 3f;
+                stats.defaultDamage += 1f;
                 stats.defaultATKRange += 0.1f;
                 break;
             case 6:
-                stats.defaultDamage += 3f;
+                stats.defaultDamage += 1f;
                 stats.defaultATKRange += 0.1f;
                 break;
         }
