@@ -198,6 +198,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3730762432979771191, guid: c5375c0832a8f9b499a6f2c58bb7cd81,
+        type: 3}
+      propertyPath: maxTotalMonsterCount
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 6375696943920568873, guid: c5375c0832a8f9b499a6f2c58bb7cd81,
         type: 3}
       propertyPath: m_Name
@@ -324,30 +329,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7675738864051328443, guid: a908db3b5c1ef384a93e9cc65a20f130,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 766308479}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a908db3b5c1ef384a93e9cc65a20f130, type: 3}
---- !u!1 &766308478 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7675738864051328443, guid: a908db3b5c1ef384a93e9cc65a20f130,
-    type: 3}
-  m_PrefabInstance: {fileID: 766308477}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &766308479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766308478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1162110509
 PrefabInstance:
   m_ObjectHideFlags: 0
