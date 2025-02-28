@@ -275,27 +275,21 @@ string path = Application.persistentDataPath + "/Save";
     {
         if (player_Property.causalityLv == 0) player_Property.causalityLv = 1;
         player_Property.causalityEXP += (float)inGameValue.killCount / 10 * player_Property.causalityLv;
-        Debug.Log($"killCount : {inGameValue.killCount}");
-        Debug.Log($"causalityEXP : {player_Property.causalityEXP}");
         CausalityTable();
     }
     private void CausalityTable()
     {
-        if (player_Property.causalityLv == 90) return;
         float requireEXP = 100;
         for (int i = 1; i < player_Property.causalityLv; i++)
         {
             requireEXP *= 1.1f;
         }
-        Debug.Log($"requireEXP : {requireEXP}");
         while (player_Property.causalityEXP - requireEXP > 0)
         {
             player_Property.causalityEXP -= (int)requireEXP;
             player_Property.causalityLv++;
             player_Property.bless_Point++;
             requireEXP *= 1.1f;
-            Debug.Log($"requireEXP_Update : {requireEXP}");
-            if (player_Property.causalityLv == 90) break;
         }
     }
 }

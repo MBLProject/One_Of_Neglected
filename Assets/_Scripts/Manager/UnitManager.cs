@@ -39,16 +39,22 @@ public class UnitManager : Singleton<UnitManager>
     {
          new MonsterSpawnData { gameTime = 0.00f, spawnCount = 1 },   // n초 n마리
          new MonsterSpawnData { gameTime = 0.33f, spawnCount = 2 },  // 10초 20
-         new MonsterSpawnData { gameTime = 0.50f, spawnCount = 3 },  // 20초 30
+         new MonsterSpawnData { gameTime = 0.50f, spawnCount = 7 },  // 20초 30
          new MonsterSpawnData { gameTime = 0.67f, spawnCount = 4 },  // 30초 40
          new MonsterSpawnData { gameTime = 0.83f, spawnCount = 5 },  // 40초 50
-         new MonsterSpawnData { gameTime = 1.00f, spawnCount = 10 },  // 50초 60 
-         new MonsterSpawnData { gameTime = 1.17f, spawnCount = 15 },  // 1분  70 
-         new MonsterSpawnData { gameTime = 1.33f, spawnCount = 20 },  // 1분 10초  80
-         new MonsterSpawnData { gameTime = 1.99f, spawnCount = 40 },
-         new MonsterSpawnData { gameTime = 2.99f, spawnCount = 50 },
-         new MonsterSpawnData { gameTime = 3.99f, spawnCount = 60 },
-         new MonsterSpawnData { gameTime = 5    , spawnCount = 70 },
+         new MonsterSpawnData { gameTime = 1.00f, spawnCount = 8 },  // 50초 60 
+         new MonsterSpawnData { gameTime = 1.17f, spawnCount = 10 },  // 1분  70 
+         new MonsterSpawnData { gameTime = 1.33f, spawnCount = 15 },  // 1분 10초  80
+         new MonsterSpawnData { gameTime = 1.66f, spawnCount = 20 },
+         new MonsterSpawnData { gameTime = 1.83f, spawnCount = 16 },
+         new MonsterSpawnData { gameTime = 1.99f, spawnCount = 20 },
+         new MonsterSpawnData { gameTime = 2.33f, spawnCount = 30 },
+         new MonsterSpawnData { gameTime = 2.66f, spawnCount = 25 },
+         new MonsterSpawnData { gameTime = 2.99f, spawnCount = 30 },
+         new MonsterSpawnData { gameTime = 3.55f, spawnCount = 40 },
+         new MonsterSpawnData { gameTime = 4.33f, spawnCount = 50 },
+         new MonsterSpawnData { gameTime = 6.66f, spawnCount = 66 },
+         new MonsterSpawnData { gameTime = 7.88f, spawnCount = 80 },
          new MonsterSpawnData { gameTime = 10.00f, spawnCount = 100 }  // 10분
     };
     [Header("맵 범위")]
