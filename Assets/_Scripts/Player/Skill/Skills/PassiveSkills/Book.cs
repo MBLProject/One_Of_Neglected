@@ -4,27 +4,5 @@ using UnityEngine;
 
 public class Book : PassiveSkill
 {
-    public Book() : base(Enums.SkillName.Book) { statType = Enums.StatType.ATKRange;}
-
-    public override void ModifySkill()
-    {
-        var player = UnitManager.Instance.GetPlayer();
-
-        player.Stats.ModifyStatValue(statType, 10f);
-    }
-
-    public override void LevelUp()
-    {
-        if (level >= 5) return;
-
-        base.LevelUp();
-        ModifySkill();
-    }
-
-    public override void UnRegister()
-    {
-        var player = UnitManager.Instance.GetPlayer();
-
-        player.Stats.ModifyStatValue(statType, -10f * level);
-    }
+    public Book() : base(Enums.SkillName.Book) { statType = Enums.StatType.ATKRange; statModifyValue = 10f; }
 }

@@ -4,29 +4,10 @@ using UnityEngine;
 
 public class Ring : PassiveSkill
 {
-    public Ring() : base(Enums.SkillName.Ring) { statType = Enums.StatType.ProjAmount;}
-
-    public override void ModifySkill()
-    {
-        Debug.Log($"{skillName} ModifySkill : {level}");
-
-        var player = UnitManager.Instance.GetPlayer();
-
-        player.Stats.ModifyStatValue(statType, 1f);
-    }
-
-    public override void LevelUp()
-    {
-        if (level >= 2) return;
-
-        level++;
-        ModifySkill();
-    }
-
-    public override void UnRegister()
-    {
-        var player = UnitManager.Instance.GetPlayer();
-
-        player.Stats.ModifyStatValue(statType, -1f * level);
+    public Ring() : base(Enums.SkillName.Ring) 
+    { 
+        statType = Enums.StatType.ProjAmount; 
+        statModifyValue = 1f;
+        maxLevel = 2;
     }
 }
