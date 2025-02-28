@@ -62,7 +62,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         if (!projectiles.ContainsKey(skillName))
         {
-            Debug.LogError($"Projectile type {skillName} not found!");
+            // Debug.LogError($"Projectile type {skillName} not found!");
             return;
         }
 
@@ -89,7 +89,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         bool isMultipleTarget = skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway;
         int currentIndex = 0;
-
 
         UniTask.Void(async () =>
         {
@@ -124,7 +123,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         List<Vector3> targetPositions = new List<Vector3>();
 
-        if(skillName == Enums.SkillName.Mine)
+        if (skillName == Enums.SkillName.Mine)
         {
             for (int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
             {
@@ -146,9 +145,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
         if (targetPositions.Count == 0)
         {
-            if(skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway || skillName == Enums.SkillName.Mine)
+            if (skillName == Enums.SkillName.Needle || skillName == Enums.SkillName.Gateway || skillName == Enums.SkillName.Mine)
             {
-                for(int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
+                for (int i = 0; i < stats.finalProjectileCount * stats.shotCount; ++i)
                 {
                     Vector3 randomDirection = Random.insideUnitCircle.normalized;
                     targetPositions.Add(startPosition + randomDirection * 2f);
@@ -168,7 +167,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         if (!monsterProjectiles.ContainsKey(projectileType))
         {
-            Debug.LogError($"Projectile type {projectileType} not found!");
+            // Debug.LogError($"Projectile type {projectileType} not found!");
             return;
         }
 
@@ -178,12 +177,12 @@ public class ProjectileManager : Singleton<ProjectileManager>
         activeProjectiles.Add(projectile);
     }
 
-    public PlayerProjectile SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos, 
+    public PlayerProjectile SpawnPlayerProjectile(string prefabName, Vector3 startPos, Vector3 targetPos,
         float speed, float damage, float size, float maxDist = 10f, int pierceCnt = 0, float lifetime = 5f)
     {
         if (!playerProjectiles.ContainsKey(prefabName))
         {
-            Debug.LogError($"Projectile type {prefabName} not found!");
+            // Debug.LogError($"Projectile type {prefabName} not found!");
             return null;
         }
 
@@ -192,7 +191,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
         float criticalDamage = player.Stats.CurrentCriDamage;
 
         PlayerProjectile projectile = Instantiate(playerProjectiles[prefabName]);
-        
+
         var stats = new ProjectileStats
         {
             projectileSpeed = speed,
@@ -200,7 +199,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
             finalATKRange = size,
             pierceCount = pierceCnt,
             finalDuration = lifetime,
-            critical = criticalChance,    
+            critical = criticalChance,
             cATK = criticalDamage,
         };
 
@@ -214,7 +213,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
     {
         if (!playerProjectiles.ContainsKey(prefabName))
         {
-            Debug.LogError($"Projectile type {prefabName} not found!");
+            // Debug.LogError($"Projectile type {prefabName} not found!");
             return null;
         }
 

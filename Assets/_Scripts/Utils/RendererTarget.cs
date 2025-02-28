@@ -20,7 +20,7 @@ public class RendererTarget : MonoBehaviour
         }
         catch
         {
-            Debug.Log(gameObject.name);
+            // Debug.Log(gameObject.name);
 
         }
     }
