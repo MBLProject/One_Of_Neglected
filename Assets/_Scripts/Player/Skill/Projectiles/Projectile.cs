@@ -90,8 +90,6 @@ public class Projectile : MonoBehaviour
 
         stats = projectileStats;
 
-        //print($"InitProjectile - lifetime : {stats.lifetime}");
-
         CancelInvoke("DestroyProjectile");
 
         Invoke("DestroyProjectile", stats.finalDuration);

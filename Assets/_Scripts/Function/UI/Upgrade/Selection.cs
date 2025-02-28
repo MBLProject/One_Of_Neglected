@@ -28,7 +28,6 @@ public class Selection : MonoBehaviour
                 banish_Panel.SetIconCell_Banish(m_skillName);
             }
         }
-
         inGameUI_Panel.skillSelector.ChooseSkill(m_skillName);
 
         if (SkillFactory.IsActiveSkill(m_skillName) == 1)

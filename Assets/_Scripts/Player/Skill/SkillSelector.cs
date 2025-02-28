@@ -118,6 +118,7 @@ public class SkillSelector : MonoBehaviour
         {
             skillDispenser.RegisterSkill(chosenAbility);
             skillContainer.AddSkill(chosenAbility);
+            return;
         }
         else
         {
@@ -154,7 +155,6 @@ public class SkillSelector : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{skillName} is not Registerd / Removed Skill!!!");
             return -1;
         }
     }
@@ -167,11 +167,6 @@ public class SkillSelector : MonoBehaviour
     private bool IsPassiveSkill(SkillName skillName)
     {
         return SkillFactory.IsActiveSkill(skillName) == 0;
-    }
-
-    private bool IsEtcSkill(SkillName skillName)
-    {
-        return SkillFactory.IsActiveSkill(skillName) == 2;
     }
 
     private bool IsMaxLevel(SkillName skillName)

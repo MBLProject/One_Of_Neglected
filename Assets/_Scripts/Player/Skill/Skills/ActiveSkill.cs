@@ -57,8 +57,6 @@ public class ActiveSkill : Skill
 
     public override void Fire()
     {
-        Debug.Log($"skillName : {skillName}, finalDuration : {stats.lifetime} * {stats.duration} = {FinalDuration}");
-
         base.Fire();
         //ProjectileManager.Instance.SpawnProjectile(skillName, stats.defaultDamage, level, stats.shotCount, stats.projectileCount, stats.projectileDelay, stats.shotDelay, stats.pierceCount);
         ProjectileManager.Instance.SpawnProjectile(skillName,
