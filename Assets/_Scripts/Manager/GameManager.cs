@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     public bool isPaused = false;
     public bool isGameStarted = false;
     public List<SpriteRenderer> allSpriteRenderer = new List<SpriteRenderer>();
+    Vector3 pos;
     protected override void Awake()
     {
         base.Awake();
@@ -27,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     public void RendererHandler()
     {
-        Vector3 pos;
+
         foreach (SpriteRenderer targetObj in allSpriteRenderer)
         {
             pos = Camera.main.WorldToViewportPoint(targetObj.transform.position);
