@@ -28868,7 +28868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ONE OF NEGLECTED
+  m_text: "\uC6A9\uC0AC\uB188\uC544 \uC5B8\uC81C\uC624\uB2C8?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7531be67d64dfb43b43e8c1ea0ce4ea, type: 2}
   m_sharedMaterial: {fileID: -6630682665860396062, guid: e7531be67d64dfb43b43e8c1ea0ce4ea,

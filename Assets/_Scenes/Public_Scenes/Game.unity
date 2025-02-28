@@ -198,11 +198,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3730762432979771191, guid: c5375c0832a8f9b499a6f2c58bb7cd81,
-        type: 3}
-      propertyPath: maxTotalMonsterCount
-      value: 10000
-      objectReference: {fileID: 0}
     - target: {fileID: 6375696943920568873, guid: c5375c0832a8f9b499a6f2c58bb7cd81,
         type: 3}
       propertyPath: m_Name
