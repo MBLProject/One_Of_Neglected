@@ -79,7 +79,7 @@ public static class SkillFactory
                 return 2;
 
             default:
-                Debug.LogWarning($"Unknown SkillName: {skillName}");
+                // Debug.LogWarning($"Unknown SkillName: {skillName}");
                 return 2;
         }
     }

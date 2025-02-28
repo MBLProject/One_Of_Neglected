@@ -45,7 +45,7 @@ public abstract class Player : MonoBehaviour
 {
     #region Field
     protected bool isDead = false;
-    
+
     public ClassType ClassType { get; protected set; }
     public Animator Animator => animator;
     public PlayerStats Stats
@@ -54,7 +54,7 @@ public abstract class Player : MonoBehaviour
         protected set { stats = value; }
     }
     public ParticleSystem DashEffect => dashEffect;
-    [SerializeField]private GameObject ReviveEffect;
+    [SerializeField] private GameObject ReviveEffect;
 
     protected AugmentSelector augmentSelector;
 
@@ -480,7 +480,7 @@ public abstract class Player : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         // 무적이거나 죽은 상태면 데미지를 받지 않음
-        if (isInvincible || isDead) return;  
+        if (isInvincible || isDead) return;
 
         // 베리어 체크
         if (isBarrier && hasBarrierCharge)
@@ -507,19 +507,19 @@ public abstract class Player : MonoBehaviour
         {
             stats.currentHp = 0;
             isDead = true;  // 죽은 상태로 설정
-            
+
             if (stats.CurrentRevival > 0)
             {
                 SoundManager.Instance.Play("Revive", SoundManager.Sound.Effect, 1f, false, 0.6f);
-              
+
                 GameObject startEffect = GameObject.Instantiate(ReviveEffect, transform.position, Quaternion.identity);
                 GameObject.Destroy(startEffect, 1f);
 
-                stats.CurrentRevival -= 1; 
+                stats.CurrentRevival -= 1;
                 ChangePlayerRevive();
-                return; 
+                return;
             }
-                        
+
             ChangePlayerDie();
             UI_Manager.Instance.panel_Dic["Result_Panel"].PanelOpen();
         }
@@ -547,7 +547,7 @@ public abstract class Player : MonoBehaviour
     //되살릴때 쓰시오
     public void ChangePlayerRevive()
     {
-        isDead = false;  
+        isDead = false;
         stats.SetStatValue(StatType.Hp, stats.CurrentMaxHp);
 
         if (ClassType == ClassType.Warrior)
@@ -638,7 +638,7 @@ public abstract class Player : MonoBehaviour
         {
             case WorldObjectType.ExpBlue:
                 ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
-                Debug.Log($" 먹은 경험치 : {CollectibleValues.BASIC_EXP * stats.CurrentGrowth}");
+                // Debug.Log($" 먹은 경험치 : {CollectibleValues.BASIC_EXP * stats.CurrentGrowth}");
                 break;
             case WorldObjectType.ExpBlack:
                 ProcessExperience(stats.CurrentMaxExp * stats.CurrentGrowth);
@@ -871,7 +871,7 @@ public abstract class Player : MonoBehaviour
             statViewer.ProjDestroy = stats.CurrentProjDestroy;
             statViewer.ProjParry = stats.CurrentProjParry;
 
-            Debug.Log($"Updated StatViewer - Level: {statViewer.Level}, HP: {statViewer.Hp}/{statViewer.MaxHp}");
+            // Debug.Log($"Updated StatViewer - Level: {statViewer.Level}, HP: {statViewer.Hp}/{statViewer.MaxHp}");
         }
         catch (Exception e)
         {

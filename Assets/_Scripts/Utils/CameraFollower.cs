@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
     [SerializeField] private float smoothSpeed = 5f;
-    [SerializeField] private Vector3 offset = new Vector3(0, 0, -10); 
+    [SerializeField] private Vector3 offset = new Vector3(0, 0, -10);
 
     private void LateUpdate()
     {

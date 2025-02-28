@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 5197119251566395088}
   - component: {fileID: 6622525843876046789}
   - component: {fileID: 8014402013149004002}
+  - component: {fileID: 5757247471740344720}
   m_Layer: 8
   m_Name: Env_BlueExp
   m_TagString: Env
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &4509005723680385912
 Transform:
@@ -134,3 +135,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
+--- !u!114 &5757247471740344720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876614028494236006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

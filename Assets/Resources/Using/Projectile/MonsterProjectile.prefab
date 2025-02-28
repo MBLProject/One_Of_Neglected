@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6407746143933405109}
   - component: {fileID: 5879204542147401302}
   - component: {fileID: 4874999844094798083}
+  - component: {fileID: 7819462147690757627}
   m_Layer: 0
   m_Name: MonsterProjectile
   m_TagString: MonsterProjectile
@@ -135,3 +136,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxDistance: 10
+--- !u!114 &7819462147690757627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5913195197483005135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

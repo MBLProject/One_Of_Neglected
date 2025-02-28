@@ -147,7 +147,7 @@ public class SkillSelector : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{skillName} is not Registerd / Removed Skill!!!");
+            // Debug.Log($"{skillName} is not Registerd / Removed Skill!!!");
             return -1;
         }
     }

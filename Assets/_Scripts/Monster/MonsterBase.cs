@@ -315,7 +315,7 @@ public abstract class MonsterBase : MonoBehaviour
         if (UnityEngine.Random.Range(0f, 100f) <= 2f)
         {
             UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.Gold_1, transform.position);
-            Debug.Log("골드 드롭!");
+            // Debug.Log("골드 드롭!");
         }
         else
         {

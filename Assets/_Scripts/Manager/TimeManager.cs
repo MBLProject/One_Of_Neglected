@@ -53,7 +53,7 @@ public class TimeManager : Singleton<TimeManager>
         if (currentTime >= 30f && currentTime >= lastThirtySecEvent + 30f)
         {
             lastThirtySecEvent = Mathf.Floor(currentTime / 30f) * 30f;
-            Debug.Log($"[TimeManager] 30초 이벤트 발생: {currentTime}초");
+            // Debug.Log($"[TimeManager] 30초 이벤트 발생: {currentTime}초");
             OnThirtySecondsPassed?.Invoke();
         }
 
@@ -61,7 +61,7 @@ public class TimeManager : Singleton<TimeManager>
         if (currentTime >= 60f && currentTime >= lastOneMinEvent + 60f)
         {
             lastOneMinEvent = Mathf.Floor(currentTime / 60f) * 60f;
-            Debug.Log($"[TimeManager] 1분 이벤트 발생: {currentTime}초");
+            // Debug.Log($"[TimeManager] 1분 이벤트 발생: {currentTime}초");
             OnMinutePassed?.Invoke();
         }
 
@@ -69,7 +69,7 @@ public class TimeManager : Singleton<TimeManager>
         if (currentTime >= 90f && currentTime >= lastOneMinThirtyEvent + 90f)
         {
             lastOneMinThirtyEvent = Mathf.Floor(currentTime / 90f) * 90f;
-            Debug.Log($"[TimeManager] 1분 30초 이벤트 발생: {currentTime}초");
+            // Debug.Log($"[TimeManager] 1분 30초 이벤트 발생: {currentTime}초");
             OnOneMinThirtySecondsPassed?.Invoke();
         }
 
@@ -77,7 +77,7 @@ public class TimeManager : Singleton<TimeManager>
         if (currentTime >= 110f && currentTime >= lastOneMinFiftyEvent + 110f)
         {
             lastOneMinFiftyEvent = Mathf.Floor(currentTime / 110f) * 110f;
-            Debug.Log($"[TimeManager] 1분 50초 이벤트 발생: {currentTime}초");
+            // Debug.Log($"[TimeManager] 1분 50초 이벤트 발생: {currentTime}초");
             OnOneMinFiftySecondsPassed?.Invoke();
         }
     }

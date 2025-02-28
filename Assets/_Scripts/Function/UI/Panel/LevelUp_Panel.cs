@@ -110,7 +110,7 @@ public class LevelUp_Panel : Panel
         inGameUI_Panel.display_Level_TMP.text =
         "Lv." + UnitManager.Instance.GetPlayer().Stats.CurrentLevel.ToString();
 
-        if (augUpCount < 5 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
+        if (augUpCount < 4 && UnitManager.Instance.GetPlayer().Stats.CurrentLevel % 10 == 0)
         {   //TODO : 최대 레벨설정
             //증강과 특성 선택하는 메서드
             AugSelections();

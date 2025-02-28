@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8213606149726638393}
   - component: {fileID: 4724092038599362434}
   - component: {fileID: -3863933210025984577}
+  - component: {fileID: 5602103229128089504}
   m_Layer: 6
   m_Name: LateNormalMonster
   m_TagString: Monster
@@ -191,3 +192,15 @@ MonoBehaviour:
   healthIncreasePerInterval: 10
   defenseIncreasePerInterval: 0
   statUpdateInterval: 30
+--- !u!114 &5602103229128089504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740860294403865247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

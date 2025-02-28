@@ -83,7 +83,7 @@ public class UnitManager : Singleton<UnitManager>
         public GameObject gameObject;
         public WorldObjectType type;
         public bool isMoving;
-        public Tweener moveTween; 
+        public Tweener moveTween;
 
         public WorldObjectData(GameObject obj, WorldObjectType objType)
         {
@@ -95,9 +95,9 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     private List<WorldObjectData> activeWorldObjects = new List<WorldObjectData>();
-    private float magnetMoveTime = 1.5f;    
-    private float magnetMinMoveTime = 0.5f; 
-    private Ease magnetEaseType = Ease.OutQuint;  
+    private float magnetMoveTime = 1.5f;
+    private float magnetMinMoveTime = 0.5f;
+    private Ease magnetEaseType = Ease.OutQuint;
 
     protected override void Awake()
     {
@@ -156,7 +156,7 @@ public class UnitManager : Singleton<UnitManager>
         int curseBonus = Mathf.FloorToInt(DataManager.Instance.BTS.Curse / 10f);
         spawnCount += curseBonus;
 
-        Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
+        // Debug.Log($"현재 스폰 수: {spawnCount} (기본 + 저주 보너스: {curseBonus})");
         for (int i = 0; i < spawnCount; i++)
         {
             if (GetActiveMonsterCount() >= maxTotalMonsterCount) break;
@@ -728,7 +728,7 @@ public class UnitManager : Singleton<UnitManager>
         if (currentPlayer == null) return;
 
         Vector3 playerPosition = currentPlayer.transform.position;
-        
+
         for (int i = activeWorldObjects.Count - 1; i >= 0; i--)
         {
             var worldObj = activeWorldObjects[i];
@@ -743,15 +743,15 @@ public class UnitManager : Singleton<UnitManager>
     public void ActivateMagnet()
     {
         if (currentPlayer == null) return;
-        
+
         foreach (var worldObj in activeWorldObjects)
         {
             if (worldObj.gameObject == null) continue;
-            
+
             worldObj.moveTween?.Kill();
             float distance = Vector3.Distance(currentPlayer.transform.position, worldObj.gameObject.transform.position);
-            float moveTime = Mathf.Max(magnetMinMoveTime, magnetMoveTime * (distance / 10f));  
-            
+            float moveTime = Mathf.Max(magnetMinMoveTime, magnetMoveTime * (distance / 10f));
+
             // 플레이어를 계속 추적하는 트윈 생성
             worldObj.moveTween = worldObj.gameObject.transform
                 .DOMove(currentPlayer.transform.position, moveTime)
@@ -759,11 +759,12 @@ public class UnitManager : Singleton<UnitManager>
                 .SetAutoKill(false)  // 자동 종료 방지
                 .SetSpeedBased()  // 시간 기반이 아닌 속도 기반으로 변경
                 .SetEase(magnetEaseType)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     worldObj.isMoving = false;
                     worldObj.moveTween = null;
                 });
-            
+
             worldObj.isMoving = true;
         }
     }

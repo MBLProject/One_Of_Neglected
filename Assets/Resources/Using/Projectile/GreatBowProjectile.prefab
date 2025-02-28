@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5498280347370320386}
   - component: {fileID: 482693087349175703}
+  - component: {fileID: 3142356896631463637}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3142356896631463637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147808493413837389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6839848408009073735
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +110,7 @@ GameObject:
   - component: {fileID: 5234552496271852364}
   - component: {fileID: 1749402167478067897}
   - component: {fileID: 7182185152766163930}
+  - component: {fileID: 1619691956924962649}
   m_Layer: 0
   m_Name: GreatBowProjectile
   m_TagString: Untagged
@@ -252,3 +266,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxDistance: 10
+--- !u!114 &1619691956924962649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6839848408009073735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

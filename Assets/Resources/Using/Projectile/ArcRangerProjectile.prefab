@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3297896403872992452}
   - component: {fileID: 2537239744547646420}
   - component: {fileID: 5274004449445941950}
+  - component: {fileID: 7250916298246425121}
   m_Layer: 0
   m_Name: ArcRangerProjectile
   m_TagString: Untagged
@@ -167,3 +168,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxDistance: 10
+  explosionEffectPrefab: {fileID: 0}
+--- !u!114 &7250916298246425121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3614663492863030709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

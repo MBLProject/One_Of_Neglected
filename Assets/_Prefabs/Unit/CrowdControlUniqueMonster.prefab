@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8213606149726638393}
   - component: {fileID: 4724092038599362434}
   - component: {fileID: 2395391305058639318}
+  - component: {fileID: 1438920612547817349}
   m_Layer: 6
   m_Name: CrowdControlUniqueMonster
   m_TagString: Monster
@@ -196,3 +197,15 @@ MonoBehaviour:
   dashDuration: 2
   dashDamage: 25
   skillRange: 5
+--- !u!114 &1438920612547817349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740860294403865247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

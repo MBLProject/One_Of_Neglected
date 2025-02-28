@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7010923038219211948}
   - component: {fileID: 4025448263929534574}
   - component: {fileID: 8549420917828371083}
+  - component: {fileID: 8984124524541389997}
   m_Layer: 8
   m_Name: Env_BlackExp
   m_TagString: Env
@@ -134,3 +135,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
+--- !u!114 &8984124524541389997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4004027729356969729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2358de2f3a5b34d81b0a77d5bf427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
