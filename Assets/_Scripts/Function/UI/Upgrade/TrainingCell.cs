@@ -76,12 +76,12 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 for (int i = trainingCount; i > 10; i--)
                 {
                     method_Action?.Invoke(false, requireGold_List[10], 0);
-                    Debug.Log(requireGold_List[10]);
+                    // Debug.Log(requireGold_List[10]);
                 }
                 for (int j = 9; j >= 0; j--)
                 {
                     method_Action?.Invoke(false, requireGold_List[j], 0);
-                    Debug.Log(requireGold_List[j]);
+                    // Debug.Log(requireGold_List[j]);
                 }
             }
             else if (trainingCount <= 9)
@@ -89,7 +89,7 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 for (int i = trainingCount - 1; i >= 0; i--)
                 {
                     method_Action?.Invoke(false, requireGold_List[i], 0);
-                    Debug.Log(requireGold_List[i]);
+                    // Debug.Log(requireGold_List[i]);
                 }
             }
         }
@@ -226,12 +226,12 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 if (trainingCount > 9)
                 {
                     method_Action?.Invoke(false, requireGold_List[10], trainingCount);
-                    Debug.Log(requireGold_List[10]);
+                    // Debug.Log(requireGold_List[10]);
                 }
                 else
                 {
                     method_Action?.Invoke(false, requireGold_List[trainingCount], trainingCount);
-                    Debug.Log(requireGold_List[trainingCount]);
+                    // Debug.Log(requireGold_List[trainingCount]);
                 }
             }
             baseCellAction?.Invoke();

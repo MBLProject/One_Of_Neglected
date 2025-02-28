@@ -127,7 +127,7 @@ public class Training_Panel : Panel, IPointerExitHandler
                     cell.method_Action += training.Banish_Modify;
                     break;
                 default:
-                    Debug.Log("액션구독문제");
+                    // Debug.Log("액션구독문제");
                     break;
 
             }
@@ -199,7 +199,7 @@ public class Training_Panel : Panel, IPointerExitHandler
                     cell.method_Action -= training.Banish_Modify;
                     break;
                 default:
-                    Debug.Log("액션구독해제문제");
+                    // Debug.Log("액션구독해제문제");
                     break;
             }
         }
@@ -288,7 +288,7 @@ public class Training_Panel : Panel, IPointerExitHandler
                     cell.ByTrainingCount();
                     break;
                 default:
-                    Debug.Log("셀 카테고리 문제");
+                    // Debug.Log("셀 카테고리 문제");
                     break;
             }
         }

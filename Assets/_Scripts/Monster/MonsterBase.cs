@@ -160,9 +160,9 @@ public abstract class MonsterBase : MonoBehaviour
         stats.maxHealth = newMaxHealth;
         stats.currentHealth += healthDiff;
 
-        Debug.Log($"[{gameObject.name}] Stats Updated\n" +
-                 $"Current Attack: {stats.attackDamage}\n" +
-                 $"Current Health: {stats.maxHealth}");
+        // Debug.Log($"[{gameObject.name}] Stats Updated\n" +
+        //  $"Current Attack: {stats.attackDamage}\n" +
+        //  $"Current Health: {stats.maxHealth}");
     }
 
     public virtual void MoveTowardsPlayer()
@@ -292,7 +292,7 @@ public abstract class MonsterBase : MonoBehaviour
         if (this is DamageUniqueMonster || this is CrowdControlUniqueMonster)
         {
             UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlack, transform.position);
-            Debug.Log($"{GetType().Name} 처치 - ExpBlack 드롭!");
+            // Debug.Log($"{GetType().Name} 처치 - ExpBlack 드롭!");
             return;
         }
         // 탱크 유니크 몬스터인 경우
@@ -302,7 +302,7 @@ public abstract class MonsterBase : MonoBehaviour
             if (UnitManager.Instance.IsLastTankMonster())
             {
                 UnitManager.Instance.SpawnWorldObject(Enums.WorldObjectType.ExpBlack, transform.position);
-                Debug.Log("마지막 탱크 몬스터 처치 - ExpBlack 드롭!");
+                // Debug.Log("마지막 탱크 몬스터 처치 - ExpBlack 드롭!");
                 // [추가] 킬 카운트 리셋
                 UnitManager.Instance.ResetTankMonsterKillCount();
                 return;

@@ -37,7 +37,7 @@ public class TimeManager : Singleton<TimeManager>
         if (isDebugMode)
         {
             gameTime = debugTime;
-            Debug.Log($"[Debug] Game Time: {GetFormattedTime()} ({gameTime:F1}초)");
+            // Debug.Log($"[Debug] Game Time: {GetFormattedTime()} ({gameTime:F1}초)");
         }
         else
         {

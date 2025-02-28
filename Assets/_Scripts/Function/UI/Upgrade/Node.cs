@@ -109,7 +109,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
         DataManager.Instance.bless_Dic[m_ID] = true;
         if (m_Line != null) m_Line.color = Color.white;
-        Debug.Log("흠");
+        // Debug.Log("흠");
     }
     public void BTN_Reverted()
     {
