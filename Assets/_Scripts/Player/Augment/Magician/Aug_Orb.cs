@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Aug_Orb : TimeBasedAugment
 {
-    private float orbDamage = 10f;
-    private float orbLifetime = 5f;
     private float damageMultiplier = 1f;
     private float projectileSpeed = 2f;
     private float baseProjectileSize = 3f;

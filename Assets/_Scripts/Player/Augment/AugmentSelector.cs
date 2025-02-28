@@ -84,15 +84,6 @@ public class AugmentSelector : MonoBehaviour
         }
     }
 
-    private List<Augment> GetSelectedAugments()
-    {
-        if (availableAugments.TryGetValue(owner.ClassType, out var augments))
-        {
-            return augments.FindAll(a => activeAugments.Contains(a));
-        }
-        return new List<Augment>();
-    }
-
     public List<AugmentName> SelectAugments()
     {
         if (activeAugments.Count == 0)

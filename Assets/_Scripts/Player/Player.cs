@@ -1,9 +1,7 @@
 using System;
 using UnityEngine;
 using static Enums;
-using Random = UnityEngine.Random;
 using System.Linq;
-using System.Collections.Generic;
 
 [Serializable]
 public class StatViewer
@@ -164,23 +162,7 @@ public abstract class Player : MonoBehaviour
         InitializeStateHandler();
         InitializeStats();
         InitializeClassType();
-        InitializeStatViewer();  // 먼저 StatViewer 초기화
-
-        // StatViewer가 null이 아닌지 확인
-        if (statViewer == null)
-        {
-            Debug.LogError("StatViewer is not assigned!");
-            return;
-        }
-
-        // Stats가 null이 아닌지 확인
-        if (stats == null)
-        {
-            Debug.LogError("Stats is not initialized!");
-            return;
-        }
-
-        // 초기화된 StatViewer의 값을 stats에 동기화
+        InitializeStatViewer();  
         SyncStatsFromViewer();
         UpdateStatViewer();
 
@@ -638,7 +620,6 @@ public abstract class Player : MonoBehaviour
         {
             case WorldObjectType.ExpBlue:
                 ProcessExperience(CollectibleValues.BASIC_EXP * stats.CurrentGrowth);
-                Debug.Log($" 먹은 경험치 : {CollectibleValues.BASIC_EXP * stats.CurrentGrowth}");
                 break;
             case WorldObjectType.ExpBlack:
                 ProcessExperience(stats.CurrentMaxExp * stats.CurrentGrowth);
@@ -871,7 +852,6 @@ public abstract class Player : MonoBehaviour
             statViewer.ProjDestroy = stats.CurrentProjDestroy;
             statViewer.ProjParry = stats.CurrentProjParry;
 
-            Debug.Log($"Updated StatViewer - Level: {statViewer.Level}, HP: {statViewer.Hp}/{statViewer.MaxHp}");
         }
         catch (Exception e)
         {

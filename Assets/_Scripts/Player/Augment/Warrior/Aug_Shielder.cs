@@ -4,7 +4,6 @@ using UnityEngine;
 public class Aug_Shielder : ConditionalAugment
 {
     private float damageMultiplier = 1f;  
-    private float projectileSpeed = 2f;
     private float baseProjectileSize = 1f;
     private int penetration = 100;
     private float duration = 5f;

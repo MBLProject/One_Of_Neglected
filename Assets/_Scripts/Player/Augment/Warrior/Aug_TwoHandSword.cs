@@ -11,7 +11,7 @@ public class Aug_TwoHandSword : TimeBasedAugment
 
     private bool isProjBreak = false;
     
-    private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
+    //private float CurrentDamage => owner.Stats.CurrentATK * damageMultiplier;
     private float CurrentProjectileSize => baseProjectileSize * owner.Stats.CurrentATKRange;  
 
     public Aug_TwoHandSword(Player owner, float interval) : base(owner, interval)
