@@ -91,15 +91,5 @@ public class AuraProjectile : Projectile
         stats = projectileStats;
 
         gameObject.transform.localScale = Vector3.one * stats.finalATKRange;
-
-        switch(stats.level)
-        {
-            case 6:
-                tickInterval = 0.5f;
-                break;
-            default:
-                tickInterval = 1f;
-                break;
-        }
     }
 }

@@ -8,7 +8,7 @@ public class Gold : Skill
 
     public override void ModifySkill()
     {
-        DataManager.Instance.inGameValue.gold += 30;
+        DataManager.Instance.inGameValue.gold += 20;
     }
 
     public override void LevelUp()
