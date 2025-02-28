@@ -98,7 +98,7 @@ public class SkillSelector : MonoBehaviour
 
     private void AddEtcSkills(List<SkillName> skillList)
     {
-        if (skillList.Count == 1)
+        if (skillList.Count <= 1)
         {
             if (!skillList.Contains(SkillName.Cheese)) skillList.Add(SkillName.Cheese);
             if (!skillList.Contains(SkillName.Gold)) skillList.Add(SkillName.Gold);
