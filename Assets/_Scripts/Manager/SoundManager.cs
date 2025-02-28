@@ -23,6 +23,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+
     public void Init()
     {
         string[] soundNames = System.Enum.GetNames(typeof(Sound));
