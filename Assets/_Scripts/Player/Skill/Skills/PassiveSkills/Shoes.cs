@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Shoes : PassiveSkill
 {
-    public Shoes() : base(Enums.SkillName.Shoes) { statType = Enums.StatType.Mspd;}
+    public Shoes() : base(Enums.SkillName.Shoes) { statType = Enums.StatType.Mspd; }
 
     public override void ModifySkill()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(statType, 4f);
+        player.Stats.ModifyStatValue(statType, 10f);
     }
 
     public override void UnRegister()
     {
         var player = UnitManager.Instance.GetPlayer();
 
-        player.Stats.ModifyStatValue(statType, -4f * level);
+        player.Stats.ModifyStatValue(statType, -10f * level);
     }
 }
