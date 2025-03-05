@@ -10,7 +10,6 @@ public class WarriorAttackState : BaseState<Player>
 
     private float GetCurrentAttackDuration(Player player)
     {
-        // 공격 속도가 1보다 클 때는 더 빠르게, 1보다 작을 때는 더 느리게
         return BASE_ATTACK_DURATION / player.Stats.CurrentAspd;
     }
 
@@ -96,10 +95,9 @@ public class WarriorAttackState : BaseState<Player>
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
 
-                    if (distance <= player.Stats.CurrentATKRange * 1.25f)
+                    if (distance <= player.Stats.CurrentATKRange * 0.7f)
                     {
                         handler.ChangeState(typeof(WarriorIdleState));
-                        //Enter(player);
                         return;
                     }
                     else

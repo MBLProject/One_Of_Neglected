@@ -40,17 +40,17 @@ public class WarriorAttackProjectile : PlayerProjectile
         Vector2 direction = (targetPosition - startPosition).normalized;
         spriteRenderer.flipX = direction.x > 0;
 
-        float rangeMultiplier = GetPlayerRange() / 0.4f; 
-        transform.localScale = Vector3.one * BASE_SCALE * rangeMultiplier * BASE_SYNC;
+        //float rangeMultiplier = GetPlayerRange() / 0.4f;
+        transform.localScale = Vector3.one * GetPlayerRange();
         
-        if (TryGetComponent<Collider2D>(out var collider))
-        {
-            if (collider is CircleCollider2D circleCollider)
-            {
-                circleCollider.radius *= rangeMultiplier * BASE_SYNC / 3;
-            }
+        //if (TryGetComponent<Collider2D>(out var collider))
+        //{
+        //    if (collider is CircleCollider2D circleCollider)
+        //    {
+        //        circleCollider.radius *= rangeMultiplier * BASE_SYNC / 3;
+        //    }
             
-        }
+        //}
 
         damage = GetPlayerDamage();
         speed = 0f;

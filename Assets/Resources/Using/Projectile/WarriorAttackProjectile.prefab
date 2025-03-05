@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 144950560201064}
   - component: {fileID: 6340132096579991693}
   - component: {fileID: -3011592346069946191}
-  - component: {fileID: 3358178751566501174}
+  - component: {fileID: 5833237185060052159}
   m_Layer: 0
   m_Name: WarriorAttackProjectile
   m_TagString: Untagged
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxDistance: 0
---- !u!58 &3358178751566501174
-CircleCollider2D:
+--- !u!61 &5833237185060052159
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -154,6 +154,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.3, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1.5}
+  m_EdgeRadius: 0

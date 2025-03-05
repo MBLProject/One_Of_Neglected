@@ -64,13 +64,13 @@ public class ArcherAttackState : BaseState<Player>
         if (player.isAuto)
         {
             MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
-            if (Vector2.Distance(player.transform.position, nearestMonster.transform.position) < 0.3f)
-                if (nearestMonster != null)
-                {
-                    player.LookAtTarget(nearestMonster.transform.position);
-                }
+            if (nearestMonster != null)
+            {
+                player.LookAtTarget(nearestMonster.transform.position);
+            }
         }
 
+        // 공격 실행
         if (!hasDealtDamage && attackTimer >= currentAttackDuration * 0.5f)
         {
             bool isLookingRight = !player.Animator.GetComponent<SpriteRenderer>().flipX;
@@ -93,9 +93,7 @@ public class ArcherAttackState : BaseState<Player>
                 5
             );
 
-            // 공격 이벤트 발생
             player.InvokeAttackDetect(targetPosition);
-
             hasDealtDamage = true;
         }
 
@@ -110,6 +108,7 @@ public class ArcherAttackState : BaseState<Player>
             return;
         }
 
+        // 공격 완료 후 상태 전환
         if (attackTimer >= currentAttackDuration)
         {
             attackTimer = 0;
@@ -121,25 +120,24 @@ public class ArcherAttackState : BaseState<Player>
                 if (nearestMonster != null)
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                    float attackStartRange = 3f;  
+                    float optimalRange = 2f;      
 
-                    if (distance <= player.Stats.CurrentATKRange * 1.25f)
+                    if (distance <= attackStartRange)
                     {
                         handler.ChangeState(typeof(ArcherIdleState));
-                        //Enter(player);
-                        return;
                     }
                     else
                     {
-                        player.targetPosition = nearestMonster.transform.position;
+                        Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                        player.targetPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
                         handler.ChangeState(typeof(ArcherMoveState));
-                        return;
                     }
                 }
-            }
-
-            if (!player.IsAtDestination())
-            {
-                handler.ChangeState(typeof(ArcherMoveState));
+                else
+                {
+                    handler.ChangeState(typeof(ArcherIdleState));
+                }
             }
             else
             {
@@ -154,8 +152,7 @@ public class ArcherAttackState : BaseState<Player>
         {
             player.Animator.speed = 1f;
         }
-
-        // 공격 이펙트 비활성화
+        
         Archer archer = player as Archer;
         if (archer != null && archer.AttackEffect != null)
         {

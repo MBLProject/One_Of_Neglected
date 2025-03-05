@@ -62,11 +62,10 @@ public class MagicianAttackState : BaseState<Player>
         if (player.isAuto)
         {
             MonsterBase nearestMonster = UnitManager.Instance.GetNearestMonster();
-            if (Vector2.Distance(player.transform.position, nearestMonster.transform.position) < 0.3f)
-                if (nearestMonster != null)
-                {
-                    player.LookAtTarget(nearestMonster.transform.position);
-                }
+            if (nearestMonster != null)
+            {
+                player.LookAtTarget(nearestMonster.transform.position);
+            }
         }
 
         if (!hasDealtDamage && attackTimer >= currentAttackDuration * 0.5f)
@@ -75,11 +74,9 @@ public class MagicianAttackState : BaseState<Player>
             Vector2 direction = isLookingRight ? Vector2.right : Vector2.left;
             Vector3 spawnPosition = player.transform.position + (Vector3)(direction * 0.2f);
 
-            // 몬스터 위치 가져오기
             Vector3 targetPosition = UnitManager.Instance.GetNearestMonster()?.transform.position ??
                 (player.transform.position + (Vector3)(direction * 10f));
 
-            
             SoundManager.Instance.Play("Fireball 1", SoundManager.Sound.Effect, 1f, false, 0.3f);
             ProjectileManager.Instance.SpawnPlayerProjectile(
                 "MagicianAttackProjectile",
@@ -96,17 +93,6 @@ public class MagicianAttackState : BaseState<Player>
             hasDealtDamage = true;
         }
 
-        if (!player.IsAtDestination())
-        {
-            player.MoveTo(player.targetPosition);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
-        {
-            handler.ChangeState(typeof(MagicianDashState));
-            return;
-        }
-
         if (attackTimer >= currentAttackDuration)
         {
             attackTimer = 0;
@@ -118,30 +104,40 @@ public class MagicianAttackState : BaseState<Player>
                 if (nearestMonster != null)
                 {
                     float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
+                    float attackStartRange = 3f;
+                    float optimalRange = 2f;
 
-                    if (distance <= player.Stats.CurrentATKRange * 1.25f)
+                    if (distance <= attackStartRange)
                     {
                         handler.ChangeState(typeof(MagicianIdleState));
-                        //Enter(player);
-                        return;
                     }
                     else
                     {
-                        player.targetPosition = nearestMonster.transform.position;
+                        Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                        player.targetPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
                         handler.ChangeState(typeof(MagicianMoveState));
-                        return;
                     }
                 }
-            }
-
-            if (!player.IsAtDestination())
-            {
-                handler.ChangeState(typeof(MagicianMoveState));
+                else
+                {
+                    handler.ChangeState(typeof(MagicianIdleState));
+                }
             }
             else
             {
                 handler.ChangeState(typeof(MagicianIdleState));
             }
+        }
+
+        if (!player.IsAtDestination())
+        {
+            player.MoveTo(player.targetPosition);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && player.CanDash())
+        {
+            handler.ChangeState(typeof(MagicianDashState));
+            return;
         }
     }
 
@@ -152,7 +148,6 @@ public class MagicianAttackState : BaseState<Player>
             player.Animator.speed = 1f;
         }
 
-        // 공격 이펙트 비활성화
         Magician Magician = player as Magician;
         if (Magician != null && Magician.AttackEffect != null)
         {

@@ -25,15 +25,18 @@ public class MagicianMoveState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                player.targetPosition = nearestMonster.transform.position;
+                float attackStartRange = 3f;  
+                float optimalRange = 2f;      
 
-                if (distance <= 0.3f)
+                if (distance <= attackStartRange)
                 {
                     handler.ChangeState(typeof(MagicianAttackState));
                     return;
                 }
                 else
                 {
+                    Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                    player.targetPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
                     player.MoveTo(player.targetPosition);
                     player.LookAtTarget(nearestMonster.transform.position);
                 }

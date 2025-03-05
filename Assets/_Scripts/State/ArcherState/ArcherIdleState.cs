@@ -44,15 +44,10 @@ public class ArcherIdleState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                float optimalRange = player.Stats.CurrentATKRange * 1.25f * 2f;
-                bool hasLongBow = player.augment.activeAugments.Any(aug => aug is Aug_LongBow);
-                
-                if (hasLongBow)
-                {
-                    optimalRange *= 1.5f;
-                }
+                float attackStartRange = 3f;  
+                float optimalRange = 2f;      
 
-                if (distance <= optimalRange * 1.2f && distance >= optimalRange * 0.8f)
+                if (distance <= attackStartRange)
                 {
                     player.LookAtTarget(nearestMonster.transform.position);
                     handler.ChangeState(typeof(ArcherAttackState));

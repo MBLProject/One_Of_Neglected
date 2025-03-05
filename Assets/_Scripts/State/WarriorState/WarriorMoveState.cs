@@ -23,15 +23,18 @@ public class WarriorMoveState : BaseState<Player>
             if (nearestMonster != null)
             {
                 float distance = Vector2.Distance(player.transform.position, nearestMonster.transform.position);
-                player.targetPosition = nearestMonster.transform.position;
-                
-                if (distance <= 0.3f)
+                float attackStartRange = 0.6f;  
+                float optimalRange = 0.4f;      
+
+                if (distance <= attackStartRange)
                 {
                     handler.ChangeState(typeof(WarriorAttackState));
                     return;
                 }
                 else
                 {
+                    Vector2 directionToMonster = ((Vector2)nearestMonster.transform.position - (Vector2)player.transform.position).normalized;
+                    player.targetPosition = (Vector2)nearestMonster.transform.position - (directionToMonster * optimalRange);
                     player.MoveTo(player.targetPosition);
                     player.LookAtTarget(nearestMonster.transform.position);
                 }
