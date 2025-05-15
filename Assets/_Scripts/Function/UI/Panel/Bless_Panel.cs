@@ -118,6 +118,15 @@ public class Bless_Panel : Panel
         }
     }
 
+    private void AfterInit(ref List<Node> nodes)
+    {
+        foreach (Node node in nodes)
+        {
+            node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
+            ByNodeDefine(node);
+        }
+    }
+
     private void ByNodeDefine(Node node)
     {
         switch (node.nodeDefine)
@@ -131,14 +140,6 @@ public class Bless_Panel : Panel
             case NodeDefine.UTI:
                 Add_UTI_Bless(node);
                 break;
-        }
-    }
-    private void AfterInit(ref List<Node> nodes)
-    {
-        foreach (Node node in nodes)
-        {
-            node.baseNodeAction += upgrade_Panel.DisplayBlessPoint;
-            ByNodeDefine(node);
         }
     }
     private void Add_ATK_Bless(Node node)
@@ -171,7 +172,6 @@ public class Bless_Panel : Panel
                 break;
         }
     }
-
     private void Add_DEF_Bless(Node node)
     {
         switch (node.DEF_Bless)
@@ -199,7 +199,6 @@ public class Bless_Panel : Panel
                 break;
         }
     }
-
     private void Add_UTI_Bless(Node node)
     {
         switch (node.UTI_Bless)

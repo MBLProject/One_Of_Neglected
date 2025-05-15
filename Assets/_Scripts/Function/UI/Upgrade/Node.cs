@@ -76,7 +76,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (can_Revert)
+            if (true == can_Revert)
             {
                 BTN_Reverted();
                 CtrlAroundNodes(next_Nodes, false);
@@ -85,7 +85,7 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     private void CtrlAroundNodes(List<Node> nodes, bool interactable)
     {
-        if (nodes.Count > 0)
+        if (0 < nodes.Count)
         {
             foreach (Node node in nodes)
             {
@@ -93,9 +93,13 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             }
         }
     }
+    // 노드 좌클릭시 업데이트
     public void BTN_Clicked()
     {
-        if (DataManager.Instance.player_Property.bless_Point == 0) return;
+        if (DataManager.Instance.player_Property.bless_Point == 0)
+        {
+            return;
+        }
         clicked = true;
         can_Revert = true;
         m_BTN.interactable = false;
@@ -108,9 +112,13 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             prevNode.can_Revert = false;
         }
         DataManager.Instance.bless_Dic[m_ID] = true;
-        if (m_Line != null) m_Line.color = Color.white;
-        // Debug.Log("흠");
+        if (m_Line != null)
+        {
+            m_Line.color = Color.white;
+        }
     }
+
+    // 노드 우클릭시 업데이트
     public void BTN_Reverted()
     {
         clicked = false;
@@ -126,14 +134,23 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         DataManager.Instance.bless_Dic[m_ID] = false;
         methodAction?.Invoke(false);
         baseNodeAction?.Invoke();
-        if (m_Line != null) m_Line.color = Color.black;
+        if (m_Line != null)
+        {
+            m_Line.color = Color.black;
+        }
     }
     private void Check_PrevNodes_Of_NextNode(Node node = null)
     {
-        if (DataManager.Instance.player_Property.bless_Point == 0) return;
+        if (DataManager.Instance.player_Property.bless_Point == 0)
+        {
+            return;
+        }
         methodAction?.Invoke(true);
         baseNodeAction?.Invoke();
-        if (node == null) return;
+        if (node == null)
+        {
+            return;
+        }
         if (node.prev_Nodes.Count == 1)
         {
             node.m_BTN.interactable = true;
@@ -153,18 +170,28 @@ public class Node : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     private void NodeReset()
     {
-        if (clicked) methodAction?.Invoke(false);
+        if (true == clicked)
+        {
+            methodAction?.Invoke(false);
+        }
         clicked = false;
         can_Revert = false;
         m_BTN.colors = colorBlock_Origin;
         m_Icon.color = Color.gray;
-        if (prev_Nodes.Count > 0) m_BTN.interactable = false;
-        else m_BTN.interactable = true;
-
+        if (0 < prev_Nodes.Count)
+        {
+            m_BTN.interactable = false;
+        }
+        else
+        {
+            m_BTN.interactable = true;
+        }
         DataManager.Instance.bless_Dic[m_ID] = false;
         baseNodeAction?.Invoke();
-        if (m_Line != null) m_Line.color = Color.black;
-
+        if (m_Line != null)
+        {
+            m_Line.color = Color.black;
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

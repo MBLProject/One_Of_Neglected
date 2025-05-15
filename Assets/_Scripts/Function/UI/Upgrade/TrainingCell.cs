@@ -38,10 +38,16 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
     }
     private void Start()
     {
-        if (isDisplayLv)
+        if (true == isDisplayLv)
         {
-            if (trainingCount > 10) currentRequireGold = requireGold_List[10];
-            else currentRequireGold = requireGold_List[trainingCount];
+            if (trainingCount > 10)
+            {
+                currentRequireGold = requireGold_List[10];
+            }
+            else
+            {
+                currentRequireGold = requireGold_List[trainingCount];
+            }
         }
         training_Panel.requireGold_TMP.text = "필요골드\n" + currentRequireGold.ToString();
 
@@ -76,12 +82,10 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 for (int i = trainingCount; i > 10; i--)
                 {
                     method_Action?.Invoke(false, requireGold_List[10], 0);
-                    // Debug.Log(requireGold_List[10]);
                 }
                 for (int j = 9; j >= 0; j--)
                 {
                     method_Action?.Invoke(false, requireGold_List[j], 0);
-                    // Debug.Log(requireGold_List[j]);
                 }
             }
             else if (trainingCount <= 9)
@@ -89,21 +93,30 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 for (int i = trainingCount - 1; i >= 0; i--)
                 {
                     method_Action?.Invoke(false, requireGold_List[i], 0);
-                    // Debug.Log(requireGold_List[i]);
                 }
             }
         }
 
         trainingCount = 0;
         currentRequireGold = requireGold_List[trainingCount];
-        if (isDisplayLv) lvText.text = "Lv." + trainingCount.ToString();
+        if (true == isDisplayLv)
+        {
+            lvText.text = "Lv." + trainingCount.ToString();
+        }
         baseCellAction?.Invoke();
     }
 
     private void Training()
     {
-        if (currentRequireGold == -1) return;
-        if (DataManager.Instance.player_Property.gold < currentRequireGold) return;
+        if (currentRequireGold == -1)
+        {
+            return;
+        }
+        if (DataManager.Instance.player_Property.gold < currentRequireGold)
+        {
+            return;
+        }
+
         if (maxTrainingLevel > trainingCount || isDisplayLv)
         {
             if (isDisplayLv == false && maxTrainingLevel < 10)
@@ -127,15 +140,21 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             else
             {
                 if (trainingCount <= 10)
+                {
                     method_Action?.Invoke(true, -requireGold_List[trainingCount - 1], trainingCount);
+                }
                 if (trainingCount > 10)
+                {
                     method_Action?.Invoke(true, -requireGold_List[10], trainingCount);
+                }
             }
             baseCellAction?.Invoke();
             if (isDisplayLv == false)
             {
                 if (trainingCount != maxTrainingLevel)
+                {
                     currentRequireGold = requireGold_List[trainingCount];
+                }
             }
             else
             {
@@ -167,12 +186,23 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
             for (int i = 0; i < trainingCount; i++)
             {
                 if (i < 10)
+                {
                     tinyCells[i].sprite = training_Panel.tinyCellOn_Sprite;
-                else tinyCells[i - 10].color = Color.yellow;
+                }
+                else
+                {
+                    tinyCells[i - 10].color = Color.yellow;
+                }
             }
 
-            if (maxTrainingLevel != trainingCount) currentRequireGold = requireGold_List[trainingCount];
-            else currentRequireGold = -1;
+            if (maxTrainingLevel != trainingCount)
+            {
+                currentRequireGold = requireGold_List[trainingCount];
+            }
+            else
+            {
+                currentRequireGold = -1;
+            }
         }
 
     }
@@ -181,8 +211,10 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (outline.enabled) return;
-
+            if (outline.enabled)
+            {
+                return;
+            }
             outline.enabled = true;
             m_BTN.interactable = true;
 
@@ -198,10 +230,14 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (outline.enabled == false) return;
-
+            if (outline.enabled == false)
+            {
+                return;
+            }
             if (isDisplayLv == false && trainingCount != 0 && maxTrainingLevel <= 10)
+            {
                 tinyCells[trainingCount - 1].sprite = training_Panel.tinyCellOff_Sprite;
+            }
             else if (isDisplayLv == false)
             {
                 if (trainingCount > 10)
@@ -211,11 +247,15 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 else
                 {
                     if (trainingCount != 0)
+                    {
                         tinyCells[trainingCount - 1].sprite = training_Panel.tinyCellOff_Sprite;
+                    }
                 }
             }
-            if (trainingCount == 0) return;
-
+            if (trainingCount == 0)
+            {
+                return;
+            }
             trainingCount--;
             if (isDisplayLv == false)
             {
@@ -226,20 +266,27 @@ public class TrainingCell : MonoBehaviour, IPointerEnterHandler, IPointerClickHa
                 if (trainingCount > 9)
                 {
                     method_Action?.Invoke(false, requireGold_List[10], trainingCount);
-                    // Debug.Log(requireGold_List[10]);
                 }
                 else
                 {
                     method_Action?.Invoke(false, requireGold_List[trainingCount], trainingCount);
-                    // Debug.Log(requireGold_List[trainingCount]);
                 }
             }
             baseCellAction?.Invoke();
-            if (isDisplayLv == false) currentRequireGold = requireGold_List[trainingCount];
+            if (isDisplayLv == false)
+            {
+                currentRequireGold = requireGold_List[trainingCount];
+            }
             else
             {
-                if (trainingCount > 9) currentRequireGold = requireGold_List[10];
-                else currentRequireGold = requireGold_List[trainingCount];
+                if (trainingCount > 9)
+                {
+                    currentRequireGold = requireGold_List[10];
+                }
+                else
+                {
+                    currentRequireGold = requireGold_List[trainingCount];
+                }
             }
             if (isDisplayLv)
             {

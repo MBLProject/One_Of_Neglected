@@ -137,7 +137,6 @@ public class Training : MonoBehaviour
         DataManager.Instance.player_Property.gold += requireGold;
         DataManager.Instance.player_Property.Banish_TrainingCount = trainingCount;
     }
-
     public void OnResetBTNClick()
     {
         DataManager.Instance.player_Property.MaxHp_TrainingCount = 0;

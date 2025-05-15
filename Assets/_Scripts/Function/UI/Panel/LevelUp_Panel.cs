@@ -18,7 +18,23 @@ public struct Skill_Info
     // public string skill_Text;
     public List<string> skill_Texts;
     public Sprite skill_Sprite;
-    public float selectedTime;
+}
+[Serializable]
+public struct SkillWrapper
+{
+    public SkillWrapper(Enums.SkillName skillName, float time, bool isSubSkill)
+    {
+        m_skillName = skillName;
+        m_selectedTime = time;
+        m_isSubskill = isSubSkill;
+    }
+    private Enums.SkillName m_skillName;
+    private float m_selectedTime;
+    private bool m_isSubskill;
+
+    public Enums.SkillName SkillName { get { return m_skillName; } }
+    public float SelectedTime { get { return m_selectedTime; } }
+    public bool IsSubskill { get { return m_isSubskill; } }
 }
 
 public class LevelUp_Panel : Panel
@@ -33,14 +49,16 @@ public class LevelUp_Panel : Panel
     public Dictionary<Enums.SkillName, Skill_Info> skill_Info_Dic =
      new Dictionary<Enums.SkillName, Skill_Info>();
 
-    public List<Enums.SkillName> m_MainSkills;
-    public List<Enums.SkillName> m_SubSkills;
+    public List<SkillWrapper> selectedSkills;
 
-    public Dictionary<Enums.SkillName, float> m_MainSkill_Time =
-    new Dictionary<Enums.SkillName, float>();
+    // public List<Enums.SkillName> m_MainSkills;
+    // public List<Enums.SkillName> m_SubSkills;
 
-    public Dictionary<Enums.SkillName, float> m_SubSkill_Time =
-    new Dictionary<Enums.SkillName, float>();
+    // public Dictionary<Enums.SkillName, float> m_MainSkill_Time =
+    // new Dictionary<Enums.SkillName, float>();
+
+    // public Dictionary<Enums.SkillName, float> m_SubSkill_Time =
+    // new Dictionary<Enums.SkillName, float>();
 
     public int augUpCount = 0;
     public bool isAugSelected = false;

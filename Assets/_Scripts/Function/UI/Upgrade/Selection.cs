@@ -20,8 +20,7 @@ public class Selection : MonoBehaviour
     public Image m_selectionBG_IMG;
     public void Select_BTN()
     {
-        if (inGameUI_Panel.skillContainer.
-        GetSkill(m_skillName) == Enums.SkillName.None)
+        if (inGameUI_Panel.skillContainer.GetSkill(m_skillName) == Enums.SkillName.None)
         {
             if (SkillFactory.IsActiveSkill(m_skillName) != 2)
             {
@@ -33,18 +32,24 @@ public class Selection : MonoBehaviour
 
         if (SkillFactory.IsActiveSkill(m_skillName) == 1)
         {
-            if (levelUp_Panel.m_MainSkills.Contains(m_skillName) == false)
+            if (levelUp_Panel.selectedSkills.Exists(skillInfo => skillInfo.SkillName == m_skillName) == false)
             {
-                levelUp_Panel.m_MainSkills.Add(m_skillName);
-                levelUp_Panel.m_MainSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+                SkillWrapper addedSkillInfo = new SkillWrapper(m_skillName, TimeManager.Instance.gameTime, false);
+                levelUp_Panel.selectedSkills.Add(addedSkillInfo);
+                // levelUp_Panel.m_MainSkills.Add(m_skillName);
+
+                // levelUp_Panel.m_MainSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
             }
         }
         else if (SkillFactory.IsActiveSkill(m_skillName) == 0)
         {
-            if (levelUp_Panel.m_SubSkills.Contains(m_skillName) == false)
+            if (levelUp_Panel.selectedSkills.Exists(skillInfo => skillInfo.SkillName == m_skillName) == false)
             {
-                levelUp_Panel.m_SubSkills.Add(m_skillName);
-                levelUp_Panel.m_SubSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
+                SkillWrapper getSkillInfos = new SkillWrapper(m_skillName, TimeManager.Instance.gameTime, true);
+                levelUp_Panel.selectedSkills.Add(getSkillInfos);
+
+                // levelUp_Panel.m_SubSkills.Add(m_skillName);
+                // levelUp_Panel.m_SubSkill_Time.Add(m_skillName, TimeManager.Instance.gameTime);
             }
         }
         levelUp_Panel.PanelClose(true);

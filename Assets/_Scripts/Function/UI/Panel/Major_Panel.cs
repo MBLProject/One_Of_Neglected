@@ -53,52 +53,74 @@ public class Major_Panel : MonoBehaviour
         SkillIconSetting();
         BaseInfoSetting();
         AugInfoSetting();
-        SkillInfoSetting(ref levelUp_Panel.m_MainSkills, true);
-        SkillInfoSetting(ref levelUp_Panel.m_SubSkills, false, levelUp_Panel.m_MainSkills.Count);
+        SkillInfoSetting(levelUp_Panel.selectedSkills);
+        // SkillInfoSetting(levelUp_Panel.m_skills, false, levelUp_Panel.m_MainSkills.Count);
     }
 
     //스킬 정보
-    private void SkillInfoSetting(ref List<Enums.SkillName> skillNames, bool isActivesSkill, int startIdx = 0)
+    private void SkillInfoSetting(List<SkillWrapper> skillInfos)
     {
-        if (skillNames.Count == 0) return;
+        if (skillInfos.Count == 0)
+        {
+            return;
+        }
 
-        for (int i = 0; i < skillNames.Count; i++)
+        List<SkillWrapper> mainSkillInfos = new List<SkillWrapper>();
+        List<SkillWrapper> subSkillInfos = new List<SkillWrapper>();
+        for (int i = 0; i < skillInfos.Count; i++)
+        {
+            if (SkillFactory.IsActiveSkill(skillInfos[i].SkillName) == 1)
+            {
+                mainSkillInfos.Add(skillInfos[i]);
+            }
+            else
+            {
+                subSkillInfos.Add(skillInfos[i]);
+            }
+        }
+        DisplaySkillInfos(mainSkillInfos, true, 0);
+        DisplaySkillInfos(subSkillInfos, false, mainSkillInfos.Count);
+    }
+
+    private void DisplaySkillInfos(List<SkillWrapper> getSkillList, bool isActivesSkill, int startIdx = 0)
+    {
+        for (int i = 0; i < getSkillList.Count; i++)
         {
             GameObject member = Instantiate(skillMemeber_Prefab, skillMemberParent, false);
 
             skillMembers.Add(member.GetComponent<SkillMember>());
-            // Debug.Log($"i : {i}");
-            // Debug.Log($"startIdx : {startIdx}");
             skillMembers[startIdx].icon.sprite =
-            levelUp_Panel.FindSkillIcon(skillNames[i]);
+            levelUp_Panel.FindSkillIcon(getSkillList[i].SkillName);
 
             skillMembers[startIdx].skillName.text =
-            levelUp_Panel.FindSkillName(skillNames[i]);
+            levelUp_Panel.FindSkillName(getSkillList[i].SkillName);
 
-            skillMembers[startIdx].level.text =
-            "Lv." + inGameUI_Panel.skillSelector.
-            SkillLevel(skillNames[i]).ToString();
-            if (isActivesSkill)
+            skillMembers[startIdx].level.text = "Lv." + inGameUI_Panel.skillSelector.SkillLevel(getSkillList[i].SkillName).ToString();
+            if (true == isActivesSkill)
             {
-                if (false == DataManager.Instance.currentDamageStats.skillDamages.ContainsKey(skillNames[i])) continue;
+                if (false == DataManager.Instance.currentDamageStats.skillDamages.ContainsKey(getSkillList[i].SkillName))
+                {
+                    continue;
+                }
+
                 skillMembers[startIdx].damage.text =
-                DataManager.Instance.currentDamageStats.skillDamages[skillNames[i]].ToString();
+                DataManager.Instance.currentDamageStats.skillDamages[getSkillList[i].SkillName].ToString();
 
                 float time = TimeManager.Instance.gameTime -
-                levelUp_Panel.m_MainSkill_Time[skillNames[i]];
+                levelUp_Panel.selectedSkills.Find(skillInfo => skillInfo.SkillName == getSkillList[i].SkillName).SelectedTime;
 
                 skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
             }
             else
             {
                 float time = TimeManager.Instance.gameTime -
-                levelUp_Panel.m_SubSkill_Time[skillNames[i]];
+                levelUp_Panel.selectedSkills.Find(skillInfo => skillInfo.SkillName == getSkillList[i].SkillName).SelectedTime;
+                // levelUp_Panel.m_SubSkill_Time[skillInfos[i].m_skillName];
 
                 skillMembers[startIdx].time.text = inGameUI_Panel.TimeCalc(time);
             }
             startIdx++;
         }
-
     }
 
     //증강 정보
