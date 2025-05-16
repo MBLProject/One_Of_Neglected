@@ -49,21 +49,20 @@ public class Training_Panel : Panel, IPointerExitHandler
 
     }
 
-    private void OnEnable()
-    {
-        Cell_Initialize(ref trainingCells_List);
-        foreach (TrainingCell cell in trainingCells_List)
-        {
-            cell.baseCellAction += upgrade_Panel.DisplayGold;
-        }
-    }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         trainingInfo.gameObject.SetActive(false);
     }
 
-    private void Cell_Initialize(ref List<TrainingCell> cells)
+    private void OnEnable()
+    {
+        Cell_Initialize(trainingCells_List);
+        foreach (TrainingCell cell in trainingCells_List)
+        {
+            cell.baseCellAction += upgrade_Panel.DisplayGold;
+        }
+    }
+    private void Cell_Initialize(List<TrainingCell> cells)
     {
         foreach (TrainingCell cell in cells)
         {
