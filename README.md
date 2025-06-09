@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/badge/Game_Development-4B32C3?style=for-the-badge&logo=gamemaker&logoColor=white"/>
 </p>
 
-# [Anxi - Quetions(One Of Neglected Original Sound Track)](https://soundcloud.com/musicbyanxi/anxi-questions/s-bjkkxGDTL1S?si=8ab28d0af9f74fae8e85c0e5828ef7f3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing)
 
 <details>
 <summary><h1>📁 프로젝트 리소스 안내</h1></summary>
@@ -23,6 +22,10 @@
 
 &nbsp;&nbsp;&nbsp;• 모든 에셋은 Import 후 Resources 폴더로 경로를 이동해주세요.<br>
 &nbsp;&nbsp;&nbsp;• 에셋 이동 시 참조 경로가 깨지지 않도록 주의해주세요.<br>
+
+### 🎶 음원 제공
+&nbsp;&nbsp;&nbsp;[Anxi - Quetions(One Of Neglected Original Sound Track)](https://soundcloud.com/musicbyanxi/anxi-questions/s-bjkkxGDTL1S?si=8ab28d0af9f74fae8e85c0e5828ef7f3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing)
+
 
 </div>
 </details>
