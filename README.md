@@ -11,7 +11,7 @@
 
 <details>
 <summary><h1>📖 프로젝트 소개</h1></summary>
-<div align="center">
+<div align="left">
   
 ### 📝 시놉시스
 [용사가 없는 세계선의 이야기]
